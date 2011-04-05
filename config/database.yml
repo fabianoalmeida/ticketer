@@ -5,6 +5,14 @@ development:
   database: db/development.sqlite3
   pool: 5
   timeout: 5000
+  
+#development:
+#  adapter: oracle_enhanced
+#  database: 10.30.0.22:1521/dese01
+#  username: scmba_prod
+#  password: scmba
+#  pool: 5
+#  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -20,3 +28,19 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+#test:
+#  adapter: oracle_enhanced
+#  database: 10.30.0.81:1521/simu01
+#  username: scmba_prod
+#  password: scmba
+#  pool: 5
+#  timeout: 5000
+
+#production:
+#  adapter: oracle_enhanced
+#  database: 10.30.5.8:1522/prod01
+#  username: scmba_prod
+#  password: scmba
+#  pool: 5
+#  timeout: 5000

@@ -1,0 +1,27 @@
+<h1>Listing status_tickets</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Acronym</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @status_tickets.each do |status_ticket| %>
+  <tr>
+    <td><%= status_ticket.value %></td>
+    <td><%= status_ticket.acronym %></td>
+    <td><%= status_ticket.user_id %></td>
+    <td><%= link_to 'Show', status_ticket %></td>
+    <td><%= link_to 'Edit', edit_status_ticket_path(status_ticket) %></td>
+    <td><%= link_to 'Destroy', status_ticket, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Status ticket', new_status_ticket_path %>

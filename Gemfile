@@ -5,8 +5,24 @@ gem 'rails', '3.0.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-#gem 'ruby-oci8'
+#gem 'mysql2'
+gem 'sqlite3'
+
+#----------------- Begin configuration for Oracle database ---------------#
+# Prevent loading of ruby-oci8 gem in JRuby
+#platforms :ruby do
+#  gem 'ruby-oci8', ">= 2.0.4"
+#end
+
+# Use either latest oracle_enhanced adapter version from github
+#gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
+
+# Or use released gem version
+# gem "activerecord-oracle_enhanced-adapter", "~>1.3.0"
+
+# optionally also use ruby-plsql
+#gem "ruby-plsql", ">=0.4.3"
+#----------------- End configuration for Oracle database ---------------#
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -28,6 +44,8 @@ gem 'mysql2'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'webrat'
-  gem 'rspec'
+  #gem 'webrat'
+  gem 'rspec-rails', '~> 2.4'
+  gem "autotest"
+  gem "autotest-rails"
 end

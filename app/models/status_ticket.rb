@@ -2,12 +2,18 @@ class StatusTicket < ActiveRecord::Base
 
   #String :value
   #String :acronym
-  #Integer :user_id
+  #String :user
 
-  validates :value, :acronym, :user_id, :presence => { :message => "it is necessary!" }
+  validates :value, :acronym, :user, :presence => { :message => "it is necessary!" }
 
-  validates :acronym, :length => { :minimum => 1, :maximum => 1 }
+  validates :acronym, 
+    :length => { :minimum => 1, :maximum => 1 }, 
+    :uniqueness => { :message => "already exists!" },
+    :if => lambda{ ! self.acronym.blank? }
 
-  validates :value, :length => { :minimum => 1, :maximum => 80 }
+  validates :value, 
+    :length => { :minimum => 1, :maximum => 80 }, 
+    :uniqueness => { :message => "already exists!" },
+    :if => lambda{ ! self.value.blank? }
 
 end

@@ -5,7 +5,7 @@ describe "status_tickets/new.html.erb" do
     assign(:status_ticket, stub_model(StatusTicket,
       :value => "MyString",
       :acronym => "MyString",
-      :user_id => ""
+      :user => ""
     ).as_new_record)
   end
 
@@ -16,7 +16,6 @@ describe "status_tickets/new.html.erb" do
     assert_select "form", :action => status_tickets_path, :method => "post" do
       assert_select "input#status_ticket_value", :name => "status_ticket[value]"
       assert_select "input#status_ticket_acronym", :name => "status_ticket[acronym]"
-      assert_select "input#status_ticket_user_id", :name => "status_ticket[user_id]"
     end
   end
 end

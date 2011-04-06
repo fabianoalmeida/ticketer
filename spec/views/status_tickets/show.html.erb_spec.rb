@@ -5,7 +5,7 @@ describe "status_tickets/show.html.erb" do
     @status_ticket = assign(:status_ticket, stub_model(StatusTicket,
       :value => "Value",
       :acronym => "Acronym",
-      :user_id => ""
+      :user => ""
     ))
   end
 

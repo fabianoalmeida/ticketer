@@ -1,4 +1,8 @@
 Ticketer::Application.routes.draw do
+  resources :ticket_types
+
+  resources :statuses
+
   resources :status_tickets
 
   # The priority is based upon order of creation:

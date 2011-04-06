@@ -3,7 +3,7 @@ class CreateStatusTickets < ActiveRecord::Migration
     create_table :status_tickets do |t|
       t.string :value, :lenght => 80
       t.string :acronym, :lenght => 1
-      t.integer :user_id
+      t.string :user
 
       t.timestamps
     end

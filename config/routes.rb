@@ -1,4 +1,6 @@
 Ticketer::Application.routes.draw do
+  resources :tickets
+
   resources :ticket_types
 
   resources :statuses

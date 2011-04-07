@@ -32,6 +32,11 @@ describe Status do
     @status.value= ''
     @status.should_not be_valid
   end
+  
+  it "should not be an instance valid with length of 'user' equal zero" do
+    @status.user= ''
+    @status.should_not be_valid
+  end
 
   it "should be an instance valid with length of 'value' between one and eighty" do
     @status.value= 'This is a big text to test a validate for the length of this property.'

@@ -1,12 +1,15 @@
 class CreateTicketTypes < ActiveRecord::Migration
   def self.up
     create_table :ticket_types do |t|
-      t.string :value
-      t.string :acronym
+      t.string :value, :length => 80
+      t.string :acronym, :length => 1
       t.string :user
+      t.integer :status_id
 
       t.timestamps
     end
+
+    add_index(:ticket_types, :status_id)
   end
 
   def self.down

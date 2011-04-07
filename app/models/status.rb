@@ -3,11 +3,11 @@ class Status < ActiveRecord::Base
   #String :value
   #String :user
 
-  validates :value, :user, :presence => { :message => "it is necessary!" }
+  validates :value, :user, :presence => { :message => "is required!" }
 
   validates :value, 
     :length => { :minimum => 1, :maximum => 80 }, 
     :uniqueness => { :message => "already exists!" },
-    :if => lambda{ ! self.value.blank? }
+    :unless => lambda{ self.value.blank? }
 
 end

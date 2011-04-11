@@ -15,11 +15,12 @@ class Ticket < ActiveRecord::Base
 
   has_one :status_ticket
   has_one :ticket_type
+  #has_one :place
 
   private
 
   def validates_current_date
-    results = Ticket.where( :created_at => Date.today.midnight..Date.tomorrow.midnight, :value => self.value )
+    results = Ticket.where( :created_at => Date.today.midnight...Date.tomorrow.midnight, :value => self.value )
     
     if results.size > 0  
         raise error

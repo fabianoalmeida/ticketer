@@ -1,0 +1,29 @@
+<%= form_for(@call_history) do |f| %>
+  <% if @call_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@call_history.errors.count, "error") %> prohibited this call_history from being saved:</h2>
+
+      <ul>
+      <% @call_history.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ticket_id %><br />
+    <%= f.text_field :ticket_id %>
+  </div>
+  <div class="field">
+    <%= f.label :wicket_id %><br />
+    <%= f.text_field :wicket_id %>
+  </div>
+  <div class="field">
+    <%= f.label :call_history_type_id %><br />
+    <%= f.text_field :call_history_type_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

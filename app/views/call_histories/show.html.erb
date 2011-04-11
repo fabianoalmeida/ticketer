@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ticket:</b>
+  <%= @call_history.ticket_id %>
+</p>
+
+<p>
+  <b>Wicket:</b>
+  <%= @call_history.wicket_id %>
+</p>
+
+<p>
+  <b>Call history type:</b>
+  <%= @call_history.call_history_type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_call_history_path(@call_history) %> |
+<%= link_to 'Back', call_histories_path %>

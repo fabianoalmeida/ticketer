@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @guidance.value %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @guidance.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_guidance_path(@guidance) %> |
+<%= link_to 'Back', guidances_path %>

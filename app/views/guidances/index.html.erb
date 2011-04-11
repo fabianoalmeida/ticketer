@@ -1,0 +1,25 @@
+<h1>Listing guidances</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @guidances.each do |guidance| %>
+  <tr>
+    <td><%= guidance.value %></td>
+    <td><%= guidance.user %></td>
+    <td><%= link_to 'Show', guidance %></td>
+    <td><%= link_to 'Edit', edit_guidance_path(guidance) %></td>
+    <td><%= link_to 'Destroy', guidance, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Guidance', new_guidance_path %>

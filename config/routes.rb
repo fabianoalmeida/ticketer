@@ -1,4 +1,14 @@
 Ticketer::Application.routes.draw do
+  resources :places
+
+  resources :panels
+
+  resources :totems
+
+  resources :locals
+
+  resources :call_histories
+
   resources :wickets
 
   resources :guidances

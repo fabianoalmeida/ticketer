@@ -16,4 +16,6 @@ class CallHistoryType < ActiveRecord::Base
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.acronym.blank? }
 
+  has_many :wickets
+
 end

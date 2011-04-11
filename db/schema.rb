@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110407143508) do
+ActiveRecord::Schema.define(:version => 20110411012531) do
+
+  create_table "call_history_types", :force => true do |t|
+    t.string   "value"
+    t.string   "acronym"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "guidances", :force => true do |t|
+    t.string   "value"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "status_tickets", :force => true do |t|
     t.string   "value"
@@ -48,5 +63,14 @@ ActiveRecord::Schema.define(:version => 20110407143508) do
 
   add_index "tickets", ["status_ticket_id"], :name => "index_tickets_on_status_ticket_id"
   add_index "tickets", ["ticket_type_id"], :name => "index_tickets_on_ticket_type_id"
+
+  create_table "wickets", :force => true do |t|
+    t.string   "value"
+    t.integer  "guidance_id"
+    t.integer  "status_id"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

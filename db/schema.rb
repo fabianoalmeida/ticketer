@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411012531) do
+ActiveRecord::Schema.define(:version => 20110411192746) do
+
+  create_table "call_histories", :force => true do |t|
+    t.integer  "ticket_id"
+    t.integer  "wicket_id"
+    t.integer  "call_history_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "call_history_types", :force => true do |t|
     t.string   "value"
@@ -23,6 +31,31 @@ ActiveRecord::Schema.define(:version => 20110411012531) do
   create_table "guidances", :force => true do |t|
     t.string   "value"
     t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locals", :force => true do |t|
+    t.string   "value"
+    t.integer  "status_id"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "panels", :force => true do |t|
+    t.string   "value"
+    t.string   "ip"
+    t.integer  "status_id"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "places", :force => true do |t|
+    t.string   "value"
+    t.string   "user"
+    t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,6 +96,15 @@ ActiveRecord::Schema.define(:version => 20110411012531) do
 
   add_index "tickets", ["status_ticket_id"], :name => "index_tickets_on_status_ticket_id"
   add_index "tickets", ["ticket_type_id"], :name => "index_tickets_on_ticket_type_id"
+
+  create_table "totems", :force => true do |t|
+    t.string   "value"
+    t.string   "ip"
+    t.integer  "status_id"
+    t.string   "user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "wickets", :force => true do |t|
     t.string   "value"

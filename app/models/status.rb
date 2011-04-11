@@ -10,4 +10,7 @@ class Status < ActiveRecord::Base
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.value.blank? }
 
+  scope :active, where( { :value => "Active" } )
+  scope :inactive, where( { :value => "Inactive" } )
+
 end

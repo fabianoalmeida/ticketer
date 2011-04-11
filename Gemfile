@@ -8,6 +8,9 @@ gem 'rails', '3.0.5'
 #gem 'mysql2'
 gem 'sqlite3'
 
+# Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
+gem 'rubycas-client'
+
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby
 #platforms :ruby do

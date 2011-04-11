@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @panel.value %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%= @panel.ip %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @panel.status_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @panel.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_panel_path(@panel) %> |
+<%= link_to 'Back', panels_path %>

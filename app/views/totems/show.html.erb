@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @totem.value %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%= @totem.ip %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @totem.status_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @totem.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_totem_path(@totem) %> |
+<%= link_to 'Back', totems_path %>

@@ -9,4 +9,5 @@ class Guidance < ActiveRecord::Base
     :length => { :minimum => 1, :maximum => 20 },
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.value.blank? }
+
 end

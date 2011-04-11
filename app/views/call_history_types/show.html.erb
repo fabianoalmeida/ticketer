@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @call_history_type.value %>
+</p>
+
+<p>
+  <b>Acronym:</b>
+  <%= @call_history_type.acronym %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @call_history_type.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_call_history_type_path(@call_history_type) %> |
+<%= link_to 'Back', call_history_types_path %>

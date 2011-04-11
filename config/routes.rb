@@ -1,4 +1,10 @@
 Ticketer::Application.routes.draw do
+  resources :wickets
+
+  resources :guidances
+
+  resources :call_history_types
+
   resources :tickets
 
   resources :ticket_types

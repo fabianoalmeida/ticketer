@@ -3,13 +3,15 @@ require 'spec_helper'
 describe Ticket do
 
   before( :each ) do
-    @status = Status.new( :value => "Active", :user => "1" )
-    @ticketType = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status_id => 1, :status => @status )
+    
+    @status = mock_model( Status, :value => "Active", :user => "1" )
 
-    @statusTicket = StatusTicket.new( :value => "Opened", :acronym => "O", :user => "1" )
+    @ticketType = mock_model( TicketType, :value => "Priority", :acronym => "P", :user => "1", :status_id => 1, :status => @status )
+
+    @statusTicket = mock_model( StatusTicket, :value => "Opened", :acronym => "O", :user => "1" )
 
     pending "modify the form to obtain the sequence value and how to create an object Ticket"
-    @ticket = Ticket.new( :value => @ticketType.acronym.to_s + "0001", :ticket_type => @ticketType, :status_ticket => @statusTicket )
+    @ticket = mock_model( Ticket, :value => @ticketType.acronym.to_s + "0001", :ticket_type => @ticketType, :status_ticket => @statusTicket )
   end
 
   it "can be an instance" do

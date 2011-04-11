@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe "tickets/new.html.erb" do
   before(:each) do
-    assign(:ticket, stub_model(Ticket,
+    assign(:ticket, mock_model(Ticket,
       :value => "MyString",
       :ticket_type_id => 1,
-      :status_ticket_id => 1
+      :status_ticket_id => 1,
+      :place_id => 1
     ).as_new_record)
   end
 

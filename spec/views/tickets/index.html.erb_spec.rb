@@ -3,15 +3,17 @@ require 'spec_helper'
 describe "tickets/index.html.erb" do
   before(:each) do
     assign(:tickets, [
-      stub_model(Ticket,
+      mock_model(Ticket,
         :value => "Value",
         :ticket_type_id => 1,
-        :status_ticket_id => 1
+        :status_ticket_id => 1,
+        :place_id => 1
       ),
-      stub_model(Ticket,
+      mock_model(Ticket,
         :value => "Value",
         :ticket_type_id => 1,
-        :status_ticket_id => 1
+        :status_ticket_id => 1,
+        :place_id => 1
       )
     ])
   end

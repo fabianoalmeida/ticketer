@@ -1,0 +1,33 @@
+<%= form_for(@wicket) do |f| %>
+  <% if @wicket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wicket.errors.count, "error") %> prohibited this wicket from being saved:</h2>
+
+      <ul>
+      <% @wicket.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :guidance_id %><br />
+    <%= f.text_field :guidance_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status_id %><br />
+    <%= f.text_field :status_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

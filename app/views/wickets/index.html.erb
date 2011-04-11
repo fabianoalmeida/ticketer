@@ -1,0 +1,29 @@
+<h1>Listing wickets</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Guidance</th>
+    <th>Status</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @wickets.each do |wicket| %>
+  <tr>
+    <td><%= wicket.value %></td>
+    <td><%= wicket.guidance_id %></td>
+    <td><%= wicket.status_id %></td>
+    <td><%= wicket.user %></td>
+    <td><%= link_to 'Show', wicket %></td>
+    <td><%= link_to 'Edit', edit_wicket_path(wicket) %></td>
+    <td><%= link_to 'Destroy', wicket, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Wicket', new_wicket_path %>

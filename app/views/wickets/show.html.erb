@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @wicket.value %>
+</p>
+
+<p>
+  <b>Guidance:</b>
+  <%= @wicket.guidance_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @wicket.status_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @wicket.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_wicket_path(@wicket) %> |
+<%= link_to 'Back', wickets_path %>

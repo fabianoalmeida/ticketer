@@ -23,6 +23,12 @@ Ticketer::Application.routes.draw do
 
   resources :status_tickets
 
+  resources :totems do
+    member do
+      get 'generate_ticket'
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

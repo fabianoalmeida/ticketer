@@ -3,9 +3,12 @@ class TicketType < ActiveRecord::Base
   #String :value
   #String :acronym
   #String :user
-  #Integer :status_id
+  #Integer :status
 
-  validates :value, :acronym, :user, :status_id, :presence => { :message => "is required!" }
+  belongs_to :status
+  has_many :tickets
+
+  validates :value, :acronym, :user, :status, :presence => { :message => "is required!" }
 
   validates :value, 
     :length => { :minimum => 1, :maximum => 80 },
@@ -16,8 +19,5 @@ class TicketType < ActiveRecord::Base
     :length => { :minimum => 1, :maximum => 1 },
     :uniqueness => { :message => "already exists!" },
     :if => lambda{ ! self.acronym.blank? }
-
-  has_one :status
-  belongs_to :ticket
 
 end

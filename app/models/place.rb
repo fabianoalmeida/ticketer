@@ -4,8 +4,8 @@ class Place < ActiveRecord::Base
   #String :user
   #Integer :status_id
 
-  has_one :status
-  has_one :local
+  belongs_to :status
+  belongs_to :local
   has_many :wickets
   has_many :tickets
   has_many :panels

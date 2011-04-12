@@ -4,6 +4,8 @@ class CallHistoryType < ActiveRecord::Base
   #String :acronym
   #String :user
 
+  has_many :call_histories
+
   validates :value, :acronym, :user, :presence => { :message => "is required!" }
 
   validates :value, 
@@ -15,7 +17,5 @@ class CallHistoryType < ActiveRecord::Base
     :length => { :minimum => 1, :maximum => 1 },
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.acronym.blank? }
-
-  has_many :wickets
 
 end

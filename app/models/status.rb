@@ -7,10 +7,15 @@ class Status < ActiveRecord::Base
 
   validates :value, 
     :length => { :minimum => 1, :maximum => 80 }, 
-    :uniqueness => { :message => "already exists!" },
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
     :unless => lambda{ self.value.blank? }
 
-  scope :active, where( { :value => "Active" } )
-  scope :inactive, where( { :value => "Inactive" } )
+  def self.active
+    self.where( :value => "Active" ).first
+  end
 
+  def self.inactive
+    self.where( :value => "Inactive" ).first
+  end
+  
 end

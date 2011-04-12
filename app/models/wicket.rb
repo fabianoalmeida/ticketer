@@ -5,14 +5,15 @@ class Wicket < ActiveRecord::Base
   #Integer :guidance_id
   #Integer :status_id
 
-  validates :value, :user, :guidance_id, :status_id, :presence => { :message => "is required!" }
+  belongs_to :guidance
+  belongs_to :status
+  has_many :call_histories
+
+  validates :value, :user, :guidance, :status, :presence => { :message => "is required!" }
 
   validates :value,
     :length => { :minimum => 1, :maximum => 80 },
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.value.blank? }
-  
-  has_one :guidance
-  has_one :status
 
 end

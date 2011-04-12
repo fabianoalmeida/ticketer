@@ -3,6 +3,8 @@ class Guidance < ActiveRecord::Base
   #String :value
   #String :user
 
+  has_many :wickets
+
   validates :value, :user, :presence => { :message => "is required!" }
 
   validates :value,

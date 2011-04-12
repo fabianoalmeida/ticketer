@@ -16,6 +16,6 @@ class StatusTicket < ActiveRecord::Base
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.value.blank? }
 
-  belongs_to :ticket
+  has_many :tickets
 
 end

@@ -4,10 +4,10 @@ class CallHistory < ActiveRecord::Base
   #Integer :wicket_id
   #Integer :call_history_type_id
 
-  validates :ticket, :wicket, :call_history_type, :presence => { :message => "is required!" }
+  belongs_to :ticket
+  belongs_to :wicket
+  belongs_to :call_history_type
 
-  has_one :ticket
-  has_one :wicket
-  has_one :call_history_type
+  validates :ticket, :wicket, :call_history_type, :presence => { :message => "is required!" }
 
 end

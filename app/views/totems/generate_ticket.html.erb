@@ -1,0 +1,16 @@
+<h1>Listing Ticket Types</h1>
+
+<%= form_for( Ticket.new ) do |f| %>
+  <!--%= f.hidden_field :ticket_type %-->
+  <table>
+    <tr>
+      <th>Value</th>
+    </tr>
+    <% @ticket_types.each do |ticket_type| %>
+      <tr>
+        <td><a id="<%= ticket_type %>" class="trigger_submit"><%= ticket_type.value %></a></td>
+      </tr>
+    <% end %>
+    <%= select(:ticket, :ticket_type_id, TicketType.all.map{ |t| [t.value, t.id] }) %>
+  </table>
+<% end %>

@@ -41,6 +41,7 @@ class StatusesController < ApplicationController
   # POST /statuses.xml
   def create
     @status = Status.new(params[:status])
+    @status.user = "user test"
 
     respond_to do |format|
       if @status.save

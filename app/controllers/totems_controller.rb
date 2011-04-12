@@ -41,6 +41,8 @@ class TotemsController < ApplicationController
   # POST /totems.xml
   def create
     @totem = Totem.new(params[:totem])
+    @totem.status = Status.active
+    @totem.user = "user test"
 
     respond_to do |format|
       if @totem.save
@@ -80,4 +82,15 @@ class TotemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # GET /generate_ticket
+  def generate_ticket
+    @ticket_types = TicketType.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @ticket_types }
+    end
+  end
+
 end

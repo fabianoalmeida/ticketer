@@ -51,8 +51,23 @@ describe Status do
   it "should not be create a register with an existing 'value' registered" do
     @status.save
 
-    @statusInvalid = Status.new( :value => "Active", :user => "1" )
-    @statusInvalid.save.should == false
+    @status_invalid = Status.new( :value => "Active", :user => "1" )
+    @status_invalid.save.should == false
+  end
+
+  it "should be returned a Status with value equal 'Active'" do
+    @status.save
+
+    @status_active = Status.active
+    @status_active.value.should eq( "Active" )
+  end
+
+  it "should be returned a Status with value equal 'Inactive'" do
+    @status_new = Status.new( :value => "Inactive", :user => "1" )
+    @status_new.save
+
+    @status_inactive = Status.inactive
+    @status_inactive.value.should eq( "Inactive" )
   end
 
 end

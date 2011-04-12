@@ -41,6 +41,8 @@ class TicketTypesController < ApplicationController
   # POST /ticket_types.xml
   def create
     @ticket_type = TicketType.new(params[:ticket_type])
+    @ticket_type.status = Status.active
+    @ticket_type.user = 'user test'
 
     respond_to do |format|
       if @ticket_type.save

@@ -9,17 +9,19 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @totems.each do |totem| %>
   <tr>
     <td><%= totem.value %></td>
     <td><%= totem.ip %></td>
-    <td><%= totem.status_id %></td>
+    <td><%= totem.status %></td>
     <td><%= totem.user %></td>
     <td><%= link_to 'Show', totem %></td>
     <td><%= link_to 'Edit', edit_totem_path(totem) %></td>
     <td><%= link_to 'Destroy', totem, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Generate', generate_ticket_totem_path(totem.id) %></td>
   </tr>
 <% end %>
 </table>

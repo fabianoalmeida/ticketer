@@ -41,6 +41,7 @@ class StatusTicketsController < ApplicationController
   # POST /status_tickets.xml
   def create
     @status_ticket = StatusTicket.new(params[:status_ticket])
+    @status_ticket.user = "user test"
 
     respond_to do |format|
       if @status_ticket.save

@@ -13,9 +13,6 @@
 ActiveRecord::Schema.define(:version => 20110411192746) do
 
   create_table "call_histories", :force => true do |t|
-    t.integer  "ticket_id"
-    t.integer  "wicket_id"
-    t.integer  "call_history_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
 
   create_table "locals", :force => true do |t|
     t.string   "value"
-    t.integer  "status_id"
     t.string   "user"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,7 +42,6 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   create_table "panels", :force => true do |t|
     t.string   "value"
     t.string   "ip"
-    t.integer  "status_id"
     t.string   "user"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -55,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   create_table "places", :force => true do |t|
     t.string   "value"
     t.string   "user"
-    t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,28 +73,19 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.string   "value"
     t.string   "acronym"
     t.string   "user"
-    t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "ticket_types", ["status_id"], :name => "index_ticket_types_on_status_id"
 
   create_table "tickets", :force => true do |t|
     t.string   "value"
-    t.integer  "ticket_type_id"
-    t.integer  "status_ticket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "tickets", ["status_ticket_id"], :name => "index_tickets_on_status_ticket_id"
-  add_index "tickets", ["ticket_type_id"], :name => "index_tickets_on_ticket_type_id"
 
   create_table "totems", :force => true do |t|
     t.string   "value"
     t.string   "ip"
-    t.integer  "status_id"
     t.string   "user"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -108,8 +93,6 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
 
   create_table "wickets", :force => true do |t|
     t.string   "value"
-    t.integer  "guidance_id"
-    t.integer  "status_id"
     t.string   "user"
     t.datetime "created_at"
     t.datetime "updated_at"

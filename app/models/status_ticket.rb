@@ -4,6 +4,8 @@ class StatusTicket < ActiveRecord::Base
   #String :acronym
   #String :user
 
+  has_many :tickets
+
   validates :value, :acronym, :user, :presence => { :message => "is required!" }
 
   validates :acronym, 
@@ -16,6 +18,14 @@ class StatusTicket < ActiveRecord::Base
     :uniqueness => { :message => "already exists!" },
     :unless => lambda{ self.value.blank? }
 
-  has_many :tickets
+  accepts_nested_attributes_for :tickets
+
+  def self.called
+    self.where( :acronym => "C" ).first
+  end
+
+  def self.closed
+    self.where( :acronym => "L" ).first
+  end
 
 end

@@ -20,4 +20,6 @@ class TicketType < ActiveRecord::Base
     :uniqueness => { :message => "already exists!" },
     :if => lambda{ ! self.acronym.blank? }
 
+  accepts_nested_attributes_for :tickets
+
 end

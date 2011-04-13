@@ -73,12 +73,15 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.string   "value"
     t.string   "acronym"
     t.string   "user"
+    t.integer  "status_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tickets", :force => true do |t|
     t.string   "value"
+    t.integer  "status_ticket_id"
+    t.integer  "ticket_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

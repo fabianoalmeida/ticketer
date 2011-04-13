@@ -3,6 +3,9 @@ class CreateTickets < ActiveRecord::Migration
     create_table :tickets do |t|
       t.string :value, :length => 80
 
+      t.references :status_ticket
+      t.references :ticket_type
+
       t.timestamps
     end
   end

@@ -5,6 +5,8 @@ class CreateTicketTypes < ActiveRecord::Migration
       t.string :acronym, :length => 1
       t.string :user
 
+      t.references :status
+
       t.timestamps
     end
   end

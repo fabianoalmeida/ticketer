@@ -40,9 +40,8 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.xml
   def create
-    debugger
     @ticket = Ticket.new(params[:ticket])
-    @ticket.value = @ticket.ticket_type.acronym.to_s + "0001"
+    @ticket.status_ticket = StatusTicket.called 
 
     respond_to do |format|
       if @ticket.save

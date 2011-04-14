@@ -1,8 +1,8 @@
 class CallHistory < ActiveRecord::Base
 
-  #Integer :ticket_id
-  #Integer :wicket_id
-  #Integer :call_history_type_id
+  #Integer :ticket
+  #Integer :wicket
+  #Integer :call_history_type
 
   belongs_to :ticket
   belongs_to :wicket

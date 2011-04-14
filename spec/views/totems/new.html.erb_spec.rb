@@ -4,9 +4,7 @@ describe "totems/new.html.erb" do
   before(:each) do
     assign(:totem, stub_model(Totem,
       :value => "MyString",
-      :ip => "MyString",
-      :status_id => 1,
-      :user => "MyString"
+      :ip => "MyString"
     ).as_new_record)
   end
 
@@ -17,8 +15,6 @@ describe "totems/new.html.erb" do
     assert_select "form", :action => totems_path, :method => "post" do
       assert_select "input#totem_value", :name => "totem[value]"
       assert_select "input#totem_ip", :name => "totem[ip]"
-      assert_select "input#totem_status_id", :name => "totem[status_id]"
-      assert_select "input#totem_user", :name => "totem[user]"
     end
   end
 end

@@ -1,7 +1,7 @@
 <h1>Listing Ticket Types</h1>
 
 <%= form_for( Ticket.new ) do |f| %>
-  <!--%= f.hidden_field :ticket_type_id %-->
+  <%= f.hidden_field :ticket_type_id %>
   <table>
     <tr>
       <th>Value</th>
@@ -11,7 +11,5 @@
         <td><a id="<%= ticket_type.id %>" class="trigger_submit"><%= ticket_type.value %></a></td>
       </tr>
     <% end %>
-    <!--%= select(:ticket, :ticket_type, TicketType.all.map{ |t| [t.value, t] }) %-->
-    <%= f.collection_select( :ticket_type_id, TicketType.all, :id, :value, { :prompt => true } ) %>
   </table>
 <% end %>

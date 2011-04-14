@@ -4,8 +4,8 @@ describe "tickets/show.html.erb" do
   before(:each) do
     @ticket = assign(:ticket, mock_model(Ticket,
       :value => "Value",
-      :ticket_type_id => 1,
-      :status_ticket_id => 1,
+      :ticket_type => stub_model(TicketType, :value => "P0001"),
+      :status_ticket => stub_model(StatusTicket, :value => "Called"),
       :place_id => 1
     ))
   end
@@ -15,8 +15,8 @@ describe "tickets/show.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Value/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    rendered.should match(/P0001/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    rendered.should match(/Called/)
   end
 end

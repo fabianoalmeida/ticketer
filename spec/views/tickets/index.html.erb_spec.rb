@@ -5,15 +5,16 @@ describe "tickets/index.html.erb" do
     assign(:tickets, [
       mock_model(Ticket,
         :value => "Value",
-        :ticket_type_id => 1,
-        :status_ticket_id => 1,
-        :place_id => 1
+        :ticket_type => stub_model(TicketType, :value => "Preferencial"),
+        :status_ticket => stub_model(StatusTicket, :value => "Called"),
+        :place => stub_model(Place)
+
       ),
       mock_model(Ticket,
         :value => "Value",
-        :ticket_type_id => 1,
-        :status_ticket_id => 1,
-        :place_id => 1
+        :ticket_type => stub_model(TicketType, :value => "Preferencial"),
+        :status_ticket => stub_model(StatusTicket, :value => "Called"),
+        :place => stub_model(Place)
       )
     ])
   end
@@ -23,8 +24,8 @@ describe "tickets/index.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Value".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => 1.to_s, :count => 4
+    assert_select "tr>td", :text => "Preferencial".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => 1.to_s, :count => 4
+    assert_select "tr>td", :text => "Called".to_s, :count => 2
   end
 end

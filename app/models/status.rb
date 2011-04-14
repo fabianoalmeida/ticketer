@@ -6,9 +6,9 @@ class Status < ActiveRecord::Base
   validates :value, :user, :presence => { :message => "is required!" }
 
   validates :value, 
-    :length => { :minimum => 1, :maximum => 80 }, 
+    :length => { :in => 1..80 }, 
     :uniqueness => { :message => "already exists!", :case_sensitive => false },
-    :unless => lambda{ self.value.blank? }
+    :allow_blank => false
 
   def self.active
     self.where( :value => "Active" ).first

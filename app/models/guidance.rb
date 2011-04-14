@@ -8,8 +8,8 @@ class Guidance < ActiveRecord::Base
   validates :value, :user, :presence => { :message => "is required!" }
 
   validates :value,
-    :length => { :minimum => 1, :maximum => 20 },
-    :uniqueness => { :message => "already exists!" },
-    :unless => lambda{ self.value.blank? }
+    :length => { :in => 1..20 },
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
 end

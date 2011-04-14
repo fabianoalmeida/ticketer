@@ -9,16 +9,14 @@ class StatusTicket < ActiveRecord::Base
   validates :value, :acronym, :user, :presence => { :message => "is required!" }
 
   validates :acronym, 
-    :length => { :minimum => 1, :maximum => 1 }, 
-    :uniqueness => { :message => "already exists!" },
-    :unless => lambda{ self.acronym.blank? }
+    :length => { :is => 1 }, 
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
   validates :value, 
-    :length => { :minimum => 1, :maximum => 80 }, 
-    :uniqueness => { :message => "already exists!" },
-    :unless => lambda{ self.value.blank? }
-
-  accepts_nested_attributes_for :tickets
+    :length => { :in => 1..80 }, 
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
   def self.called
     self.where( :acronym => "C" ).first

@@ -12,14 +12,12 @@ class TicketType < ActiveRecord::Base
 
   validates :value, 
     :length => { :minimum => 1, :maximum => 80 },
-    :uniqueness => { :message => "already exists!" },
-    :if => lambda{ ! self.value.blank? }
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
   validates :acronym, 
-    :length => { :minimum => 1, :maximum => 1 },
-    :uniqueness => { :message => "already exists!" },
-    :if => lambda{ ! self.acronym.blank? }
-
-  accepts_nested_attributes_for :tickets
+    :length => { :is => 1 },
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
 end

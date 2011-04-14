@@ -13,6 +13,9 @@
 ActiveRecord::Schema.define(:version => 20110411192746) do
 
   create_table "call_histories", :force => true do |t|
+    t.integer  "ticket_id"
+    t.integer  "wicket_id"
+    t.integer  "call_history_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,8 +36,7 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   end
 
   create_table "locals", :force => true do |t|
-    t.string   "value"
-    t.string   "user"
+    t.string   "des_local"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.string   "value"
     t.string   "ip"
     t.string   "user"
+    t.integer  "status_id"
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   create_table "places", :force => true do |t|
     t.string   "value"
     t.string   "user"
+    t.integer  "status_id"
+    t.integer  "local_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.string   "value"
     t.integer  "status_ticket_id"
     t.integer  "ticket_type_id"
+    t.integer  "place_id"
+    t.integer  "totem_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -90,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.string   "value"
     t.string   "ip"
     t.string   "user"
+    t.integer  "status_id"
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -97,6 +107,9 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   create_table "wickets", :force => true do |t|
     t.string   "value"
     t.string   "user"
+    t.integer  "guidance_id"
+    t.integer  "status_id"
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

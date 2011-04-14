@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Wicket do
 
   before( :each ) do
-    @wicket = Wicket.new( :value => "Wicket 01", :user => "1", :guidance_id => 1, :status_id => 1 )
+    @place = stub_model( Place )
+    @status = stub_model( Status )
+    @guidance = stub_model( Guidance )
+    @wicket = Wicket.new( :value => "Wicket 01", :user => "1", :guidance => @guidance, :status => @status  , :place => @place)
   end
 
   it "can be an instance" do
@@ -41,14 +44,14 @@ describe Wicket do
   it "should not permit to create a new register with an existing 'value' registered" do
     @wicket.save
 
-    @wicketInvalid = Wicket.new( :value => "Wicket 01", :user => "1", :guidance_id => 1, :status_id => 1 )
+    @wicketInvalid = Wicket.new( :value => "Wicket 01", :user => "1", :guidance => @guidance, :status => @status, :place => @place)
     @wicketInvalid.save.should == false
   end
 
-  it "should not permit to create a new register with an existing 'value' registered" do
+  it "should permit to create a new register with an existing 'value' registered" do
     @wicket.save
 
-    @wicketValid = Wicket.new( :value => "Wicket 02", :user => "1", :guidance_id => 1, :status_id => 1 )
+    @wicketValid = Wicket.new( :value => "Wicket 02", :user => "1", :guidance => @guidance, :status => @status, :place => @place)
     @wicketValid.save.should == true
   end
   
@@ -63,12 +66,12 @@ describe Wicket do
   end
   
   it "should not be an instance valid if the 'guidance_id' property is nil" do
-    @wicket.guidance_id= nil
+    @wicket.guidance= nil
     @wicket.should_not be_valid
   end
   
   it "should not be an instance valid if the 'status_id' property is nil" do
-    @wicket.status_id= nil
+    @wicket.status= nil
     @wicket.should_not be_valid
   end
   

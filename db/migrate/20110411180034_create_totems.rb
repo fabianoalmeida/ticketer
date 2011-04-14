@@ -5,6 +5,9 @@ class CreateTotems < ActiveRecord::Migration
       t.string :ip, :length => 15
       t.string :user
 
+      t.references :status
+      t.references :place
+
       t.timestamps
     end
   end

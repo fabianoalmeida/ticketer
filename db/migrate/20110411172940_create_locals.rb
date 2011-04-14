@@ -1,8 +1,7 @@
 class CreateLocals < ActiveRecord::Migration
   def self.up
     create_table :locals do |t|
-      t.string :value, :length => 80
-      t.string :user
+      t.string :des_local
 
       t.timestamps
     end

@@ -5,6 +5,8 @@ class CreateTickets < ActiveRecord::Migration
 
       t.references :status_ticket
       t.references :ticket_type
+      t.references :place
+      t.references :totem
 
       t.timestamps
     end

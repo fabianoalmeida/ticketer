@@ -30,7 +30,7 @@ class Ticket < ActiveRecord::Base
 
     ticket.nil? ? @@actual_value= 1 : @@actual_value+= 1
 
-    self.value= self.ticket_type.acronym.to_s + @@actual_value.to_s
+    self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
   end
 
 end

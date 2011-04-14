@@ -6,7 +6,7 @@ describe "ticket_types/edit.html.erb" do
       :value => "MyString",
       :acronym => "MyString",
       :user => "MyString",
-      :status_id => 1
+      :status => stub_model(Status, :value=> "Active")
     ))
   end
 
@@ -17,7 +17,7 @@ describe "ticket_types/edit.html.erb" do
     assert_select "form", :action => ticket_types_path(@ticket_type), :method => "post" do
       assert_select "input#ticket_type_value", :name => "ticket_type[value]"
       assert_select "input#ticket_type_acronym", :name => "ticket_type[acronym]"
-      assert_select "input#ticket_type_status_id", :name => "ticket_type[status_id]"
+      #assert_select "input#ticket_type_status_id", :name => "ticket_type[status_id]"
     end
   end
 end

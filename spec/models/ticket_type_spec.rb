@@ -4,15 +4,11 @@ describe TicketType do
 
   before ( :each ) do
     @status = Status.new( :value => "Active", :user => "1" )
-    @ticketType = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status_id => 1, :status => @status )
+    @ticketType = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status => @status )
   end
 
   it "can be an instance" do
     @ticketType.should be_an_instance_of( TicketType )
-  end
-
-  it "can be save successfully" do
-    @ticketType.save.should == true
   end
 
   it "should be an instance valid" do
@@ -42,14 +38,14 @@ describe TicketType do
   it "should not permit to create a new register with an existing 'value' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status_id => 1 )
+    @ticketTypeInvalid = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status => @status )
     @ticketTypeInvalid.save.should == false
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status_id => 1 )
+    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status => @status )
     @ticketTypeInvalid.save.should == true
   end
 
@@ -76,14 +72,14 @@ describe TicketType do
   it "should not permit to create a new register with an existing 'acronym' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = TicketType.new( :value => "Preferencial", :acronym => "P", :user => "1", :status_id => 1 )
+    @ticketTypeInvalid = TicketType.new( :value => "Preferencial", :acronym => "P", :user => "1", :status => @status )
     @ticketTypeInvalid.save.should == false
   end
 
   it "should permit to create a new register with an unexisting 'acronym' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status_id => 1 )
+    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status => @status )
     @ticketTypeInvalid.save.should == true
   end
   
@@ -97,8 +93,8 @@ describe TicketType do
     @ticketType.should_not be_valid
   end
   
-  it "should not be an instance valid if the 'status_id' property is nil" do
-    @ticketType.status_id= nil
+  it "should not be an instance valid if the 'status' property is nil" do
+    @ticketType.status= nil
     @ticketType.should_not be_valid
   end
   

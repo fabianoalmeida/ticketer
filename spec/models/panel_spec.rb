@@ -4,14 +4,10 @@ describe Panel do
 
   before( :each ) do
     @status = stub_model( Status, :value => "Active" )
-
-    @panel = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1" )
+    @place = stub_model(Place)
+    @panel = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1" , :place => @place)
   end
-
-  it "can be an instance" do
-    @panel.should be_an_instance_of( Panel )
-  end
-  
+ 
   it "can be save successfully" do
     @panel.save.should == true
   end
@@ -59,14 +55,14 @@ describe Panel do
   it "should not permit to create a new register with an existing 'value' registered" do
     @panel.save
 
-    @panel_invalid = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1" )
+    @panel_invalid = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1", :place => @place )
     @panel_invalid.save.should == false
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
     @panel.save
 
-    @panel_valid = Panel.new( :value => "Panel 02", :ip => "10.32.1.2", :status => @status, :user => "1" )
+    @panel_valid = Panel.new( :value => "Panel 02", :ip => "10.32.1.2", :status => @status, :user => "1", :place => @place )
     @panel_valid.save.should == true
   end
 
@@ -80,7 +76,7 @@ describe Panel do
   it "should permit to create a new register with an unexisting 'ip' registered" do
     @panel.save
 
-    @panel_valid = Panel.new( :value => "Panel 04", :ip => "10.32.1.21", :status => @status, :user => "1" )
+    @panel_valid = Panel.new( :value => "Panel 04", :ip => "10.32.1.21", :status => @status, :user => "1", :place => @place)
     @panel_valid.save.should == true
   end
 

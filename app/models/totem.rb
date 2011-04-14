@@ -7,17 +7,18 @@ class Totem < ActiveRecord::Base
 
   belongs_to :status
   belongs_to :place
+  has_many :tickets
 
-  validates :value, :ip, :user, :status, :presence => { :message => "is required!" }
+  validates :value, :ip, :user, :status, :place, :presence => { :message => "is required!" }
 
   validates :value,
-    :length => { :minimum => 1, :maximum => 80 },
-    :uniqueness => { :message => "already exists!" },
-    :unless => lambda{ self.value.blank? }
+    :length => { :in => 1..80 },
+    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :allow_blank => false
 
   validates :ip,
-    :length => { :minimum => 1, :maximum => 15 },
+    :length => { :in => 1..15 },
     :uniqueness => { :message => "already exists!" },
-    :unless => lambda{ self.ip.blank? }
+    :allow_blank => false
 
 end

@@ -2,7 +2,8 @@ class Place < ActiveRecord::Base
 
   #String :value
   #String :user
-  #Integer :status_id
+  #Integer :status
+  #Integer :local
 
   belongs_to :status
   belongs_to :local

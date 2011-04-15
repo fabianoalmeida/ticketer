@@ -3,8 +3,6 @@
 <table>
   <tr>
     <th>Value</th>
-    <th>Status</th>
-    <th>User</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,12 +10,9 @@
 
 <% @locals.each do |local| %>
   <tr>
-    <td><%= local.value %></td>
-    <td><%= local.status_id %></td>
-    <td><%= local.user %></td>
+    <td><%= local.des_local %></td>
     <td><%= link_to 'Show', local %></td>
     <td><%= link_to 'Edit', edit_local_path(local) %></td>
-    <td><%= link_to 'Destroy', local, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

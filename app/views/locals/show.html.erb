@@ -2,19 +2,8 @@
 
 <p>
   <b>Value:</b>
-  <%= @local.value %>
+  <%= @local.des_local %>
 </p>
-
-<p>
-  <b>Status:</b>
-  <%= @local.status_id %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @local.user %>
-</p>
-
 
 <%= link_to 'Edit', edit_local_path(@local) %> |
 <%= link_to 'Back', locals_path %>

@@ -4,8 +4,8 @@ class CreatePlaces < ActiveRecord::Migration
       t.string :value, :length => 80
       t.string :user
 
-      t.references :status
-      t.references :local
+      t.references :status, :null => false
+      t.references :local, :null => false
 
       t.timestamps
     end

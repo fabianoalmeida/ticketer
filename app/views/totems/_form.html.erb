@@ -1,4 +1,5 @@
-<%= form_for(@totem) do |f| %>
+<%= form_for([@place, @totem]) do |f| %>
+  <%= f.hidden_field :place_id, :value => params[:place_id] %>
   <% if @totem.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@totem.errors.count, "error") %> prohibited this totem from being saved:</h2>
@@ -18,6 +19,12 @@
   <div class="field">
     <%= f.label :ip %><br />
     <%= f.text_field :ip %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

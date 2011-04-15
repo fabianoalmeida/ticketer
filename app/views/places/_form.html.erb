@@ -20,8 +20,14 @@
     <%= f.text_field :user %>
   </div>
   <div class="field">
-    <%= f.label :status_id %><br />
-    <%= f.text_field :status_id %>
+    <%= f.label :local %><br />
+    <%= f.collection_select( :local_id, Local.all, :id, :des_local, { :prompt => true } ) %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

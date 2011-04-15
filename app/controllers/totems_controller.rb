@@ -2,7 +2,8 @@ class TotemsController < ApplicationController
   # GET /totems
   # GET /totems.xml
   def index
-    @totems = Totem.all
+    @place = Place.find(params[:place_id])
+    @totems = Totem.where( :place_id => @place.id )
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,30 +1,11 @@
 Ticketer::Application.routes.draw do
-  resources :places
+  resources :places, :locals, :call_histories, :guidances, :call_history_types, 
+            :tickets, :ticket_types, :statuses, :status_tickets
 
-  resources :panels
-
-  resources :totems
-
-  resources :locals
-
-  resources :call_histories
-
-  resources :wickets
-
-  resources :guidances
-
-  resources :call_history_types
-
-  resources :tickets
-
-  resources :ticket_types
-
-  resources :statuses
-
-  resources :status_tickets
-
-  resources :totems do
-    member do
+  resources :places do
+    resources :wicktes
+    resources :panels
+    resources :totems do
       get 'generate_ticket'
     end
   end

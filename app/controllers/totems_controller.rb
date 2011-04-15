@@ -25,6 +25,7 @@ class TotemsController < ApplicationController
   # GET /totems/new.xml
   def new
     @totem = Totem.new
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,21 +36,22 @@ class TotemsController < ApplicationController
   # GET /totems/1/edit
   def edit
     @totem = Totem.find(params[:id])
+    @place = Place.find(params[:place_id])
   end
 
   # POST /totems
   # POST /totems.xml
   def create
     @totem = Totem.new(params[:totem])
-    @totem.status = Status.active
+    @place = Place.find(params[:place_id])
     @totem.user = "user test"
 
     respond_to do |format|
       if @totem.save
-        format.html { redirect_to(@totem, :notice => 'Totem was successfully created.') }
+        format.html { redirect_to( place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully created.') }
         format.xml  { render :xml => @totem, :status => :created, :location => @totem }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => :new }
         format.xml  { render :xml => @totem.errors, :status => :unprocessable_entity }
       end
     end
@@ -59,10 +61,11 @@ class TotemsController < ApplicationController
   # PUT /totems/1.xml
   def update
     @totem = Totem.find(params[:id])
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       if @totem.update_attributes(params[:totem])
-        format.html { redirect_to(@totem, :notice => 'Totem was successfully updated.') }
+        format.html { redirect_to(place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

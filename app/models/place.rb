@@ -12,4 +12,8 @@ class Place < ActiveRecord::Base
   has_many :panels
   has_many :totems
 
+  validates :status, :local, :presence => { :message => "is required!" }
+
+  accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
+
 end

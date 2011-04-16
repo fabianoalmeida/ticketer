@@ -1,4 +1,5 @@
-<%= form_for(@wicket) do |f| %>
+<%= form_for([@place, @wicket]) do |f| %>
+  <%= f.hidden_field :place_id, :value => params[:place_id] %>
   <% if @wicket.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@wicket.errors.count, "error") %> prohibited this wicket from being saved:</h2>
@@ -16,16 +17,14 @@
     <%= f.text_field :value %>
   </div>
   <div class="field">
-    <%= f.label :guidance_id %><br />
-    <%= f.text_field :guidance_id %>
+    <%= f.label :guidance %><br />
+    <%= f.collection_select( :guidance_id, Guidance.all, :id, :value, { :prompt => true } ) %>
   </div>
   <div class="field">
-    <%= f.label :status_id %><br />
-    <%= f.text_field :status_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

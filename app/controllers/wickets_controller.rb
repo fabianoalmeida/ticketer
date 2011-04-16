@@ -2,7 +2,7 @@ class WicketsController < ApplicationController
   # GET /wickets
   # GET /wickets.xml
   def index
-    @wickets = Wicket.all
+    @wickets = Wicket.where(:place_id => params[:place_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +25,7 @@ class WicketsController < ApplicationController
   # GET /wickets/new.xml
   def new
     @wicket = Wicket.new
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,19 +36,22 @@ class WicketsController < ApplicationController
   # GET /wickets/1/edit
   def edit
     @wicket = Wicket.find(params[:id])
+    @place = Place.find(params[:place_id])
   end
 
   # POST /wickets
   # POST /wickets.xml
   def create
     @wicket = Wicket.new(params[:wicket])
+    @place = Place.find(params[:place_id])
+    @wicket.user = "user test"
 
     respond_to do |format|
       if @wicket.save
-        format.html { redirect_to(@wicket, :notice => 'Wicket was successfully created.') }
+        format.html { redirect_to(place_wicket_url(@wicket.place, @wicket), :notice => 'Wicket was successfully created.') }
         format.xml  { render :xml => @wicket, :status => :created, :location => @wicket }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => :new }
         format.xml  { render :xml => @wicket.errors, :status => :unprocessable_entity }
       end
     end
@@ -57,10 +61,11 @@ class WicketsController < ApplicationController
   # PUT /wickets/1.xml
   def update
     @wicket = Wicket.find(params[:id])
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])
-        format.html { redirect_to(@wicket, :notice => 'Wicket was successfully updated.') }
+        format.html { redirect_to(place_wicket_url(@wicket.place, @wicket), :notice => 'Wicket was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

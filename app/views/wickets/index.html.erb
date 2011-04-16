@@ -8,18 +8,16 @@
     <th>User</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @wickets.each do |wicket| %>
   <tr>
     <td><%= wicket.value %></td>
-    <td><%= wicket.guidance_id %></td>
-    <td><%= wicket.status_id %></td>
+    <td><%= wicket.guidance.value %></td>
+    <td><%= wicket.status.value %></td>
     <td><%= wicket.user %></td>
-    <td><%= link_to 'Show', wicket %></td>
-    <td><%= link_to 'Edit', edit_wicket_path(wicket) %></td>
-    <td><%= link_to 'Destroy', wicket, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', place_wicket(wicket.place, wicket) %></td>
+    <td><%= link_to 'Edit', edit_place_wicket_path(wicket.place, wicket) %></td>
   </tr>
 <% end %>
 </table>

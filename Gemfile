@@ -49,6 +49,7 @@ gem 'ruby-debug'
 group :development, :test do
   #gem 'webrat'
   gem 'rspec-rails', '~> 2.4'
-  gem "autotest"
-  gem "autotest-rails"
+  gem 'autotest'
+  gem 'autotest-rails'
+  gem 'factory_girl_rails'
 end

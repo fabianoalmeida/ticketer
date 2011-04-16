@@ -2,8 +2,7 @@ class TotemsController < ApplicationController
   # GET /totems
   # GET /totems.xml
   def index
-    @place = Place.find(params[:place_id])
-    @totems = Totem.where( :place_id => @place.id )
+    @totems = Totem.where(:place_id => params[:place_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +48,7 @@ class TotemsController < ApplicationController
 
     respond_to do |format|
       if @totem.save
-        format.html { redirect_to( place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully created.') }
+        format.html { redirect_to(place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully created.') }
         format.xml  { render :xml => @totem, :status => :created, :location => @totem }
       else
         format.html { render :action => :new }

@@ -3,15 +3,11 @@ require 'spec_helper'
 describe StatusTicket do
 
   before( :each ) do
-    @statusTicket = StatusTicket.new( :value => "Opened", :acronym => "O", :user => "1" )
-  end
-
-  it "can be instantiated" do
-    @statusTicket.should be_an_instance_of( StatusTicket )
+    @statusTicket = Factory.build(:status_ticket)
   end
 
   it "can be saved successfully" do
-    @statusTicket.save.should == true
+    @statusTicket.save.should be_true
   end
 
   it "should be an instance valid" do
@@ -60,23 +56,23 @@ describe StatusTicket do
 
   it "should not be create a register with an existing 'value' and 'acronym' registered" do
     @statusTicket.save
-
-    @statusInvalid = StatusTicket.new( :value => "Opened", :acronym => "O", :user => "1" )
-    @statusInvalid.save.should == false
+    @statusInvalid = Factory.build(:status_ticket, :value => @statusTicket.value, :acronym => @statusTicket.acronym)
+    @statusInvalid.save.should be_false
   end
 
   it "should not be create a register with an existing 'value' registered" do
     @statusTicket.save
 
-    @statusInvalid = StatusTicket.new( :value => "Opened", :acronym => "P", :user => "1" )
-    @statusInvalid.save.should == false
+    @statusInvalid = Factory.build(:status_ticket, :value => @statusTicket.value)
+    @statusInvalid.save.should be_false
+
   end
 
   it "should not be create a register with an existing 'acronym' registered" do
     @statusTicket.save
 
-    @statusInvalid = StatusTicket.new( :value => "Openeds", :acronym => "O", :user => "1" )
-    @statusInvalid.save.should == false
+    @statusInvalid = Factory.build(:status_ticket, :acronym => @statusTicket.acronym)
+    @statusInvalid.save.should be_false
   end
 
 end

@@ -3,15 +3,11 @@ require 'spec_helper'
 describe Guidance do
 
   before( :each ) do
-    @guidance = Guidance.new( :value => "Left", :user => "1" )
-  end
-
-  it "can be an instance" do
-    @guidance.should be_an_instance_of( Guidance )
+    @guidance = Factory.build(:guidance)
   end
 
   it "can be save successfully" do
-    @guidance.save.should == true
+    @guidance.save.should be_true
   end
 
   it "should be an instance valid" do
@@ -49,17 +45,9 @@ describe Guidance do
   end
 
   it "should not permit to create a new register with an existing 'value' registered" do
-    @guidance.save
-
-    @guidanceInvalid = Guidance.new( :value => "Left", :user => "1" )
-    @guidanceInvalid.save.should == false
-  end
-
-  it "should permit to create a new register with an unexisting 'value' registered" do
-    @guidance.save
-
-    @guidanceValid = Guidance.new( :value => "Right", :user => "1" )
-    @guidanceValid.save.should == true
+    Factory(:guidance, :value => "Value 1" )
+    @guidanceInvalid = Factory.build(:guidance, :value => "Value 1" )
+    @guidanceInvalid.save.should be_false
   end
 
 end

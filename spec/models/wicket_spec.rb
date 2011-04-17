@@ -3,18 +3,11 @@ require 'spec_helper'
 describe Wicket do
 
   before( :each ) do
-    @place = stub_model( Place )
-    @status = stub_model( Status )
-    @guidance = stub_model( Guidance )
-    @wicket = Wicket.new( :value => "Wicket 01", :user => "1", :guidance => @guidance, :status => @status  , :place => @place)
-  end
-
-  it "can be an instance" do
-    @wicket.should be_an_instance_of( Wicket )
+    @wicket = Factory.build(:wicket)
   end
 
   it "can be save successfully" do
-    @wicket.save.should == true
+    @wicket.save.should be_true
   end
 
   it "should be an instance valid" do
@@ -43,16 +36,12 @@ describe Wicket do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @wicket.save
-
-    @wicketInvalid = Wicket.new( :value => "Wicket 01", :user => "1", :guidance => @guidance, :status => @status, :place => @place)
-    @wicketInvalid.save.should == false
+    @wicketInvalid = Factory.build(:wicket, :value => @wicket.value)  
+    @wicketInvalid.save.should be_false
   end
 
   it "should permit to create a new register with an existing 'value' registered" do
-    @wicket.save
-
-    @wicketValid = Wicket.new( :value => "Wicket 02", :user => "1", :guidance => @guidance, :status => @status, :place => @place)
-    @wicketValid.save.should == true
+    @wicket.save.should be_true
   end
   
   it "should not be an instance valid if the 'user' property is nil" do

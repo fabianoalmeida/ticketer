@@ -3,15 +3,11 @@ require 'spec_helper'
 describe CallHistoryType do
 
   before( :each ) do
-    @callHistoryType = CallHistoryType.new( :value => "Called", :acronym => "C", :user => "1" )
-  end
-
-  it "can be an instance" do
-    @callHistoryType.should be_an_instance_of( CallHistoryType )
+    @callHistoryType = Factory.build(:call_history_type)
   end
 
   it "can be save successfully" do
-    @callHistoryType.save.should == true
+    @callHistoryType.save.should be_true
   end
 
   it "should be an instance valid" do
@@ -41,15 +37,12 @@ describe CallHistoryType do
   it "should not permit to create a new register with an existing 'value' registered" do
     @callHistoryType.save
 
-    @callHistoryTypeInvalid = CallHistoryType.new( :value => "Called", :acronym => "C", :user => "1" )
+    @callHistoryTypeInvalid = Factory.build(:call_history_type, :value => @callHistoryType.value)
     @callHistoryTypeInvalid.save.should == false
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
-    @callHistoryType.save
-
-    @callHistoryTypeInvalid = CallHistoryType.new( :value => "Attended", :acronym => "A", :user => "1" )
-    @callHistoryTypeInvalid.save.should == true
+    @callHistoryType.save.should == true
   end
 
   it "should not be an instance valid if the 'acronym' property is nil" do
@@ -75,15 +68,8 @@ describe CallHistoryType do
   it "should not permit to create a new register with an existing 'acronym' registered" do
     @callHistoryType.save
 
-    @callHistoryTypeInvalid = CallHistoryType.new( :value => "Chosen", :acronym => "C", :user => "1" )
-    @callHistoryTypeInvalid.save.should == false
-  end
-
-  it "should permit to create a new register with an unexisting 'acronym' registered" do
-    @callHistoryType.save
-
-    @callHistoryTypeInvalid = CallHistoryType.new( :value => "Called Again", :acronym => "A", :user => "1" )
-    @callHistoryTypeInvalid.save.should == true
+    @callHistoryTypeInvalid = Factory.build(:call_history_type, :acronym => @callHistoryType.acronym )
+    @callHistoryTypeInvalid.save.should be_false
   end
   
   it "should not be an instance valid if the 'user' property is nil" do

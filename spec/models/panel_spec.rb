@@ -3,14 +3,9 @@ require 'spec_helper'
 describe Panel do
 
   before( :each ) do
-    @status = stub_model( Status, :value => "Active" )
-    @place = stub_model(Place)
-    @panel = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1" , :place => @place)
+    @panel = Factory.build(:panel)
   end
  
-  it "can be save successfully" do
-    @panel.save.should == true
-  end
 
   it "should not be an instanve valid if the property 'value' is nil" do
     @panel.value= nil
@@ -54,30 +49,19 @@ describe Panel do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @panel.save
-
-    @panel_invalid = Panel.new( :value => "Panel 01", :ip => "10.32.1.22", :status => @status, :user => "1", :place => @place )
+    @panel_invalid = Factory.build(:panel, :value => @panel.value)
     @panel_invalid.save.should == false
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
-    @panel.save
-
-    @panel_valid = Panel.new( :value => "Panel 02", :ip => "10.32.1.2", :status => @status, :user => "1", :place => @place )
-    @panel_valid.save.should == true
+    @panel.save.should be_true
   end
 
   it "should not permit to create a new register with an existing 'ip' registered" do
     @panel.save
 
-    @panel_invalid = Panel.new( :value => "Panel 03", :ip => "10.32.1.22", :status => @status, :user => "1" )
-    @panel_invalid.save.should == false
-  end
-
-  it "should permit to create a new register with an unexisting 'ip' registered" do
-    @panel.save
-
-    @panel_valid = Panel.new( :value => "Panel 04", :ip => "10.32.1.21", :status => @status, :user => "1", :place => @place)
-    @panel_valid.save.should == true
+    @panel_invalid = Factory.build(:panel, :ip => @panel.ip)
+    @panel_invalid.save.should be_false
   end
 
   it "should not be an instanve valid if the property 'user' is nil" do
@@ -94,9 +78,5 @@ describe Panel do
     @panel.status= nil
     @panel.should_not be_valid
   end
-
-  it "Status should be the same value of property :status" do
-    @panel.status.should eq( @status )
-  end
-
+  
 end

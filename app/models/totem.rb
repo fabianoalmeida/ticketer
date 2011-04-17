@@ -3,7 +3,6 @@ class Totem < ActiveRecord::Base
   #String :value
   #String :ip
   #String :user
-  #Integer :status_id
 
   belongs_to :status
   belongs_to :place

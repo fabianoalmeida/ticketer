@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Status do
 
   before( :each ) do
-    @status = Status.new( :value => "Active", :user => "1" )
+    @status = Factory.build(:status)
   end
 
   it "can be instantiated" do

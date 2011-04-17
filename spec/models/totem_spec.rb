@@ -3,15 +3,11 @@ require 'spec_helper'
 describe Totem do
 
   before( :each ) do
-    @status = stub_model( Status, :value => "Active" )
-    
-    @place = stub_model( Place )
-
-    @totem = Totem.new( :value => "Totem 01", :ip => "10.32.1.22", :status => @status, :place => @place, :user => "1" )
+    @totem = Factory.build(:totem)
   end
 
   it "can be save successfully" do
-    @totem.save.should == true
+    @totem.save.should be_true
   end
 
   it "should not be an instanve valid if the property 'value' is nil" do
@@ -61,42 +57,31 @@ describe Totem do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @totem.save
-
-    @totem_invalid = Totem.new( :value => "Totem 01", :ip => "10.32.1.22", :status => @status, :place => @place, :user => "1" )
-    @totem_invalid.save 
+    @totem_invalid = Factory.build(:totem, :value => @totem.value )
+    @totem_invalid.save
     @totem_invalid.errors[ :value ].should == [ "already exists!" ]
   end
 
   it "should not permit to create a new register with an existing 'value' registered even that has a different case sensitive" do
     @totem.save
 
-    @totem_invalid = Totem.new( :value => "ToTeM 01", :ip => "10.32.1.22", :status => @status, :place => @place, :user => "1" )
+    @totem_invalid = Factory.build(:totem, :value => @totem.value.upcase )
     @totem_invalid.save 
     @totem_invalid.errors[ :value ].should == [ "already exists!" ]
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
-    @totem.save
-
-    @totem_valid = Totem.new( :value => "Totem 02", :ip => "10.32.1.2", :status => @status, :place => @place, :user => "1" )
-    @totem_valid.save.should == true
+    @totem.save.should == true
   end
 
   it "should not permit to create a new register with an existing 'ip' registered" do
     @totem.save
-
-    @totem_invalid = Totem.new( :value => "Totem 03", :ip => "10.32.1.22", :status => @status, :place => @place, :user => "1" )
+    @totem_invalid = Factory.build(:totem, :ip => @totem.ip )
     @totem_invalid.save
     @totem_invalid.errors[ :ip ].should == [ "already exists!" ]
   end
 
-  it "should permit to create a new register with an unexisting 'ip' registered" do
-    @totem.save
-
-    @totem_valid = Totem.new( :value => "Totem 04", :ip => "10.32.1.20", :status => @status, :place => @place, :user => "1" )
-    @totem_valid.save.should == true
-  end
-
+  
   it "should not be an instance valid if the property 'user' is nil" do
     @totem.user= nil
     @totem.should_not be_valid
@@ -112,17 +97,8 @@ describe Totem do
     @totem.should_not be_valid
   end
 
-  it "Status should be the same value of property :status" do
-    @totem.status.should eq( @status )
-  end
-
   it "should not be an instance valid if the property 'place' is nil" do
     @totem.place= nil
     @totem.should_not be_valid
   end
-
-  it "Status should be the same value of property :place" do
-    @totem.place.should eq( @place )
-  end
-
 end

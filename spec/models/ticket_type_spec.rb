@@ -3,12 +3,7 @@ require 'spec_helper'
 describe TicketType do
 
   before ( :each ) do
-    @status = Status.new( :value => "Active", :user => "1" )
-    @ticketType = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status => @status )
-  end
-
-  it "can be an instance" do
-    @ticketType.should be_an_instance_of( TicketType )
+    @ticketType = Factory.build(:ticket_type)
   end
 
   it "should be an instance valid" do
@@ -38,15 +33,12 @@ describe TicketType do
   it "should not permit to create a new register with an existing 'value' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = TicketType.new( :value => "Priority", :acronym => "P", :user => "1", :status => @status )
-    @ticketTypeInvalid.save.should == false
+    @ticketTypeInvalid = Factory.build(:ticket_type, :value => @ticketType.value)
+    @ticketTypeInvalid.save.should be_false 
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
-    @ticketType.save
-
-    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status => @status )
-    @ticketTypeInvalid.save.should == true
+    @ticketType.save.should == true
   end
 
   it "should not be an instance valid if the 'acronym' property is nil" do
@@ -71,18 +63,10 @@ describe TicketType do
 
   it "should not permit to create a new register with an existing 'acronym' registered" do
     @ticketType.save
-
-    @ticketTypeInvalid = TicketType.new( :value => "Preferencial", :acronym => "P", :user => "1", :status => @status )
-    @ticketTypeInvalid.save.should == false
+    @ticketTypeInvalid = Factory.build(:ticket_type, :acronym => @ticketType.acronym )
+    @ticketTypeInvalid.save.should be_false
   end
 
-  it "should permit to create a new register with an unexisting 'acronym' registered" do
-    @ticketType.save
-
-    @ticketTypeInvalid = TicketType.new( :value => "Consultation", :acronym => "C", :user => "1", :status => @status )
-    @ticketTypeInvalid.save.should == true
-  end
-  
   it "should not be an instance valid if the 'user' property is nil" do
     @ticketType.user= nil
     @ticketType.should_not be_valid

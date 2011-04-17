@@ -15,15 +15,14 @@
   <tr>
     <td><%= panel.value %></td>
     <td><%= panel.ip %></td>
-    <td><%= panel.status_id %></td>
+    <td><%= panel.status.value %></td>
     <td><%= panel.user %></td>
-    <td><%= link_to 'Show', panel %></td>
-    <td><%= link_to 'Edit', edit_panel_path(panel) %></td>
-    <td><%= link_to 'Destroy', panel, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', place_panel_path(panel.place, panel) %></td>
+    <td><%= link_to 'Edit', edit_place_panel_path(panel.place, panel) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Panel', new_panel_path %>
+<%= link_to 'New Panel', new_place_panel_path %>

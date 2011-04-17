@@ -1,4 +1,4 @@
-<%= form_for(@panel) do |f| %>
+<%= form_for([@place, @panel]) do |f| %>
   <% if @panel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@panel.errors.count, "error") %> prohibited this panel from being saved:</h2>
@@ -20,8 +20,10 @@
     <%= f.text_field :ip %>
   </div>
   <div class="field">
-    <%= f.label :status_id %><br />
-    <%= f.text_field :status_id %>
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :user %><br />

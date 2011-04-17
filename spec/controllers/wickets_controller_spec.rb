@@ -6,14 +6,22 @@ require 'spec_helper'
 
 describe WicketsController do
 
+  before(:each ) do
+    Place.stub(:find).with("1") {mock_place}
+  end
+
+  def mock_place(stubs={})
+    @mock_place ||= mock_model(Place, stubs).as_null_object
+  end
+
   def mock_wicket(stubs={})
     @mock_wicket ||= mock_model(Wicket, stubs).as_null_object
   end
 
   describe "GET index" do
     it "assigns all wickets as @wickets" do
-      Wicket.stub(:all) { [mock_wicket] }
-      get :index
+      Wicket.stub(:where) { [mock_wicket] }
+      get :index, :place_id => "1"
       assigns(:wickets).should eq([mock_wicket])
     end
   end
@@ -21,7 +29,7 @@ describe WicketsController do
   describe "GET show" do
     it "assigns the requested wicket as @wicket" do
       Wicket.stub(:find).with("37") { mock_wicket }
-      get :show, :id => "37"
+      get :show, :id => "37", :place_id => "1"
       assigns(:wicket).should be(mock_wicket)
     end
   end
@@ -29,7 +37,7 @@ describe WicketsController do
   describe "GET new" do
     it "assigns a new wicket as @wicket" do
       Wicket.stub(:new) { mock_wicket }
-      get :new
+      get :new, :place_id => "1"
       assigns(:wicket).should be(mock_wicket)
     end
   end
@@ -37,7 +45,7 @@ describe WicketsController do
   describe "GET edit" do
     it "assigns the requested wicket as @wicket" do
       Wicket.stub(:find).with("37") { mock_wicket }
-      get :edit, :id => "37"
+      get :edit, :id => "37", :place_id => "1"
       assigns(:wicket).should be(mock_wicket)
     end
   end
@@ -46,27 +54,27 @@ describe WicketsController do
     describe "with valid params" do
       it "assigns a newly created wicket as @wicket" do
         Wicket.stub(:new).with({'these' => 'params'}) { mock_wicket(:save => true) }
-        post :create, :wicket => {'these' => 'params'}
+        post :create, :wicket => {'these' => 'params'}, :place_id => "1"
         assigns(:wicket).should be(mock_wicket)
       end
 
       it "redirects to the created wicket" do
         Wicket.stub(:new) { mock_wicket(:save => true) }
-        post :create, :wicket => {}
-        response.should redirect_to(wicket_url(mock_wicket))
+        post :create, :wicket => {}, :place_id => "1"
+        response.should redirect_to(place_wicket_url(mock_place, mock_wicket))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved wicket as @wicket" do
         Wicket.stub(:new).with({'these' => 'params'}) { mock_wicket(:save => false) }
-        post :create, :wicket => {'these' => 'params'}
+        post :create, :wicket => {'these' => 'params'}, :place_id => "1"
         assigns(:wicket).should be(mock_wicket)
       end
 
       it "re-renders the 'new' template" do
         Wicket.stub(:new) { mock_wicket(:save => false) }
-        post :create, :wicket => {}
+        post :create, :wicket => {}, :place_id => "1"
         response.should render_template("new")
       end
     end
@@ -77,32 +85,32 @@ describe WicketsController do
       it "updates the requested wicket" do
         Wicket.stub(:find).with("37") { mock_wicket }
         mock_wicket.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :wicket => {'these' => 'params'}
+        put :update, :id => "37", :wicket => {'these' => 'params'}, :place_id => "1"
       end
 
       it "assigns the requested wicket as @wicket" do
         Wicket.stub(:find) { mock_wicket(:update_attributes => true) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:wicket).should be(mock_wicket)
       end
 
       it "redirects to the wicket" do
         Wicket.stub(:find) { mock_wicket(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(wicket_url(mock_wicket))
+        put :update, :id => "1", :place_id => "1"
+        response.should redirect_to(place_wicket_url(mock_place, mock_wicket))
       end
     end
 
     describe "with invalid params" do
       it "assigns the wicket as @wicket" do
         Wicket.stub(:find) { mock_wicket(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:wicket).should be(mock_wicket)
       end
 
       it "re-renders the 'edit' template" do
         Wicket.stub(:find) { mock_wicket(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         response.should render_template("edit")
       end
     end
@@ -112,13 +120,13 @@ describe WicketsController do
     it "destroys the requested wicket" do
       Wicket.stub(:find).with("37") { mock_wicket }
       mock_wicket.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      delete :destroy, :id => "37", :place_id => "1"
     end
 
     it "redirects to the wickets list" do
       Wicket.stub(:find) { mock_wicket }
-      delete :destroy, :id => "1"
-      response.should redirect_to(wickets_url)
+      delete :destroy, :id => "1", :place_id => "1"
+      response.should redirect_to(place_wickets_url(mock_place))
     end
   end
 

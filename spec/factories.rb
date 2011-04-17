@@ -17,7 +17,7 @@ Factory.define :status do |f|
 end
 
 Factory.define :local do |f|
-  f.des_local "Home"
+  f.des_local {Factory.next(:value)}
 end
 
 Factory.define :place do |f| 

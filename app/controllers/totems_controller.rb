@@ -48,7 +48,7 @@ class TotemsController < ApplicationController
 
     respond_to do |format|
       if @totem.save
-        format.html { redirect_to(place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully created.') }
+        format.html { redirect_to(place_totem_url(@place, @totem), :notice => 'Totem was successfully created.') }
         format.xml  { render :xml => @totem, :status => :created, :location => @totem }
       else
         format.html { render :action => :new }
@@ -65,7 +65,7 @@ class TotemsController < ApplicationController
 
     respond_to do |format|
       if @totem.update_attributes(params[:totem])
-        format.html { redirect_to(place_totem_url(@totem.place, @totem), :notice => 'Totem was successfully updated.') }
+        format.html { redirect_to(place_totem_url(@place, @totem), :notice => 'Totem was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,10 +78,11 @@ class TotemsController < ApplicationController
   # DELETE /totems/1.xml
   def destroy
     @totem = Totem.find(params[:id])
+    @place = Place.find(params[:place_id])
     @totem.destroy
 
     respond_to do |format|
-      format.html { redirect_to(totems_url) }
+      format.html { redirect_to(place_totems_url(@place)) }
       format.xml  { head :ok }
     end
   end

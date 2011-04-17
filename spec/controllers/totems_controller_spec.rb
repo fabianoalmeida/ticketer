@@ -6,14 +6,22 @@ require 'spec_helper'
 
 describe TotemsController do
 
+  before(:each ) do
+    Place.stub(:find).with("1") {mock_place}
+  end
+
+  def mock_place(stubs={})
+    @mock_place ||= mock_model(Place, stubs).as_null_object
+  end
+
   def mock_totem(stubs={})
     @mock_totem ||= mock_model(Totem, stubs).as_null_object
   end
 
   describe "GET index" do
     it "assigns all totems as @totems" do
-      Totem.stub(:all) { [mock_totem] }
-      get :index
+      Totem.stub(:where) { [mock_totem] }
+      get :index, :place_id => "1"
       assigns(:totems).should eq([mock_totem])
     end
   end
@@ -21,7 +29,7 @@ describe TotemsController do
   describe "GET show" do
     it "assigns the requested totem as @totem" do
       Totem.stub(:find).with("37") { mock_totem }
-      get :show, :id => "37"
+      get :show, :id => "37", :place_id => "1"
       assigns(:totem).should be(mock_totem)
     end
   end
@@ -29,7 +37,7 @@ describe TotemsController do
   describe "GET new" do
     it "assigns a new totem as @totem" do
       Totem.stub(:new) { mock_totem }
-      get :new
+      get :new, :place_id => "1"
       assigns(:totem).should be(mock_totem)
     end
   end
@@ -37,7 +45,7 @@ describe TotemsController do
   describe "GET edit" do
     it "assigns the requested totem as @totem" do
       Totem.stub(:find).with("37") { mock_totem }
-      get :edit, :id => "37"
+      get :edit, :id => "37", :place_id => "1"
       assigns(:totem).should be(mock_totem)
     end
   end
@@ -46,27 +54,21 @@ describe TotemsController do
     describe "with valid params" do
       it "assigns a newly created totem as @totem" do
         Totem.stub(:new).with({'these' => 'params'}) { mock_totem(:save => true) }
-        post :create, :totem => {'these' => 'params'}
+        post :create, :totem => {'these' => 'params'}, :place_id => "1"
         assigns(:totem).should be(mock_totem)
       end
 
       it "redirects to the created totem" do
         Totem.stub(:new) { mock_totem(:save => true) }
-        post :create, :totem => {}
-        response.should redirect_to(totem_url(mock_totem))
+        post :create, :totem => {}, :place_id => "1"
+        response.should redirect_to(place_totem_url(mock_place, mock_totem))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved totem as @totem" do
         Totem.stub(:new).with({'these' => 'params'}) { mock_totem(:save => false) }
-        post :create, :totem => {'these' => 'params'}
-        assigns(:totem).should be(mock_totem)
-      end
-
-      it "re-renders the 'new' template" do
-        Totem.stub(:new) { mock_totem(:save => false) }
-        post :create, :totem => {}
+        post :create, :totem => {'these' => 'params'}, :place_id => "1"
         response.should render_template("new")
       end
     end
@@ -77,32 +79,32 @@ describe TotemsController do
       it "updates the requested totem" do
         Totem.stub(:find).with("37") { mock_totem }
         mock_totem.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :totem => {'these' => 'params'}
+        put :update, :id => "37", :totem => {'these' => 'params'}, :place_id => "1"
       end
 
       it "assigns the requested totem as @totem" do
         Totem.stub(:find) { mock_totem(:update_attributes => true) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:totem).should be(mock_totem)
       end
 
       it "redirects to the totem" do
         Totem.stub(:find) { mock_totem(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(totem_url(mock_totem))
+        put :update, :id => "1", :place_id => "1"
+        response.should redirect_to(place_totem_url(mock_place, mock_totem))
       end
     end
 
     describe "with invalid params" do
       it "assigns the totem as @totem" do
         Totem.stub(:find) { mock_totem(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:totem).should be(mock_totem)
       end
 
       it "re-renders the 'edit' template" do
         Totem.stub(:find) { mock_totem(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         response.should render_template("edit")
       end
     end
@@ -112,13 +114,13 @@ describe TotemsController do
     it "destroys the requested totem" do
       Totem.stub(:find).with("37") { mock_totem }
       mock_totem.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      delete :destroy, :id => "37", :place_id => "1"
     end
 
     it "redirects to the totems list" do
       Totem.stub(:find) { mock_totem }
-      delete :destroy, :id => "1"
-      response.should redirect_to(totems_url)
+      delete :destroy, :id => "1", :place_id => "1"
+      response.should redirect_to(place_totems_url(mock_place))
     end
   end
 

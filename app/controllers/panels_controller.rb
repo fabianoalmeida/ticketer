@@ -48,7 +48,7 @@ class PanelsController < ApplicationController
 
     respond_to do |format|
       if @panel.save
-        format.html { redirect_to(place_panel_url(@panel.place, @panel), :notice => 'Panel was successfully created.') }
+        format.html { redirect_to(place_panel_url(@place, @panel), :notice => 'Panel was successfully created.') }
         format.xml  { render :xml => @panel, :status => :created, :location => @panel }
       else
         format.html { render :action => :new }
@@ -65,7 +65,7 @@ class PanelsController < ApplicationController
 
     respond_to do |format|
       if @panel.update_attributes(params[:panel])
-        format.html { redirect_to(place_panel_url(@panel.place, @place), :notice => 'Panel was successfully updated.') }
+        format.html { redirect_to(place_panel_url(@place, @panel), :notice => 'Panel was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,10 +78,11 @@ class PanelsController < ApplicationController
   # DELETE /panels/1.xml
   def destroy
     @panel = Panel.find(params[:id])
+    @place = Place.find(params[:place_id])
     @panel.destroy
 
     respond_to do |format|
-      format.html { redirect_to(panels_url) }
+      format.html { redirect_to(place_panels_url(@place)) }
       format.xml  { head :ok }
     end
   end

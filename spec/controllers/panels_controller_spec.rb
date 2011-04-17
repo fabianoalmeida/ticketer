@@ -6,14 +6,22 @@ require 'spec_helper'
 
 describe PanelsController do
 
+  before(:each ) do
+    Place.stub(:find).with("1") {mock_place}
+  end
+
   def mock_panel(stubs={})
     @mock_panel ||= mock_model(Panel, stubs).as_null_object
+  end
+  
+  def mock_place(stubs={})
+    @mock_place ||= mock_model(Place, stubs).as_null_object
   end
 
   describe "GET index" do
     it "assigns all panels as @panels" do
-      Panel.stub(:all) { [mock_panel] }
-      get :index
+      Panel.stub(:where) { [mock_panel] }
+      get :index, :place_id => "1"
       assigns(:panels).should eq([mock_panel])
     end
   end
@@ -21,7 +29,7 @@ describe PanelsController do
   describe "GET show" do
     it "assigns the requested panel as @panel" do
       Panel.stub(:find).with("37") { mock_panel }
-      get :show, :id => "37"
+      get :show, :id => "37", :place_id => "1"
       assigns(:panel).should be(mock_panel)
     end
   end
@@ -29,7 +37,7 @@ describe PanelsController do
   describe "GET new" do
     it "assigns a new panel as @panel" do
       Panel.stub(:new) { mock_panel }
-      get :new
+      get :new, :place_id => "1"
       assigns(:panel).should be(mock_panel)
     end
   end
@@ -37,7 +45,7 @@ describe PanelsController do
   describe "GET edit" do
     it "assigns the requested panel as @panel" do
       Panel.stub(:find).with("37") { mock_panel }
-      get :edit, :id => "37"
+      get :edit, :id => "37", :place_id => "1"
       assigns(:panel).should be(mock_panel)
     end
   end
@@ -45,28 +53,28 @@ describe PanelsController do
   describe "POST create" do
     describe "with valid params" do
       it "assigns a newly created panel as @panel" do
-        Panel.stub(:new).with({'these' => 'params'}) { mock_panel(:save => true) }
-        post :create, :panel => {'these' => 'params'}
+        Panel.stub(:new).with({'these' => 'params' }) { mock_panel(:save => true) }
+        post :create, :panel => {'these' => 'params' }, :place_id => "1"
         assigns(:panel).should be(mock_panel)
       end
 
       it "redirects to the created panel" do
         Panel.stub(:new) { mock_panel(:save => true) }
-        post :create, :panel => {}
-        response.should redirect_to(panel_url(mock_panel))
+        post :create, :panel => {}, :place_id => "1"
+        response.should redirect_to(place_panel_url(mock_place, mock_panel))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved panel as @panel" do
         Panel.stub(:new).with({'these' => 'params'}) { mock_panel(:save => false) }
-        post :create, :panel => {'these' => 'params'}
+        post :create, :panel => {'these' => 'params'}, :place_id => "1"
         assigns(:panel).should be(mock_panel)
       end
 
       it "re-renders the 'new' template" do
         Panel.stub(:new) { mock_panel(:save => false) }
-        post :create, :panel => {}
+        post :create, :panel => {}, :place_id => "1"
         response.should render_template("new")
       end
     end
@@ -77,32 +85,32 @@ describe PanelsController do
       it "updates the requested panel" do
         Panel.stub(:find).with("37") { mock_panel }
         mock_panel.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :panel => {'these' => 'params'}
+        put :update, :id => "37", :place_id => "1", :panel => {'these' => 'params'}
       end
 
       it "assigns the requested panel as @panel" do
         Panel.stub(:find) { mock_panel(:update_attributes => true) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:panel).should be(mock_panel)
       end
 
       it "redirects to the panel" do
         Panel.stub(:find) { mock_panel(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(panel_url(mock_panel))
+        put :update, :id => "1", :place_id => "1"
+        response.should redirect_to(place_panel_url(mock_place, mock_panel))
       end
     end
 
     describe "with invalid params" do
       it "assigns the panel as @panel" do
         Panel.stub(:find) { mock_panel(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         assigns(:panel).should be(mock_panel)
       end
 
       it "re-renders the 'edit' template" do
         Panel.stub(:find) { mock_panel(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => "1", :place_id => "1"
         response.should render_template("edit")
       end
     end
@@ -112,13 +120,13 @@ describe PanelsController do
     it "destroys the requested panel" do
       Panel.stub(:find).with("37") { mock_panel }
       mock_panel.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      delete :destroy, :id => "37", :place_id => "1"
     end
 
     it "redirects to the panels list" do
       Panel.stub(:find) { mock_panel }
-      delete :destroy, :id => "1"
-      response.should redirect_to(panels_url)
+      delete :destroy, :id => "1", :place_id => "1"
+      response.should redirect_to(place_panels_url(mock_place))
     end
   end
 

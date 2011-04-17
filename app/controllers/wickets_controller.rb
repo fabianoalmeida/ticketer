@@ -48,7 +48,7 @@ class WicketsController < ApplicationController
 
     respond_to do |format|
       if @wicket.save
-        format.html { redirect_to(place_wicket_url(@wicket.place, @wicket), :notice => 'Wicket was successfully created.') }
+        format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully created.') }
         format.xml  { render :xml => @wicket, :status => :created, :location => @wicket }
       else
         format.html { render :action => :new }
@@ -65,7 +65,7 @@ class WicketsController < ApplicationController
 
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])
-        format.html { redirect_to(place_wicket_url(@wicket.place, @wicket), :notice => 'Wicket was successfully updated.') }
+        format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,10 +78,11 @@ class WicketsController < ApplicationController
   # DELETE /wickets/1.xml
   def destroy
     @wicket = Wicket.find(params[:id])
+    @place = Place.find(params[:place_id])
     @wicket.destroy
 
     respond_to do |format|
-      format.html { redirect_to(wickets_url) }
+      format.html { redirect_to(place_wickets_url(@place)) }
       format.xml  { head :ok }
     end
   end

@@ -44,6 +44,7 @@ class WicketsController < ApplicationController
   def create
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
+    @wicket.user= "user test"
 
     respond_to do |format|
       if @wicket.save

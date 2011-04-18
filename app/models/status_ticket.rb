@@ -18,12 +18,12 @@ class StatusTicket < ActiveRecord::Base
     :uniqueness => { :message => "already exists!", :case_sensitive => false },
     :allow_blank => false
 
-  def self.called
-    self.where( :acronym => "C" ).first
+  def self.opened
+    self.where( :value => "Opened" ).first
   end
 
   def self.closed
-    self.where( :acronym => "L" ).first
+    self.where( :value => "Closed" ).first
   end
 
 end

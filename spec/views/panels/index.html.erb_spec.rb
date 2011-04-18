@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "panels/index.html.erb" do
   before(:each) do
+    @place = assign(:place, stub_model(Place, :id => "1"))
     assign(:panels, [
       stub_model(Panel,
         :value => "Value",

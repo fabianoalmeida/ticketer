@@ -16,7 +16,7 @@ class TicketType < ActiveRecord::Base
     :allow_blank => false
 
   validates :acronym, 
-    :length => { :is => 1 },
+    :length => { :maximum => 3 },
     :uniqueness => { :message => "already exists!", :case_sensitive => false },
     :allow_blank => false
 

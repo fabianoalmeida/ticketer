@@ -51,13 +51,8 @@ describe TicketType do
     @ticketType.should_not be_valid
   end
 
-  it "should be an instance valid if the length of 'acronym' property is equal one" do
-    @ticketType.acronym= 'P'
-    @ticketType.should be_valid
-  end
-
-  it "should not be an instance valid if the length of 'acronym' property is different from one" do
-    @ticketType.acronym= 'PD'
+  it "should not be an instance valid if the length of 'acronym' property is greatest than 3" do
+    @ticketType.acronym= 'PDRT'
     @ticketType.should_not be_valid
   end
 

@@ -55,13 +55,8 @@ describe CallHistoryType do
     @callHistoryType.should_not be_valid
   end
 
-  it "should be an instance valid if the length of 'acronym' property is equal one" do
-    @callHistoryType.acronym= 'C'
-    @callHistoryType.should be_valid
-  end
-
-  it "should not be an instance valid if the length of 'acronym' property is different from one" do
-    @callHistoryType.acronym= 'CL'
+  it "should not be an instance valid if the length of 'acronym' property is greatest than 3" do
+    @callHistoryType.acronym= 'CL34'
     @callHistoryType.should_not be_valid
   end
 

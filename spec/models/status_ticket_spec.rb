@@ -35,7 +35,7 @@ describe StatusTicket do
   end
   
   it "should not be an instance valid with length of 'acronym' greater than one" do
-    @statusTicket.acronym= 'OP'
+    @statusTicket.acronym= 'OPIR'
     @statusTicket.should_not be_valid
   end
   

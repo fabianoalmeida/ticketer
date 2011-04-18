@@ -18,4 +18,20 @@ class CallHistoryType < ActiveRecord::Base
     :uniqueness => { :message => "already exists!", :case_sensitive => false },
     :allow_blank => false
 
+  def self.called
+    self.where( :value => "Called" ).first    
+  end
+
+  def self.canceled
+    self.where( :value => "Canceled" ).first    
+  end
+
+  def self.released
+    self.where( :value => "Released" ).first    
+  end
+
+  def self.attended
+    self.where( :value => "Attended" ).first    
+  end
+
 end

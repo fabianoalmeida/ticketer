@@ -1,4 +1,19 @@
-<p>Tickets to be called</p> 
-<% @tickets.each do |ticket| %>
-  <%= ticket.value %><br/>
+<h1>Tickets to be called</h1>
+
+<%= form_for( CallHistory.new ) do |f| %>
+  <%= f.hidden_field :ticket_id %>
+  <%= f.hidden_field :wicket_id, :value => params[:wicket_id] %>
+  <table>
+    <tr>
+      <th>Ticket</th>
+      <th></th>
+    </tr>
+
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.value %></td>
+      <td><a id="<%= ticket.id %>" class="trigger_submit">Call</a></td>
+    </tr>
+  <% end %>
+  </table>
 <% end %>

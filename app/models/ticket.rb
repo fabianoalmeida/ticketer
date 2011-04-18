@@ -13,7 +13,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :place
   belongs_to :totem
   
-  before_save :validates_current_date, :generate
+  before_save :generate #:validates_current_date,
 
   validates :status_ticket, :ticket_type, :place, :totem, :presence => { :message => "is required!" }
 
@@ -23,7 +23,7 @@ class Ticket < ActiveRecord::Base
     results = Ticket.where( :created_at => Date.today.midnight...Date.tomorrow.midnight, :place_id => self.place  )
     
     if results.size > 0  
-        raise error
+        raise "This probaly shouldn't show up for you! :( "
     end
   end
 

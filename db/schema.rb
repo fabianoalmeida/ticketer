@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   create_table "places", :force => true do |t|
     t.string   "value"
     t.string   "user"
-    t.integer  "status_id"
-    t.integer  "local_id"
+    t.integer  "status_id",  :null => false
+    t.integer  "local_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

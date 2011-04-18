@@ -3,10 +3,14 @@ Ticketer::Application.routes.draw do
             :tickets, :ticket_types, :statuses, :status_tickets
 
   resources :places do
+
     resources :panels
-    resources :wickets
+    resources :wickets do 
+      get 'tickets'
+    end
     resources :totems do
       get 'generate_ticket'
     end
+
   end
 end

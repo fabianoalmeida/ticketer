@@ -130,4 +130,17 @@ describe WicketsController do
     end
   end
 
+  describe "GET tickets" do
+
+    def mock_tickets(stubs={})
+      @mock_tickets ||= mock_model(Ticket, stubs) 
+    end
+
+    it "assigns all tickets for the place where  are the @wickets" do
+      Wicket.stub(:find).with("1") { mock_wicket }
+      Ticket.stub(:where) { [mock_tickets] }
+      get :tickets, :place_id => "1", :wicket_id => "1"
+      assigns(:tickets).should eq([mock_tickets])
+    end
+  end
 end

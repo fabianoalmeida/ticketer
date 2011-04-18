@@ -44,7 +44,6 @@ class WicketsController < ApplicationController
   def create
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
-    @wicket.user = "user test"
 
     respond_to do |format|
       if @wicket.save
@@ -85,5 +84,11 @@ class WicketsController < ApplicationController
       format.html { redirect_to(place_wickets_url(@place)) }
       format.xml  { head :ok }
     end
+  end
+
+  # GET /wicket/1/tickets
+  def tickets
+    @wicket = Wicket.find(params[:wicket_id])
+    @tickets = Ticket.where(:place_id => [params[:place_id]])
   end
 end

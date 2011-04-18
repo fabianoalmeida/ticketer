@@ -16,12 +16,13 @@
     <td><%= wicket.guidance.value %></td>
     <td><%= wicket.status.value %></td>
     <td><%= wicket.user %></td>
-    <td><%= link_to 'Show', place_wicket(wicket.place, wicket) %></td>
+    <td><%= link_to 'Show', place_wicket_path(wicket.place, wicket) %></td>
     <td><%= link_to 'Edit', edit_place_wicket_path(wicket.place, wicket) %></td>
+    <td><%= link_to 'Ticekts', place_wicket_tickets_path(wicket.place, wicket) %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Wicket', new_wicket_path %>
+<%= link_to 'New Wicket', new_place_wicket_path %>

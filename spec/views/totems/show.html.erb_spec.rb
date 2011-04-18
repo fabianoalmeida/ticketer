@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe "totems/show.html.erb" do
   before(:each) do
+    @place = assign(:place, stub_model(Place, :id => "1"))
     @totem = assign(:totem, stub_model(Totem,
       :value => "Value",
       :ip => "Ip",
       :status => stub_model(Status, :value => "Active"),
-      :user => "User"
+      :user => "User",
+      :place => @place
     ))
   end
 

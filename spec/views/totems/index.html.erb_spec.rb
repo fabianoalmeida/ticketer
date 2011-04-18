@@ -2,18 +2,21 @@ require 'spec_helper'
 
 describe "totems/index.html.erb" do
   before(:each) do
+    @place = assign(:place, stub_model(Place, :id => "1"))
     assign(:totems, [
       stub_model(Totem,
         :value => "Value",
         :ip => "Ip",
         :status => stub_model(Status, :value => "Active"),
-        :user => "User"
+        :user => "User",
+        :place => @place
       ),
       stub_model(Totem,
         :value => "Value",
         :ip => "Ip",
         :status => stub_model(Status, :value => "Active"),
-        :user => "User"
+        :user => "User",
+        :place => @place
       )
     ])
   end

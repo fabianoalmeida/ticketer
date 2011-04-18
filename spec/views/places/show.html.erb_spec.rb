@@ -5,7 +5,8 @@ describe "places/show.html.erb" do
     @place = assign(:place, stub_model(Place,
       :value => "Value",
       :user => "User",
-      :status_id => 1
+      :local => stub_model(Local, :des_local => "Some"),
+      :status => stub_model(Status, :value => "value")
     ))
   end
 

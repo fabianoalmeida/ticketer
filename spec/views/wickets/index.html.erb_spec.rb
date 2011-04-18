@@ -2,18 +2,21 @@ require 'spec_helper'
 
 describe "wickets/index.html.erb" do
   before(:each) do
+    @place = assign(:place, stub_model(Place, :id => "1"))
     assign(:wickets, [
       stub_model(Wicket,
         :value => "Value",
-        :guidance_id => 1,
-        :status_id => 1,
-        :user => "User"
+        :guidance => stub_model(Guidance, :value => "value"),
+        :status => stub_model(Status, :value => "value"),
+        :user => "User",
+        :place => @place
       ),
       stub_model(Wicket,
         :value => "Value",
-        :guidance_id => 1,
-        :status_id => 1,
-        :user => "User"
+        :guidance => stub_model(Guidance, :value => "value"),
+        :status => stub_model(Status, :value => "value"),
+        :user => "User",
+        :place => @place
       )
     ])
   end
@@ -21,12 +24,12 @@ describe "wickets/index.html.erb" do
   it "renders a list of wickets" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Value".to_s, :count => 2
+    assert_select "tr>td", :text => "Value".to_s, :count => 1
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => 1.to_s, :count => 4
+    assert_select "tr>td", :text => "Value".to_s, :count => 1
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => 1.to_s, :count => 4
+    assert_select "tr>td", :text => "Value".to_s, :count => 1
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "User".to_s, :count => 2
+    assert_select "tr>td", :text => "User".to_s, :count => 1
   end
 end

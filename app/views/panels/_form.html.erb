@@ -1,4 +1,5 @@
 <%= form_for([@place, @panel]) do |f| %>
+  <%= f.hidden_field :place_id, :value => params[:place_id] %>
   <% if @panel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@panel.errors.count, "error") %> prohibited this panel from being saved:</h2>

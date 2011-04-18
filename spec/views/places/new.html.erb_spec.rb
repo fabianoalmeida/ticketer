@@ -5,7 +5,7 @@ describe "places/new.html.erb" do
     assign(:place, stub_model(Place,
       :value => "MyString",
       :user => "MyString",
-      :status_id => 1
+      :status => stub_model(Status, :value => "value")
     ).as_new_record)
   end
 
@@ -16,7 +16,7 @@ describe "places/new.html.erb" do
     assert_select "form", :action => places_path, :method => "post" do
       assert_select "input#place_value", :name => "place[value]"
       assert_select "input#place_user", :name => "place[user]"
-      assert_select "input#place_status_id", :name => "place[status_id]"
+      #assert_select "input#place_status_id", :name => "place[status_id]"
     end
   end
 end

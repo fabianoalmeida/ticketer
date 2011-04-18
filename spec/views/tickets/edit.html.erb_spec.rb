@@ -5,7 +5,7 @@ describe "tickets/edit.html.erb" do
     @ticket = assign(:ticket, mock_model(Ticket,
       :value => "MyString",
       :ticket_type_id => 1,
-      :status_ticket_id => 1,
+      :status => stub_model(Status, :value => "value"),
       :place_id => 1
     ))
   end
@@ -17,7 +17,7 @@ describe "tickets/edit.html.erb" do
     assert_select "form", :action => tickets_path(@ticket), :method => "post" do
       assert_select "input#ticket_value", :name => "ticket[value]"
       assert_select "input#ticket_ticket_type_id", :name => "ticket[ticket_type_id]"
-      assert_select "input#ticket_status_ticket_id", :name => "ticket[status_ticket_id]"
+      #assert_select "input#ticket_status_ticket_id", :name => "ticket[status_ticket_id]"
     end
   end
 end

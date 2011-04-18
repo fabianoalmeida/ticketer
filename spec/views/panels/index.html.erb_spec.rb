@@ -6,13 +6,15 @@ describe "panels/index.html.erb" do
       stub_model(Panel,
         :value => "Value",
         :ip => "Ip",
-        :status_id => 1,
+        :status => stub_model(Status, :value => "Active"),
+        :place => stub_model(Place, :value => "Place"),
         :user => "User"
       ),
       stub_model(Panel,
         :value => "Value",
         :ip => "Ip",
-        :status_id => 1,
+        :status => stub_model(Status, :value => "Active"),
+        :place => stub_model(Place, :value => "Place"),
         :user => "User"
       )
     ])
@@ -25,7 +27,9 @@ describe "panels/index.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Ip".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "Active".to_s, :count => 2
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    assert_select "tr>td", :text => "Place".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "User".to_s, :count => 2
   end

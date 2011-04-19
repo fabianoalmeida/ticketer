@@ -162,15 +162,13 @@
       body: "Por favor, verifique o(s) seguinte(s) campo(s):"
 
     messages: &errors_messages
-      is_required: "é obrigatório!"
-      already_exists: "já existe!"
       inclusion: "não está incluído na lista"
       exclusion: "não está disponível"
       invalid: "não é válido"
       confirmation: "não está de acordo com a confirmação"
       accepted: "deve ser aceito"
       empty: "não pode ficar vazio"
-      blank: "não pode ficar em branco"
+      blank: "não pode ficar em branco!"
       too_long: "é muito longo (máximo: %{count} caracteres)"
       too_short: "é muito curto (mínimo: %{count} caracteres)"
       wrong_length: "não possui o tamanho esperado (%{count} caracteres)"
@@ -188,6 +186,8 @@
     models:
       status_ticket: "Status de Senha"
     attributes:
+      status:
+        value: "Valor"
       status_ticket:
         value: "Valor"
         acronym: "Sigla"
@@ -199,7 +199,7 @@
         body: "Por favor, verifique o(s) seguinte(s) campo(s):"
 
       messages:
-        taken: "já está em uso"
+        taken: "já está em uso!"
         record_invalid: "A validação falhou: %{errors}"
         <<: *errors_messages
 
@@ -220,6 +220,7 @@
 
     status:
       new: "Novo Status"
+      editing: "Editando um Status"
       title: "Listando todos os Status"
       active: "Ativo"
       inactive: "Inativo"

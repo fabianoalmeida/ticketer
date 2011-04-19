@@ -16,15 +16,10 @@
     <%= f.text_field :value %>
   </div>
   <div class="field">
-    <%= f.label :ticket_type_id %><br />
-    <%= f.text_field :ticket_type_id %>
+    <%= f.label :ticket_type %><br />
+    <%= f.text_field :ticket_type %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <% Status.all.each do |status| %>
-      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
-    <% end %>
-  </div>  <div class="actions">
+  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

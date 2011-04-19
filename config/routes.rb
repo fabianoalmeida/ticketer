@@ -13,4 +13,6 @@ Ticketer::Application.routes.draw do
     end
 
   end
+  
+  match 'logout' => "session#logout"
 end

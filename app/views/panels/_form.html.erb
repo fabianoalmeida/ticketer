@@ -14,21 +14,17 @@
 
   <div class="field">
     <%= f.label :value %><br />
-    <%= f.text_field :value %>
+    <%= f.text_field :value, :maxlength => 80, :size => 30 %>
   </div>
   <div class="field">
     <%= f.label :ip %><br />
-    <%= f.text_field :ip %>
+    <%= f.text_field :ip, :maxlength => 15 %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
     <% Status.all.each do |status| %>
       <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
     <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
   </div>
   <div class="actions">
     <%= f.submit %>

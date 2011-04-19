@@ -4,7 +4,8 @@
   <tr>
     <th>Ticket</th>
     <th>Wicket</th>
-    <th>Call history type</th>
+    <th>Type</th>
+    <th>Date</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,12 +13,12 @@
 
 <% @call_histories.each do |call_history| %>
   <tr>
-    <td><%= call_history.ticket_id %></td>
-    <td><%= call_history.wicket_id %></td>
-    <td><%= call_history.call_history_type_id %></td>
+    <td><%= call_history.ticket.value %></td>
+    <td><%= call_history.wicket.value %></td>
+    <td><%= call_history.call_history_type.value %></td>
+    <td><%= call_history.created_at %></td>
     <td><%= link_to 'Show', call_history %></td>
     <td><%= link_to 'Edit', edit_call_history_path(call_history) %></td>
-    <td><%= link_to 'Destroy', call_history, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

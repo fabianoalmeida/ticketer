@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t( 'model.value' ) %>:</b>
   <%= @status.value %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t( 'model.user' ) %>:</b>
   <%= @status.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_status_path(@status) %> |
-<%= link_to 'Back', statuses_path %>
+<%= link_to t( 'model.edit' ), edit_status_path(@status) %> |
+<%= link_to t( 'model.back' ), statuses_path %>

@@ -38,5 +38,10 @@ module Ticketer
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # CAS-Client configuration 
+    config.rubycas.cas_base_url = 'https://localhost/'
+    config.rubycas.logger = Rails.logger
+
   end
 end

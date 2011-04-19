@@ -18,8 +18,6 @@ describe "panels/new.html.erb" do
     assert_select "form", :action => place_panels_path(@place), :method => "post" do
       assert_select "input#panel_value", :name => "panel[value]"
       assert_select "input#panel_ip", :name => "panel[ip]"
-      #assert_select "input#panel_status", :name => "panel[status]"
-      #assert_select "input#panel_user", :name => "panel[user]"
     end
   end
 end

@@ -2,9 +2,9 @@ class CreateCallHistories < ActiveRecord::Migration
   def self.up
     create_table :call_histories do |t|
 
-      t.references :ticket
-      t.references :wicket
-      t.references :call_history_type
+      t.references :ticket, :null => false
+      t.references :wicket, :null => false
+      t.references :call_history_type, :null => false
 
       t.timestamps
     end

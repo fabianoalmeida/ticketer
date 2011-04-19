@@ -1,8 +1,8 @@
 class CreateGuidances < ActiveRecord::Migration
   def self.up
     create_table :guidances do |t|
-      t.string :value, :length => 20
-      t.string :user
+      t.string :value, :length => 20, :null => false
+      t.string :user, :null => false
 
       t.timestamps
     end

@@ -1,8 +1,8 @@
 class CreatePlaces < ActiveRecord::Migration
   def self.up
     create_table :places do |t|
-      t.string :value, :length => 80
-      t.string :user
+      t.string :value, :length => 80, :null => false
+      t.string :user, :null => false
 
       t.references :status, :null => false
       t.references :local, :null => false

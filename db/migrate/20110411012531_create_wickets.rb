@@ -1,12 +1,12 @@
 class CreateWickets < ActiveRecord::Migration
   def self.up
     create_table :wickets do |t|
-      t.string :value, :length => 80
-      t.string :user
+      t.string :value, :length => 80, :null => false
+      t.string :user, :null => false
       
-      t.references :guidance
-      t.references :status
-      t.references :place
+      t.references :guidance, :null => false
+      t.references :status, :null => false
+      t.references :place, :null => false
 
       t.timestamps
     end

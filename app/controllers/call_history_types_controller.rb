@@ -41,6 +41,7 @@ class CallHistoryTypesController < ApplicationController
   # POST /call_history_types.xml
   def create
     @call_history_type = CallHistoryType.new(params[:call_history_type])
+    @call_history_type.user= "user test"
 
     respond_to do |format|
       if @call_history_type.save

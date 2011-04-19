@@ -1,4 +1,6 @@
 class TotemsController < ApplicationController
+  prepend_before_filter :generate_ticket_must_pass, :only => :generate_ticket
+
   # GET /totems
   # GET /totems.xml
   def index
@@ -97,4 +99,11 @@ class TotemsController < ApplicationController
     end
   end
 
+  private 
+  def generate_ticket_must_pass
+    @it_is_required = true
+  end
+  def require_been_loged?
+    @it_is_required
+  end
 end

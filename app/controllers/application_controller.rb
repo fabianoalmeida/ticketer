@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-
-  helper :all
+  
+  #This solution looks like a kinda weird, should be improved it
+  #before_filter RubyCAS::Filter, :unless => :require_been_loged?
 
   protect_from_forgery
 
@@ -11,4 +12,8 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = 'pt-BR'
   end
+
+  def require_been_loged?
+    false
+  end  
 end

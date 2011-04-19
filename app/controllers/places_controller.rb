@@ -41,6 +41,7 @@ class PlacesController < ApplicationController
   # POST /places.xml
   def create
     @place = Place.new(params[:place])
+    @place.user= "user test"
 
     respond_to do |format|
       if @place.save

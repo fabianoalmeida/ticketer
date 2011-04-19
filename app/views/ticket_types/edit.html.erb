@@ -1,6 +1,6 @@
-<h1>Editing ticket_type</h1>
+<h1><%= t 'model.ticket_type.editing' %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @ticket_type %> |
-<%= link_to 'Back', ticket_types_path %>
+<%= link_to t('model.show'), @ticket_type %> |
+<%= link_to t('model.back'), ticket_types_path %>

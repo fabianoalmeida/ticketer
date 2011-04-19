@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t('model.value') %>:</b>
   <%= @ticket_type.value %>
 </p>
 
 <p>
-  <b>Acronym:</b>
+  <b><%= t('model.acronym') %>:</b>
   <%= @ticket_type.acronym %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t('model.user') %>:</b>
   <%= @ticket_type.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_ticket_type_path(@ticket_type) %> |
-<%= link_to 'Back', ticket_types_path %>
+<%= link_to t('model.edit'), edit_ticket_type_path(@ticket_type) %> |
+<%= link_to t('model.back'), ticket_types_path %>

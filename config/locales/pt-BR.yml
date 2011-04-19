@@ -20,7 +20,7 @@
   
   time:
     formats:
-      default: "%A, %d de %B de %Y, %H:%M h"
+      default: "%d/%m/%Y - %H:%M:%S h"
       short: "%d/%m, %H:%M h"
       long: "%A, %d de %B de %Y, %H:%M h"
     am: ''
@@ -162,6 +162,8 @@
       body: "Por favor, verifique o(s) seguinte(s) campo(s):"
 
     messages: &errors_messages
+      is_required: "é obrigatório!"
+      already_exists: "já existe!"
       inclusion: "não está incluído na lista"
       exclusion: "não está disponível"
       invalid: "não é válido"
@@ -183,6 +185,12 @@
       even: "deve ser par"
 
   activerecord:
+    models:
+      status_ticket: "Status de Senha"
+    attributes:
+      status_ticket:
+        value: "Valor"
+        acronym: "Sigla"
     errors:
       template:
         header:
@@ -197,4 +205,29 @@
 
       full_messages:
         format: "%{attribute} %{message}"
+  
+  model:
+    value: "Valor"
+    user: "Usuário"
+    acronym: "Sigla"
+    created_at: "Data de Criação"
+    updated_at: "Data de Atualização"
+    show: "Exibir"
+    edit: "Editar"
+    destroy: "Apagar"
+    destroy_question: "Você tem certeza?"
+    back: "Voltar"
+
+    status:
+      new: "Novo Status"
+      title: "Listando todos os Status"
+      active: "Ativo"
+      inactive: "Inativo"
+
+    status_ticket:
+      new: "Novo Status de Senha"
+      editing: "Editando um Status de Senha"
+      title: "Listando todos os Status de Senha"
+      opened: "Aberto"
+      closed: "Fechado"
 

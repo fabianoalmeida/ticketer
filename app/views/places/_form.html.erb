@@ -16,10 +16,6 @@
     <%= f.text_field :value %>
   </div>
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
-  </div>
-  <div class="field">
     <%= f.label :local %><br />
     <%= f.collection_select( :local_id, Local.all, :id, :des_local, { :prompt => true } ) %>
   </div>

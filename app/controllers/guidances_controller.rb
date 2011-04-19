@@ -41,6 +41,7 @@ class GuidancesController < ApplicationController
   # POST /guidances.xml
   def create
     @guidance = Guidance.new(params[:guidance])
+    @guidance.user= "user test"
 
     respond_to do |format|
       if @guidance.save

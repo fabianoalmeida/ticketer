@@ -8,6 +8,9 @@ gem 'rails', '3.0.5'
 #gem 'mysql2'
 gem 'sqlite3'
 
+#gem 'i18n'
+gem 'i18n'
+
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
 gem 'rubycas-client'
 

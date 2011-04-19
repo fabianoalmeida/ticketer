@@ -104,6 +104,7 @@ DEPENDENCIES
   autotest
   autotest-rails
   factory_girl_rails
+  i18n
   rails (= 3.0.5)
   rspec-rails (~> 2.4)
   ruby-debug

@@ -6,16 +6,16 @@ class StatusTicket < ActiveRecord::Base
 
   has_many :tickets
 
-  validates :value, :acronym, :user, :presence => { :message => I18n.t('errors.messages.is_required') }
+  validates :value, :acronym, :user, :presence => true
 
   validates :acronym, 
     :length => { :maximum => 3 }, 
-    :uniqueness => { :message => I18n.t('errors.messages.already_exists'), :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
   validates :value, 
     :length => { :in => 1..80 }, 
-    :uniqueness => { :message => I18n.t('errors.messages.already_exists'), :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
   def self.opened

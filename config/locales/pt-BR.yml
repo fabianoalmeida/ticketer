@@ -185,10 +185,14 @@
   activerecord:
     models:
       status_ticket: "Status de Senha"
+      ticket_type: "Tipo de Senha"
     attributes:
       status:
         value: "Valor"
       status_ticket:
+        value: "Valor"
+        acronym: "Sigla"
+      ticket_type:
         value: "Valor"
         acronym: "Sigla"
     errors:
@@ -210,6 +214,7 @@
     value: "Valor"
     user: "Usuário"
     acronym: "Sigla"
+    status_des: "Status"
     created_at: "Data de Criação"
     updated_at: "Data de Atualização"
     show: "Exibir"
@@ -231,4 +236,9 @@
       title: "Listando todos os Status de Senha"
       opened: "Aberto"
       closed: "Fechado"
+
+    ticket_type:
+      new: "Novo Tipo de Senha"
+      editing: "Editando um Tipo de Senha"
+      title: "Listando todos os Tipos de Senha"
 

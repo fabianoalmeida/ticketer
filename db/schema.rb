@@ -13,47 +13,47 @@
 ActiveRecord::Schema.define(:version => 20110411192746) do
 
   create_table "call_histories", :force => true do |t|
-    t.integer  "ticket_id"
-    t.integer  "wicket_id"
-    t.integer  "call_history_type_id"
+    t.integer  "ticket_id",            :null => false
+    t.integer  "wicket_id",            :null => false
+    t.integer  "call_history_type_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "call_history_types", :force => true do |t|
-    t.string   "value"
-    t.string   "acronym"
-    t.string   "user"
+    t.string   "value",      :null => false
+    t.string   "acronym",    :null => false
+    t.string   "user",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "guidances", :force => true do |t|
-    t.string   "value"
-    t.string   "user"
+    t.string   "value",      :null => false
+    t.string   "user",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "locals", :force => true do |t|
-    t.string   "des_local"
+    t.string   "des_local",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "panels", :force => true do |t|
-    t.string   "value"
-    t.string   "ip"
-    t.string   "user"
-    t.integer  "status_id"
-    t.integer  "place_id"
+    t.string   "value",      :null => false
+    t.string   "ip",         :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "place_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "places", :force => true do |t|
-    t.string   "value"
-    t.string   "user"
+    t.string   "value",      :null => false
+    t.string   "user",       :null => false
     t.integer  "status_id",  :null => false
     t.integer  "local_id",   :null => false
     t.datetime "created_at"
@@ -61,55 +61,55 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
   end
 
   create_table "status_tickets", :force => true do |t|
-    t.string   "value"
-    t.string   "acronym"
-    t.string   "user"
+    t.string   "value",      :null => false
+    t.string   "acronym",    :null => false
+    t.string   "user",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "statuses", :force => true do |t|
-    t.string   "value"
-    t.string   "user"
+    t.string   "value",      :null => false
+    t.string   "user",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "ticket_types", :force => true do |t|
-    t.string   "value"
-    t.string   "acronym"
-    t.string   "user"
-    t.integer  "status_id"
+    t.string   "value",      :null => false
+    t.string   "acronym",    :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tickets", :force => true do |t|
-    t.string   "value"
-    t.integer  "status_ticket_id"
-    t.integer  "ticket_type_id"
-    t.integer  "place_id"
-    t.integer  "totem_id"
+    t.string   "value",            :null => false
+    t.integer  "status_ticket_id", :null => false
+    t.integer  "ticket_type_id",   :null => false
+    t.integer  "place_id",         :null => false
+    t.integer  "totem_id",         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "totems", :force => true do |t|
-    t.string   "value"
-    t.string   "ip"
-    t.string   "user"
-    t.integer  "status_id"
-    t.integer  "place_id"
+    t.string   "value",      :null => false
+    t.string   "ip",         :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "place_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "wickets", :force => true do |t|
-    t.string   "value"
-    t.string   "user"
-    t.integer  "guidance_id"
-    t.integer  "status_id"
-    t.integer  "place_id"
+    t.string   "value",       :null => false
+    t.string   "user",        :null => false
+    t.integer  "guidance_id", :null => false
+    t.integer  "status_id",   :null => false
+    t.integer  "place_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

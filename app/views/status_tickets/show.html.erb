@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
-  <%= @status_ticket.value %>
+  <b><%= t('model.value') %>:</b>
+  <%= t("model.status_ticket.#{@status_ticket.value.downcase}") %>
 </p>
 
 <p>
-  <b>Acronym:</b>
+  <b><%= t('model.acronym') %>:</b>
   <%= @status_ticket.acronym %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t('model.user') %>:</b>
   <%= @status_ticket.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_status_ticket_path(@status_ticket) %> |
-<%= link_to 'Back', status_tickets_path %>
+<%= link_to t('model.edit'), edit_status_ticket_path(@status_ticket) %> |
+<%= link_to t('model.back'), status_tickets_path %>

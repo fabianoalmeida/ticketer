@@ -7,7 +7,6 @@ describe "panels/edit.html.erb" do
       :value => "MyString",
       :ip => "MyString",
       :status_id => 1,
-      :user => "MyString",
       :place => @place
     ))
   end
@@ -19,7 +18,6 @@ describe "panels/edit.html.erb" do
       assert_select "input#panel_value", :name => "panel[value]"
       assert_select "input#panel_ip", :name => "panel[ip]"
       #assert_select "input#panel_status_id", :name => "panel[status_id]"
-      assert_select "input#panel_user", :name => "panel[user]"
     end
   end
 end

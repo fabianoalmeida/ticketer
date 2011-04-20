@@ -6,12 +6,14 @@ describe "status_tickets/index.html.erb" do
       stub_model(StatusTicket,
         :value => "Value",
         :acronym => "Acronym",
-        :user => ""
+        :user => "",
+        :created_at => DateTime.now
       ),
       stub_model(StatusTicket,
         :value => "Value",
         :acronym => "Acronym",
-        :user => ""
+        :user => "",
+        :created_at => DateTime.now
       )
     ])
   end

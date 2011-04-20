@@ -16,7 +16,6 @@ describe "call_history_types/new.html.erb" do
     assert_select "form", :action => call_history_types_path, :method => "post" do
       assert_select "input#call_history_type_value", :name => "call_history_type[value]"
       assert_select "input#call_history_type_acronym", :name => "call_history_type[acronym]"
-      assert_select "input#call_history_type_user", :name => "call_history_type[user]"
     end
   end
 end

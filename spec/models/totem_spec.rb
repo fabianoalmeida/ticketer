@@ -58,16 +58,14 @@ describe Totem do
   it "should not permit to create a new register with an existing 'value' registered" do
     @totem.save
     @totem_invalid = Factory.build(:totem, :value => @totem.value )
-    @totem_invalid.save
-    @totem_invalid.errors[ :value ].should == [ "already exists!" ]
+    @totem_invalid.should have(1).errors_on(:value)
   end
 
   it "should not permit to create a new register with an existing 'value' registered even that has a different case sensitive" do
     @totem.save
 
     @totem_invalid = Factory.build(:totem, :value => @totem.value.upcase )
-    @totem_invalid.save 
-    @totem_invalid.errors[ :value ].should == [ "already exists!" ]
+    @totem_invalid.should have(1).errors_on(:value) 
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
@@ -77,8 +75,7 @@ describe Totem do
   it "should not permit to create a new register with an existing 'ip' registered" do
     @totem.save
     @totem_invalid = Factory.build(:totem, :ip => @totem.ip )
-    @totem_invalid.save
-    @totem_invalid.errors[ :ip ].should == [ "already exists!" ]
+    @totem_invalid.should have(1).errors_on(:ip) 
   end
 
   

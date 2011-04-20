@@ -15,7 +15,6 @@ describe "places/new.html.erb" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => places_path, :method => "post" do
       assert_select "input#place_value", :name => "place[value]"
-      assert_select "input#place_user", :name => "place[user]"
       #assert_select "input#place_status_id", :name => "place[status_id]"
     end
   end

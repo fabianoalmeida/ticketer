@@ -3,19 +3,19 @@ require 'spec_helper'
 describe "call_histories/show.html.erb" do
   before(:each) do
     @call_history = assign(:call_history, mock_model(CallHistory,
-      :ticket_id => 1,
-      :wicket_id => 1,
-      :call_history_type_id => 1
+      :ticket => stub_model(Ticket, :value => "ATT0001"),
+      :wicket => stub_model(Wicket, :value => "Wicket 01"),
+      :call_history_type => stub_model(CallHistoryType, :value => "Called")
     ))
   end
 
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    rendered.should match(/ATT0001/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    rendered.should match(/Wicket 01/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    rendered.should match(/Called/)
   end
 end

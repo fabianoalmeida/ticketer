@@ -78,7 +78,6 @@ describe TicketType do
   end
   
   it "should not be an instance valid if have not a relationship with 'status' model" do
-    pending "need ask a question"
     @ticketType.status= nil
     @ticketType.should_not be_valid
   end

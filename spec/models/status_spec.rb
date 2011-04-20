@@ -51,11 +51,12 @@ describe Status do
   it "should not be create a register with an existing 'value' registered" do
     @status.save
 
-    @status_invalid = Status.new( :value => "Active", :user => "1" )
-    @status_invalid.save.should == false
+    @status_invalid = Factory.build( :status, :value => @status.value )
+    @status_invalid.save.should be_false
   end
 
   it "should be returned a Status with value equal 'Active'" do
+    @status.value= "Active"
     @status.save
 
     @status_active = Status.active

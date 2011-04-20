@@ -11,5 +11,4 @@ require 'spec_helper'
 #   end
 # end
 describe LocalsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

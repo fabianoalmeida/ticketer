@@ -5,11 +5,11 @@ class Guidance < ActiveRecord::Base
 
   has_many :wickets
 
-  validates :value, :user, :presence => { :message => "is required!" }
+  validates :value, :user, :presence => true
 
   validates :value,
     :length => { :in => 1..20 },
-    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
 end

@@ -15,7 +15,7 @@ class Ticket < ActiveRecord::Base
   
   before_save :generate #:validates_current_date,
 
-  validates :status_ticket, :ticket_type, :place, :totem, :presence => { :message => "is required!" }
+  validates :status_ticket, :ticket_type, :place, :totem, :presence => true
 
   private
 

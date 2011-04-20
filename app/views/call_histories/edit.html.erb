@@ -1,6 +1,6 @@
-<h1>Editing call_history</h1>
+<h1><%= t('model.call_history.editing') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @call_history %> |
-<%= link_to 'Back', call_histories_path %>
+<%= link_to t('model.show'), @call_history %> |
+<%= link_to t('model.back'), call_histories_path %>

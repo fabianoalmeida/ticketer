@@ -6,16 +6,16 @@ class CallHistoryType < ActiveRecord::Base
 
   has_many :call_histories
 
-  validates :value, :acronym, :user, :presence => { :message => "is required!" }
+  validates :value, :acronym, :user, :presence => true
 
   validates :value, 
     :length => { :in => 1..80 },
-    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
   validates :acronym, 
     :length => { :maximum => 3 },
-    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
   def self.called

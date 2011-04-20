@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t 'model.value' %>:</b>
   <%= @guidance.value %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t 'model.user' %>:</b>
   <%= @guidance.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_guidance_path(@guidance) %> |
-<%= link_to 'Back', guidances_path %>
+<%= link_to t('model.edit'), edit_guidance_path(@guidance) %> |
+<%= link_to t('model.back'), guidances_path %>

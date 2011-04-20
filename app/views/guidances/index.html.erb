@@ -1,9 +1,9 @@
-<h1>Listing guidances</h1>
+<h1><%= t 'model.guidance.title' %></h1>
 
 <table>
   <tr>
-    <th>Value</th>
-    <th>User</th>
+    <th><%= t 'model.value' %></th>
+    <th><%= t 'model.user' %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,13 +13,13 @@
   <tr>
     <td><%= guidance.value %></td>
     <td><%= guidance.user %></td>
-    <td><%= link_to 'Show', guidance %></td>
-    <td><%= link_to 'Edit', edit_guidance_path(guidance) %></td>
-    <td><%= link_to 'Destroy', guidance, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to t('model.show'), guidance %></td>
+    <td><%= link_to t('model.edit'), edit_guidance_path(guidance) %></td>
+    <td><%= link_to t('model.destroy'), guidance, :confirm => t('model.destroy_question'), :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Guidance', new_guidance_path %>
+<%= link_to t('model.guidance.new'), new_guidance_path %>

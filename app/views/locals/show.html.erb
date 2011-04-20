@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t('model.local.description') %>:</b>
   <%= @local.des_local %>
 </p>
 
-<%= link_to 'Edit', edit_local_path(@local) %> |
-<%= link_to 'Back', locals_path %>
+<%= link_to t('model.edit'), edit_local_path(@local) %> |
+<%= link_to t('model.back'), locals_path %>

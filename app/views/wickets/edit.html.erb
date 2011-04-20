@@ -1,6 +1,6 @@
-<h1>Editing wicket</h1>
+<h1><%= t('model.wicket.editing') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', place_wicket_path(@wicket.place , @wicket )%> |
-<%= link_to 'Back', place_wickets_path(@wicket.place)%>
+<%= link_to t('model.show'), place_wicket_path(@wicket.place , @wicket) %> |
+<%= link_to t('model.back'), place_wickets_path(@wicket.place) %>

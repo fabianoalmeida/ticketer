@@ -1,11 +1,11 @@
-<h1>Listing wickets</h1>
+<h1><%= t('model.wicket.title') %></h1>
 
 <table>
   <tr>
-    <th>Value</th>
-    <th>Guidance</th>
-    <th>Status</th>
-    <th>User</th>
+    <th><%= t('model.value') %></th>
+    <th><%= t('model.guidance.name') %></th>
+    <th><%= t('model.status_des') %></th>
+    <th><%= t('model.user') %></th>
     <th></th>
     <th></th>
   </tr>
@@ -16,14 +16,14 @@
     <td><%= wicket.guidance.value %></td>
     <td><%= wicket.status.value %></td>
     <td><%= wicket.user %></td>
-    <td><%= link_to 'Show', place_wicket_path(wicket.place, wicket) %></td>
-    <td><%= link_to 'Edit', edit_place_wicket_path(wicket.place, wicket) %></td>
-    <td><%= link_to 'Ticekts', place_wicket_tickets_path(wicket.place, wicket) %>
+    <td><%= link_to t('model.show'), place_wicket_path(wicket.place, wicket) %></td>
+    <td><%= link_to t('model.edit'), edit_place_wicket_path(wicket.place, wicket) %></td>
+    <td><%= link_to t('model.wicket.tickets.name'), place_wicket_tickets_path(wicket.place, wicket) %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Wicket', new_place_wicket_path(@place) %> |
-<%= link_to 'Back Places', places_path %>
+<%= link_to t('model.wicket.new'), new_place_wicket_path(@place) %> |
+<%= link_to t('model.place.back'), places_path %>

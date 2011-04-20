@@ -1,6 +1,6 @@
-<h1>Editing panel</h1>
+<h1><%= t('model.panel.editing') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', place_panel_path(@panel.place, @panel) %> |
-<%= link_to 'Back', place_panels_path(@panel.place)%>
+<%= link_to t('model.show'), place_panel_path(@panel.place, @panel) %> |
+<%= link_to t('model.back'), place_panels_path(@panel.place) %>

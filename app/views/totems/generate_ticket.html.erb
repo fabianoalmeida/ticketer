@@ -1,4 +1,4 @@
-<h1>Listing Ticket Types</h1>
+<h1><%= t('model.ticket_type.title') %></h1>
 
 <%= form_for( Ticket.new ) do |f| %>
   <%= f.hidden_field :ticket_type_id %>
@@ -6,7 +6,7 @@
   <%= f.hidden_field :place_id, :value => params[:place_id] %>
   <table>
     <tr>
-      <th>Value</th>
+      <th><%= t('model.value') %></th>
     </tr>
     <tr>
       <td><a href="#term" rel="facebox">Terms</a></td>

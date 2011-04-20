@@ -8,16 +8,16 @@ class Totem < ActiveRecord::Base
   belongs_to :place
   has_many :tickets
 
-  validates :value, :ip, :user, :status, :place, :presence => { :message => "is required!" }
+  validates :value, :ip, :user, :status, :place, :presence => true
 
   validates :value,
     :length => { :in => 1..80 },
-    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => true
 
   validates :ip,
     :length => { :in => 1..15 },
-    :uniqueness => { :message => "already exists!" },
+    :uniqueness => true,
     :format => { :with => /^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\d])$/ },
     :allow_blank => true
 

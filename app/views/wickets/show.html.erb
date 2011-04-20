@@ -1,25 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t('model.value') %>:</b>
   <%= @wicket.value %>
 </p>
 
 <p>
-  <b>Guidance:</b>
+  <b><%= t('model.guidance.name') %>:</b>
   <%= @wicket.guidance.value %>
 </p>
 
 <p>
-  <b>Status:</b>
+  <b><%= t('model.status_des') %>:</b>
   <%= @wicket.status.value %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t('model.user') %>:</b>
   <%= @wicket.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_place_wicket_path(@wicket.place, @wicket) %> |
-<%= link_to 'Back', place_wickets_path(@wicket.place)%>
+<%= link_to t('model.edit'), edit_place_wicket_path(@wicket.place, @wicket) %> |
+<%= link_to t('model.back'), place_wickets_path(@wicket.place) %>

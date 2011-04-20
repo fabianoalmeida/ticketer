@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t 'model.value' %>:</b>
   <%= @call_history_type.value %>
 </p>
 
 <p>
-  <b>Acronym:</b>
+  <b><%= t 'model.acronym' %>:</b>
   <%= @call_history_type.acronym %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t 'model.user' %>:</b>
   <%= @call_history_type.user %>
 </p>
 
 
-<%= link_to 'Edit', edit_call_history_type_path(@call_history_type) %> |
-<%= link_to 'Back', call_history_types_path %>
+<%= link_to t('model.edit') , edit_call_history_type_path(@call_history_type) %> |
+<%= link_to t('model.back'), call_history_types_path %>

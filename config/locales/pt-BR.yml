@@ -191,6 +191,10 @@
       call_history_type: "Tipo de Registro de Chamadas"
       ticket: "Senha"
       wicket: "Guichê"
+      local: "Local"
+      place: "Localidade"
+      panel: "Painel"
+      totem: "Totem"
     attributes:
       status:
         value: "Valor"
@@ -211,6 +215,21 @@
       wicket:
         value: "Valor"
         user: "Usuário"
+        guidance: "Orientação"
+      local:
+        des_local: "Descrição"
+        user: "Usuário"
+      place:
+        value: "Valor"
+        user: "Usuário"
+        local: "Local"
+        status: "Status"
+      totem:
+        value: "Valor"
+        ip: "IP"
+      panel:
+        value: "Valor"
+        ip: "IP"
     errors:
       template:
         header:
@@ -230,6 +249,7 @@
     value: "Valor"
     user: "Usuário"
     acronym: "Sigla"
+    ip: "IP"
     status_des: "Status"
     created_at: "Data de Criação"
     updated_at: "Data de Atualização"
@@ -238,6 +258,8 @@
     destroy: "Apagar"
     destroy_question: "Você tem certeza?"
     back: "Voltar"
+    generate: "Gerar"
+    call: "Chamar"
 
     status:
       new: "Novo Status"
@@ -262,6 +284,7 @@
       new: "Nova Orientação"
       editing: "Editando uma Orientação"
       title: "Listando todas as Orientações"
+      name: "Orientação"
 
     call_history:
       new: "Novo Registro de Chamada"
@@ -279,10 +302,39 @@
       editing: "Editando um Guichê"
       title: "Listando todos os Guichês"
       name: "Guichê"
+      tickets:
+        call: "Senhas a serem chamadas"
+        name: "Senhas"
 
     ticket:
       new: "Nova Senha"
       editing: "Editando uma Senha"
-      title: "Listando todas as Senhass"
+      title: "Listando todas as Senhas"
       name: "Senha"
+
+    local:
+      new: "Novo Local"
+      editing: "Editando um Local"
+      title: "Listando todos os Locais"
+      name: "Local"
+      description: "Descrição"
+
+    place:
+      new: "Nova Localidade"
+      editing: "Editando uma Localidade"
+      title: "Listando todas as Localidades"
+      name: "Localidade"
+      back: "Voltar para Localidade"
+
+    totem:
+      new: "Novo Totem"
+      editing: "Editando um Totem"
+      title: "Listando todos os Totems"
+      name: "Totem"
+
+    panel:
+      new: "Novo Painel"
+      editing: "Editando um Painel"
+      title: "Listando todos os Painéis"
+      name: "Painel"
 

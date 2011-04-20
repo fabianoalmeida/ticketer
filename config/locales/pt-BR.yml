@@ -186,6 +186,11 @@
     models:
       status_ticket: "Status de Senha"
       ticket_type: "Tipo de Senha"
+      guidance: "Orientação"
+      call_history: "Registro de Chamadas"
+      call_history_type: "Tipo de Registro de Chamadas"
+      ticket: "Senha"
+      wicket: "Guichê"
     attributes:
       status:
         value: "Valor"
@@ -195,6 +200,17 @@
       ticket_type:
         value: "Valor"
         acronym: "Sigla"
+      guidance:
+        value: "Valor"
+        user: "Usuário"
+      call_history_type:
+        value: "Valor"
+        acronym: "Sigla"
+      ticket:
+        value: "Valor"
+      wicket:
+        value: "Valor"
+        user: "Usuário"
     errors:
       template:
         header:
@@ -241,4 +257,32 @@
       new: "Novo Tipo de Senha"
       editing: "Editando um Tipo de Senha"
       title: "Listando todos os Tipos de Senha"
+
+    guidance:
+      new: "Nova Orientação"
+      editing: "Editando uma Orientação"
+      title: "Listando todas as Orientações"
+
+    call_history:
+      new: "Novo Registro de Chamada"
+      editing: "Editando um Registro de Chamada"
+      title: "Listando todos os Registros de Chamada"
+
+    call_history_type:
+      new: "Novo Tipo de Registro de Chamada"
+      editing: "Editando um Tipo de Registro de Chamada"
+      title: "Listando todos os Tipos de Registros de Chamada"
+      name: "Tipo de Registro de Chamada"
+
+    wicket:
+      new: "Novo Guichê"
+      editing: "Editando um Guichê"
+      title: "Listando todos os Guichês"
+      name: "Guichê"
+
+    ticket:
+      new: "Nova Senha"
+      editing: "Editando uma Senha"
+      title: "Listando todas as Senhass"
+      name: "Senha"
 

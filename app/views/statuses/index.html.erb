@@ -12,7 +12,7 @@
 
 <% @statuses.each do |status| %>
   <tr>
-    <td><%= t("model.status.#{status.value.downcase}") %></td>
+    <td><%= status.value %></td>
     <td><%= status.user %></td>
     <td><%= status.created_at.strftime( t('time.formats.default') )%></td>
     <td><%= link_to t('model.show'), status %></td>

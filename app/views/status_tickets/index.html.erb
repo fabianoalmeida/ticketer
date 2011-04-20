@@ -13,7 +13,7 @@
 
 <% @status_tickets.each do |status_ticket| %>
   <tr>
-    <td><%= t("model.status_ticket.#{status_ticket.value.downcase}") %></td>
+    <td><%= status_ticket.value %></td>
     <td><%= status_ticket.acronym %></td>
     <td><%= status_ticket.user %></td>
     <td><%= status_ticket.created_at.strftime( t('time.formats.default') )%></td>

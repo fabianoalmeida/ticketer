@@ -11,11 +11,11 @@ class Wicket < ActiveRecord::Base
   belongs_to :place
   has_many :call_histories
 
-  validates :value, :user, :guidance, :status, :place, :presence => { :message => "is required!" }
+  validates :value, :user, :guidance, :status, :place, :presence => true
 
   validates :value,
     :length => { :in => 1..80 },
-    :uniqueness => { :message => "already exists!", :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
 end

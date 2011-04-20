@@ -1,10 +1,10 @@
-<h1>Listing places</h1>
+<h1><%= t('model.place.title') %></h1>
 
 <table>
   <tr>
-    <th>Value</th>
-    <th>User</th>
-    <th>Status</th>
+    <th><%= t('model.value') %></th>
+    <th><%= t('model.user') %></th>
+    <th><%= t('model.status_des') %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,15 +16,15 @@
     <td><%= place.value %></td>
     <td><%= place.user %></td>
     <td><%= place.status.value %></td>
-    <td><%= link_to 'Show', place %></td>
-    <td><%= link_to 'Edit', edit_place_path(place) %></td>
-    <td><%= link_to 'Totems', place_totems_path(place) %></td>
-    <td><%= link_to 'Wickets', place_wickets_path(place) %></td>
-    <td><%= link_to 'Panels', place_panels_path(place) %></td>
+    <td><%= link_to t('model.show'), place %></td>
+    <td><%= link_to t('model.edit'), edit_place_path(place) %></td>
+    <td><%= link_to t('model.totem.name'), place_totems_path(place) %></td>
+    <td><%= link_to t('model.wicket.name'), place_wickets_path(place) %></td>
+    <td><%= link_to t('model.panel.name'), place_panels_path(place) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Place', new_place_path %>
+<%= link_to t('model.place.new'), new_place_path %>

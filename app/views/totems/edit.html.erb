@@ -1,6 +1,6 @@
-<h1>Editing totem</h1>
+<h1><%= t('model.totem.editing') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', place_totem_path(@totem.place, @totem) %> |
-<%= link_to 'Back', place_totems_path(@totem.place)%>
+<%= link_to t('model.show'), place_totem_path(@totem.place, @totem) %> |
+<%= link_to t('model.back'), place_totems_path(@totem.place) %>

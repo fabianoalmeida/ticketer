@@ -1,11 +1,11 @@
-<h1>Listing totems</h1>
+<h1><%= t('model.totem.title') %></h1>
 
 <table>
   <tr>
-    <th>Value</th>
-    <th>Ip</th>
-    <th>Status</th>
-    <th>User</th>
+    <th><%= t('model.value') %></th>
+    <th><%= t('model.ip') %></th>
+    <th><%= t('model.status_des') %></th>
+    <th><%= t('model.user') %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -18,14 +18,14 @@
     <td><%= totem.ip %></td>
     <td><%= totem.status.value %></td>
     <td><%= totem.user %></td>
-    <td><%= link_to 'Show', place_totem_path(totem.place, totem) %></td>
-    <td><%= link_to 'Edit', edit_place_totem_path(totem.place, totem) %></td>
-    <td><%= link_to 'Generate', place_totem_generate_ticket_path(totem.place, totem.id) %></td>
+    <td><%= link_to t('model.show'), place_totem_path(totem.place, totem) %></td>
+    <td><%= link_to t('model.edit'), edit_place_totem_path(totem.place, totem) %></td>
+    <td><%= link_to t('model.generate'), place_totem_generate_ticket_path(totem.place, totem.id) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Totem', new_place_totem_path(@place) %> |
-<%= link_to 'Back Places', places_path %>
+<%= link_to t('model.totem.new'), new_place_totem_path(@place) %> |
+<%= link_to t('model.place.back'), places_path %>

@@ -1,25 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Value:</b>
+  <b><%= t('model.value') %>:</b>
   <%= @place.value %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= t('model.user') %>:</b>
   <%= @place.user %>
 </p>
 
 <p>
-  <b>Local:</b>
+  <b><%= t('model.local.name') %>:</b>
   <%= @place.local.des_local %>
 </p>
 
 <p>
-  <b>Status:</b>
+  <b><%= t('model.status_des') %>:</b>
   <%= @place.status.value %>
 </p>
 
 
-<%= link_to 'Edit', edit_place_path(@place) %> |
-<%= link_to 'Back', places_path %>
+<%= link_to t('model.edit'), edit_place_path(@place) %> |
+<%= link_to t('model.back'), places_path %>

@@ -1,6 +1,6 @@
-<h1>Editing place</h1>
+<h1><%= t('model.place.editing') %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @place %> |
-<%= link_to 'Back', places_path %>
+<%= link_to t('model.show'), @place %> |
+<%= link_to t('model.back'), places_path %>

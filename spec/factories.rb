@@ -20,13 +20,6 @@ Factory.define :local do |f|
   f.des_local {Factory.next(:value)}
 end
 
-Factory.define :place do |f| 
-  f.value {Factory.next(:value)}
-  f.user "User_test"
-  f.association :local 
-  f.association :status
-end
-
 Factory.define :totem do |f| 
   f.value {Factory.next(:value)}
   f.ip { Factory.next(:ip)} 
@@ -76,15 +69,17 @@ Factory.define :ticket do |f|
   f.association :totem 
 end
 
-Factory.define :call_history_type do |f| 
-  f.value { Factory.next(:value)}
-  f.acronym { Factory.next(:acronym)}
-  f.user "User_Test"
-end
-
 Factory.define :call_history do |f| 
   f.association :ticket
   f.association :wicket 
-  f.association :call_history_type
+  f.association :ticket_type
+end
+
+Factory.define :place do |f| 
+  f.value {Factory.next(:value)}
+  f.user "User_test"
+  f.association :local 
+  f.association :status
+  f.after_create{ |p| Factory(:ticket_type, :places => [p]) }
 end
 

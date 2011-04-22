@@ -10,20 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411192746) do
+ActiveRecord::Schema.define(:version => 20110421234420) do
 
   create_table "call_histories", :force => true do |t|
-    t.integer  "ticket_id",            :null => false
-    t.integer  "wicket_id",            :null => false
-    t.integer  "call_history_type_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "call_history_types", :force => true do |t|
-    t.string   "value",      :null => false
-    t.string   "acronym",    :null => false
-    t.string   "user",       :null => false
+    t.integer  "ticket_id",        :null => false
+    t.integer  "wicket_id",        :null => false
+    t.integer  "status_ticket_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,6 +50,11 @@ ActiveRecord::Schema.define(:version => 20110411192746) do
     t.integer  "local_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "places_ticket_types", :id => false, :force => true do |t|
+    t.integer "ticket_type_id", :null => false
+    t.integer "place_id",       :null => false
   end
 
   create_table "status_tickets", :force => true do |t|

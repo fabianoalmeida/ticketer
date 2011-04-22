@@ -6,6 +6,7 @@ class CreatePlaces < ActiveRecord::Migration
 
       t.references :status, :null => false
       t.references :local, :null => false
+      t.references :places_ticket_type
 
       t.timestamps
     end

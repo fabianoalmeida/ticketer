@@ -10,11 +10,5 @@
   <%= @call_history.wicket.value %>
 </p>
 
-<p>
-  <b><%= t('model.call_history_type.name') %>:</b>
-  <%= @call_history.call_history_type.value %>
-</p>
-
-
 <%= link_to t('model.edit'), edit_call_history_path(@call_history) %> |
 <%= link_to t('model.back'), call_histories_path %>

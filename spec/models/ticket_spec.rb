@@ -6,7 +6,7 @@ describe Ticket do
 
     # modify the form to obtain the sequence value and how to create an object Ticket
     @status_ticket = stub_model(StatusTicket)
-    @ticket = Factory.build(:ticket, :status_ticket=> @status_ticket)
+    @ticket = Factory.build(:ticket, :status_ticket => @status_ticket)
   end
 
   it "can be save successfully" do

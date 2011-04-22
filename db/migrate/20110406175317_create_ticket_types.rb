@@ -6,6 +6,7 @@ class CreateTicketTypes < ActiveRecord::Migration
       t.string :user, :null => false
 
       t.references :status, :null => false
+      t.references :places_ticket_type
 
       t.timestamps
     end

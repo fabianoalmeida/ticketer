@@ -4,6 +4,7 @@ describe TicketType do
 
   before ( :each ) do
     @ticketType = Factory.build(:ticket_type)
+    @ticketType.places << stub_model(Place)
   end
 
   it "should be an instance valid" do

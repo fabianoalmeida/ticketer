@@ -20,9 +20,4 @@ describe CallHistory do
     @call_history.should_not be_valid
   end
 
-  it "call_history_type should not be nil" do
-    @call_history.call_history_type= nil
-    @call_history.should_not be_valid
-  end
-
 end

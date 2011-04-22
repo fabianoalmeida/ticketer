@@ -4,7 +4,7 @@ class CreateCallHistories < ActiveRecord::Migration
 
       t.references :ticket, :null => false
       t.references :wicket, :null => false
-      t.references :call_history_type, :null => false
+      t.references :status_ticket, :null => false
 
       t.timestamps
     end

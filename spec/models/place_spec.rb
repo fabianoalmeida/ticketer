@@ -4,6 +4,7 @@ describe Place do
 
   before( :each ) do
     @place = Factory.build(:place)
+    @place.ticket_types << stub_model(TicketType)
   end
 
   it "Should save Place normaly" do 

@@ -4,7 +4,6 @@
   <tr>
     <th><%= t('model.ticket.name') %></th>
     <th><%= t('model.wicket.name') %></th>
-    <th><%= t('model.call_history_type.name') %></th>
     <th><%= t('model.created_at') %></th>
     <th></th>
     <th></th>
@@ -15,7 +14,6 @@
   <tr>
     <td><%= call_history.ticket.value %></td>
     <td><%= call_history.wicket.value %></td>
-    <td><%= call_history.call_history_type.value %></td>
     <td><%= call_history.created_at.strftime( t('time.formats.default') ) %></td>
     <td><%= link_to t('model.show'), call_history %></td>
     <td><%= link_to t('model.edit'), edit_call_history_path(call_history) %></td>

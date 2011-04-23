@@ -8,7 +8,7 @@ gem 'i18n'
 
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
 gem 'rubycas-client'
-gem 'rubycas-client-rails', :path => "lib/rubycas-client-rails"
+#gem 'rubycas-client-rails', :path => "lib/rubycas-client-rails"
 
 
 #----------------- Begin configuration for Oracle database ---------------#

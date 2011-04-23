@@ -1,4 +1,4 @@
-class CreateTicketTypesPlaces < ActiveRecord::Migration
+class CreatePlacesTicketTypes < ActiveRecord::Migration
   def self.up
     create_table :places_ticket_types, :id => false do |t|
       t.integer :ticket_type_id, :null => false

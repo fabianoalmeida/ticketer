@@ -9,7 +9,7 @@ class TicketType < ActiveRecord::Base
   has_many :tickets
   has_and_belongs_to_many :places
 
-  validates :value, :acronym, :user, :status, :places, :presence => true
+  validates :value, :acronym, :user, :status, :presence => true
 
   validates :value, 
     :length => { :in => 1..80 },

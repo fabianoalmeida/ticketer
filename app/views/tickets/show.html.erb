@@ -15,7 +15,9 @@
   <%= @ticket.status_ticket.value %>
 </p>
 
-<% audio_tag( "beep.mp3", :autoplay => true ) %>
-
 <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
 <%= link_to 'Back', tickets_path %>
+
+<%= audio_tag "beep.ogg", :autoplay => true %>
+
+

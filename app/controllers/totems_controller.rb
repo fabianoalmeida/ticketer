@@ -91,7 +91,8 @@ class TotemsController < ApplicationController
 
   # GET /generate_ticket
   def generate_ticket
-    @ticket_types = TicketType.all
+    @place = Place.where(:id => params[:place_id]).first
+    @ticket_types = @place.ticket_types
 
     respond_to do |format|
       format.html # index.html.erb

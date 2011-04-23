@@ -25,6 +25,13 @@
       <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
     <% end %>
   </div>
+  <div class="field">
+    <%= f.label :ticket_type %><br />
+    <% TicketType.all.each do |ticket_type| %>
+      <%= check_box_tag "place[ticket_type_ids][]", ticket_type.id, @place.ticket_types.include?(ticket_type) %>
+      <%= ticket_type.value %>
+    <% end %>  
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

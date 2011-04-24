@@ -54,6 +54,8 @@ Factory.define :ticket_type do |f|
   f.acronym { Factory.next(:acronym)}
   f.user "User_Test"
   f.association :status
+  f.after_create{ |t| Factory(:place, :ticket_types => [t]) }
+  #f.association :place 
 end
 
 Factory.define :status_ticket do |f|
@@ -72,7 +74,7 @@ end
 Factory.define :call_history do |f| 
   f.association :ticket
   f.association :wicket 
-  f.association :ticket_type
+  f.association :status_ticket
 end
 
 Factory.define :place do |f| 
@@ -80,6 +82,7 @@ Factory.define :place do |f|
   f.user "User_test"
   f.association :local 
   f.association :status
-  f.after_create{ |p| Factory(:ticket_type, :places => [p]) }
+  #f.association :ticket_type 
+  #f.after_create{ |p| Factory(:ticket_type, :places => [p]) }
 end
 

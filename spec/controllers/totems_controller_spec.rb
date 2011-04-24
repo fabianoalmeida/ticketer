@@ -130,9 +130,12 @@ describe TotemsController do
       @mock_ticket_types ||= mock_model(TicketType, stubs)      
     end
 
+    def mock_place(stubs={})
+      @mock_place ||= mock_model(Place, stubs)
+    end
+
     it "assigns all ticket_types that exists" do
-      Totem.stub(:find).with("1") { mock_totem }
-      TicketType.stub(:all) { [mock_ticket_types] }
+      Place.stub(:where).with({:id => "1"}) { [ mock_place(:ticket_types => [mock_ticket_types]) ]}
       get :generate_ticket, :place_id => "1", :totem_id => "1"
       assigns(:ticket_types).should eq([mock_ticket_types])
     end

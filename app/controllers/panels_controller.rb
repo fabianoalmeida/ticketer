@@ -86,4 +86,8 @@ class PanelsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def tickets 
+   @tickets = Ticket.where(:place_id => params[:place_id])
+  end
 end

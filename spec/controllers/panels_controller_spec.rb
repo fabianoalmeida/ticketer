@@ -130,4 +130,17 @@ describe PanelsController do
     end
   end
 
+  describe "GET Tickets" do 
+
+    def mock_tickets(stubs={})
+      @mock_tickets ||= mock_model(Ticket, stubs) 
+    end
+
+    it "grab all tickets for the place where it is" do
+      Ticket.stub(:where).with({:place_id => "1"}){[mock_tickets]}
+      get :tickets, :place_id => "1", :panel_id => "1"
+      assigns(:tickets).should eq([mock_tickets])
+    end
+  end
+
 end

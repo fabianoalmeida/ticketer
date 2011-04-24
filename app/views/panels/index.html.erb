@@ -19,6 +19,7 @@
     <td><%= panel.user %></td>
     <td><%= link_to t('model.show'), place_panel_path(panel.place, panel) %></td>
     <td><%= link_to t('model.edit'), edit_place_panel_path(panel.place, panel) %></td>
+    <td><%= link_to t('model.panel.tickets'), place_panel_tickets_path(panel.place, panel.id) %></td>
   </tr>
 <% end %>
 </table>

@@ -1,0 +1,16 @@
+<h1><%= t('model.wicket.tickets.call') %></h1>
+
+<table>
+<tr>
+    <th><%= t('model.ticket.name') %></th>
+    <th></th>
+  </tr>
+
+<% @tickets.each do |ticket| %>
+  <tr>
+    <td><%= ticket.value %></td>
+    <td><%= ticket.ticket_type.value %></td>
+    <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.call') %></a></td>
+  </tr>
+<% end %>
+</table>

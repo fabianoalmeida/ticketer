@@ -12,7 +12,9 @@ Ticketer::Application.routes.draw do
 
     resources :places, :path => 'localidades' do
 
-      resources :panels, :path => 'paineis'
+      resources :panels, :path => 'paineis' do 
+        get 'tickets', :path => 'senhas'
+      end
       resources :wickets, :path => 'guiches' do
         get 'tickets', :path => 'senhas'
       end

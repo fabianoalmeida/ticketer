@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
   has_many :totems
   has_and_belongs_to_many :ticket_types
 
-  validates :value, :status, :local, :user, :ticket_types, :presence => true
+  validates :value, :status, :local, :user,  :presence => true
 
   accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
 

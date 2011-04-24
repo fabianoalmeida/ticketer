@@ -10,6 +10,7 @@ gem 'i18n'
 gem 'rubycas-client'
 #gem 'rubycas-client-rails', :path => "lib/rubycas-client-rails"
 
+gem 'state_machine'
 
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby

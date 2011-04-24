@@ -18,4 +18,54 @@ describe Ticket do
     @ticket.should be_valid
   end
 
+  it "Should initialize with open state" do 
+    @ticket.opened?.should be_true
+  end
+
+  it "Should allow to change from opened state to any other than called " do
+
+    @ticket.cancel.should be_false
+    @ticket.recall.should be_false 
+    @ticket.reopen.should be_false 
+    @ticket.pending.should be_false
+    @ticket.call.should be_true
+
+  end
+
+  it "Should allow to change from called state only to pending or the same" do 
+
+    @ticket.call.should be_true
+    @ticket.reopen.should be_false
+    @ticket.cancel.should be_false
+    @ticket.recall.should be_true
+    @ticket.pending.should be_true
+    
+  end 
+    
+  it "Should allow to change from pending only to canceled or opened" do 
+
+    @ticket.call.should be_true 
+    @ticket.pending.should be_true
+    @ticket.call.should be_false
+    @ticket.recall.should be_false
+    @ticket.reopen.should be_true 
+    #Redo state to pending to test cancel state
+    @ticket.call.should be_true 
+    @ticket.pending.should be_true
+    @ticket.cancel.should be_true
+
+  end
+
+  it "Should not allow to change from canceled to any other" do 
+
+    @ticket.call.should be_true 
+    @ticket.pending.should be_true
+    @ticket.cancel.should be_true
+    @ticket.call.should be_false
+    @ticket.recall.should be_false
+    @ticket.reopen.should be_false
+    @ticket.pending.should be_false
+    
+  end
+
 end

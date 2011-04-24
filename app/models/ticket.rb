@@ -17,6 +17,29 @@ class Ticket < ActiveRecord::Base
 
   validates :status_ticket, :ticket_type, :place, :totem, :presence => true
 
+
+  state_machine :initial => :opened do 
+    
+    event :call do 
+      transition :opened => :called 
+    end
+
+    event :recall do 
+      transition :called => same 
+    end
+
+    event :pending do 
+      transition :called => :pending
+    end
+   
+    event :reopen do 
+      transition :pending => :opened 
+    end
+    
+    event :cancel do 
+      transition :pending => :canceled
+    end
+  end
   private
 
   def validates_current_date

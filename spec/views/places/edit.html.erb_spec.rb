@@ -6,8 +6,10 @@ describe "places/edit.html.erb" do
       :value => "MyString",
       :user => "MyString",
       :status => stub_model(Status, :value => "value"),
-      :local_id => 1
+      :local => stub_model(Local, :value =>"some", :id => "1")
     ))
+
+    @place.stub(:ticket_types){[]}
   end
 
   it "renders the edit place form" do

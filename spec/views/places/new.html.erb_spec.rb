@@ -6,7 +6,8 @@ describe "places/new.html.erb" do
       :value => "MyString",
       :user => "MyString",
       :status => stub_model(Status, :value => "value")
-    ).as_new_record)
+    ).as_new_record).stub(:ticket_types){[]}
+
   end
 
   it "renders new place form" do

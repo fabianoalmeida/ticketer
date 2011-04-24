@@ -38,4 +38,6 @@ group :development, :test do
   gem 'autotest'
   gem 'autotest-rails'
   gem 'factory_girl_rails'
+  #NOTE to get this work on ubuntu you need to have libnotify binaries installed  sudo apt-get install libnotify-bin
+  gem 'autotest-notification'
 end

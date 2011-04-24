@@ -32,6 +32,8 @@ GEM
     arel (2.0.9)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
+    autotest-notification (2.3.1)
+      autotest (~> 4.3)
     autotest-rails (4.1.0)
       ZenTest
     builder (2.1.2)
@@ -103,6 +105,7 @@ PLATFORMS
 
 DEPENDENCIES
   autotest
+  autotest-notification
   autotest-rails
   factory_girl_rails
   i18n

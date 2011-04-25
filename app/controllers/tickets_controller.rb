@@ -41,7 +41,7 @@ class TicketsController < ApplicationController
   # POST /tickets.xml
   def create
     @ticket = Ticket.new(params[:ticket])
-    @ticket.status_ticket = StatusTicket.opened 
+    @ticket.status_ticket = StatusTicket.available 
 
     respond_to do |format|
       if @ticket.save

@@ -4,10 +4,19 @@ module TicketManager
   end
 
   module TicketManagerClass
-    def next_to(place) 
-      next_ticket = Ticket.where(:place_id => place.id, :ticket_type_id => TicketType.preferencial.id, :ticket_state_id => TicketState.opened.id).order(:createed_at).last 
+    def next_to(place)
 
-      next_ticket ||= Ticket.where(:place_id => place.id, :ticket_type_id => TicketType.normal.id, :ticket_state_id => TicketState.opened.id).order(:createed_at).last 
+      place= place.id if place.is_a? Place
+
+      next_ticket = Ticket.where(:place_id => place, 
+                                 :ticket_type_id => TicketType.preferencial.id, 
+                                 :status_ticket_id => StatusTicket.available.id, 
+                                 :created_at => Date.today.midnight...Date.tomorrow.midnight).order(:created_at).first
+
+
+      next_ticket ||= Ticket.where(:place_id => place, 
+                                   :status_ticket_id => StatusTicket.available.id, 
+                                   :created_at => Date.today.midnight...Date.tomorrow.midnight).order(:created_at).first
 
       next_ticket
     end

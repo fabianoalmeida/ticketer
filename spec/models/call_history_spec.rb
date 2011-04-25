@@ -33,5 +33,24 @@ describe CallHistory do
       
     end
   end
+   describe "Call History Register for any State Transition" do 
+     
+     before :each do
+       @wicket = Factory :wicket 
+       @ticket = Factory :ticket 
+     end 
+
+     after :each do 
+       @wicket.destroy 
+       @ticket.destroy 
+     end
+
+     it "Should register trnasition of ticket from opened to called" do 
+       CallHistory.register(:wicket => @wicket, :ticket => @ticket).should be_true
+       call_history_registed = CallHistory.where(:ticket_id => @ticket.id, :wicket_id => @wicket.id, :status_ticket_id => @ticket.status_ticket.id )
+       call_history_registed.should have(1).items
+       
+     end
+   end
 
 end

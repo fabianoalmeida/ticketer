@@ -18,12 +18,24 @@ class StatusTicket < ActiveRecord::Base
     :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
-  def self.opened
-    self.where( :value => "Opened" ).first
+  def self.available
+    self.where( :value => "Available" ).first
   end
 
-  def self.closed
-    self.where( :value => "Closed" ).first
+  def self.called
+    self.where( :value => "Called" ).first
+  end
+
+  def self.pending
+    self.where( :value => "Pending" ).first
+  end
+
+  def self.canceled
+    self.where( :value => "Canceled" ).first
+  end
+
+  def self.attended
+    self.where( :value => "Attended" ).first
   end
 
 end

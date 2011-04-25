@@ -38,5 +38,9 @@ describe WicketsController do
     it "recognizes and generates #recall" do
       { :post => "/localidades/1/guiches/1/rechamar" }.should route_to(:place_id => "1", :controller => "wickets", :action => "recall", :wicket_id => "1")
     end
+
+    it "recognizes and generates #put_waiting" do
+      { :post => "/localidades/1/guiches/1/por_em_espera" }.should route_to(:place_id => "1", :controller => "wickets", :action => "put_waiting", :wicket_id => "1")
+    end
   end
 end

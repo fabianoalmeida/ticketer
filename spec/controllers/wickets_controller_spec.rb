@@ -130,62 +130,75 @@ describe WicketsController do
     end
   end
 
-  describe "GET tickets" do
+  context "Ticket Operatios" do
 
-    def mock_tickets(stubs={})
+    def mock_ticket(stubs={})
       @mock_tickets ||= mock_model(Ticket, stubs) 
     end
 
-    it "assigns all tickets for the place where  are the @wickets" do
-      Wicket.stub(:find).with("1") { mock_wicket }
-      Ticket.stub(:where) { [mock_tickets] }
-      get :tickets, :place_id => "1", :wicket_id => "1"
-      assigns(:tickets).should eq([mock_tickets])
-    end
-  end
-  
-  describe "POST call_ticket" do
     def mock_ticket_type(stubs={})
       @mock_ticket_type ||= mock_model(TicketType, stubs)
     end
 
-    def mock_ticket(stubs={})
-      @mock_ticket ||= mock_model(Ticket, stubs)
-    end
+    describe "GET tickets" do
 
-    it "call the next ticket" do
-      Ticket.stub(:next_to).and_return(mock_ticket(:call => true)) 
-      post :call_next, :place_id => "1", :wicket_id => "1"
-      assigns(:next_ticket).should eq(mock_ticket)
+      it "assigns all tickets for the place where  are the @wickets" do
+        Wicket.stub(:find).with("1") { mock_wicket }
+        Ticket.stub(:where) { [mock_ticket] }
+        get :tickets, :place_id => "1", :wicket_id => "1"
+        assigns(:tickets).should eq([mock_ticket])
+      end
     end
-     
-    it "should redirect to #tickets" do 
-      Ticket.stub(:next_to).and_return(mock_ticket(:call => true)) 
-      post :call_next, :place_id => "1", :wicket_id => "1"
+    
+    describe "POST call_ticket" do
+
+      before(:each) do
+        Ticket.stub(:next_to).and_return(mock_ticket(:call => true)) 
+        post :call_next, :place_id => "1", :wicket_id => "1"
+      end
+
+      it "call the next ticket" do
+        assigns(:next_ticket).should eq(mock_ticket)
+      end
+       
+      it "should redirect to #tickets" do 
         response.should redirect_to(place_wicket_tickets_url("1", "1"))
-    end
-  end
-
-  describe "POST recall ticket" do
-    def mock_ticket_type(stubs={})
-      @mock_ticket_type ||= mock_model(TicketType, stubs)
+      end
     end
 
-    def mock_ticket(stubs={})
-      @mock_ticket ||= mock_model(Ticket, stubs)
+    describe "POST recall ticket" do
+      
+      before(:each) do
+        Ticket.stub(:find).and_return(mock_ticket(:recall => true)) 
+        post :recall, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      end
+
+      it "recall the same ticket" do
+        assigns(:ticket).should eq(mock_ticket)
+      end
+       
+      it "should redirect to #tickets" do 
+        response.should redirect_to(place_wicket_tickets_url("1", "1"))
+      end
     end
 
-    it "recall the same ticket" do
-      Ticket.stub(:find).and_return(mock_ticket(:recall => true)) 
-      post :recall, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
-      assigns(:ticket).should eq(mock_ticket)
-    end
+    describe "POST put waiting ticket" do
      
-    it "should redirect to #tickets" do 
-      Ticket.stub(:find).and_return(mock_ticket(:recall => true)) 
-      post :recall, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
-      response.should redirect_to(place_wicket_tickets_url("1", "1"))
-    end
-  end
+      before(:each) do
+        Ticket.stub(:find).and_return(mock_ticket(:pending => true)) 
+        Wicket.stub(:find).with("1").and_return(mock_wicket)
+        CallHistory.stub!(:register).and_return(nil)
+        post :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      end
 
+      it "put waiting  the given ticket ticket" do
+        assigns(:ticket).should be_nil
+      end
+       
+      it "should redirect to #tickets" do 
+        response.should redirect_to(place_wicket_tickets_url("1", "1"))
+      end
+    end
+
+  end
 end

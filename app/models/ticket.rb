@@ -1,5 +1,7 @@
 class Ticket < ActiveRecord::Base
 
+  include TicketManager
+
   #String :value
   #Integer :status_ticket
   #Integer :ticket_type

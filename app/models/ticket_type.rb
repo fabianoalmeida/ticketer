@@ -21,4 +21,7 @@ class TicketType < ActiveRecord::Base
     :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
+  def self.preferencial 
+    self.where(:acronym => "P").first
+  end
 end

@@ -68,4 +68,7 @@ describe Ticket do
     
   end
 
+  #pending to think about it how to test this one
+  it "Should get the next ticket to be called"
+
 end

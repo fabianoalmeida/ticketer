@@ -3,7 +3,7 @@
 <%= form_for( CallHistory.new ) do |f| %>
   <%= f.hidden_field :ticket_id %>
   <%= f.hidden_field :wicket_id, :value => params[:wicket_id] %>
-  <table>
+  <table id="tickets">
     <tr>
       <th><%= t('model.ticket.name') %></th>
       <th></th>
@@ -16,4 +16,18 @@
     </tr>
   <% end %>
   </table>
+  <table id="tickets_waiting">
+    <tr>
+      <th><%= t('model.ticket.pending') %></th>
+      <th></th>
+    </tr>
+
+    <% @tickets_waiting.each do |ticket| %>
+      <tr>
+        <td><%= ticket.value %></td>
+        <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.call') %></a></td>
+      </tr>
+    <% end %>
+  </table>
+
 <% end %>

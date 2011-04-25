@@ -19,10 +19,10 @@ describe Ticket do
   end
 
   it "Should initialize with open state" do 
-    @ticket.opened?.should be_true
+    @ticket.available?.should be_true
   end
 
-  it "Should allow to change from opened state to any other than called " do
+  it "Should allow to change from available state to any other than called " do
 
     @ticket.cancel.should be_false
     @ticket.recall.should be_false 
@@ -42,7 +42,7 @@ describe Ticket do
     
   end 
     
-  it "Should allow to change from pending only to canceled or opened" do 
+  it "Should allow to change from pending only to canceled or available" do 
 
     @ticket.call.should be_true 
     @ticket.pending.should be_true
@@ -69,6 +69,28 @@ describe Ticket do
   end
 
   #pending to think about it how to test this one
-  it "Should get the next ticket to be called"
+  describe "Calling next ticket" do
+    before( :each ) do
+      Factory(:ticket_type, :acronym => "PRE")
+      status_available = Factory(:status_ticket, :value => "Available")
+      Factory(:status_ticket, :value => "Called")
+      @tickets = (1..2).collect { Factory(:ticket, :place_id => 1, :status_ticket_id => status_available.id) }
+    end
+
+    it "Should get the first ticket to be called" do
+      ticket_next = Ticket.next_to(1)
+      ticket_next.should_not be_nil
+      @tickets.include?(ticket_next).should be_true
+    end
+
+    it "Should get the next ticket to be called" do
+      ticket_first = @tickets.pop
+      @tickets.size.should eq(1)
+      ticket_first.status_ticket= StatusTicket.called
+      ticket_first.save.should be_true
+      ticket_next = Ticket.next_to(1)
+      @tickets.include?(ticket_next).should be_true
+    end
+  end
 
 end

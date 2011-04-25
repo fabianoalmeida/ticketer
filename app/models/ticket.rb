@@ -19,7 +19,7 @@ class Ticket < ActiveRecord::Base
 
   validates :status_ticket, :ticket_type, :place, :totem, :presence => true
 
-  def after_initialize 
+  self.after_initialize do
     self.status_ticket = StatusTicket.available if self.new_record?
   end
 

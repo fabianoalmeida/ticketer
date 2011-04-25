@@ -225,6 +225,7 @@
         local: "Local"
         status: "Status"
         ticket_type: "Tipos de Senha"
+        ticket_types: "Tipos de Senha"
       totem:
         value: "Valor"
         ip: "IP"

@@ -22,6 +22,14 @@ class TicketType < ActiveRecord::Base
     :allow_blank => false
 
   def self.preferencial 
-    self.where(:acronym => "P").first
+    self.where(:acronym => "PRE").first
+  end
+
+  def self.normal 
+    self.where(:acronym => "NOR").first
+  end
+
+  def self.attendance 
+    self.where(:acronym => "ATT").first
   end
 end

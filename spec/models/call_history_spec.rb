@@ -20,4 +20,18 @@ describe CallHistory do
     @call_history.should_not be_valid
   end
 
+  context "Log and change state of ticket" do
+
+    before :each do 
+      @ticket = Factory(:ticket)
+      @wicket = Factory(:wicket)
+    end
+
+    it "register a new occurrence " do 
+      CallHistory.register(:ticket => @ticket, :wicket => @wicket).should be_true
+      CallHistory.where(:ticket_id => @ticket.id).should have_at_least(1).items
+      
+    end
+  end
+
 end

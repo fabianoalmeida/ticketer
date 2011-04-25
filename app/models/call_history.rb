@@ -10,4 +10,10 @@ class CallHistory < ActiveRecord::Base
 
   validates :ticket, :wicket, :status_ticket, :presence => true
 
+  def self.register(record={})
+    return false if record.empty?
+    new_record = self.new(:ticket => record[:ticket], :status_ticket => record[:ticket].status_ticket, :wicket => record[:wicket])
+    new_record.save
+
+  end
 end

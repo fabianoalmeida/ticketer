@@ -26,7 +26,7 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :ticket_type %><br />
+    <%= f.label :ticket_types %><br />
     <% TicketType.all.each do |ticket_type| %>
       <%= check_box_tag "place[ticket_type_ids][]", ticket_type.id, @place.ticket_types.include?(ticket_type) %>
       <%= ticket_type.value %>

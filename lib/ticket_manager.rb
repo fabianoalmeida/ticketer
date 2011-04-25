@@ -1,6 +1,5 @@
 module TicketManager 
   def self.included(base) 
-    @baseClass = base
     base.send(:extend, TicketManagerClass )
   end
 
@@ -24,6 +23,6 @@ module TicketManager
   end
 
   def log_history(state_transition)
-    raise "#{errors.inspect}" unless update_attributes(:status_ticket => StatusTicket.state_id_for(state_transition.to))
+    update_attributes(:status_ticket => StatusTicket.state_id_for(state_transition.to))
   end
 end

@@ -93,11 +93,13 @@ class WicketsController < ApplicationController
     @tickets = Ticket.where(:place_id => [params[:place_id]])
   end
 
-  #GET places/1/wicket/1/call_next
+  #POST places/1/wicket/1/call_next
   def call_next
     @next_ticket = Ticket.next_to(params[:place_id])
     respond_to do |format|
-      format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Wicket was successfully updated.') }
+      if @next_ticket.call
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+      end
     end
   end
 end

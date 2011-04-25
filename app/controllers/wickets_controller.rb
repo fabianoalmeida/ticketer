@@ -102,4 +102,14 @@ class WicketsController < ApplicationController
       end
     end
   end
+
+  #POST places/1/wicket/1/recall
+  def recall
+    @ticket = Ticket.find(params[:ticket_id]) 
+    respond_to do |format|
+      if @ticket.recall 
+          format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+      end 
+    end
+  end
 end

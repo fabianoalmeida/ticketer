@@ -17,7 +17,8 @@ Ticketer::Application.routes.draw do
       end
       resources :wickets, :path => 'guiches' do
         get 'tickets', :path => 'senhas'
-        get 'call_next', :path => 'chamar_proximo'
+        post 'call_next', :path => 'chamar_proximo'
+        post 'recall', :path => 'rechamar'
       end
       resources :totems do
         get 'generate_ticket', :path => 'gerar_senha'

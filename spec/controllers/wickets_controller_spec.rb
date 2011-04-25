@@ -165,4 +165,27 @@ describe WicketsController do
         response.should redirect_to(place_wicket_tickets_url("1", "1"))
     end
   end
+
+  describe "POST recall ticket" do
+    def mock_ticket_type(stubs={})
+      @mock_ticket_type ||= mock_model(TicketType, stubs)
+    end
+
+    def mock_ticket(stubs={})
+      @mock_ticket ||= mock_model(Ticket, stubs)
+    end
+
+    it "recall the same ticket" do
+      Ticket.stub(:find).and_return(mock_ticket(:recall => true)) 
+      post :recall, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      assigns(:ticket).should eq(mock_ticket)
+    end
+     
+    it "should redirect to #tickets" do 
+      Ticket.stub(:find).and_return(mock_ticket(:recall => true)) 
+      post :recall, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      response.should redirect_to(place_wicket_tickets_url("1", "1"))
+    end
+  end
+
 end

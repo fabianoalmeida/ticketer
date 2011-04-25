@@ -22,6 +22,8 @@ class Ticket < ActiveRecord::Base
 
   state_machine :initial => :available do 
     
+    after_transition any => any, :do => :log_history
+
     event :call do 
       transition :available => :called 
     end

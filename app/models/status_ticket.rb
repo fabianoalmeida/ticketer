@@ -38,4 +38,7 @@ class StatusTicket < ActiveRecord::Base
     self.where( :value => "Attended" ).first
   end
 
+  def self.state_id_for(state_string)
+    where("lower(value) = ?", state_string.downcase).first
+  end
 end

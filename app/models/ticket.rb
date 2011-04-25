@@ -19,6 +19,9 @@ class Ticket < ActiveRecord::Base
 
   validates :status_ticket, :ticket_type, :place, :totem, :presence => true
 
+  def after_initialize 
+    self.status_ticket = StatusTicket.available if self.new_record?
+  end
 
   state_machine :initial => :available do 
     
@@ -66,5 +69,7 @@ class Ticket < ActiveRecord::Base
 
     self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
   end
+
+
 
 end

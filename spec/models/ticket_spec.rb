@@ -12,7 +12,7 @@ describe Ticket do
   it "can be save successfully" do
     @ticket.save.should == true
   end
-
+  
   it "should be an instance valid if the length of 'value' property is between one and eighty" do
     @ticket.value= 'This is a big text to test a validate for the length of this property.'
     @ticket.should be_valid
@@ -33,6 +33,11 @@ describe Ticket do
 
     after :each do 
       @status.each { |element| element.destroy }
+    end
+
+    it "Should initialize with Available State" do
+      ticket_new_instance = Ticket.new 
+      ticket_new_instance.status_ticket.should eq(StatusTicket.available)
     end
 
     it "Should initialize with open state" do 

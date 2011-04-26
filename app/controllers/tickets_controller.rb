@@ -42,9 +42,9 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(params[:ticket])
     @ticket.status_ticket = StatusTicket.available 
-
     respond_to do |format|
       if @ticket.save
+        Juggernaut.publish("scmba", {:senha => @ticket.value, :id => @ticket.id })
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
       else

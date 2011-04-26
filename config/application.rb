@@ -40,8 +40,8 @@ module Ticketer
     config.filter_parameters += [:password]
 
     # CAS-Client configuration 
-    config.rubycas.cas_base_url = 'https://localhost/'
-    config.rubycas.logger = Rails.logger
+    #config.rubycas.cas_base_url = 'https://localhost/'
+    #config.rubycas.logger = Rails.logger
 
     config.i18n.default_locale = 'pt-BR'
     config.i18n.reload!

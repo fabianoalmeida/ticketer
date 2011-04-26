@@ -140,10 +140,14 @@ describe WicketsController do
       @mock_ticket_type ||= mock_model(TicketType, stubs)
     end
 
+    before(:each) do
+      Wicket.stub(:find).with("1") { mock_wicket }
+      CallHistory.stub!(:register).and_return(nil)
+    end
+
     describe "GET tickets" do
 
       it "assigns all tickets for the place where  are the @wickets" do
-        Wicket.stub(:find).with("1") { mock_wicket }
         Ticket.stub(:where) { [mock_ticket] }
         get :tickets, :place_id => "1", :wicket_id => "1"
         assigns(:tickets).should eq([mock_ticket])
@@ -174,7 +178,7 @@ describe WicketsController do
       end
 
       it "recall the same ticket" do
-        assigns(:ticket).should eq(mock_ticket)
+        assigns(:ticket_recalled).should eq(mock_ticket)
       end
        
       it "should redirect to #tickets" do 
@@ -186,8 +190,6 @@ describe WicketsController do
      
       before(:each) do
         Ticket.stub(:find).and_return(mock_ticket(:pending => true)) 
-        Wicket.stub(:find).with("1").and_return(mock_wicket)
-        CallHistory.stub!(:register).and_return(nil)
         post :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 

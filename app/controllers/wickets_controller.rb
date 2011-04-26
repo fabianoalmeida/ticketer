@@ -96,8 +96,10 @@ class WicketsController < ApplicationController
   #POST places/1/wicket/1/call_next
   def call_next
     @next_ticket = Ticket.next_to(params[:place_id])
+    @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
       if @next_ticket.call
+        CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
       end
     end
@@ -105,10 +107,12 @@ class WicketsController < ApplicationController
 
   #POST places/1/wicket/1/recall
   def recall
-    @ticket = Ticket.find(params[:ticket_id]) 
+    @ticket_recalled = Ticket.find(params[:ticket_id]) 
+    @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      if @ticket.recall 
-          format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+      if @ticket_recalled.recall 
+        CallHistory.register(:ticket => @ticket_recalled, :wicket => @wicket)
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
       end 
     end
   end
@@ -119,8 +123,8 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
       if @ticket_waiting.pending 
-          CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
-          format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
       end 
     end
   end

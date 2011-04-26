@@ -8,7 +8,6 @@
       <th><%= t('model.ticket.name') %></th>
       <th></th>
     </tr>
-
   <% @tickets.each do |ticket| %>
     <tr>
       <td><%= ticket.value %></td>
@@ -21,12 +20,13 @@
       <th><%= t('model.ticket.pending') %></th>
       <th></th>
     </tr>
-
-    <% @tickets_waiting.each do |ticket| %>
-      <tr>
-        <td><%= ticket.value %></td>
-        <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.recall') %></a></td>
-      </tr>
+    <% if @ticket_waiting %>
+      <% @tickets_waiting.each do |ticket| %>
+        <tr>
+          <td><%= ticket.value %></td>
+          <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.recall') %></a></td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 

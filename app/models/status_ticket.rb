@@ -39,6 +39,6 @@ class StatusTicket < ActiveRecord::Base
   end
 
   def self.state_id_for(state_string)
-    where("lower(value) = ?", state_string.downcase).first
+    self.where("lower(value) = ?", state_string.downcase).first
   end
 end

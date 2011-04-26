@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110421234420) do
+ActiveRecord::Schema.define(:version => 20110426195115) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20110421234420) do
     t.integer  "totem_id",         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "totems", :force => true do |t|

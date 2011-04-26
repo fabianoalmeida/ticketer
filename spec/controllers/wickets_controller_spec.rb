@@ -190,7 +190,7 @@ describe WicketsController do
      
       before(:each) do
         Ticket.stub(:find).and_return(mock_ticket(:pending => true)) 
-        post :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+        put :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 
       it "put waiting the given ticket" do
@@ -218,11 +218,11 @@ describe WicketsController do
       end
     end
 
-    describe "POST cancel ticket" do
+    describe "DELETE cancel ticket" do
      
       before(:each) do
         Ticket.stub(:find).and_return(mock_ticket(:cancel => true)) 
-        post :cancel, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+        delete :cancel, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 
       it "put waiting  the given ticket ticket" do

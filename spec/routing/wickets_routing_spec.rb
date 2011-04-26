@@ -40,7 +40,7 @@ describe WicketsController do
     end
 
     it "recognizes and generates #put_waiting" do
-      { :post => "/localidades/1/guiches/1/por_em_espera" }.should route_to(:place_id => "1", :controller => "wickets", :action => "put_waiting", :wicket_id => "1")
+      { :put => "/localidades/1/guiches/1/por_em_espera" }.should route_to(:place_id => "1", :controller => "wickets", :action => "put_waiting", :wicket_id => "1")
     end
 
     it "recognizes and generates #attend" do
@@ -48,7 +48,7 @@ describe WicketsController do
     end
 
     it "recognizes and generates #cancel" do
-      { :post => "/localidades/1/guiches/1/cancelar" }.should route_to(:place_id => "1", :controller => "wickets", :action => "cancel", :wicket_id => "1")
+      { :delete => "/localidades/1/guiches/1/cancelar" }.should route_to(:place_id => "1", :controller => "wickets", :action => "cancel", :wicket_id => "1")
     end
 
   end

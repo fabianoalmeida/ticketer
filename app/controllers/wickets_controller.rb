@@ -117,7 +117,7 @@ class WicketsController < ApplicationController
     end
   end
 
-  #POST places/1/wicket/1/put_waiting
+  #PUT places/1/wicket/1/put_waiting
   def put_waiting
     @ticket_waiting = Ticket.find(params[:ticket_id]) 
     @wicket = Wicket.find(params[:wicket_id])
@@ -128,7 +128,7 @@ class WicketsController < ApplicationController
       end 
     end
   end
-
+  #
   #POST places/1/wicket/1/attend
   def attend
     @ticket_attended = Ticket.find(params[:ticket_id]) 
@@ -138,6 +138,18 @@ class WicketsController < ApplicationController
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
       end 
+    end
+  end
+  
+  #DELETE places/1/wicket/1/cancel
+  def cancel
+    @ticket_canceled = Ticket.find(params[:ticket_id]) 
+    @wicket = Wicket.find(params[:wicket_id])
+    respond_to do |format|
+      if @ticket_canceled.cancel 
+        CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+      end
     end
   end
 end

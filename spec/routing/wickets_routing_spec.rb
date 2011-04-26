@@ -46,5 +46,10 @@ describe WicketsController do
     it "recognizes and generates #attend" do
       { :post => "/localidades/1/guiches/1/atender" }.should route_to(:place_id => "1", :controller => "wickets", :action => "attend", :wicket_id => "1")
     end
+
+    it "recognizes and generates #cancel" do
+      { :post => "/localidades/1/guiches/1/cancelar" }.should route_to(:place_id => "1", :controller => "wickets", :action => "cancel", :wicket_id => "1")
+    end
+
   end
 end

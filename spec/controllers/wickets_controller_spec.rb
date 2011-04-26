@@ -218,5 +218,20 @@ describe WicketsController do
       end
     end
 
+    describe "POST cancel ticket" do
+     
+      before(:each) do
+        Ticket.stub(:find).and_return(mock_ticket(:cancel => true)) 
+        post :cancel, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      end
+
+      it "put waiting  the given ticket ticket" do
+        assigns(:ticket_canceled).should eq(mock_ticket)
+      end
+       
+      it "should redirect to #tickets" do 
+        response.should redirect_to(place_wicket_tickets_url("1", "1"))
+      end
+    end
   end
 end

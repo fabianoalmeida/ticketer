@@ -122,7 +122,7 @@ describe Ticket do
         @ticket.called?.should be_true 
         @ticket_updated = Ticket.find(@ticket.id)
         @ticket_updated.should_not be_nil 
-        @ticket_updated.status_ticket.should eq(StatusTicket.state_id_for("called"))
+        @ticket_updated.status_ticket.should eq(StatusTicket.id_for("called"))
       end
 
       it "Should save a new record to call_history when change ticket from called to attending" do
@@ -132,7 +132,7 @@ describe Ticket do
         @ticket.attended?.should be_true 
         @ticket_updated = Ticket.find(@ticket.id)
         @ticket_updated.should_not be_nil 
-        @ticket_updated.status_ticket.should eq(StatusTicket.state_id_for("attended"))
+        @ticket_updated.status_ticket.should eq(StatusTicket.id_for("attended"))
       end
 
       it "Should save a new record to call_history when change ticket from called to pending" do
@@ -142,7 +142,7 @@ describe Ticket do
         @ticket.pending?.should be_true 
         @ticket_updated = Ticket.find(@ticket.id)
         @ticket_updated.should_not be_nil 
-        @ticket_updated.status_ticket.should eq(StatusTicket.state_id_for("pending"))
+        @ticket_updated.status_ticket.should eq(StatusTicket.id_for("pending"))
       end
 
     end

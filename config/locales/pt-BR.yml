@@ -262,6 +262,7 @@
     back: "Voltar"
     generate: "Gerar"
     call: "Chamar"
+    recall: "Rechamar"
 
     status:
       new: "Novo Status"
@@ -313,6 +314,7 @@
       editing: "Editando uma Senha"
       title: "Listando todas as Senhas"
       name: "Senha"
+      pending: "Pendente"
 
     local:
       new: "Novo Local"

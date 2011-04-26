@@ -25,7 +25,7 @@
     <% @tickets_waiting.each do |ticket| %>
       <tr>
         <td><%= ticket.value %></td>
-        <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.call') %></a></td>
+        <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.recall') %></a></td>
       </tr>
     <% end %>
   </table>

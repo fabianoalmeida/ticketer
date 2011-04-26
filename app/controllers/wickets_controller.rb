@@ -128,4 +128,16 @@ class WicketsController < ApplicationController
       end 
     end
   end
+
+  #POST places/1/wicket/1/attend
+  def attend
+    @ticket_attended = Ticket.find(params[:ticket_id]) 
+    @wicket = Wicket.find(params[:wicket_id])
+    respond_to do |format|
+      if @ticket_attended.attend 
+        CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+      end 
+    end
+  end
 end

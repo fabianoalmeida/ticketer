@@ -193,11 +193,27 @@ describe WicketsController do
         post :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 
-      it "put waiting  the given ticket ticket" do
+      it "put waiting the given ticket" do
         assigns(:ticket).should be_nil
       end
        
       it "should redirect to #tickets" do 
+        response.should redirect_to(place_wicket_tickets_url("1", "1"))
+      end
+    end
+
+    describe "POST attending ticket" do
+
+      before(:each) do
+        Ticket.stub(:find).and_return(mock_ticket(:attend => true))
+        post :attend, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      end
+
+      it "attending the given ticket" do
+        assigns(:ticket).should be_nil
+      end
+
+      it "should redirect to #tickets" do
         response.should redirect_to(place_wicket_tickets_url("1", "1"))
       end
     end

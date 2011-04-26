@@ -42,5 +42,9 @@ describe WicketsController do
     it "recognizes and generates #put_waiting" do
       { :post => "/localidades/1/guiches/1/por_em_espera" }.should route_to(:place_id => "1", :controller => "wickets", :action => "put_waiting", :wicket_id => "1")
     end
+
+    it "recognizes and generates #attend" do
+      { :post => "/localidades/1/guiches/1/atender" }.should route_to(:place_id => "1", :controller => "wickets", :action => "attend", :wicket_id => "1")
+    end
   end
 end

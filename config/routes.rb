@@ -20,6 +20,7 @@ Ticketer::Application.routes.draw do
         post 'call_next', :path => 'chamar_proximo'
         post 'recall', :path => 'rechamar'
         post 'put_waiting', :path => 'por_em_espera'
+        post 'attend', :path => 'atender'
       end
       resources :totems do
         get 'generate_ticket', :path => 'gerar_senha'

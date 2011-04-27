@@ -20,6 +20,15 @@ module TicketManager
 
       next_ticket
     end
+
+    def available_for_place(place)
+
+      place= place.id if place.is_a? Place
+
+      tickets = Ticket.where(:place_id => place, :status_ticket_id => StatusTicket.available.id)
+
+      tickets
+    end
   end
 
   def log_history(state_transition)

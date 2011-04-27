@@ -147,4 +147,16 @@ describe Ticket do
 
     end
   end
+
+  describe "Getting by status ticket for place" do
+      before :each do 
+        @ticket = Factory(:ticket)
+        @status_available = Factory(:status_ticket, :value => "Available")
+      end
+
+      it "Should get a list of tickets with the status ticket as available" do
+        @tickets = Ticket.available_for_place("1")
+        @tickets.should_not be_nil
+      end
+  end
 end

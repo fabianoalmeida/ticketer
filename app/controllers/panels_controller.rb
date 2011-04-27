@@ -87,7 +87,7 @@ class PanelsController < ApplicationController
     end
   end
 
-  def tickets 
-   @tickets = Ticket.where(:place_id => params[:place_id])
+  def tickets
+    @tickets = Ticket.available_for_place(params[:place_id])
   end
 end

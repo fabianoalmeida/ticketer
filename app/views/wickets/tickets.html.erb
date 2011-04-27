@@ -31,7 +31,7 @@
       <th><%= t('model.ticket.pending') %></th>
       <th></th>
     </tr>
-    <% if @ticket_waiting %>
+    <% if @tickets_waiting %>
       <% @tickets_waiting.each do |ticket| %>
         <tr>
           <td><%= ticket.value %></td>

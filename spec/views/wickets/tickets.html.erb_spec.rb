@@ -16,6 +16,6 @@ describe "wickets/tickets.html.erb" do
   it "renders a list of wickets" do
     render
     assert_select "table#tickets>tr>td", :text => "P01".to_s, :count => 2
-    assert_select "table#tickets_waiting>tr>td", :text => "P02".to_s, :count => 2
+    assert_select "table#tickets_waiting>tr>td", :text => "P02".to_s, :count => 0
   end
 end

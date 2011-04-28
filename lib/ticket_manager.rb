@@ -29,6 +29,15 @@ module TicketManager
 
       tickets
     end
+
+    def called_for_place(place)
+
+      place= place.id if place.is_a? Place
+
+      tickets = Ticket.where(:place_id => place, :status_ticket_id => StatusTicket.called.id)
+
+      tickets
+    end
   end
 
   def log_history(state_transition)

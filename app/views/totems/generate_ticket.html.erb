@@ -8,12 +8,12 @@
     <tr>
       <th><%= t('model.value') %></th>
     </tr>
-    <tr>
+    <!--tr>
       <td><a href="#term" rel="facebox">Terms</a></td>
-    </tr>
+    </tr-->
     <% @ticket_types.each do |ticket_type| %>
       <tr>
-        <td><a id="<%= ticket_type.id %>" class="trigger_submit"><%= ticket_type.value %></a></td>
+        <td><a id="<%= ticket_type.id %>" class="generate" style="cursor: hand;"><%= ticket_type.value %></a></td>
       </tr>
     <% end %>
   </table>

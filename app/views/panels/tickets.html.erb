@@ -4,13 +4,14 @@
 <tr>
     <th><%= t('model.ticket.name') %></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @tickets.each do |ticket| %>
   <tr>
     <td><%= ticket.value %></td>
     <td><%= ticket.ticket_type.value %></td>
-    <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.call') %></a></td>
+    <td><%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
   </tr>
 <% end %>
 </table>

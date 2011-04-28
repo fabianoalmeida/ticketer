@@ -1,4 +1,4 @@
-<script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<!--script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
     var jug = new Juggernaut();
 
@@ -7,8 +7,14 @@
     jug.subscribe('availables', function(data){
         $("#tickets").append('<tr><td>'+data.value+'</td><td><a id='+data.id+" class='trigger_submit'> Chamar</a></td></tr>");
     }); 
-</script>
+</script-->
 <h1><%= t('model.wicket.tickets.call') %></h1>
+
+<input id="current" type="hidden" />
+
+<input id="call_next" type="button" value='<%= t('model.call') %>' />
+<input id="pending" type="button" value='<%= t('model.ticket.pending') %>' />
+<input id="recall" type="button" value='<%= t('model.ticket.recall') %>' />
 
 <%= form_for( CallHistory.new ) do |f| %>
   <%= f.hidden_field :ticket_id %>
@@ -21,9 +27,24 @@
   <% @tickets.each do |ticket| %>
     <tr>
       <td><%= ticket.value %></td>
-      <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.call') %></a></td>
+      <td><%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
     </tr>
   <% end %>
+  </table>
+
+  <table id="tickets_called">
+    <tr>
+      <th><%= t('model.ticket.called') %></th>
+      <th></th>
+    </tr>
+    <% if @tickets_called %>
+      <% @tickets_called.each do |ticket| %>
+        <tr>
+          <td><%= ticket.ticket.value %></td>
+          <td><%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
+        </tr>
+      <% end %>
+    <% end %>
   </table>
 
   <table id="tickets_waiting">
@@ -34,8 +55,8 @@
     <% if @tickets_waiting %>
       <% @tickets_waiting.each do |ticket| %>
         <tr>
-          <td><%= ticket.value %></td>
-          <td><a id="<%= ticket.id %>" class="trigger_submit"><%= t('model.recall') %></a></td>
+          <td><%= ticket.ticket.value %></td>
+          <td><%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
         </tr>
       <% end %>
     <% end %>

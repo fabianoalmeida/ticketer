@@ -24,8 +24,6 @@ class Ticket < ActiveRecord::Base
   end
 
   state_machine :initial => :available do 
-    
-    after_transition any => any, :do => :change_state
 
     event :call do 
       transition :available => :called 
@@ -69,11 +67,5 @@ class Ticket < ActiveRecord::Base
 
     self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
   end
-
-  def change_state(state_transition)
-    update_attributes(:status_ticket => StatusTicket.id_for(state_transition.to))
-  end
-
-
 
 end

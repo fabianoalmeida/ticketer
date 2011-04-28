@@ -23,6 +23,7 @@
       default: "%d/%m/%Y - %H:%M:%S h"
       short: "%d/%m, %H:%M h"
       long: "%A, %d de %B de %Y, %H:%M h"
+      hour_minute: "%H:%M"
     am: ''
     pm: ''
 
@@ -314,7 +315,9 @@
       editing: "Editando uma Senha"
       title: "Listando todas as Senhas"
       name: "Senha"
-      pending: "Pendente"
+      pending: "Pendentes"
+      called: "Chamadas"
+      recall: "Rechamar"
 
     local:
       new: "Novo Local"

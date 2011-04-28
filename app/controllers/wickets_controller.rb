@@ -90,7 +90,10 @@ class WicketsController < ApplicationController
   # GET /wicket/1/tickets
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
-    @tickets = Ticket.where(:place_id => [params[:place_id]])
+    @tickets = Ticket.available_for_place(params[:place_id])
+    @tickets_called = CallHistory.where( :wicket_id => @wicket.id, :status_ticket_id => StatusTicket.called.id ).today
+    @tickets_waiting = CallHistory.where( :wicket_id => @wicket.id, :status_ticket_id => StatusTicket.pending.id ).today
+    #TODO fix tests
   end
 
   #POST places/1/wicket/1/call_next
@@ -101,8 +104,10 @@ class WicketsController < ApplicationController
       if @next_ticket.call
         CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.json { render :json => @next_ticket }
       end
     end
+    #TODO Implements error return => json and html
   end
 
   #POST places/1/wicket/1/recall
@@ -125,6 +130,7 @@ class WicketsController < ApplicationController
       if @ticket_waiting.pending 
         CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.json { render :json => @ticket_waiting }
       end 
     end
   end

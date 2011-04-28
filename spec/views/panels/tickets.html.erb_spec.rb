@@ -6,11 +6,13 @@ describe "panels/tickets.html.erb" do
      assign(:tickets, [
        stub_model(Ticket, 
                  :value => "value",
-                 :ticket_type => stub_model(TicketType, :value => "pref") 
+                 :ticket_type => stub_model(TicketType, :value => "pref"), 
+                 :updated_at => DateTime.now
                  ),
       stub_model(Ticket, 
                  :value => "value",
-                 :ticket_type => stub_model(TicketType, :value => "pref") 
+                 :ticket_type => stub_model(TicketType, :value => "pref"),
+                 :updated_at => DateTime.now 
                  )
      ]) 
   end

@@ -17,9 +17,9 @@ Ticketer::Application.routes.draw do
       end
       resources :wickets, :path => 'guiches' do
         get 'tickets', :path => 'senhas'
-        post 'call_next', :path => 'chamar_proximo'
-        post 'recall', :path => 'rechamar'
-        post 'attend', :path => 'atender'
+        get 'call_next', :path => 'chamar_proximo'
+        put 'recall', :path => 'rechamar'
+        put 'attend', :path => 'atender'
         put 'put_waiting', :path => 'por_em_espera'
         delete 'cancel', :path => 'cancelar'
       end

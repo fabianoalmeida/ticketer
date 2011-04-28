@@ -61,11 +61,11 @@ class Ticket < ActiveRecord::Base
   end
 
   def generate
-    ticket = Ticket.last
-
-    ticket.nil? ? @@actual_value= 1 : @@actual_value= ticket.value.split( ticket.ticket_type.acronym.to_s )[1].to_i + 1
-
-    self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
+    if new_record?
+      ticket = Ticket.last
+      ticket.nil? ? @@actual_value= 1 : @@actual_value= ticket.value.split( ticket.ticket_type.acronym.to_s )[1].to_i + 1
+      self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
+    end
   end
 
 end

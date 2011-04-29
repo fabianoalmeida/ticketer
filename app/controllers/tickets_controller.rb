@@ -44,6 +44,7 @@ class TicketsController < ApplicationController
     @ticket.status_ticket = StatusTicket.available 
     respond_to do |format|
       if @ticket.save
+        @ticket[:created_at_formatted] = I18n.localize(@ticket.created_at, :format => :default)
         #Juggernaut.publish("scmba", {:senha => @ticket.value, :id => @ticket.id })
         #format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.json { render :json => @ticket }

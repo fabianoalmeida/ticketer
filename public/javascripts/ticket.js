@@ -40,7 +40,7 @@ jQuery( document ).ready( function() {
     jQuery.ajax({
         url: "rechamar",
         type: "put",
-        data: currentParameter,
+        data: currentParameter
       })
     })
    } )

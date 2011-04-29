@@ -45,7 +45,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
         #Juggernaut.publish("scmba", {:senha => @ticket.value, :id => @ticket.id })
-        format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
+        #format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.json { render :json => @ticket }
       else
         format.html { render :action => "new" }

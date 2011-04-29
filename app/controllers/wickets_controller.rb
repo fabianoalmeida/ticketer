@@ -103,7 +103,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @next_ticket.call
         CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        #format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
         format.json { render :json => @next_ticket }
       end
     end
@@ -129,7 +129,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_waiting.pending 
         CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        #format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
         format.json { render :json => @ticket_waiting }
       end 
     end
@@ -142,7 +142,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_attended.attend 
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        #format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
       end 
     end
   end

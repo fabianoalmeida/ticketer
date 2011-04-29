@@ -8,7 +8,7 @@ jQuery( document ).ready( function() {
       data: param,
       success: function(data){
         ticket = data.ticket;
-        alert('Sua senha e: ' + ticket.value);
+        jQuery.facebox( '<b>Senha:</b> ' + ticket.value + '\n <b>Data/Hora:</b> ' + ticket.created_at_formatted );
       }
       })
     } );

@@ -8,9 +8,6 @@
     <tr>
       <th><%= t('model.value') %></th>
     </tr>
-    <!--tr>
-      <td><a href="#term" rel="facebox">Terms</a></td>
-    </tr-->
     <% @ticket_types.each do |ticket_type| %>
       <tr>
         <td><a id="<%= ticket_type.id %>" class="generate" style="cursor: hand;"><%= ticket_type.value %></a></td>

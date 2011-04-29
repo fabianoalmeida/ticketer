@@ -5,7 +5,7 @@
     $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
 
     jug.subscribe('calleds', function(data){
-        $("table").append('<tr><td>'+data.value+'</td><td><a id='+data.id+" class='trigger_submit'> Chamar</a></td></tr>");
+        $("table").append('<tr><td>'+data.value+'</td><td><a id='+data.id+"' class='trigger_submit'> Chamar</a></td></tr>");
         jQuery('audio')[0].play()
     }); 
 </script><h1><%= t('model.wicket.tickets.call') %></h1>

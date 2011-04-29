@@ -1,45 +1,9 @@
-* {
-	margin: 0;
-	padding: 0;
-}
 
-body{
-	font-family: Verdana;
-	font-size: 12px;
-	background-color: black;
-	text-align: center;
-	height: 100%;
-}
-
-div{
-	overflow: auto;
-}
-
-h1, h2 {
-	font-family: Georgia;
-	font-style: italic;
-}
-
-h2{
-	font-size: 16px;	
-	color: #333333;
-	padding-bottom: 5px;
-}
-
-h1{
-	padding: 10px;
-	font-size: 36px;
-}
 
 li{
 	list-style: none;	
 }
 
-#wrapper{
-	margin: 0px auto;
-	text-align: left;
-	width: 960px;
-}
 
 #page_container1{
 	height: 320px;	
@@ -94,5 +58,5 @@ li{
 }
 
 .content li, .alt_content li, .content > p{
-	padding: 5px
+	padding: -1px;
 }

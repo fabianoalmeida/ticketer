@@ -1,70 +1,95 @@
 <script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
+  <%= javascript_include_tag 'jquery.pajinate.min' %>
 <script type="text/javascript" charset="utf-8">
     var jugAvailables = new Juggernaut();
     var jugCalled = new Juggernaut();
 
-    $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
-
     jugAvailables.subscribe('availables', function(data){
-        $("#tickets").append('<tr id='+data.id+'><td>'+data.value+'</td><td><a id='+data.id+" class='trigger_submit'> Chamar</a></td></tr>");
+        $("#tickets").append('<li id='+data.id+'><p>'+data.value+' '+data.hora+' </p></li>');
     }); 
 
    jugCalled.subscribe('calleds', function(data){
-        $("tr#"+data.id).remove();
+        $("li#"+data.id).remove();
     }); 
+
+    jQuery(document).ready(function(){
+        jQuery('#tickets').pajinate({
+            num_page_links_to_display : 4,
+            nav_label_first : ' << ',
+            nav_label_last : ' >> ',
+            nav_label_prev : ' < ',
+            nav_label_next : ' > ',
+            nav_panel_id : '.page_nav'
+        });
+      })
+
+    jQuery(document).ready(function(){
+        jQuery('#tickets_watting').pajinate({
+            num_page_links_to_display : 4,
+            nav_label_first : ' << ',
+            nav_label_last : ' >> ',
+            nav_label_prev : ' < ',
+            nav_label_next : ' > ',
+            nav_panel_id : '.page_nav'
+        });
+      })
+
+
+    jQuery(document).ready(function(){
+        jQuery('#tickets_called').pajinate({
+            num_page_links_to_display : 4,
+            nav_label_first : ' << ',
+            nav_label_last : ' >> ',
+            nav_label_prev : ' < ',
+            nav_label_next : ' > ',
+            nav_panel_id : '.page_nav'
+        });
+      })
+
 </script>
 <h1><%= t('model.wicket.tickets.call') %></h1>
 
 <input id="current" type="hidden" />
-
 <input id="call_next" type="button" value='<%= t('model.call') %>' />
 <input id="pending" type="button" value='<%= t('model.ticket.pending') %>' />
 <input id="recall" type="button" value='<%= t('model.ticket.recall') %>' />
+<div>
+  <div id="tickets" class="container">
+    <em><%= t('model.ticket.name') %></em>
+    <div class="page_nav"></div>
+    <ul class="content">
+      <% @tickets.each do |ticket| %>
+        <li id='<%= ticket.id %>'>
+          <p><%= ticket.value %>
+          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-<%= form_for( CallHistory.new ) do |f| %>
-  <%= f.hidden_field :ticket_id %>
-  <%= f.hidden_field :wicket_id, :value => params[:wicket_id] %>
-  <table id="tickets">
-    <tr>
-      <th><%= t('model.ticket.name') %></th>
-      <th></th>
-    </tr>
-  <% @tickets.each do |ticket| %>
-    <tr id='<%= ticket.id %>'>
-      <td><%= ticket.value %></td>
-      <td><%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
-    </tr>
-  <% end %>
-  </table>
-
-  <table id="tickets_called">
-    <tr>
-      <th><%= t('model.ticket.called') %></th>
-      <th></th>
-    </tr>
-    <% if @tickets_called %>
+  <div id="tickets_called" class="container">
+    <em><%= t('model.ticket.called') %></em>
+    <div class="page_nav"></div>
+    <ul class="content">
       <% @tickets_called.each do |ticket| %>
-        <tr>
-          <td><%= ticket.ticket.value %></td>
-          <td><%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
-        </tr>
+        <li id='<%= ticket.ticket.id %>'>
+          <p><%= ticket.ticket.value %>
+          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+        </li>
       <% end %>
-    <% end %>
-  </table>
+    </ul>
+  </div>
 
-  <table id="tickets_waiting">
-    <tr>
-      <th><%= t('model.ticket.pending') %></th>
-      <th></th>
-    </tr>
-    <% if @tickets_waiting %>
+  <div id="tickets_watting" class="container">
+    <em><%= t('model.ticket.pending') %></em>
+    <div class="page_nav"></div>
+    <ul class="content">
       <% @tickets_waiting.each do |ticket| %>
-        <tr>
-          <td><%= ticket.ticket.value %></td>
-          <td><%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
-        </tr>
+        <li id='<%= ticket.ticket.id %>'>
+          <p><%= ticket.ticket.value %>
+          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+        </li>
       <% end %>
-    <% end %>
-  </table>
-
-<% end %>
+    </ul>
+  </div>
+</div>

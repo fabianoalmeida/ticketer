@@ -18,7 +18,7 @@ jQuery( document ).ready( function() {
         type: "get",
         success: function(data){
           ticket = data.ticket;
-          $("#tickets_called").append('<tr><td>'+ticket.value+'</td><td>'+ticket.updated_at+'</td></tr>');
+          $("#tickets_called").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
           $('input#current').val(ticket.id);
         }
       })
@@ -31,7 +31,7 @@ jQuery( document ).ready( function() {
         data: currentParameter,
         success: function(data){
           ticket = data.ticket;
-          $("#tickets_waiting").append('<tr><td>'+ticket.value+'</td><td>'+ticket.updated_at+'</td></tr>');
+          $("#tickets_waiting").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
         }
       })
     })

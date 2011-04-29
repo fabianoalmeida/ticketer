@@ -21,7 +21,7 @@ class TicketObserver < ActiveRecord::Observer
       Juggernaut.publish(channel, {
             :value => ticket.value, 
             :id => ticket.id,
-            :time => ticket.updated_at
+            :time => I18n.localize(ticket.updated_at, :format => :default)
           })
     end
   end

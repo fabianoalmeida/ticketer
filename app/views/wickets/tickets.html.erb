@@ -5,7 +5,7 @@
     var jugCalled = new Juggernaut();
 
     jugAvailables.subscribe('availables', function(data){
-        $("#tickets").append('<li id='+data.id+'><p>'+data.value+' '+data.hora+' </p></li>');
+        $("#tickets").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
     }); 
 
    jugCalled.subscribe('calleds', function(data){

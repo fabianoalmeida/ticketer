@@ -5,6 +5,9 @@ class TicketObserver < ActiveRecord::Observer
       state_object =  StatusTicket.id_for(ticket.state)
       ticket.status_ticket = state_object unless ticket.status_ticket.eql?(state_object)
     end
+  end
+
+  def after_save(ticket)
     emit_ticket(:availables, ticket) 
   end
 

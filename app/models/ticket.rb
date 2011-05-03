@@ -14,6 +14,8 @@ class Ticket < ActiveRecord::Base
   belongs_to :ticket_type
   belongs_to :place
   belongs_to :totem
+  has_many :call_histories
+  has_many :wickets, :through => :call_histories
   
   before_save :generate #:validates_current_date,
 

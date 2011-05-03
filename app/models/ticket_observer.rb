@@ -8,6 +8,7 @@ class TicketObserver < ActiveRecord::Observer
   end
 
   def after_save(ticket)
+    Rails.logger.info "Generated a new ticket: #{ticket.value}!"
     emit_ticket(:availables, ticket) 
   end
 
@@ -17,7 +18,7 @@ class TicketObserver < ActiveRecord::Observer
     channel = [:called.to_s, :recalled.to_s ].include?(ticket.state)? :calleds : ticket.state.eql?(:available.to_s) ? :availables : nil 
 
     if channel 
-      Rails.logger.info "Publihs new ticket #{ticket.value} com a ação #{ticket.state}, para o canal #{channel}"
+      Rails.logger.info "Publish new ticket #{ticket.value} com a ação #{ticket.state}, para o canal #{channel}"
       Juggernaut.publish(channel, {
             :value => ticket.value, 
             :id => ticket.id,

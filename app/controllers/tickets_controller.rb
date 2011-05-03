@@ -17,7 +17,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @ticket }
+      format.json { render :json => @ticket }
     end
   end
 
@@ -45,8 +45,7 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
         @ticket[:created_at_formatted] = I18n.localize(@ticket.created_at, :format => :default)
-        #Juggernaut.publish("scmba", {:senha => @ticket.value, :id => @ticket.id })
-        #format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
+        format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.json { render :json => @ticket }
       else
         format.html { render :action => "new" }

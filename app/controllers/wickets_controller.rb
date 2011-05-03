@@ -93,7 +93,6 @@ class WicketsController < ApplicationController
     @tickets = Place.find(params[:place_id]).tickets_availables
     @tickets_called = @wicket.called_tickets 
     @tickets_waiting = @wicket.pending_tickets 
-    #TODO fix tests
   end
 
   #POST places/1/wicket/1/call_next
@@ -103,13 +102,12 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @next_ticket && @next_ticket.call
         CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @next_ticket }
       else
-        format.json { render :json => { :warning_message => I18n.t('model.no_tickets') }, :status => :unprocessable_entity }
+        format.json { render :json => { :warning_message => I18n.t('model.no_tickets') }, :status => :no_content }
       end
     end
-    #TODO Implements error return => json and html
   end
 
   #POST places/1/wicket/1/recall
@@ -119,7 +117,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_recalled.recall 
         CallHistory.register(:ticket => @ticket_recalled, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
       end 
     end
   end
@@ -131,7 +129,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_waiting.pending 
         CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @ticket_waiting }
       end 
     end
@@ -144,7 +142,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_attended.attend 
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
       end 
     end
   end
@@ -156,7 +154,7 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @ticket_canceled.cancel 
         CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id]), :notice => 'Ticket was successfully updated.') }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
       end
     end
   end

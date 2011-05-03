@@ -155,22 +155,39 @@ describe WicketsController do
         Factory(:status_ticket, :value => "Pending")
         get :tickets, :place_id => "1", :wicket_id => "1"
         assigns(:tickets).should eq([mock_ticket])
+        assigns(:tickets_called).should eq([mock_ticket])
+        assigns(:tickets_waiting).should eq([mock_ticket])
       end
     end
     
     describe "POST call_ticket" do
+      
+      context "Success" do
 
-      before(:each) do
-        Ticket.stub(:next_to).and_return(mock_ticket(:call => true)) 
-        post :call_next, :place_id => "1", :wicket_id => "1"
-      end
+        before(:each) do
+          Ticket.stub(:next_to).and_return(mock_ticket(:call => true)) 
+          post :call_next, :place_id => "1", :wicket_id => "1"
+        end
 
-      it "call the next ticket" do
-        assigns(:next_ticket).should eq(mock_ticket)
+        it "call the next ticket" do
+          assigns(:next_ticket).should eq(mock_ticket)
+        end
+         
+        it "should redirect to #tickets" do 
+          response.should redirect_to(place_wicket_tickets_url("1", "1"))
+        end
+
       end
-       
-      it "should redirect to #tickets" do 
-        response.should redirect_to(place_wicket_tickets_url("1", "1"))
+      context "Failure" do
+        before(:each) do
+          Ticket.stub(:next_to).and_return(nil) 
+          post :call_next, :place_id => "1", :wicket_id => "1", :format => :json
+        end
+
+        it "should get 204 error for no tickets available in json format" do 
+          response.status.should eq(204)
+          response.content_type.should be_eql("application/json") 
+        end
       end
     end
 

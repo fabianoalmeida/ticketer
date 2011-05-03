@@ -1,34 +1,34 @@
 class GuidancesController < ApplicationController
   # GET /guidances
-  # GET /guidances.xml
+  # GET /guidances.json
   def index
     @guidances = Guidance.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @guidances }
+      format.json  { render :json => @guidances }
     end
   end
 
   # GET /guidances/1
-  # GET /guidances/1.xml
+  # GET /guidances/1.json
   def show
     @guidance = Guidance.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @guidance }
+      format.json  { render :json => @guidance }
     end
   end
 
   # GET /guidances/new
-  # GET /guidances/new.xml
+  # GET /guidances/new.json
   def new
     @guidance = Guidance.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @guidance }
+      format.json  { render :json => @guidance }
     end
   end
 
@@ -38,7 +38,7 @@ class GuidancesController < ApplicationController
   end
 
   # POST /guidances
-  # POST /guidances.xml
+  # POST /guidances.json
   def create
     @guidance = Guidance.new(params[:guidance])
     @guidance.user= "user test"
@@ -46,39 +46,39 @@ class GuidancesController < ApplicationController
     respond_to do |format|
       if @guidance.save
         format.html { redirect_to(@guidance, :notice => 'Guidance was successfully created.') }
-        format.xml  { render :xml => @guidance, :status => :created, :location => @guidance }
+        format.json  { render :json => @guidance, :status => :created, :location => @guidance }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @guidance.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @guidance.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /guidances/1
-  # PUT /guidances/1.xml
+  # PUT /guidances/1.json
   def update
     @guidance = Guidance.find(params[:id])
 
     respond_to do |format|
       if @guidance.update_attributes(params[:guidance])
         format.html { redirect_to(@guidance, :notice => 'Guidance was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @guidance.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @guidance.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /guidances/1
-  # DELETE /guidances/1.xml
+  # DELETE /guidances/1.json
   def destroy
     @guidance = Guidance.find(params[:id])
     @guidance.destroy
 
     respond_to do |format|
       format.html { redirect_to(guidances_url) }
-      format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 end

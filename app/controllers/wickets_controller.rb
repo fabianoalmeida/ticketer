@@ -1,35 +1,35 @@
 class WicketsController < ApplicationController
   # GET /wickets
-  # GET /wickets.xml
+  # GET /wickets.json
   def index
     @wickets = Wicket.where(:place_id => params[:place_id])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @wickets }
+      format.json  { render :json => @wickets }
     end
   end
 
   # GET /wickets/1
-  # GET /wickets/1.xml
+  # GET /wickets/1.json
   def show
     @wicket = Wicket.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @wicket }
+      format.json  { render :json => @wicket }
     end
   end
 
   # GET /wickets/new
-  # GET /wickets/new.xml
+  # GET /wickets/new.json
   def new
     @wicket = Wicket.new
     @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @wicket }
+      format.json  { render :json => @wicket }
     end
   end
 
@@ -40,7 +40,7 @@ class WicketsController < ApplicationController
   end
 
   # POST /wickets
-  # POST /wickets.xml
+  # POST /wickets.json
   def create
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
@@ -49,16 +49,16 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @wicket.save
         format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully created.') }
-        format.xml  { render :xml => @wicket, :status => :created, :location => @wicket }
+        format.json  { render :json => @wicket, :status => :created, :location => @wicket }
       else
         format.html { render :action => :new }
-        format.xml  { render :xml => @wicket.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @wicket.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /wickets/1
-  # PUT /wickets/1.xml
+  # PUT /wickets/1.json
   def update
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -66,16 +66,16 @@ class WicketsController < ApplicationController
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])
         format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @wicket.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @wicket.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /wickets/1
-  # DELETE /wickets/1.xml
+  # DELETE /wickets/1.json
   def destroy
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -83,7 +83,7 @@ class WicketsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(place_wickets_url(@place)) }
-      format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 

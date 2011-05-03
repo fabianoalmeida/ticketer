@@ -2,36 +2,36 @@ class TotemsController < ApplicationController
   prepend_before_filter :generate_ticket_must_pass, :only => :generate_ticket
 
   # GET /totems
-  # GET /totems.xml
+  # GET /totems.json
   def index
     @totems = Totem.where(:place_id => params[:place_id])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @totems }
+      format.json  { render :json => @totems }
     end
   end
 
   # GET /totems/1
-  # GET /totems/1.xml
+  # GET /totems/1.json
   def show
     @totem = Totem.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @totem }
+      format.json  { render :json => @totem }
     end
   end
 
   # GET /totems/new
-  # GET /totems/new.xml
+  # GET /totems/new.json
   def new
     @totem = Totem.new
     @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @totem }
+      format.json  { render :json => @totem }
     end
   end
 
@@ -42,7 +42,7 @@ class TotemsController < ApplicationController
   end
 
   # POST /totems
-  # POST /totems.xml
+  # POST /totems.json
   def create
     @totem = Totem.new(params[:totem])
     @place = Place.find(params[:place_id])
@@ -51,16 +51,16 @@ class TotemsController < ApplicationController
     respond_to do |format|
       if @totem.save
         format.html { redirect_to(place_totem_url(@place, @totem), :notice => 'Totem was successfully created.') }
-        format.xml  { render :xml => @totem, :status => :created, :location => @totem }
+        format.json  { render :json => @totem, :status => :created, :location => @totem }
       else
         format.html { render :action => :new }
-        format.xml  { render :xml => @totem.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @totem.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /totems/1
-  # PUT /totems/1.xml
+  # PUT /totems/1.json
   def update
     @totem = Totem.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -68,16 +68,16 @@ class TotemsController < ApplicationController
     respond_to do |format|
       if @totem.update_attributes(params[:totem])
         format.html { redirect_to(place_totem_url(@place, @totem), :notice => 'Totem was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @totem.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @totem.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /totems/1
-  # DELETE /totems/1.xml
+  # DELETE /totems/1.json
   def destroy
     @totem = Totem.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -85,7 +85,7 @@ class TotemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(place_totems_url(@place)) }
-      format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 
@@ -96,7 +96,7 @@ class TotemsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @ticket_types }
+      format.json  { render :json => @ticket_types }
     end
   end
 

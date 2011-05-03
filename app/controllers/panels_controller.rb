@@ -1,35 +1,35 @@
 class PanelsController < ApplicationController
   # GET /panels
-  # GET /panels.xml
+  # GET /panels.json
   def index
     @panels = Panel.where(:place_id => params[:place_id])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @panels }
+      format.json  { render :json => @panels }
     end
   end
 
   # GET /panels/1
-  # GET /panels/1.xml
+  # GET /panels/1.json
   def show
     @panel = Panel.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @panel }
+      format.json  { render :json => @panel }
     end
   end
 
   # GET /panels/new
-  # GET /panels/new.xml
+  # GET /panels/new.json
   def new
     @panel = Panel.new
     @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @panel }
+      format.json  { render :json => @panel }
     end
   end
 
@@ -40,7 +40,7 @@ class PanelsController < ApplicationController
   end
 
   # POST /panels
-  # POST /panels.xml
+  # POST /panels.json
   def create
     @panel = Panel.new(params[:panel])
     @place = Place.find(params[:place_id])
@@ -49,16 +49,16 @@ class PanelsController < ApplicationController
     respond_to do |format|
       if @panel.save
         format.html { redirect_to(place_panel_url(@place, @panel), :notice => 'Panel was successfully created.') }
-        format.xml  { render :xml => @panel, :status => :created, :location => @panel }
+        format.json  { render :json => @panel, :status => :created, :location => @panel }
       else
         format.html { render :action => :new }
-        format.xml  { render :xml => @panel.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @panel.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /panels/1
-  # PUT /panels/1.xml
+  # PUT /panels/1.json
   def update
     @panel = Panel.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -66,16 +66,16 @@ class PanelsController < ApplicationController
     respond_to do |format|
       if @panel.update_attributes(params[:panel])
         format.html { redirect_to(place_panel_url(@place, @panel), :notice => 'Panel was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @panel.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @panel.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /panels/1
-  # DELETE /panels/1.xml
+  # DELETE /panels/1.json
   def destroy
     @panel = Panel.find(params[:id])
     @place = Place.find(params[:place_id])
@@ -83,7 +83,7 @@ class PanelsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(place_panels_url(@place)) }
-      format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 

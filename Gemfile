@@ -9,8 +9,8 @@ gem 'rubycas-client'
 #gem 'rubycas-client-rails', :path => "lib/rubycas-client-rails"
 gem 'state_machine'
 gem 'juggernaut' #, :git => 'https://github.com/maccman/juggernaut.git'
-gem 'json'
-gem 'SystemTimer'
+#gem 'json'
+#gem 'SystemTimer'
 
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby
@@ -30,7 +30,7 @@ gem 'SystemTimer'
 
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-gem 'ruby-debug'
+gem 'ruby-debug19'
 
 group :development, :test do
   #gem 'webrat'

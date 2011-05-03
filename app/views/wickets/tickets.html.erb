@@ -24,7 +24,7 @@
       })
 
     jQuery(document).ready(function(){
-        jQuery('#tickets_watting').pajinate({
+        jQuery('#tickets_waiting').pajinate({
             num_page_links_to_display : 4,
             nav_label_first : ' << ',
             nav_label_last : ' >> ',
@@ -60,7 +60,7 @@
     <ul class="content">
       <% @tickets.each do |ticket| %>
         <li id='<%= ticket.id %>'>
-          <p><%= ticket.value %>
+          <p><em><%= ticket.value %></em>
           <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
         </li>
       <% end %>
@@ -73,21 +73,21 @@
     <ul class="content">
       <% @tickets_called.each do |ticket| %>
         <li id='<%= ticket.ticket.id %>'>
-          <p><%= ticket.ticket.value %>
-          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          <p><em><%= ticket.ticket.value %></em>
+          <%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
         </li>
       <% end %>
     </ul>
   </div>
 
-  <div id="tickets_watting" class="container">
+  <div id="tickets_waiting" class="container">
     <em><%= t('model.ticket.pending') %></em>
     <div class="page_nav"></div>
     <ul class="content">
       <% @tickets_waiting.each do |ticket| %>
         <li id='<%= ticket.ticket.id %>'>
-          <p><%= ticket.ticket.value %>
-          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          <p><em><%= ticket.ticket.value %></em>
+          <%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
         </li>
       <% end %>
     </ul>

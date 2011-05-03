@@ -17,4 +17,11 @@ class Place < ActiveRecord::Base
 
   accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
 
+  def tickets_called 
+    tickets.where(:status_ticket_id => StatusTicket.called.id)
+  end
+
+  def tickets_availables
+    tickets.where(:status_ticket_id => StatusTicket.available.id)
+  end
 end

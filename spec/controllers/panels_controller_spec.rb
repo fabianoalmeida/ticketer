@@ -137,7 +137,7 @@ describe PanelsController do
     end
 
     it "grab all tickets for the place where it is" do
-      Ticket.stub(:called_for_place).with("1"){[mock_tickets]}
+      mock_place.stub(:tickets_called){[mock_tickets]}
       get :tickets, :place_id => "1", :panel_id => "1"
       assigns(:tickets).should eq([mock_tickets])
     end

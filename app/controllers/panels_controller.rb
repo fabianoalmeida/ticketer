@@ -88,6 +88,7 @@ class PanelsController < ApplicationController
   end
 
   def tickets
-    @tickets = Ticket.called_for_place(params[:place_id])
+    @place = Place.find(params[:place_id])
+    @tickets = @place.tickets_called
   end
 end

@@ -150,7 +150,7 @@ describe WicketsController do
       it "assigns all tickets for the place where  are the @wickets" do
         mock_wicket.stub(:called_tickets).and_return([mock_ticket])
         mock_wicket.stub(:pending_tickets).and_return([mock_ticket])
-        Ticket.stub(:available_for_place).with("1") { [mock_ticket] }
+        mock_place.stub!(:tickets_availables).and_return([mock_ticket])
         Factory(:status_ticket, :value => "Called")
         Factory(:status_ticket, :value => "Pending")
         get :tickets, :place_id => "1", :wicket_id => "1"

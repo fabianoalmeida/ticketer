@@ -90,7 +90,7 @@ class WicketsController < ApplicationController
   # GET /wicket/1/tickets
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
-    @tickets = Ticket.available_for_place(params[:place_id])
+    @tickets = Place.find(params[:place_id]).tickets_availables
     @tickets_called = @wicket.called_tickets 
     @tickets_waiting = @wicket.pending_tickets 
     #TODO fix tests

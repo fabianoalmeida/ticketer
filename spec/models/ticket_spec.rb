@@ -147,35 +147,4 @@ describe Ticket do
 
     end
   end
-
-  describe "Getting by status ticket for place" do
-    before :each do 
-      @status_available = Factory(:status_ticket, :value => "Available")
-      @status_called    = Factory(:status_ticket, :value => "Called")
-      @status_cancelled = Factory(:status_ticket, :value => "Canceled")
-      @status_attended  = Factory(:status_ticket, :value => "Attended")
-      @status_pending   = Factory(:status_ticket, :value => "Pending")
-
-      @place = Factory(:place)
-
-      @tickets_available = (1..3).collect{ Factory(:ticket, :status_ticket => @status_available, :place => @place) }
-    end
-
-    it "Should get a list of tickets with the status ticket as available" do
-      tickets = Ticket.available_for_place(@place.id)
-      tickets.should have(3).items
-      tickets.should eq(@tickets_available)
-      @tickets_available.first.call
-      tickets = Ticket.available_for_place(@place.id)
-      tickets.should have(2).items
-    end
-
-    it "Should get a list of tickets with the status ticket as called" do
-      @tickets_available.first.call
-      tickets_available_for_place = Ticket.available_for_place(@place.id)
-      tickets_available_for_place.should have(2).items
-      tickets_called_for_place = Ticket.called_for_place(@place.id)
-      tickets_called_for_place.should have(1).items
-    end
-  end
 end

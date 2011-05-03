@@ -264,6 +264,7 @@
     generate: "Gerar"
     call: "Chamar"
     recall: "Rechamar"
+    no_tickets: "Não existem senhas disponíveis!"
 
     status:
       new: "Novo Status"

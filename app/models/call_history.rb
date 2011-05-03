@@ -16,8 +16,4 @@ class CallHistory < ActiveRecord::Base
     new_record.save
 
   end
-    
-  def self.today
-    where(:created_at => Date.today.midnight...Date.tomorrow.midnight)
-  end
 end

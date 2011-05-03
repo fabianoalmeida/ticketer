@@ -6,9 +6,10 @@ jQuery( document ).ready( function() {
       url: "/senhas",
       type: "post",
       data: param,
+      dataType: 'json',
       success: function(data){
         ticket = data.ticket;
-        jQuery.facebox( '<b>Senha:</b> ' + ticket.value + '\n <b>Data/Hora:</b> ' + ticket.created_at_formatted );
+        jQuery.facebox( '<b>Senha:</b> ' + ticket.value + '<br/> <b>Data/Hora:</b> ' + ticket.created_at_formatted );
       }
       })
     } );
@@ -16,6 +17,7 @@ jQuery( document ).ready( function() {
     jQuery.ajax({
         url: "chamar_proximo",
         type: "get",
+        dataType: 'json',
         success: function(data){
           ticket = data.ticket;
           $("#tickets_called").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
@@ -28,6 +30,7 @@ jQuery( document ).ready( function() {
     jQuery.ajax({
         url: "por_em_espera",
         type: "put",
+        dataType: 'json',
         data: currentParameter,
         success: function(data){
           ticket = data.ticket;
@@ -40,6 +43,7 @@ jQuery( document ).ready( function() {
     jQuery.ajax({
         url: "rechamar",
         type: "put",
+        dataType: 'json',
         data: currentParameter
       })
     })

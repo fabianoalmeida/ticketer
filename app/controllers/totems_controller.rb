@@ -91,7 +91,7 @@ class TotemsController < ApplicationController
 
   # GET /generate_ticket
   def generate_ticket
-    @place = Place.where(:id => params[:place_id]).first
+    @place = Place.find(params[:place_id])
     @ticket_types = @place.ticket_types
 
     respond_to do |format|
@@ -101,6 +101,8 @@ class TotemsController < ApplicationController
   end
 
   private 
+
+  #Necessary to CAS authentication bypass
   def generate_ticket_must_pass
     @it_is_required = true
   end

@@ -118,6 +118,7 @@ class WicketsController < ApplicationController
       if @ticket_recalled.recall 
         CallHistory.register(:ticket => @ticket_recalled, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
+        format.json  { head :ok }
       end 
     end
   end

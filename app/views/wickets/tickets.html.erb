@@ -1,68 +1,21 @@
-<script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
-  <%= javascript_include_tag 'jquery.pajinate.min' %>
-<script type="text/javascript" charset="utf-8">
-    var jugAvailables = new Juggernaut();
-    var jugCalled = new Juggernaut();
-
-    jugAvailables.subscribe('availables', function(data){
-        $("#tickets").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
-    }); 
-
-   jugCalled.subscribe('calleds', function(data){
-        $("li#"+data.id).remove();
-    }); 
-
-    jQuery(document).ready(function(){
-        jQuery('#tickets').pajinate({
-            num_page_links_to_display : 4,
-            nav_label_first : ' << ',
-            nav_label_last : ' >> ',
-            nav_label_prev : ' < ',
-            nav_label_next : ' > ',
-            nav_panel_id : '.page_nav'
-        });
-      })
-
-    jQuery(document).ready(function(){
-        jQuery('#tickets_waiting').pajinate({
-            num_page_links_to_display : 4,
-            nav_label_first : ' << ',
-            nav_label_last : ' >> ',
-            nav_label_prev : ' < ',
-            nav_label_next : ' > ',
-            nav_panel_id : '.page_nav'
-        });
-      })
-
-
-    jQuery(document).ready(function(){
-        jQuery('#tickets_called').pajinate({
-            num_page_links_to_display : 4,
-            nav_label_first : ' << ',
-            nav_label_last : ' >> ',
-            nav_label_prev : ' < ',
-            nav_label_next : ' > ',
-            nav_panel_id : '.page_nav'
-        });
-      })
-
-</script>
 <h1><%= t('model.wicket.tickets.call') %></h1>
 
-<input id="current" type="hidden" />
-<input id="call_next" type="button" value='<%= t('model.call') %>' />
-<input id="pending" type="button" value='<%= t('model.ticket.pending') %>' />
-<input id="recall" type="button" value='<%= t('model.ticket.recall') %>' />
+<input id="current" type="hidden" value="<%= @tickets_called.last.id if @tickets_called %>"/>
+<input id="call_next" type="button" value='<%= t('model.call') %>' data-url="chamar_proximo" data-method="get"/>
+<input id="pending" type="button" value='<%= t('model.ticket.pending') %>' data-url="por_em_espera" data-method="put"/>
+<input id="recall" type="button" value='<%= t('model.ticket.recall') %>' data-url="rechamar" data-method="put"/>
 <div>
   <div id="tickets" class="container">
     <em><%= t('model.ticket.name') %></em>
     <div class="page_nav"></div>
     <ul class="content">
-      <% @tickets.each do |ticket| %>
-        <li id='<%= ticket.id %>'>
-          <p><em><%= ticket.value %></em>
-          <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
-        </li>
+      <% if @tickets %>
+        <% @tickets.each do |ticket| %>
+          <li id='<%= ticket.id %>'>
+            <p><em><%= ticket.value %></em>
+            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
@@ -71,11 +24,13 @@
     <em><%= t('model.ticket.called') %></em>
     <div class="page_nav"></div>
     <ul class="content">
-      <% @tickets_called.each do |ticket| %>
-        <li id='<%= ticket.ticket.id %>'>
-          <p><em><%= ticket.ticket.value %></em>
-          <%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
-        </li>
+      <% if @tickets_called %>
+        <% @tickets_called.each do |ticket| %>
+          <li id='<%= ticket.id %>'>
+            <p><em><%= ticket.value %></em>
+            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
@@ -84,12 +39,17 @@
     <em><%= t('model.ticket.pending') %></em>
     <div class="page_nav"></div>
     <ul class="content">
-      <% @tickets_waiting.each do |ticket| %>
-        <li id='<%= ticket.ticket.id %>'>
-          <p><em><%= ticket.ticket.value %></em>
-          <%= ticket.ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
-        </li>
+      <% if @tickets_waiting %>
+        <% @tickets_waiting.each do |ticket| %>
+          <li id='<%=ticket.id %>'>
+            <p><em><%= ticket.value %></em>
+            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
 </div>
+<script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min'%>
+

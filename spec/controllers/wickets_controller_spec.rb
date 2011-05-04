@@ -141,6 +141,7 @@ describe WicketsController do
     end
 
     before(:each) do
+      Place.stub(:find).with("1"){ mock_place }
       Wicket.stub(:find).with("1") { mock_wicket }
       CallHistory.stub!(:register).and_return(nil)
     end
@@ -148,9 +149,9 @@ describe WicketsController do
     describe "GET tickets" do
 
       it "assigns all tickets for the place where  are the @wickets" do
-        mock_wicket.stub(:called_tickets).and_return([mock_ticket])
-        mock_wicket.stub(:pending_tickets).and_return([mock_ticket])
-        mock_place.stub!(:tickets_availables).and_return([mock_ticket])
+        mock_wicket.stub_chain(:called_tickets, :today).and_return([mock_ticket])
+        mock_wicket.stub_chain(:pending_tickets, :today).and_return([mock_ticket])
+        mock_place.stub_chain(:tickets_availables, :today).and_return([mock_ticket])    
         Factory(:status_ticket, :value => "Called")
         Factory(:status_ticket, :value => "Pending")
         get :tickets, :place_id => "1", :wicket_id => "1"

@@ -90,9 +90,9 @@ class WicketsController < ApplicationController
   # GET /wicket/1/tickets
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
-    @tickets = Place.find(params[:place_id]).tickets_availables
-    @tickets_called = @wicket.called_tickets 
-    @tickets_waiting = @wicket.pending_tickets 
+    @tickets = Place.find(params[:place_id]).tickets_availables.today
+    @tickets_called = @wicket.called_tickets.today 
+    @tickets_waiting = @wicket.pending_tickets.today
   end
 
   #POST places/1/wicket/1/call_next

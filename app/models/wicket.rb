@@ -20,11 +20,11 @@ class Wicket < ActiveRecord::Base
     :allow_blank => false
   
   def called_tickets
-    tickets.where(:status_ticket_id => StatusTicket.called.id).today
+    tickets.where(:status_ticket_id => StatusTicket.called.id)
   end
   
   def pending_tickets
-    tickets.where(:status_ticket_id => StatusTicket.pending.id).today
+    tickets.where(:status_ticket_id => StatusTicket.pending.id)
   end
 
 end

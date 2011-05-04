@@ -18,7 +18,7 @@ class TicketObserver < ActiveRecord::Observer
     channel = [:called.to_s, :recalled.to_s ].include?(ticket.state)? :calleds : ticket.state.eql?(:available.to_s) ? :availables : nil 
 
     if channel 
-      Rails.logger.info "Publish new ticket #{ticket.value} com a ação #{ticket.state}, para o canal #{channel}"
+      Rails.logger.info "Publish new ticket #{ticket.value} wiht stat #{ticket.state}, for the channel #{channel}"
       Juggernaut.publish(channel, {
             :value => ticket.value, 
             :id => ticket.id,

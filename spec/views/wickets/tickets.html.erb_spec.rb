@@ -8,16 +8,12 @@ describe "wickets/tickets.html.erb" do
       stub_model(Ticket, :value => "P01", :updated_at => DateTime.now)
     ])
     assign(:tickets_waiting,[
-      stub_model(CallHistory, 
-                 :ticket => stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)),
-      stub_model(CallHistory, 
-                 :ticket => stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)),
+      stub_model(Ticket, :value => "P02", :updated_at => DateTime.now),
+      stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)
     ])
     assign(:tickets_called,[
-      stub_model(CallHistory, 
-                 :ticket => stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)),
-      stub_model(CallHistory, 
-                 :ticket => stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)),
+      stub_model(Ticket, :value => "P02", :updated_at => DateTime.now),
+      stub_model(Ticket, :value => "P02", :updated_at => DateTime.now)
     ])
   end
 

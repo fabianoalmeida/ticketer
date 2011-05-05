@@ -1,6 +1,6 @@
 <h1><%= t('model.wicket.tickets.call') %></h1>
 
-<input id="current" type="hidden" value="<%= @tickets_called.last.id if @tickets_called %>"/>
+<input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
 <input id="call_next" type="button" value='<%= t('model.call') %>' data-url="chamar_proximo" data-method="get"/>
 <input id="pending" type="button" value='<%= t('model.ticket.pending') %>' data-url="por_em_espera" data-method="put"/>
 <input id="recall" type="button" value='<%= t('model.ticket.recall') %>' data-url="rechamar" data-method="put"/>

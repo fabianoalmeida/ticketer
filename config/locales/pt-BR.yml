@@ -307,6 +307,9 @@
       editing: "Editando um Guichê"
       title: "Listando todos os Guichês"
       name: "Guichê"
+      guidance : 
+        left : "Esquerda"
+        right : "Direita"
       tickets:
         call: "Senhas a serem chamadas"
         name: "Senhas"

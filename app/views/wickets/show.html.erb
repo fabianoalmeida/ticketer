@@ -7,7 +7,8 @@
 
 <p>
   <b><%= t('model.guidance.name') %>:</b>
-  <%= @wicket.guidance.value %>
+  <%= t('model.wicket.guidance.left') if @wicket.guidance_left?  %>
+  <%= t('model.wicket.guidance.right') if @wicket.guidance_right?  %>
 </p>
 
 <p>

@@ -15,3 +15,20 @@
     <% end %>
   </table>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+   jQuery( 'a.generate' ).click( function() { 
+    jQuery( '#ticket_ticket_type_id' ).val( this.id );
+    param = jQuery( '#new_ticket' ).serialize();
+    jQuery.ajax({
+      url: "/senhas",
+      type: "post",
+      data: param,
+      dataType: 'json',
+      success: function(data){
+        ticket = data.ticket;
+        jQuery.facebox( '<b>Senha:</b> ' + ticket.value + '<br/> <b>Data/Hora:</b> ' + ticket.created_at_formatted );
+      }
+    });
+  });
+</script>

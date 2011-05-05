@@ -1,31 +1,62 @@
+<!--  <h1><%= t('model.wicket.tickets.call') %></h1> -->
+
+<div class="highlight">
+  <div class="label"> 
+    <%= @tickets.last.ticket_type.value unless @tickets.empty? %>
+  </div>
+  <div class="arrow right">
+    <% if @tickets.last.wickets.last.guidance_right? %>
+      <%= image_tag "arrow_right.png", :id => "image_right" %>
+    <% end %>
+  </div>
+  <div class="last_ticket"> 
+    <%= @tickets.last.value unless @tickets.empty? %>
+  </div>
+  <div class="arrow left">
+    <% if @tickets.last.wickets.last.guidance_left? %>
+      <%= image_tag "arrow_left.png", :id => "image_left" %>
+    <% end %>
+  </div>
+</div>
+<div class="history_calls">
+  <div class="label"> 
+     <%=   t('model.ticket.name') %> 
+   </div>
+
+  <% @tickets.each do |ticket| %>
+    <div class="item">
+      <table>
+        <tr>
+          <td> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
+        </tr>
+        <tr>
+          <td><%= ticket.value %></td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+</div>
+
+<%= audio_tag "beep.ogg", :autoplay => false %>
+
 <script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
-    var jug = new Juggernaut();
+   var jug = new Juggernaut();
 
-    $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
+   $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
 
-    jug.subscribe('calleds', function(data){
+   jug.subscribe('calleds', function(data){
         $("table").append('<tr><td>'+data.value+'</td><td><a id='+data.id+"' class='trigger_submit'> Chamar</a></td></tr>");
         jQuery('audio')[0].play()
+
+        if(data.lfet){ 
+          jQuery('img#image_left').show();
+          jQuery('img#image_right').hide();
+        }
+
+        if(data.right){ 
+          jQuery('img#image_right').show();
+          jQuery('img#image_left').hide();
+        }
     }); 
-</script><h1><%= t('model.wicket.tickets.call') %></h1>
-
-<table>
-<tr>
-    <th><%= t('model.ticket.name') %></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @tickets.each do |ticket| %>
-  <tr>
-    <td><%= ticket.value %></td>
-    <td><%= ticket.ticket_type.value %></td>
-    <td><%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
-  </tr>
-  
-<% end %>
-</table>
-
-
-<%= audio_tag "beep.ogg", :autoplay => true %>
+</script>

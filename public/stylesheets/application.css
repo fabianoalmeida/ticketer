@@ -1,0 +1,58 @@
+body {
+  background-color: white;
+  color: #000000;
+  font-family: comic Sans MS,sans-serif;
+  line-height: 1.25;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  min-height: 140px;
+}
+
+.wrapper {
+  margin: 0 10%;
+}
+
+.highlight {
+  background: none repeat scroll 0 0 #E6E6E6;
+  margin: 0 20%;
+  text-align: center;
+  min-height: 150px;
+}
+
+.highlight .last_ticket {
+  float : right; 
+  border : 2px solid black; 
+  margin : 2% 5%;
+  width : 200px;
+  padding : 5%;
+}
+
+.highlight .arrow {
+  margin : 0 2%;
+}
+
+.highlight .right {
+  float : right;
+  width : 130px ;
+  height : 130px ;
+}
+
+.highlight  .left {
+  float : left;
+  width : 130px ;
+  height : 130px ;
+} 
+
+.history_calls{
+  background: none repeat scroll 0 0 #E6E6E6;
+  min-height: 150px;
+  text-align: center;
+}
+
+.history_calls .item { 
+  float : left; 
+  width : 120px;
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110505173356) do
+ActiveRecord::Schema.define(:version => 20110505191037) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -105,11 +105,10 @@ ActiveRecord::Schema.define(:version => 20110505173356) do
   end
 
   create_table "wickets", :force => true do |t|
-    t.string   "value",       :null => false
-    t.string   "user",        :null => false
-    t.integer  "guidance_id", :null => false
-    t.integer  "status_id",   :null => false
-    t.integer  "place_id",    :null => false
+    t.string   "value",      :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "place_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "guidance"

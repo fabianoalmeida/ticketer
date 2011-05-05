@@ -6,7 +6,6 @@ class Wicket < ActiveRecord::Base
   #Integer :status
   #Integer :place
 
-  belongs_to :guidance
   belongs_to :status
   belongs_to :place
   has_many :call_histories
@@ -25,6 +24,14 @@ class Wicket < ActiveRecord::Base
   
   def pending_tickets
     tickets.where(:status_ticket_id => StatusTicket.pending.id)
+  end
+
+  def guidance_left?
+    return true unless guidance     
+  end
+
+  def guidance_right?
+    return true if guidance
   end
 
 end

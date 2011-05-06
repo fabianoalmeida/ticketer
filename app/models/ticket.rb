@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
 
+  attr_accessor :current_wicket
   include TicketManager
 
   #String :value

@@ -99,6 +99,7 @@ class WicketsController < ApplicationController
   def call_next
     @next_ticket = Ticket.next_to(params[:place_id])
     @wicket = Wicket.find(params[:wicket_id])
+    @next_ticket.current_wicket= @wicket if @next_ticket
     respond_to do |format|
       if @next_ticket && @next_ticket.call
         CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
@@ -114,6 +115,7 @@ class WicketsController < ApplicationController
   def recall
     @ticket_recalled = Ticket.find(params[:ticket_id]) 
     @wicket = Wicket.find(params[:wicket_id])
+    @ticket_recalled.current_wicket= @wicket 
     respond_to do |format|
       if @ticket_recalled.recall 
         CallHistory.register(:ticket => @ticket_recalled, :wicket => @wicket)

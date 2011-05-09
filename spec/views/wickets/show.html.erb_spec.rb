@@ -5,7 +5,7 @@ describe "wickets/show.html.erb" do
     @place = assign(:place, stub_model(Place, :id => "1"))
     @wicket = assign(:wicket, stub_model(Wicket,
       :value => "Value",
-      :guidance => stub_model(Guidance, :value => "value"),
+      :guidance => true,
       :status => stub_model(Status, :value => "value"),
       :user => "User",
       :place => @place

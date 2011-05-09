@@ -28,17 +28,12 @@ Factory.define :totem do |f|
   f.association :place
 end
 
-Factory.define :guidance do |f| 
-  f.value {Factory.next(:value)}
-  f.user "User Test"
-end
-
 Factory.define :wicket do |f|
   f.value {Factory.next(:value)}
   f.user "User Test"
   f.association :status 
   f.association :place
-  f.association :guidance
+  f.guidance true
 end
 
 Factory.define :panel do |f|

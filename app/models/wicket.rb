@@ -2,7 +2,6 @@ class Wicket < ActiveRecord::Base
 
   #String :value
   #String :user
-  #Integer :guidance
   #Integer :status
   #Integer :place
 

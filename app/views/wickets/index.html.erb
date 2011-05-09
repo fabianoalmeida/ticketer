@@ -13,7 +13,7 @@
 <% @wickets.each do |wicket| %>
   <tr>
     <td><%= wicket.value %></td>
-    <td><%= wicket.guidance.value %></td>
+    <td><%= wicket.guidance %></td>
     <td><%= wicket.status.value %></td>
     <td><%= wicket.user %></td>
     <td><%= link_to t('model.show'), place_wicket_path(wicket.place, wicket) %></td>

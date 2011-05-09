@@ -5,17 +5,20 @@
     <%= @tickets.last.ticket_type.value unless @tickets.empty? %>
   </div>
   <div class="arrow right">
-    <% if @tickets.last.wickets.last.guidance_right? %>
-      <%= image_tag "arrow_right.png", :id => "image_right" %>
-    <% end %>
+    <% display = @tickets.last.wickets.last.guidance_right? ? "block" : "none" %>
+    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" %>
   </div>
-  <div class="last_ticket"> 
+  <div class="last_ticket">
+    <label style = "font-size:25px; color : black;">
+      <%= @tickets.last.wickets.last.value unless @tickets.empty? %>
+    </label>
     <%= @tickets.last.value unless @tickets.empty? %>
   </div>
   <div class="arrow left">
-    <% if @tickets.last.wickets.last.guidance_left? %>
-      <%= image_tag "arrow_left.png", :id => "image_left" %>
-    <% end %>
+    <% display = @tickets.last.wickets.last.guidance_left? ? "block" : "none" %>
+    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};"    %>
+  </div>
+  <div class="label"> 
   </div>
 </div>
 <div class="history_calls">
@@ -25,14 +28,12 @@
 
   <% @tickets.each do |ticket| %>
     <div class="item">
-      <table>
-        <tr>
-          <td> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></td>
-        </tr>
-        <tr>
-          <td><%= ticket.value %></td>
-        </tr>
-      </table>
+      <div class="botton">
+        <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+      </div>
+      <div class="content">
+        <%= ticket.value %>
+      </div>
     </div>
   <% end %>
 </div>

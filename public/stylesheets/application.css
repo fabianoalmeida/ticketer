@@ -1,58 +1,97 @@
 body {
-  background-color: white;
-  color: #000000;
-  font-family: comic Sans MS,sans-serif;
-  line-height: 1.25;
-  margin: 0;
-  padding: 0;
+    background-color: white;
+    color: #000000;
+    font-family: comic Sans MS,sans-serif;
+    line-height: 1.25;
+    margin: 0;
+    padding: 0;
 }
-
 .header {
-  min-height: 140px;
+    min-height: 50px;
 }
-
 .wrapper {
-  margin: 0 10%;
+    margin: 0 10%;
 }
-
 .highlight {
-  background: none repeat scroll 0 0 #E6E6E6;
-  margin: 0 20%;
-  text-align: center;
-  min-height: 150px;
+    margin: 2% 15%;
+    min-height: 200px;
+    text-align: center;
 }
-
 .highlight .last_ticket {
-  float : right; 
-  border : 2px solid black; 
-  margin : 2% 5%;
-  width : 200px;
-  padding : 5%;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 3px 3px 3px #1C8E49;
+    background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
+    border: 2px solid #1C8E49;
+    color: red;
+    float: right;
+    font-size: 55px;
+    margin: 2% 0;
+    padding: 2% 15%;
+    position: relative;
+    width: 220px;
 }
-
 .highlight .arrow {
-  margin : 0 2%;
+    margin: 0 1%;
 }
-
 .highlight .right {
-  float : right;
-  width : 130px ;
-  height : 130px ;
+    float: right;
+    height: 130px;
+    width: 130px;
 }
-
-.highlight  .left {
-  float : left;
-  width : 130px ;
-  height : 130px ;
-} 
-
-.history_calls{
-  background: none repeat scroll 0 0 #E6E6E6;
-  min-height: 150px;
-  text-align: center;
+.highlight .left {
+    float: left;
+    height: 130px;
+    width: 130px;
 }
-
-.history_calls .item { 
-  float : left; 
-  width : 120px;
+.history_calls {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 3px 3px 3px #D1F0E0;
+    border: 1px solid #1C8E49;
+    height: 200px;
+    padding: 10px;
+    text-align: center;
+}
+.history_calls .item {
+    float: left;
+}
+div.history_calls div.label {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background: none repeat scroll 0 0 #D1F0E0;
+    border: 3px solid #1C8E49;
+    color: #1C8E49;
+    padding: 20px;
+    position: relative;
+}
+.item .content {
+    -moz-border-radius: 3px 3px 3px 3px;
+    -moz-box-shadow: 3px 3px 3px #686B68;
+    background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
+    border: 2px solid gray;
+    margin: 2px;
+    padding: 20px;
+}
+.item .botton {
+    -moz-border-radius: 10px 10px 10px 10px;
+    -moz-box-shadow: 3px 3px 3px #686B68;
+    background: url("/images/gradblue.png") repeat scroll 0 0 transparent;
+    border: 2px solid;
+    margin: 10px;
+    padding: 7.5px;
+}
+.footer {
+    background: url("/images/hsi-logo.png") no-repeat scroll right center transparent;
+    border-bottom: 5px double #6EE090;
+    height: 100px;
+    margin: 1% 10%;
+}
+img.logo {
+    height: 500px;
+    position: absolute;
+    width: 500px;
+    z-index: -1;
+}
+.highlight .label {
+    clear: both;
+    font-size: 25px;
+    text-align: center;
 }

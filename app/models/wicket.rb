@@ -10,7 +10,8 @@ class Wicket < ActiveRecord::Base
   has_many :call_histories
   has_many :tickets, :through => :call_histories
 
-  validates :value, :user, :guidance, :status, :place, :presence => true
+  validates :value, :user, :status, :place, :presence => true
+  validates_inclusion_of :guidance, :in => [true, false]
 
   validates :value,
     :length => { :in => 1..80 },
@@ -26,11 +27,11 @@ class Wicket < ActiveRecord::Base
   end
 
   def guidance_left?
-    return true unless guidance     
+    return guidance ? false : true
   end
 
   def guidance_right?
-    return true if guidance
+    return guidance ? true : false
   end
 
 end

@@ -1,26 +1,22 @@
 <!--  <h1><%= t('model.wicket.tickets.call') %></h1> -->
 
 <div class="highlight">
-  <div class="label"> 
-    <%= @tickets.last.ticket_type.value unless @tickets.empty? %>
-  </div>
   <div class="arrow right">
-    <% display = @tickets.last.wickets.last.guidance_right? ? "block" : "none" %>
+    <% display = @tickets.last.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty?%>
     <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" %>
   </div>
   <div class="last_ticket">
-    <label style = "font-size:25px; color : black;">
-      <%= @tickets.last.wickets.last.value unless @tickets.empty? %>
-    </label>
+    <div style = "font-size:30px; color : black; margin : 20px 0;">
+      Guichê :  <%= @tickets.last.wickets.last.value unless @tickets.empty? %><br/>
+      Tipo : <%= @tickets.last.ticket_type.value unless @tickets.empty? %> 
+    </div>
     <%= @tickets.last.value unless @tickets.empty? %>
   </div>
   <div class="arrow left">
-    <% display = @tickets.last.wickets.last.guidance_left? ? "block" : "none" %>
+    <% display = @tickets.last.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
     <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};"    %>
   </div>
-  <div class="label"> 
-  </div>
-</div>
+ </div>
 <div class="history_calls">
   <div class="label"> 
      <%=   t('model.ticket.name') %> 

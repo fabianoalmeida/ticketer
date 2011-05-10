@@ -36,22 +36,6 @@ jQuery( document ).ready( function() {
     });
  })
 
-
-//Ajax reverse Juggernaut with node.js to assync notification 
-
-jQuery(document).ready(function(){
-
-    var jugAvailables = new Juggernaut();
-    jugAvailables.subscribe('availables', function(data){
-        $("#tickets > ul").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
-    }); 
-
-    var jugCalled = new Juggernaut();
-    jugCalled.subscribe('calleds', function(data){
-        $("div#tickets > ul > li#"+data.id).remove();
-    }); 
- }); 
-
 //Order and pagination table
 jQuery(document).ready(function(){
   jQuery('#tickets').pajinate({

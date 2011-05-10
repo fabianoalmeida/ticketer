@@ -2,18 +2,18 @@
 
 <div class="highlight">
   <div class="arrow right">
-    <% display = @tickets.last.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty?%>
+    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty?%>
     <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" %>
   </div>
   <div class="last_ticket">
     <div style = "font-size:30px; color : black; margin : 20px 0;">
-      Guichê :  <%= @tickets.last.wickets.last.value unless @tickets.empty? %><br/>
-      Tipo : <%= @tickets.last.ticket_type.value unless @tickets.empty? %> 
+      Guichê :  <%= @tickets.first.wickets.last.value unless @tickets.empty? %><br/>
+      Tipo : <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
     </div>
-    <%= @tickets.last.value unless @tickets.empty? %>
+    <%= @tickets.first.value unless @tickets.empty? %>
   </div>
   <div class="arrow left">
-    <% display = @tickets.last.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
+    <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
     <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};"    %>
   </div>
  </div>
@@ -36,13 +36,13 @@
 
 <%= audio_tag "beep.ogg", :autoplay => false %>
 
-<script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
    var jug = new Juggernaut();
 
    $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
 
-   jug.subscribe('calleds', function(data){
+   jug.subscribe("calleds<%= params[:place_id] %>", function(data){
         $("table").append('<tr><td>'+data.value+'</td><td><a id='+data.id+"' class='trigger_submit'> Chamar</a></td></tr>");
         jQuery('audio')[0].play()
 

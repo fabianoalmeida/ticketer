@@ -50,6 +50,17 @@
     </ul>
   </div>
 </div>
-<script src="http://10.32.2.21:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    var jugAvailables = new Juggernaut();
+    jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
+        $("#tickets > ul").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
+    }); 
+
+    var jugCalled = new Juggernaut();
+    jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
+        $("div#tickets > ul > li#"+data.id).remove();
+    });
+</script>
 <%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min'%>
 

@@ -17,13 +17,14 @@ describe "panels/tickets.html.erb" do
      @tickets.each do |ticket|
        ticket.stub_chain(:wickets, :last, :guidance_right?).and_return(true)
        ticket.stub_chain(:wickets, :last, :guidance_left?).and_return(false)
+       ticket.stub_chain(:wickets, :last, :value).and_return("value")
      end
   end
   
   it "renders a list of tickets for the place" do
     render 
 
-    assert_select "tr>td", :text => "value".to_s, :count => 2
+    assert_select "div>label", :text => "value".to_s, :count => 1
       
   end
 end

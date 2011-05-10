@@ -44,11 +44,10 @@ ActiveRecord::Schema.define(:version => 20110505191037) do
   end
 
   create_table "places", :force => true do |t|
-    t.string   "value",                 :null => false
-    t.string   "user",                  :null => false
-    t.integer  "status_id",             :null => false
-    t.integer  "local_id",              :null => false
-    t.integer  "places_ticket_type_id"
+    t.string   "value",      :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "local_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,11 +73,10 @@ ActiveRecord::Schema.define(:version => 20110505191037) do
   end
 
   create_table "ticket_types", :force => true do |t|
-    t.string   "value",                 :null => false
-    t.string   "acronym",               :null => false
-    t.string   "user",                  :null => false
-    t.integer  "status_id",             :null => false
-    t.integer  "places_ticket_type_id"
+    t.string   "value",      :null => false
+    t.string   "acronym",    :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -15,7 +15,7 @@ jQuery( document ).ready( function() {
     });
   });
 
-  jQuery('input#call_next').jsonAjax({
+  jQuery('a#call_next').jsonAjax({
       success : function(data){
           ticket = data.ticket;
           $("#tickets_called").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
@@ -23,7 +23,7 @@ jQuery( document ).ready( function() {
         }
     });
 
-  jQuery('input#pending').jsonAjax({ 
+  jQuery('a#pending').jsonAjax({ 
       data:'ticket_id='+$('input#current').val(), 
       success: function(data){
           ticket = data.ticket;
@@ -31,7 +31,7 @@ jQuery( document ).ready( function() {
         }
     });
 
-  jQuery('input#recall').jsonAjax({
+  jQuery('a#recall').jsonAjax({
       data : 'ticket_id='+$('input#current').val()
     });
  })

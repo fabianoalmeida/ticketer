@@ -15,9 +15,16 @@
   <%= @ticket.status_ticket.value %>
 </p>
 
+<p>
+  <b>Created Date:</b>
+  <%= @ticket.created_at %>
+</p>
+
+<p>
+  <b>Updated Date:</b>
+  <%= @ticket.updated_at %>
+</p>
+
 <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
 <%= link_to 'Back', tickets_path %>
-
-<%= audio_tag "beep.ogg", :autoplay => true %>
-
 

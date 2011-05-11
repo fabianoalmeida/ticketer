@@ -1,49 +1,44 @@
-<h1><%= t('model.wicket.tickets.call') %></h1>
+<div style="text-align: right;">
 
 <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
-<input id="call_next" type="button" value='<%= t('model.call') %>' data-url="chamar_proximo" data-method="get"/>
-<input id="pending" type="button" value='<%= t('model.ticket.pending') %>' data-url="por_em_espera" data-method="put"/>
-<input id="recall" type="button" value='<%= t('model.ticket.recall') %>' data-url="rechamar" data-method="put"/>
+<a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
+<a id="pending" class="super button pink" data-url="por_em_espera" data-method="put"><%= t('model.ticket.pending') %></a>
+<a id="recall" class="super button pink" data-url="rechamar" data-method="put"><%= t('model.ticket.recall') %></a>
 <div>
-  <div id="tickets" class="container">
-    <em><%= t('model.ticket.name') %></em>
-    <div class="page_nav"></div>
-    <ul class="content">
-      <% if @tickets %>
-        <% @tickets.each do |ticket| %>
-          <li id='<%= ticket.id %>'>
-            <p><em><%= ticket.value %></em>
-            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
 
-  <div id="tickets_called" class="container">
-    <em><%= t('model.ticket.called') %></em>
-    <div class="page_nav"></div>
-    <ul class="content">
-      <% if @tickets_called %>
-        <% @tickets_called.each do |ticket| %>
-          <li id='<%= ticket.id %>'>
-            <p><em><%= ticket.value %></em>
-            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-
-  <div id="tickets_waiting" class="container">
-    <em><%= t('model.ticket.pending') %></em>
-    <div class="page_nav"></div>
-    <ul class="content">
+  <div id="tickets_waiting" class="main">
+    <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_waiting.size %></i></span>
+    <ul id="tickets_waiting" class="holder">
       <% if @tickets_waiting %>
         <% @tickets_waiting.each do |ticket| %>
-          <li id='<%=ticket.id %>'>
-            <p><em><%= ticket.value %></em>
-            <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%></p>
+          <li id='<%=ticket.id %>' style="width: 145px; text-align: center;">
+            <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="tickets_called" class="main">
+    <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_called.size %></i></span>
+    <ul id="tickets_called" class="holder">
+      <% if @tickets_called %>
+        <% @tickets_called.each do |ticket| %>
+          <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+            <span style="color: red; font-weight: bold;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="tickets_available" class="main">
+    <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets.size %></i></span>
+    <ul id="tickets_available" class="holder">
+      <% if @tickets %>
+        <% @tickets.each do |ticket| %>
+          <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+            <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
           </li>
         <% end %>
       <% end %>
@@ -62,5 +57,6 @@
         $("div#tickets > ul > li#"+data.id).remove();
     });
 </script>
-<%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min'%>
-
+<%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
+<div style="clear: both;"></div>
+</div>

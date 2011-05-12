@@ -217,6 +217,7 @@
         value: "Valor"
         user: "Usuário"
         guidance: "Orientação"
+        priority: "Prioridade"
       local:
         des_local: "Descrição"
         user: "Usuário"
@@ -307,9 +308,13 @@
       editing: "Editando um Guichê"
       title: "Listando todos os Guichês"
       name: "Guichê"
-      guidance : 
-        left : "Esquerda"
-        right : "Direita"
+      guidance: 
+        left: "Esquerda"
+        right: "Direita"
+      priority: 
+        name: "Prioridade"
+        sure: "Sim"
+        not: "Não"
       tickets:
         call: "Senhas a serem chamadas"
         name: "Senhas"

@@ -12,6 +12,11 @@
 </p>
 
 <p>
+  <b><%= t('model.wicket.priority.name') %>:</b>
+  <%= @wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %>
+</p>
+
+<p>
   <b><%= t('model.status_des') %>:</b>
   <%= @wicket.status.value %>
 </p>

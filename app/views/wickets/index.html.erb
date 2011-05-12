@@ -4,6 +4,7 @@
   <tr>
     <th><%= t('model.value') %></th>
     <th><%= t('model.guidance.name') %></th>
+    <th><%= t('model.wicket.priority.name') %></th>
     <th><%= t('model.status_des') %></th>
     <th><%= t('model.user') %></th>
     <th></th>
@@ -13,7 +14,8 @@
 <% @wickets.each do |wicket| %>
   <tr>
     <td><%= wicket.value %></td>
-    <td><%= wicket.guidance %></td>
+    <td><%= wicket.guidance_left? ? t('model.wicket.guidance.left') : t('model.wicket.guidance.right') %></td>
+    <td><%= wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %></td>
     <td><%= wicket.status.value %></td>
     <td><%= wicket.user %></td>
     <td><%= link_to t('model.show'), place_wicket_path(wicket.place, wicket) %></td>

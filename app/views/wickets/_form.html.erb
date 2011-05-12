@@ -16,10 +16,17 @@
     <%= f.label :value %><br />
     <%= f.text_field :value, :maxlength => 80, :size => 30 %>
   </div>
+
   <div class="field">
     <%= f.label :guidance %><br />
     <%= f.radio_button :guidance, "false" %> <%= t('model.wicket.guidance.left') %>
     <%= f.radio_button :guidance, "true" %> <%= t('model.wicket.guidance.right')%>
+  </div>
+
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.radio_button :priority, "true" %> <%= t('model.wicket.priority.sure') %>
+    <%= f.radio_button :priority, "false", { :checked => true } %> <%= t('model.wicket.priority.not') %>
   </div>
 
   <div class="field">

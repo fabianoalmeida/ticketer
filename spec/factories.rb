@@ -34,6 +34,7 @@ Factory.define :wicket do |f|
   f.association :status 
   f.association :place
   f.guidance true
+  f.priority false
 end
 
 Factory.define :panel do |f|

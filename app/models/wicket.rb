@@ -11,7 +11,7 @@ class Wicket < ActiveRecord::Base
   has_many :tickets, :through => :call_histories, :uniq => :true
 
   validates :value, :user, :status, :place, :presence => true
-  validates_inclusion_of :guidance, :in => [true, false]
+  validates_inclusion_of :guidance, :priority, :in => [true, false]
 
   validates :value,
     :length => { :in => 1..80 },

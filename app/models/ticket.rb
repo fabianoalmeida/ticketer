@@ -18,7 +18,7 @@ class Ticket < ActiveRecord::Base
   has_many :call_histories
   has_many :wickets, :through => :call_histories
   
-  before_save :generate #:validates_current_date,
+  before_save :generate
 
   validates :status_ticket, :ticket_type, :place, :totem, :presence => true
 
@@ -56,17 +56,9 @@ class Ticket < ActiveRecord::Base
 
   private
 
-  def validates_current_date
-    results = Ticket.where( :created_at => Date.today.midnight...Date.tomorrow.midnight, :place_id => self.place  )
-    
-    if results.size > 0  
-        raise "This probaly shouldn't show up for you! :( "
-    end
-  end
-
   def generate
     if new_record?
-      ticket = Ticket.last
+      ticket = Ticket.today.last
       ticket.nil? ? @@actual_value= 1 : @@actual_value= ticket.value.split( ticket.ticket_type.acronym.to_s )[1].to_i + 1
       self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
     end

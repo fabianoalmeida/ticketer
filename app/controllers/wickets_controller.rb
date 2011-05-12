@@ -24,7 +24,7 @@ class WicketsController < ApplicationController
   # GET /wickets/new
   # GET /wickets/new.json
   def new
-    @wicket = Wicket.new
+    @wicket = Wicket.new( :priority => false )
     @place = Place.find(params[:place_id])
 
     respond_to do |format|
@@ -99,8 +99,8 @@ class WicketsController < ApplicationController
 
   #POST places/1/wicket/1/call_next
   def call_next
-    @next_ticket = Ticket.next_to(params[:place_id])
     @wicket = Wicket.find(params[:wicket_id])
+    @next_ticket = Ticket.next_to(params[:place_id], @wicket.priority)
     @next_ticket.current_wicket= @wicket if @next_ticket
     respond_to do |format|
       if @next_ticket && @next_ticket.call

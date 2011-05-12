@@ -91,6 +91,7 @@ class WicketsController < ApplicationController
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
     @place =  Place.find(params[:place_id])
+
     @tickets_type = @place.ticket_types  
     @tickets =@place.tickets_availables.today
     @tickets_called = @wicket.called_tickets.today 

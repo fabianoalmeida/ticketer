@@ -1,6 +1,6 @@
 class Ticket < ActiveRecord::Base
 
-  attr_accessor :current_wicket
+  attr_accessor :current_wicket, :priority
   include TicketManager
 
   #String :value
@@ -24,6 +24,7 @@ class Ticket < ActiveRecord::Base
 
   self.after_initialize do
     self.status_ticket = StatusTicket.available if self.new_record?
+    self.priority = self.ticket_type.priority if self.ticket_type
   end
 
   state_machine :initial => :available do 

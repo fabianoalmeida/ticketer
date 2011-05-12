@@ -92,11 +92,16 @@ describe Ticket do
 
     describe "Calling next ticket" do
       before( :each ) do
+        @ticket_type = Factory(:ticket_type, :priority => true)
         @tickets = (1..2).collect { Factory(:ticket, :place_id => 1, :status_ticket_id => @status_available.id) }
       end
 
+      after( :each ) do
+        @ticket_type.destroy
+      end
+
       it "Should get the first ticket to be called" do
-        ticket_next = Ticket.next_to(1)
+        ticket_next = Ticket.next_to(1, false)
         ticket_next.should_not be_nil
         @tickets.include?(ticket_next).should be_true
       end
@@ -106,8 +111,20 @@ describe Ticket do
         @tickets.size.should eq(1)
         ticket_first.status_ticket= StatusTicket.called
         ticket_first.save.should be_true
-        ticket_next = Ticket.next_to(1)
+        ticket_next = Ticket.next_to(1, false)
         @tickets.include?(ticket_next).should be_true
+      end
+
+      it "Should get the next ticket to be called cause ticket type is priority" do
+        TicketType.priorities.include?(@ticket_type).should be_true
+        ticket = Factory(:ticket, :place_id => 1, :status_ticket_id => @status_available.id, :ticket_type => @ticket_type)
+        next_ticket = Ticket.next_to(1, true)
+        TicketType.priorities.include?(next_ticket.ticket_type).should be_true
+        next_ticket.call
+        next_ticket.called?.should be_true
+        other_ticket = Ticket.next_to(1, true)
+        TicketType.priorities.include?(other_ticket.ticket_type).should be_false
+        TicketType.priorities.should have(1).items
       end
     end
 

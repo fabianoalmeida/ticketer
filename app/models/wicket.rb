@@ -8,7 +8,7 @@ class Wicket < ActiveRecord::Base
   belongs_to :status
   belongs_to :place
   has_many :call_histories
-  has_many :tickets, :through => :call_histories
+  has_many :tickets, :through => :call_histories, :uniq => :true
 
   validates :value, :user, :status, :place, :presence => true
   validates_inclusion_of :guidance, :in => [true, false]

@@ -69,14 +69,14 @@ li{
 .main{
 	/* The main container div */
 	position:relative;
-	margin:25px 7%;
+	margin:25px 0 25px 7%;
 	width:177px;
         height:430px;
 	background-color: #E3E3E4;
 	border:1px solid #CCCCCC;
 	padding:15px 12px 30px;
         text-align: center;
-        float: right;
+        float: left;
 	
 	/* CSS3 rounded cornenrs */
 	
@@ -166,3 +166,26 @@ a.swShowPage.active{
 	clear:both;
 }
 
+#dashboard {position : relative; clear : both } 
+#dashboard .support { position : relative; float: right; width : 355px;}
+.support .tags { float : left; margin : 30px 0; }
+
+.tags li {
+    -moz-border-radius: 0 10px 10px 0;
+    margin: 10px 0;
+    padding: 5px;
+    width: 100px;
+    background-color: #E3E3E4;
+    border:1px solid #CCCCCC;
+    text-align : center;
+}
+
+.tags li.tittle {
+    color : red;
+    width: 115px;
+    margin : 25px 0 0 0;
+}
+
+.tags li.content {
+  height : 40px;
+}

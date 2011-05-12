@@ -1,62 +1,103 @@
 <div style="text-align: right;">
 
-<input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
-<a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
-<a id="pending" class="super button pink" data-url="por_em_espera" data-method="put"><%= t('model.ticket.pending') %></a>
-<a id="recall" class="super button pink" data-url="rechamar" data-method="put"><%= t('model.ticket.recall') %></a>
-<div>
+  <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
+  <a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
+  <a id="pending" class="super button pink" data-url="por_em_espera" data-method="put"><%= t('model.ticket.pending') %></a>
+  <a id="recall" class="super button pink" data-url="rechamar" data-method="put"><%= t('model.ticket.recall') %></a>
 
-  <div id="tickets_waiting" class="main">
-    <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_waiting.size %></i></span>
-    <ul id="tickets_waiting" class="holder">
-      <% if @tickets_waiting %>
-        <% @tickets_waiting.each do |ticket| %>
-          <li id='<%=ticket.id %>' style="width: 145px; text-align: center;">
-            <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+  <div id="dashboard">
+
+    <div class="support">
+      <div id="tickets_waiting" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_waiting.size %></i></span>
+        <ul id="tickets_waiting" class="holder">
+          <% @val = {} %>
+          <% if @tickets_waiting %>
+            <% @tickets_waiting.each do |ticket| %>
+              <% @val[ticket.ticket_type_id.to_s] ||= 0
+                 @val[ticket.ticket_type_id.to_s] &&= @val[ticket.ticket_type_id.to_s] + 1 %>
+              <li id='<%=ticket.id %>' style="width: 145px; text-align: center;">
+                <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tags">
+        <ul class="tag">
+          <% @tickets_type.each do |types| %>
+            <li class="tittle"><%= types.value %></li>
+            <li class="content"><%= @val[types.id.to_s] %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="support">
+      <div id="tickets_called" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_called.size %></i></span>
+        <ul id="tickets_called" class="holder">
+          <% if @tickets_called %>
+            <% @val[:call] = {} %>
+            <% @tickets_called.each do |ticket| %>
+              <% @val[:call][ticket.ticket_type_id.to_s] ||= 0
+               @val[:call][ticket.ticket_type_id.to_s] &&= @val[:call][ticket.ticket_type_id.to_s] + 1 %>
+
+              <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+                <span style="color: red; font-weight: bold;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tags">
+        <ul class="tag">
+          <% @tickets_type.each do |types| %>
+            <li class="tittle"><%= types.value %></li>
+            <li class="content"><%= @val[:call][types.id.to_s] %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="support">
+      <div id="tickets_available" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets.size %></i></span>
+        <ul id="tickets_available" class="holder">
+          <% if @tickets %>
+            <% @val[:available]={} %>
+            <% @tickets.each do |ticket| %>
+              <% @val[:available][ticket.ticket_type_id.to_s] ||= 0
+                 @val[:available][ticket.ticket_type_id.to_s] &&= @val[:available][ticket.ticket_type_id.to_s] + 1 %>
+              <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+                <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tags">
+        <ul class="tag">
+          <% @tickets_type.each do |types| %>
+            <li class="tittle"><%= types.value %></li>
+            <li class="content"><%= @val[:available][types.id.to_s] %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
+  <script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+      var jugAvailables = new Juggernaut();
+      jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
+          $("#tickets > ul").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
+      }); 
 
-  <div id="tickets_called" class="main">
-    <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_called.size %></i></span>
-    <ul id="tickets_called" class="holder">
-      <% if @tickets_called %>
-        <% @tickets_called.each do |ticket| %>
-          <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
-            <span style="color: red; font-weight: bold;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-
-  <div id="tickets_available" class="main">
-    <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets.size %></i></span>
-    <ul id="tickets_available" class="holder">
-      <% if @tickets %>
-        <% @tickets.each do |ticket| %>
-          <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
-            <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-</div>
-<script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    var jugAvailables = new Juggernaut();
-    jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
-        $("#tickets > ul").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
-    }); 
-
-    var jugCalled = new Juggernaut();
-    jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
-        $("div#tickets > ul > li#"+data.id).remove();
-    });
-</script>
-<%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
-<div style="clear: both;"></div>
+      var jugCalled = new Juggernaut();
+      jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
+          $("div#tickets > ul > li#"+data.id).remove();
+      });
+  </script>
+  <%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
+  <div style="clear: both;"></div>
 </div>

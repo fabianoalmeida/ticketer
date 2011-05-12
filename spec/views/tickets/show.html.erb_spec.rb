@@ -4,6 +4,8 @@ describe "tickets/show.html.erb" do
   before(:each) do
     @ticket = assign(:ticket, mock_model(Ticket,
       :value => "Value",
+      :created_at => DateTime.now,
+      :updated_at => DateTime.now,
       :ticket_type => stub_model(TicketType, :value => "P0001"),
       :status_ticket => stub_model(StatusTicket, :value => "Called"),
       :place_id => 1

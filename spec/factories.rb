@@ -50,6 +50,7 @@ Factory.define :ticket_type do |f|
   f.acronym { Factory.next(:acronym)}
   f.user "User_Test"
   f.association :status
+  f.priority false
 end
 
 Factory.define :status_ticket do |f|

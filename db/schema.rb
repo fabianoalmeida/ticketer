@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110512115817) do
+ActiveRecord::Schema.define(:version => 20110512140538) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20110512115817) do
     t.integer  "status_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "priority"
   end
 
   create_table "tickets", :force => true do |t|

@@ -205,6 +205,7 @@
       ticket_type:
         value: "Valor"
         acronym: "Sigla"
+        priority: "Prioridade"
       guidance:
         value: "Valor"
         user: "Usuário"
@@ -285,6 +286,10 @@
       new: "Novo Tipo de Senha"
       editing: "Editando um Tipo de Senha"
       title: "HOSPITAL SANTA IZABEL"
+      priority: 
+        name: "Prioridade"
+        sure: "Sim"
+        not: "Não"
 
     guidance:
       new: "Nova Orientação"

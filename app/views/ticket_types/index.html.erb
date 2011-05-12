@@ -4,6 +4,7 @@
   <tr>
     <th><%= t 'model.value' %></th>
     <th><%= t 'model.acronym' %></th>
+    <th><%= t('model.ticket_type.priority.name') %></th>
     <th><%= t 'model.user' %></th>
     <th><%= t 'model.status_des' %></th>
     <th></th>
@@ -15,6 +16,7 @@
   <tr>
     <td><%= ticket_type.value %></td>
     <td><%= ticket_type.acronym %></td>
+    <td><%= ticket_type.priority ? t('model.ticket_type.priority.sure') : t('model.ticket_type.priority.not') %></td>
     <td><%= ticket_type.user %></td>
     <td><%= ticket_type.status.value %></td>
     <td><%= link_to t('model.show'), ticket_type %></td>

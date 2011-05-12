@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <b><%= t('model.ticket_type.priority.name') %>:</b>
+  <%= @ticket_type.priority ? t('model.ticket_type.priority.sure') : t('model.ticket_type.priority.not') %>
+</p>
+
+<p>
   <b><%= t('model.user') %>:</b>
   <%= @ticket_type.user %>
 </p>

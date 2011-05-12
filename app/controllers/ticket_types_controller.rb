@@ -24,7 +24,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types/new
   # GET /ticket_types/new.json
   def new
-    @ticket_type = TicketType.new
+    @ticket_type = TicketType.new( :priority => false )
 
     respond_to do |format|
       format.html # new.html.erb

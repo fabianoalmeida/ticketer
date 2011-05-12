@@ -10,6 +10,7 @@ class TicketType < ActiveRecord::Base
   has_and_belongs_to_many :places
 
   validates :value, :acronym, :user, :status, :presence => true
+  validates_inclusion_of :priority, :in => [true, false]
 
   validates :value, 
     :length => { :in => 1..80 },
@@ -31,5 +32,9 @@ class TicketType < ActiveRecord::Base
 
   def self.attendance 
     self.where(:acronym => "ATT").first
+  end
+
+  def self.priorities 
+    self.where(:priority => true)
   end
 end

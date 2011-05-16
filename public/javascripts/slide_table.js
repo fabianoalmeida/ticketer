@@ -11,37 +11,126 @@
   
   var POSITION_TOP = 'top'
   var POSITION_BOTTOM = 'bottom'
+ 
+  $.dataSlide = function(dataSlide, opts){
 
-  $.dataSlid = function(data, callback){
-
-    if(! data.dataSlid )return 
-
-    if(data.add) addElement(data.dataSlid, data.add.element, data.add.position)
+    if(opts.add) addElement(dataSlide, opts.add.element, opts.add.position)
 
   }
+
 
   /*
    * Private methods 
    */
-  function addElement( dataSlid, element, position){
+
+   /*
+   * This hook was created with intention of add dynamically new Intens to data slide.
+   * Basic usage :
+   *
+   * $.dataSlide(".elementDataSlide", {
+   *      add : {
+   *        element : "<li> Here goes some new data </li>",
+   *        position : 'top' //Default 'bottom'
+   *      }
+   *  })
+
+   */
+
+  function addElement( dataSlide, element, position){
+
     if(!(element || position)) return;
-
-    pages = $(dataSlid).find('.swPage'); 
-
-    if(POSITION_BOTTOM == position){ 
     
+    container = $(dataSlide);
+    pages = container.find('.swPage'); 
+    wrapperData =  $(dataSlide).find('.swSlider');
+
+    if(POSITION_TOP == position){ 
+        
+      first = pages.eq(0);
+      first.prepend(element).attr('data-items', parseInt( first.attr('data-items') ) + 1);
+      evaluatePages(wrapperData);
+      
     }
     else{
-      last = pages[pages.length - 1];
-      numberOfItems = $(last).attr('data-items');
-      itemsByPage = $(last).attr('data-per-page');
-      if(parseInt( numberOfItems ) <  parseInt ( itemsByPage ) ){
-        $(last).append(element);
+
+      last = pages.eq(pages.length - 1);
+      numberOfItems = parseInt( last.attr('data-items') );
+      itemsPerPage = parseInt( last.attr('data-per-page') );
+
+      if( numberOfItems  <  itemsPerPage  ){
+        //Just add the new element to last page since has available space
+        last.append(element).attr('data-items', numberOfItems + 1 );
+
       }
       else{
-        $(last).append(element);
+
+        pages = parseInt(wrapperData.attr('data-pages'));
+        pageWidth =  last.width();
+
+        addHipperLinksToContainer(container);
+
+        //Add new page to container .swSlider
+        newPage = createPage(itemsPerPage, pageWidth).prepend(element);
+        newPage.attr("data-items", 1);
+        addNewPageToContainer(wrapperData, newPage);
       }
     }
+  }
+
+  function evaluatePages(wrapperData){
+
+    pages = wrapperData.find('.swPage');
+    itemsPerPage = parseInt( pages.eq(0).attr('data-per-page') );
+
+    $.each(pages, function(index, page) {
+      page = $(page);
+      numberOfItems = parseInt( page.attr('data-items') );
+      if( numberOfItems > itemsPerPage ) {
+        if(pages[index+1]){
+          moveLastElementToNextPage(page, pages.eq(index+1)) 
+        }else{
+          newPage = createPage(itemsPerPage, page.width()); 
+          moveLastElementToNextPage(page, newPage );
+          addNewPageToContainer(wrapperData, newPage);
+          addHipperLinksToContainer(wrapperData);
+        }
+      }
+    });
+  }
+
+  function addNewPageToContainer(container, page){ 
+
+    container.find('.clear').before(page);
+    
+    //Readjust width and the number of pages of the container .swSlider
+    container.attr('data-pages', parseInt( container.attr('data-pages') )  + 1 );
+    container.width(container.width() + page.width() );
+
+  }
+
+  function moveLastElementToNextPage(src, dest){
+    liList = src.find("li");
+    dest.append(liList.eq(liList.length - 1 ));
+    src.attr('data-items', parseInt(src.attr('data-items')) - 1);
+    dest.attr('data-items', parseInt(dest.attr('data-items')) + 1);
+  }
+
+  function createPage(itemsPerPage, pageWidth){
+    page = $(document.createElement("div"));
+    page.addClass("swPage");
+    page.attr("data-items", "0");
+    page.attr("data-per-page", itemsPerPage);
+    page.css("float", "left");
+    page.css("width", pageWidth);
+    return page
+  }
+
+  function addHipperLinksToContainer(holder){
+    //Add new href element to new page on container
+    href = attachHiperLink(holder.parent().find('.swControls'), (parseInt( holder.attr('data-pages') ) + 1));
+    href.click(function(event){
+      eventSlid(this, event , holder.find('.swSlider'), holder);
+    });
   }
 
   /*
@@ -55,12 +144,11 @@
     containerWidth : null 
   }
 
-  $.fn.dataSlid = function(opts){
+  $.fn.dataSlide = function(opts){
     
     opts = opts || {};
     //Meging settings defautl with the passed by params
  
-
     var ul = this;
     var li = ul.find('li');
     var numberOfItems = li.length;
@@ -68,13 +156,13 @@
 
     // Given a list it will iterate over  
     li.each(function(){
-    // Check if height of the content will be dynamic or was passed by settings
-    var el = $(this);
-    if(opts.heightContent){
-    el.data('height', opts.heightContent); 
-    }else {
-    el.data('height',el.outerHeight(true));
-    }
+      // Check if height of the content will be dynamic or was passed by settings
+      var el = $(this);
+      if(opts.heightContent){
+        el.data('height', opts.heightContent); 
+      }else {
+        el.data('height',el.outerHeight(true));
+      }
     });
     
     // Calculating the total number of pages:
@@ -91,18 +179,20 @@
     //Add the efect slice to move from a page to another (THIS MIGHT BE GENERIC PASSED BY PARAMS )
     for(var i=0;i<pagesNumber;i++){
     
-    start = ( i * numberPerPage );
-    end = ( ( i + 1 ) * numberPerPage );
+      start = ( i * numberPerPage );
+      end = ( ( i + 1 ) * numberPerPage );
 
-    //Calcs to facilitate adding new elements to data 
-    restItems = ( numberOfItems - ( numberPerPage * i ) )
-    items = restItems > numberPerPage ? numberPerPage : Math.abs( restItems ) ;  
+      //Calcs to facilitate to add new elements to data 
+      restItems = ( numberOfItems - ( numberPerPage * i ) )
+      items = restItems > numberPerPage ? numberPerPage : Math.abs( restItems ) ;  
 
-    // Slice a portion of the lis, and wrap it in a swPage div:
-    li.slice(start ,end).wrapAll('<div class="swPage" data-items='+ items +' data-per-page='+ numberPerPage+' />');
-      
-    // Adding a link to the swControls div:
-    swControls.append('<a href="" class="swShowPage">'+(i+1)+'</a>');
+      // Slice a portion of the lis, and wrap it in a swPage div:
+      li.slice(start ,end).wrapAll('<div class="swPage" data-items='+ items +' data-per-page='+ numberPerPage+' />');
+        
+      // Adding a link to the swControls div:
+      //swControls.append();
+
+      attachHiperLink(swControls, i+1 ) 
 
     }
 
@@ -118,15 +208,20 @@
     var swPage = ul.find('.swPage');
 
     swPage.each(function(){
-        
-        // Looping through all the newly created pages:
-        var elem = $(this);
-        var tmpHeight = 0;
-        elem.find('li').each(function(){tmpHeight+=$(this).data('height');});
-        if(tmpHeight>maxHeight)
-                maxHeight = tmpHeight;
-        totalWidth+=elem.outerWidth();
-        elem.css('float','left').width(ul.width());
+      
+      // Looping through all the newly created pages:
+      var elem = $(this);
+      var tmpHeight = 0;
+      
+      elem.find('li').each(function(){
+          tmpHeight+=$(this).data('height');
+      });
+
+      if(tmpHeight>maxHeight)  maxHeight = tmpHeight;
+
+      totalWidth+=elem.outerWidth();
+
+      elem.css('float','left').width(ul.width());
 
     });
     
@@ -136,19 +231,13 @@
     ul.height(maxHeight);
     
     var swSlider = ul.find('.swSlider');
+
     swSlider.append('<div class="clear" />').width(totalWidth);
 
     var hyperLinks = ul.find('a.swShowPage');
     
-    hyperLinks.click(function(e){
-        
-        // If one of the control links is clicked, slide the swSlider div 
-        // (which contains all the pages) and mark it as active:
-        $(this).addClass('active').siblings().removeClass('active');
-        
-        swSlider.stop().animate({'margin-left':-(parseInt($(this).text())-1)*ul.width()},'slow');
-        e.preventDefault();
-
+    hyperLinks.click(function(event){
+        eventSlid(this, event , swSlider, ul)
     });
     
     // Mark the first link as active the first time this code runs:
@@ -165,13 +254,37 @@
     return this;
         
   }
+
+  //Private methods 
+  
+  function attachHiperLink(src, value,  target){
+    href = document.createElement('a');
+    $(href).addClass("swShowPage").prepend(value);
+
+    if(! target)
+      src.append( href );
+
+    return $(href);
+  }
+
+  function eventSlid(element, event, swSlider, ul){
+    
+        // If one of the control links is clicked, slide the swSlider div 
+        // (which contains all the pages) and mark it as active:
+        $(element).addClass('active').siblings().removeClass('active');
+        
+        swSlider.stop().animate({'margin-left':-(parseInt($(element).text())-1)*ul.width()},'slow');
+        event.preventDefault();
+
+    }
+
  })(jQuery);
 
 
 $(document).ready(function(){
   
-  $('ul#tickets_available').dataSlid({numberPerPage:10, parent:"div#tickets_available"});
-  $('ul#tickets_called').dataSlid({numberPerPage:10, parent:"div#tickets_called"});
-  $('ul#tickets_waiting').dataSlid({numberPerPage:10, parent:"div#tickets_waiting"});
+  $('ul#tickets_available').dataSlide({numberPerPage:10, parent:"div#tickets_available"});
+  $('ul#tickets_called').dataSlide({numberPerPage:10, parent:"div#tickets_called"});
+  $('ul#tickets_waiting').dataSlide({numberPerPage:10, parent:"div#tickets_waiting"});
  
 });

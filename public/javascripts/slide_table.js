@@ -13,9 +13,7 @@
   var POSITION_BOTTOM = 'bottom'
  
   $.dataSlide = function(dataSlide, opts){
-
     if(opts.add) addElement(dataSlide, opts.add.element, opts.add.position)
-
   }
 
   /*
@@ -32,8 +30,8 @@
   $.fn.dataSlide = function(opts){
     
     opts = opts || {};
+    
     //Meging settings defautl with the passed by params
- 
     var ul = this;
     var li = ul.find('li');
 
@@ -159,12 +157,12 @@
         pages = parseInt(wrapperData.attr('data-pages'));
         pageWidth =  last.width();
 
-        addHipperLinksToContainer(container, wrapperData);
-
         //Add new page to container .swSlider
         newPage = createPage(itemsPerPage, pageWidth).prepend(element);
         newPage.attr("data-items", 1);
         addNewPageToContainer(wrapperData, newPage);
+
+        addHipperLinksToContainer(container, wrapperData);
       }
     }
   };
@@ -223,9 +221,9 @@
   function addHipperLinksToContainer(container, holder){
 
     //Add new href element to new page on container
-    href = attachHiperLink(container.parent().find('.swControls'), (parseInt( holder.attr('data-pages') ) + 1));
+    href = attachHiperLink(container.parent().find('.swControls'), holder.attr('data-pages'));
     href.click(function(event){
-      eventSlid(this, event , holder.find('.swSlider'), container);
+      eventSlid(this, event , holder, container);
     });
 
   }

@@ -17,17 +17,20 @@ jQuery( document ).ready( function() {
 
   jQuery('a#call_next').jsonAjax({
       success : function(data){
-          ticket = data.ticket;
-          $("#tickets_called").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
-          $('input#current').val(ticket.id);
+          //$('input#current').val(data.ticket.id);
         }
     });
 
   jQuery('a#pending').jsonAjax({ 
-      data:'ticket_id='+$('input#current').val(), 
+      data: 'ticket_id='+$('input#current').val(),
       success: function(data){
           ticket = data.ticket;
-          $("#tickets_waiting").append('<li><p>'+ticket.value+' '+ticket.updated_at+'</p></li>');
+          $.dataSlide('#tickets_waiting', {
+              add : {
+                element : '<li id='+ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+ticket.value+'</span> '+ticket.time+'</li>',
+                position : 'top'
+              }
+            })
         }
     });
 

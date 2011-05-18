@@ -44,7 +44,7 @@
                @val[:call][ticket.ticket_type_id.to_s] &&= @val[:call][ticket.ticket_type_id.to_s] + 1 %>
 
               <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
-                <span style="color: red; font-weight: bold;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+                <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
               </li>
             <% end %>
           <% end %>
@@ -90,12 +90,21 @@
   <script type="text/javascript" charset="utf-8">
       var jugAvailables = new Juggernaut();
       jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
-          $("#tickets > ul").append('<li id='+data.id+'><p>'+data.value+' '+data.time+' </p></li>');
+          $.dataSlide('#tickets_available', {
+              add : {
+                element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
+              }
+            })
       }); 
 
       var jugCalled = new Juggernaut();
       jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
-          $("div#tickets > ul > li#"+data.id).remove();
+          $.dataSlide('#tickets_called', {
+              add : {
+                element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
+                position : 'top'
+              }
+            })
       });
   </script>
   <%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>

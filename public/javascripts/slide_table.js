@@ -200,7 +200,7 @@
 
   function moveLastElementToNextPage(src, dest){
     liList = src.find("li");
-    dest.append(liList.eq(liList.length - 1 ));
+    dest.prepend(liList.eq(liList.length - 1 ));
     src.attr('data-items', parseInt(src.attr('data-items')) - 1);
     dest.attr('data-items', parseInt(dest.attr('data-items')) + 1);
   }

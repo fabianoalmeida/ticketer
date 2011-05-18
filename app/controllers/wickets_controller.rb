@@ -100,7 +100,7 @@ class WicketsController < ApplicationController
       end
     end
 
-    @tickets_called = @wicket.called_tickets.today 
+    @tickets_called = @wicket.called_tickets.today
     @tickets_waiting = @wicket.pending_tickets.today
   end
 

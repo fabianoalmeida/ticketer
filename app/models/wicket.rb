@@ -19,11 +19,11 @@ class Wicket < ActiveRecord::Base
     :allow_blank => false
   
   def called_tickets
-    tickets.where(:status_ticket_id => StatusTicket.called.id)
+    tickets.where(:status_ticket_id => StatusTicket.called.id).order("updated_at DESC")
   end
   
   def pending_tickets
-    tickets.where(:status_ticket_id => StatusTicket.pending.id)
+    tickets.where(:status_ticket_id => StatusTicket.pending.id).order("updated_at DESC")
   end
 
   def guidance_left?

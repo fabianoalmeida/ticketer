@@ -13,7 +13,8 @@
   var POSITION_BOTTOM = 'bottom'
  
   $.dataSlide = function(dataSlide, opts){
-    if(opts.add) addElement(dataSlide, opts.add.element, opts.add.position)
+    if(opts.add) addElement(dataSlide, opts.add.element, opts.add.position);
+    if(opts.remove) removeElement(dataSlide, opts.remove);
   }
 
   /*
@@ -114,7 +115,7 @@
     * / 
  
    /*
-   * This hook was created with intention of add dynamically new Intens to data slide.
+   * This method was created with intention to add dynamically new Items to the data slide.
    * Basic usage :
    *
    * $.dataSlide(".elementDataSlide", {
@@ -166,6 +167,44 @@
       }
     }
   };
+  
+  /*
+   * This method was created with intention to remove dynamically n Items from the data slide.
+   * Should be passed an CSS match to element in order to be removed
+   * Basic usage :
+   *
+   * $.dataSlide(".elementDataSlide", {remove : "#element" });
+   *      
+   */
+
+  function removeElement ( dataSlide, element){
+    if(!(element || position)) return;
+  
+    container = $(dataSlide);  
+    pages = container.find('.swPage'); 
+    wrapperData =  $(dataSlide).find('.swSlider');
+    
+    item = pages.find(element);
+
+    if(item){
+      pageParent = item.parent();
+
+      //Adjuste the number of elements that will be removed from this page. 
+      if(pageParent.length > 1 ){
+        pageParent.each(function() {
+          itemsFromPage = this.find(element); 
+          this.attr("data-items", itemsfrompage.length - parseint( this.attr("data-items") ));
+          itemsFromPage.remove();
+        });
+      }else{
+        itemsFromPage = pageParent.data("items");
+        pageParent.attr("data-items", itemsFromPage - 1 );
+        item.remove();
+      };
+
+      adjustItemsByPage(wrapperData);
+    }
+  }
 
   function evaluatePages(wrapperData){
 
@@ -196,13 +235,33 @@
     container.attr('data-pages', parseInt( container.attr('data-pages') )  + 1 );
     container.width(container.width() + page.width() );
 
+  };
+
+
+  function adjustItemsByPage(wrapperData) { 
+    pages = wrapperData.find(".swPage");
+    pages.each(function(index, page) {
+      page = $(page);
+      numberOfItems = page.attr("data-items");
+      itemsPerPage = page.attr("data-per-page");
+      if(( numberOfItems != itemsPerPage ) && (page != pages.last() ) ){
+        moveFirstElementFromNextPageToThis(page, pages.eq(index+1));
+      }
+    });
+  };
+
+  function moveFirstElementFromNextPageToThis(src, next){
+    liList = next.find("li");
+    src.append(liList.first());
+    src.attr('data-items', parseInt(src.attr('data-items')) + 1);
+    next.attr('data-items', parseInt(next.attr('data-items')) - 1);
   }
 
-  function moveLastElementToNextPage(src, dest){
+  function moveLastElementToNextPage(src, next){
     liList = src.find("li");
     dest.prepend(liList.eq(liList.length - 1 ));
     src.attr('data-items', parseInt(src.attr('data-items')) - 1);
-    dest.attr('data-items', parseInt(dest.attr('data-items')) + 1);
+    next.attr('data-items', parseInt(next.attr('data-items')) + 1);
   }
 
   function createPage(itemsPerPage, pageWidth, items){
@@ -248,6 +307,7 @@
     event.preventDefault();
 
   }
+
  })(jQuery);
 
 

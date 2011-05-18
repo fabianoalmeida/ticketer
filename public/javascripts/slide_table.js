@@ -18,11 +18,103 @@
 
   }
 
-
   /*
-   * Private methods 
+   * Default options & settings 
    */
+  var settings = {
+    numberPerPage : 5,
+    heightContent : null, 
+    widthContent : null, 
+    heightContainer : null,
+    containerWidth : null 
+  }
 
+  $.fn.dataSlide = function(opts){
+    
+    opts = opts || {};
+    //Meging settings defautl with the passed by params
+ 
+    var ul = this;
+    var li = ul.find('li');
+
+    /**
+     * Variables to manipulate items and reorganize all of them
+     */
+    var numberOfItems = li.length;
+    var numberPerPage =  opts.numberPerPage ? opts.numberPerPage : settings.numberPerPage;
+    var pagesNumber = Math.ceil(li.length/numberPerPage);
+       
+    /**
+    * Creation of the controls div
+    */
+    var swSlider = $('<div class="swSlider" data-pages='+ pagesNumber +'/>');
+    var swControls = $('<div class="swControls">');
+    
+    //Add on the top .swSlider that is the wrapper for all elements into the <ul>
+    ul.prepend(swSlider);
+    
+    if(pagesNumber == 0) {
+
+      ul.append(createPage(numberPerPage, ul.height() )); 
+      // Adding a link to the swControls div:
+      attachHiperLink(swControls, 0 );
+
+    }else {
+      
+      //Add the efect slice to move from a page to another (THIS MIGHT BE GENERIC PASSED BY PARAMS )
+      for(var i=0;i<pagesNumber;i++){
+      
+        start = ( i * numberPerPage );
+        end = ( ( i + 1 ) * numberPerPage );
+
+        //Calcs to facilitate to add new elements to data 
+        restItems = ( numberOfItems - ( numberPerPage * i ) )
+        items = restItems > numberPerPage ? numberPerPage : Math.abs( restItems ) ;  
+
+        // Slice a portion of the lis, and wrap it in a swPage div:
+        li.slice(start ,end).wrapAll(createPage(numberPerPage,ul.outerWidth() , items ) );
+          
+        // Adding a link to the swControls div:
+        attachHiperLink(swControls, i+1 ) 
+
+      };
+    };
+
+    //Append the control panel to div to calculate the alignment to center
+    ul.append(swControls);
+
+    //Detach all pages to append to Container swSlider
+    var swPage = ul.find('.swPage');
+    swPage.detach().appendTo(swSlider);
+    
+    // Setting the height of the ul to the height of the tallest page:
+    swSlider.append('<div class="clear" />').width(pagesNumber * ul.width());
+
+    //Add events to hyperLinks
+    var hyperLinks = ul.find('a.swShowPage');
+    hyperLinks.click(function(event){
+        eventSlid(this, event , swSlider, ul)
+    });
+    
+    // Mark the first link as active the first time this code runs:
+    hyperLinks.eq(0).addClass('active');
+    
+    // Center the control div:
+    swControls.css({
+        'left':'50%',
+        'margin-left':-swControls.width()/2
+    });
+    
+    swControls.detach().appendTo(opts.parent);
+
+    return this;
+        
+  };
+
+   /* 
+    * Private methods 
+    * / 
+ 
    /*
    * This hook was created with intention of add dynamically new Intens to data slide.
    * Basic usage :
@@ -33,14 +125,14 @@
    *        position : 'top' //Default 'bottom'
    *      }
    *  })
-
+   *
    */
 
   function addElement( dataSlide, element, position){
 
     if(!(element || position)) return;
     
-    container = $(dataSlide);
+    container = $(dataSlide);  
     pages = container.find('.swPage'); 
     wrapperData =  $(dataSlide).find('.swSlider');
 
@@ -67,7 +159,7 @@
         pages = parseInt(wrapperData.attr('data-pages'));
         pageWidth =  last.width();
 
-        addHipperLinksToContainer(container);
+        addHipperLinksToContainer(container, wrapperData);
 
         //Add new page to container .swSlider
         newPage = createPage(itemsPerPage, pageWidth).prepend(element);
@@ -75,14 +167,14 @@
         addNewPageToContainer(wrapperData, newPage);
       }
     }
-  }
+  };
 
   function evaluatePages(wrapperData){
 
     pages = wrapperData.find('.swPage');
     itemsPerPage = parseInt( pages.eq(0).attr('data-per-page') );
 
-    $.each(pages, function(index, page) {
+    pages.each(function(index, page) {
       page = $(page);
       numberOfItems = parseInt( page.attr('data-items') );
       if( numberOfItems > itemsPerPage ) {
@@ -92,11 +184,11 @@
           newPage = createPage(itemsPerPage, page.width()); 
           moveLastElementToNextPage(page, newPage );
           addNewPageToContainer(wrapperData, newPage);
-          addHipperLinksToContainer(wrapperData);
+          addHipperLinksToContainer(wrapperData.parent(), wrapperData);
         }
       }
     });
-  }
+  };
 
   function addNewPageToContainer(container, page){ 
 
@@ -115,169 +207,49 @@
     dest.attr('data-items', parseInt(dest.attr('data-items')) + 1);
   }
 
-  function createPage(itemsPerPage, pageWidth){
-    page = $(document.createElement("div"));
+  function createPage(itemsPerPage, pageWidth, items){
+    page = $("<div/>");
+    
+    //Default attributs and styles 
     page.addClass("swPage");
-    page.attr("data-items", "0");
+    page.attr("data-items", items || "0");
     page.attr("data-per-page", itemsPerPage);
     page.css("float", "left");
     page.css("width", pageWidth);
+
     return page
   }
 
-  function addHipperLinksToContainer(holder){
+  function addHipperLinksToContainer(container, holder){
+
     //Add new href element to new page on container
-    href = attachHiperLink(holder.parent().find('.swControls'), (parseInt( holder.attr('data-pages') ) + 1));
+    href = attachHiperLink(container.parent().find('.swControls'), (parseInt( holder.attr('data-pages') ) + 1));
     href.click(function(event){
-      eventSlid(this, event , holder.find('.swSlider'), holder);
+      eventSlid(this, event , holder.find('.swSlider'), container);
     });
-  }
 
-  /*
-   * Default options & settings 
-   */
-  var settings = {
-    numberPerPage : 5,
-    heightContent : null, 
-    widthContent : null, 
-    heightContainer : null,
-    containerWidth : null 
   }
-
-  $.fn.dataSlide = function(opts){
-    
-    opts = opts || {};
-    //Meging settings defautl with the passed by params
  
-    var ul = this;
-    var li = ul.find('li');
-    var numberOfItems = li.length;
-    var numberPerPage =  opts.numberPerPage ? opts.numberPerPage : settings.numberPerPage;
-
-    // Given a list it will iterate over  
-    li.each(function(){
-      // Check if height of the content will be dynamic or was passed by settings
-      var el = $(this);
-      if(opts.heightContent){
-        el.data('height', opts.heightContent); 
-      }else {
-        el.data('height',el.outerHeight(true));
-      }
-    });
-    
-    // Calculating the total number of pages:
-    var pagesNumber = Math.ceil(li.length/numberPerPage);
-    
-    // If the pages are less than two, do nothing:
-    if(pagesNumber<2) return this;
-
-    /**
-    * Creation of the controls div
-    */
-    var swControls = $('<div class="swControls">');
-    
-    //Add the efect slice to move from a page to another (THIS MIGHT BE GENERIC PASSED BY PARAMS )
-    for(var i=0;i<pagesNumber;i++){
-    
-      start = ( i * numberPerPage );
-      end = ( ( i + 1 ) * numberPerPage );
-
-      //Calcs to facilitate to add new elements to data 
-      restItems = ( numberOfItems - ( numberPerPage * i ) )
-      items = restItems > numberPerPage ? numberPerPage : Math.abs( restItems ) ;  
-
-      // Slice a portion of the lis, and wrap it in a swPage div:
-      li.slice(start ,end).wrapAll('<div class="swPage" data-items='+ items +' data-per-page='+ numberPerPage+' />');
-        
-      // Adding a link to the swControls div:
-      //swControls.append();
-
-      attachHiperLink(swControls, i+1 ) 
-
-    }
-
-    //Append the control panel to div 
-    ul.append(swControls);
-
-    /**
-    * Calculating and creating pages for the elements  
-    */
-    var maxHeight = 0;
-    var totalWidth = 0;
-    
-    var swPage = ul.find('.swPage');
-
-    swPage.each(function(){
-      
-      // Looping through all the newly created pages:
-      var elem = $(this);
-      var tmpHeight = 0;
-      
-      elem.find('li').each(function(){
-          tmpHeight+=$(this).data('height');
-      });
-
-      if(tmpHeight>maxHeight)  maxHeight = tmpHeight;
-
-      totalWidth+=elem.outerWidth();
-
-      elem.css('float','left').width(ul.width());
-
-    });
-    
-    swPage.wrapAll('<div class="swSlider" data-pages='+pagesNumber+'/>');
-    
-    // Setting the height of the ul to the height of the tallest page:
-    ul.height(maxHeight);
-    
-    var swSlider = ul.find('.swSlider');
-
-    swSlider.append('<div class="clear" />').width(totalWidth);
-
-    var hyperLinks = ul.find('a.swShowPage');
-    
-    hyperLinks.click(function(event){
-        eventSlid(this, event , swSlider, ul)
-    });
-    
-    // Mark the first link as active the first time this code runs:
-    hyperLinks.eq(0).addClass('active');
-    
-    // Center the control div:
-    swControls.css({
-        'left':'50%',
-        'margin-left':-swControls.width()/2
-    });
-    
-    swControls.detach().appendTo(opts.parent);
-
-    return this;
-        
-  }
-
-  //Private methods 
-  
   function attachHiperLink(src, value,  target){
-    href = document.createElement('a');
-    $(href).addClass("swShowPage").prepend(value);
+    href = $("<a/>");
+    href.addClass("swShowPage").prepend(value);
 
     if(! target)
       src.append( href );
 
-    return $(href);
+    return href;
   }
 
   function eventSlid(element, event, swSlider, ul){
+  
+    // If one of the control links is clicked, slide the swSlider div 
+    // (which contains all the pages) and mark it as active:
+    $(element).addClass('active').siblings().removeClass('active');
     
-        // If one of the control links is clicked, slide the swSlider div 
-        // (which contains all the pages) and mark it as active:
-        $(element).addClass('active').siblings().removeClass('active');
-        
-        swSlider.stop().animate({'margin-left':-(parseInt($(element).text())-1)*ul.width()},'slow');
-        event.preventDefault();
+    swSlider.stop().animate({'margin-left':-(parseInt($(element).text())-1)*ul.width()},'slow');
+    event.preventDefault();
 
-    }
-
+  }
  })(jQuery);
 
 

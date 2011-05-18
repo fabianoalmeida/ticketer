@@ -22,10 +22,11 @@ class TicketObserver < ActiveRecord::Observer
       Juggernaut.publish(channel, {
             :value => ticket.value, 
             :id => ticket.id,
-            :time => I18n.localize(ticket.updated_at, :format => :default),
+            :time => I18n.localize(ticket.updated_at, :format => :hour_minute),
             :left =>  ticket.current_wicket ? ticket.current_wicket.guidance_left? : nil ,
             :right => ticket.current_wicket ? ticket.current_wicket.guidance_right? : nil ,
-            :wicket => ticket.current_wicket ? ticket.current_wicket.to_json : nil
+            :wicket_value => ticket.current_wicket ? ticket.current_wicket.value : nil,
+            :ticket_type_value => ticket.ticket_type.value
           })
     end
   end

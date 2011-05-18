@@ -21,7 +21,7 @@
   <div class="label"> 
      <%=   t('model.ticket.name') %> 
    </div>
-
+   <div class="items" style="width: 1090px;">
   <% @tickets.each do |ticket| %>
     <div class="item">
       <div class="botton">
@@ -32,6 +32,7 @@
       </div>
     </div>
   <% end %>
+   </div>
 </div>
 
 <%= audio_tag "beep.ogg", :autoplay => false %>
@@ -43,8 +44,12 @@
    $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
 
    jug.subscribe("calleds<%= params[:place_id] %>", function(data){
-        $("table").append('<tr><td>'+data.value+'</td><td><a id='+data.id+"' class='trigger_submit'> Chamar</a></td></tr>");
-        jQuery('audio')[0].play()
+       $('div.last_ticket').html('<div style="font-size:30px; color : black; margin : 20px 0;">Guichê: '+data.wicket_value+'<br/>Tipo: '+data.ticket_type_value+'</div>'+data.value);
+       var items = $('div.history_calls .item');
+       items.last().remove();
+       items.stop().animate({left: items.width()}, 'slow');
+       $('div.history_calls .label').after('<div class="item"><div class="botton">'+data.time+'</div><div class="content">'+data.value+'</div>');
+       jQuery('audio')[0].play();
 
         if(data.left){ 
           jQuery('img#image_left').show();

@@ -9,7 +9,7 @@
 
     <div class="support">
       <div id="tickets_waiting" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_waiting.size %></i></span>
+        <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span id="tickets_waiting_total" style="text-align: right;"><i>Total: <%= @tickets_waiting.length %></i></span>
         <ul id="tickets_waiting" class="holder">
           <% @val = {} %>
           <% if @tickets_waiting %>
@@ -27,7 +27,7 @@
         <ul class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li class="content"><%= @val[types.id.to_s] %></li>
+            <li id='<%= types.id %>' class="content"><%= @val[types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -35,7 +35,7 @@
 
     <div class="support">
       <div id="tickets_called" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets_called.size %></i></span>
+        <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span id="tickets_called_total" style="text-align: right;"><i>Total: <%= @tickets_called.length %></i></span>
         <ul id="tickets_called" class="holder">
           <% if @tickets_called %>
             <% @val[:call] = {} %>
@@ -54,7 +54,7 @@
         <ul class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li class="content"><%= @val[:call][types.id.to_s] %></li>
+            <li id='<%= types.id %>' class="content"><%= @val[:call][types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -62,7 +62,7 @@
 
     <div class="support">
       <div id="tickets_available" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span style="text-align: right;"><i>Total: <%= @tickets.size %></i></span>
+        <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span id="tickets_available_total" style="text-align: right;"><i>Total: <%= @tickets.length %></i></span>
         <ul id="tickets_available" class="holder">
           <% if @tickets %>
             <% @val[:available]={} %>
@@ -77,10 +77,10 @@
         </ul>
       </div>
       <div class="tags">
-        <ul class="tag">
+        <ul id="tickets_available_tag" class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li class="content"><%= @val[:available][types.id.to_s] %></li>
+            <li id="<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -94,17 +94,14 @@
               add : {
                 element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
               }
-            })
+            });
       }); 
 
       var jugCalled = new Juggernaut();
       jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
-          $.dataSlide('#tickets_called', {
-              add : {
-                element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
-                position : 'top'
-              }
-            })
+          $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
+          size = $('ul#tickets_available.holder li').size();
+          $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
       });
   </script>
   <%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>

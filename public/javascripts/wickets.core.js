@@ -17,22 +17,45 @@ jQuery( document ).ready( function() {
 
   jQuery('a#call_next').jsonAjax({
       success : function(data){
-          //$('input#current').val(data.ticket.id);
-        }
-    });
+          $('input#current').val(data.ticket.id);
 
-  jQuery('a#pending').jsonAjax({ 
-      data: 'ticket_id='+$('input#current').val(),
-      success: function(data){
-          ticket = data.ticket;
-          $.dataSlide('#tickets_waiting', {
+          $.dataSlide('#tickets_called', {
               add : {
-                element : '<li id='+ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+ticket.value+'</span> '+ticket.time+'</li>',
+                element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
                 position : 'top'
               }
             })
+          
+          size = $('ul#tickets_called.holder li').size();
+          $('span#tickets_called_total').html('<i>Total: '+size+'</i>');
         }
     });
+
+  jQuery( 'a#pending' ).click( function() { 
+    param = 'ticket_id=' + jQuery( 'input#current' ).val();
+    jQuery.ajax({
+      url: "por_em_espera",
+      type: "put",
+      data: param,
+      dataType: 'json',
+      success: function(data){
+        $.dataSlide('#tickets_called', { remove : 'li#'+data.ticket.id } );
+
+        size = $('ul#tickets_called.holder li').size();
+        $('span#tickets_called_total').html('<i>Total: '+size+'</i>');
+
+        $.dataSlide('#tickets_waiting', {
+            add : {
+              element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+              position : 'top'
+            }
+          })
+
+        size = $('ul#tickets_waiting.holder li').size();
+        $('span#tickets_waiting_total').html('<i>Total: '+size+'</i>');
+      }
+    });
+  });
 
   jQuery('a#recall').jsonAjax({
       data : 'ticket_id='+$('input#current').val()

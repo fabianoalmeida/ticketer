@@ -42,7 +42,7 @@
     var numberOfItems = li.length;
     var numberPerPage =  opts.numberPerPage ? opts.numberPerPage : settings.numberPerPage;
     var pagesNumber = Math.ceil(li.length/numberPerPage);
-       
+      
     /**
     * Creation of the controls div
     */

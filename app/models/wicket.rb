@@ -15,7 +15,7 @@ class Wicket < ActiveRecord::Base
 
   validates :value,
     :length => { :in => 1..80 },
-    :uniqueness => { :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false, :scope => :place_id },
     :allow_blank => false
   
   def called_tickets

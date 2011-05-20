@@ -178,6 +178,7 @@
    */
 
   function removeElement ( dataSlide, element){
+
     if(!(element || position)) return;
   
     container = $(dataSlide);  
@@ -197,12 +198,12 @@
           itemsFromPage.remove();
         });
       }else{
-        itemsFromPage = pageParent.data("items");
+        itemsFromPage = pageParent.attr("data-items");
         pageParent.attr("data-items", itemsFromPage - 1 );
         item.remove();
       };
 
-      adjustItemsByPage(wrapperData);
+      adjustItemsByPage(wrapperData,container);
     }
   }
 
@@ -238,16 +239,28 @@
   };
 
 
-  function adjustItemsByPage(wrapperData) { 
+  function adjustItemsByPage(wrapperData, container) { 
+
     pages = wrapperData.find(".swPage");
+
     pages.each(function(index, page) {
       page = $(page);
       numberOfItems = page.attr("data-items");
       itemsPerPage = page.attr("data-per-page");
-      if(( numberOfItems != itemsPerPage ) && (page != pages.last() ) ){
-        moveFirstElementFromNextPageToThis(page, pages.eq(index+1));
-      }
+      if(( numberOfItems != itemsPerPage ) && ( pages[index+1]) ){
+
+        nextPage = pages.eq(index+1);
+        
+        moveFirstElementFromNextPageToThis(page, nextPage);
+        //If the currenrt page there is no element into it should be removed 
+        if(nextPage.attr("data-items") == 0){
+          nextPage.remove();
+          removePageAndController(wrapperData, container);
+          return false;
+        };
+      };
     });
+
   };
 
   function moveFirstElementFromNextPageToThis(src, next){
@@ -262,6 +275,13 @@
     dest.prepend(liList.eq(liList.length - 1 ));
     src.attr('data-items', parseInt(src.attr('data-items')) - 1);
     next.attr('data-items', parseInt(next.attr('data-items')) + 1);
+  }
+
+  function removePageAndController(wrapperData,container){
+   //Remove the navigation control to this page
+    container.parent().find(".swControls").find("a").last().remove();
+    page = wrapperData.find(".swPage").first();
+    wrapperData.width(wrapperData.width() - page.width());
   }
 
   function createPage(itemsPerPage, pageWidth, items){

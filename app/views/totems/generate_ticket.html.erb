@@ -14,6 +14,7 @@
   <% end %>
   </div>
 
+<%= javascript_include_tag 'facebox-plugin' %>
 <script type="text/javascript" charset="utf-8">
    jQuery( 'div.generate' ).click( function() { 
     jQuery( '#ticket_ticket_type_id' ).val( this.id );
@@ -25,7 +26,7 @@
       dataType: 'json',
       success: function(data){
         ticket = data.ticket;
-        jQuery.facebox( '<b>Tipo:</b> ' + ticket.ticket_type_value + '<br/> <b>Senha:</b> ' + ticket.value + '<br/> <b>Data/Hora:</b> ' + ticket.created_at_formatted );
+        jQuery.facebox.new( '<div><h3 style="text-align: center;">HOSPITAL SANTA IZABEL</h3><br/><h4 style="text-align: center;">' + ticket.place_value + '</h4><br/><h1 style="text-align: center; color: red; font-weight: bold;">' + ticket.value + '</h1><br/><b>Tipo:</b> ' + ticket.ticket_type_value + '<br/><b>Data:</b> ' + ticket.created_at_formatted + '</div>').fadeOutIn(3000);
       }
     });
   });

@@ -80,7 +80,7 @@
         <ul id="tickets_available_tag" class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li id="<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
+            <li id="ticket_type<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -95,7 +95,17 @@
                 element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
               }
             });
+          size = $('ul#tickets_available.holder li').size();
+          $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
+          ticket_type_counter = 'ticket_type' + data.ticket_type_id;
+          tag = 'ul#tickets_available_tag #' + ticket_type_counter;
+          current_number = parseInt($(tag).text());
+          $(tag).text(current_number + 1);
       }); 
+
+      $("body").bind("ajaxSend", function(e, xhr) {
+          xhr.setRequestHeader("X-Session-ID", jugAvailables.sessionID);
+      })
 
       var jugCalled = new Juggernaut();
       jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){

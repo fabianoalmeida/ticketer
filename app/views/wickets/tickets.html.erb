@@ -1,5 +1,5 @@
 <div style="text-align: right;">
-
+  <input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
   <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
   <a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
   <a id="pending" class="super button pink" data-url="por_em_espera" data-method="put"><%= t('model.ticket.pending') %></a>
@@ -86,7 +86,7 @@
       </div>
     </div>
   </div>
-  <%= javascript_include_tag :juggernaut, 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
+  <%= javascript_include_tag :juggernaut, 'juggernaut', 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
   <script type="text/javascript" charset="utf-8">
     /*
       var jugAvailables = new Juggernaut();

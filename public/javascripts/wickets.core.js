@@ -1,38 +1,3 @@
-jQuery(function($){
-  var juggernaut = { 
-
-    init : function(){ 
-      this.socket = new Juggernaut; 
-      this.socket.subscribe('/ticketer', this.process);
-      $('body').bind('ajaxSend', this.proxy(function(e, xhr){
-          xhr.setRequestHeader('X-Session-ID', this.socket.sessionID);
-      }));
-    }, 
-
-    process : function(data){
-      if(data.channel == "availables"){
-        $.dataSlide('#tickets_available', {
-              add : {
-                element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
-              }
-        });
-      }else if (data.channel =="calleds"){ 
-        $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
-        size = $('ul#tickets_available.holder li').size();
-        $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
-      }
-    }, 
-
-    proxy: function(func){       
-      var thisObject = this;
-      return(function(){
-        return func.apply(thisObject, arguments);
-      });
-    }
-  };
-  window.juggernaut = juggernaut.init();
-});
-
 jQuery( document ).ready( function() {
   jQuery( 'a.generate' ).click( function() { 
     jQuery( '#ticket_ticket_type_id' ).val( this.id );

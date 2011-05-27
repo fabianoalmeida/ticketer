@@ -43,11 +43,7 @@ module Ticketer
     #config.rubycas.cas_base_url = 'https://localhost/'
     #config.rubycas.logger = Rails.logger
 
-    if $0 == "irb"
-        config.logger = Logger.new(STDOUT)
-    else
-      config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)  
-    end
+    config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"),3,5*1024*1024)  
 
     config.i18n.default_locale = 'pt-BR'
     config.i18n.reload!

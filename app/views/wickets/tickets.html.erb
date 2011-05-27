@@ -86,8 +86,9 @@
       </div>
     </div>
   </div>
-  <script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
+  <%= javascript_include_tag :juggernaut, 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
   <script type="text/javascript" charset="utf-8">
+    /*
       var jugAvailables = new Juggernaut();
       jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
           $.dataSlide('#tickets_available', {
@@ -113,7 +114,7 @@
           size = $('ul#tickets_available.holder li').size();
           $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
       });
+      */
   </script>
-  <%= javascript_include_tag 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
   <div style="clear: both;"></div>
 </div>

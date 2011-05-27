@@ -166,7 +166,8 @@ describe WicketsController do
       context "Success" do
 
         before(:each) do
-          mock_ticket.stub(:current_wicket=).and_return(nil) 
+          mock_ticket(:updated_at => DateTime.now).stub(:current_wicket=).and_return(nil) 
+          mock_ticket.stub(:[]=).and_return(nil);
           mock_ticket.stub(:call).and_return(true) 
           Ticket.stub(:next_to).and_return(mock_ticket) 
           post :call_next, :place_id => "1", :wicket_id => "1"
@@ -215,7 +216,8 @@ describe WicketsController do
     describe "POST put waiting ticket" do
      
       before(:each) do
-        Ticket.stub(:find).and_return(mock_ticket(:pending => true)) 
+        Ticket.stub(:find).and_return(mock_ticket(:pending => true, :updated_at => DateTime.now)) 
+        mock_ticket.stub(:[]=).and_return(nil)
         put :put_waiting, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 

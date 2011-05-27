@@ -57,14 +57,14 @@ describe Totem do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @totem.save
-    @totem_invalid = Factory.build(:totem, :value => @totem.value )
+    @totem_invalid = Factory.build(:totem, :value => @totem.value, :place_id => @totem.place.id )
     @totem_invalid.should have(1).errors_on(:value)
   end
 
   it "should not permit to create a new register with an existing 'value' registered even that has a different case sensitive" do
     @totem.save
 
-    @totem_invalid = Factory.build(:totem, :value => @totem.value.upcase )
+    @totem_invalid = Factory.build(:totem, :value => @totem.value.upcase, :place_id => @totem.place.id)
     @totem_invalid.should have(1).errors_on(:value) 
   end
 

@@ -27,6 +27,12 @@ class Ticket < ActiveRecord::Base
     self.priority = self.ticket_type.priority if self.ticket_type
   end
 
+  def self.calleds_from_place(place)
+    call = CallHistory.arel_table
+    tick = self.arel_table
+    Ticket.joins(:call_histories).where(tick[:place_id].eq(place).and(call[:status_ticket_id].eq(StatusTicket.called.id))).group(tick[:id])
+  end
+
   state_machine :initial => :available do 
 
     event :call do 

@@ -28,10 +28,10 @@
         </ul>
       </div>
       <div class="tags">
-        <ul class="tag">
+        <ul id="tickets_waiting_tag" class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li id='<%= types.id %>' class="content"><%= @val[types.id.to_s] %></li>
+            <li id='ticket_type<%= types.id %>' class="content"><%= @val[types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -55,10 +55,10 @@
         </ul>
       </div>
       <div class="tags">
-        <ul class="tag">
+        <ul id="tickets_attended_tag" class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li id='<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
+            <li id='ticket_type<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -90,6 +90,6 @@
       </div>
     </div>
   </div>
-  <%= javascript_include_tag :juggernaut, 'juggernaut', 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
+  <%= javascript_include_tag :juggernaut, 'juggernaut', 'wickets.core', 'jquery.pajinate.min', 'slide_table', 'facebox-plugin' %>
   <div style="clear: both;"></div>
 </div>

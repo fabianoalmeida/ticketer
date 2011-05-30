@@ -272,7 +272,7 @@
 
   function moveLastElementToNextPage(src, next){
     liList = src.find("li");
-    dest.prepend(liList.eq(liList.length - 1 ));
+    next.prepend(liList.eq(liList.length - 1 ));
     src.attr('data-items', parseInt(src.attr('data-items')) - 1);
     next.attr('data-items', parseInt(next.attr('data-items')) + 1);
   }
@@ -334,7 +334,7 @@
 $(document).ready(function(){
   
   $('ul#tickets_available').dataSlide({numberPerPage:10, parent:"div#tickets_available"});
-  $('ul#tickets_called').dataSlide({numberPerPage:10, parent:"div#tickets_called"});
+  $('ul#tickets_attended').dataSlide({numberPerPage:10, parent:"div#tickets_attended"});
   $('ul#tickets_waiting').dataSlide({numberPerPage:10, parent:"div#tickets_waiting"});
  
 });

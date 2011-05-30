@@ -3,6 +3,10 @@ require 'spec_helper'
 describe "wickets/tickets.html.erb" do
   before(:each) do
     @place = assign(:place, stub_model(Place, :id => "1"))
+    assign(:tickets_type, [
+      stub_model(TicketType, :value => '01'),
+      stub_model(TicketType, :value => '02')
+    ])
     assign(:tickets, [
       stub_model(Ticket, :value => "P01", :updated_at => DateTime.now),
       stub_model(Ticket, :value => "P01", :updated_at => DateTime.now)

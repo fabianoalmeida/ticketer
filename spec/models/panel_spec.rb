@@ -49,7 +49,7 @@ describe Panel do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @panel.save
-    @panel_invalid = Factory.build(:panel, :value => @panel.value)
+    @panel_invalid = Factory.build(:panel, :value => @panel.value, :place_id => @panel.id)
     @panel_invalid.save.should == false
   end
 

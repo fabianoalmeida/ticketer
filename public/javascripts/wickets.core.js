@@ -18,17 +18,35 @@ jQuery( document ).ready( function() {
       success : function(data){
           $('input#current').val(data.ticket.id);
 
-          $.dataSlide('#tickets_called', {
-              add : {
-                element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
-                position : 'top'
-              }
-            })
-          
-          size = $('ul#tickets_called.holder li').size();
-          $('span#tickets_called_total').html('<i>Total: '+size+'</i>');
+          jQuery.facebox.new( data.ticket.value+'<a id="attend" class="super button pink" data-url="atender" data-method="put">Atender</a><a id="pending" class="super button pink" data-url="por_em_espera" data-method="put">Pendente</a><a id="recall" class="super button pink" data-url="rechamar" data-method="put">Rechamar</a>' ).afterCallNext();
         }
     });
+
+  jQuery( 'a#attend' ).click( function() { 
+    param = 'ticket_id=' + jQuery( 'input#current' ).val();
+    jQuery.ajax({
+      url: "atender",
+      type: "put",
+      data: param,
+      dataType: 'json',
+      success: function(data){
+        $.dataSlide('#tickets_available', { remove : 'li#'+data.ticket.id } );
+
+        size = $('ul#tickets_available.holder li').size();
+        $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
+
+        $.dataSlide('#tickets_attended', {
+            add : {
+              element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+              position : 'top'
+            }
+          })
+
+        size = $('ul#tickets_attended.holder li').size();
+        $('span#tickets_attended_total').html('<i>Total: '+size+'</i>');
+      }
+    });
+  });
 
   jQuery( 'a#pending' ).click( function() { 
     param = 'ticket_id=' + jQuery( 'input#current' ).val();

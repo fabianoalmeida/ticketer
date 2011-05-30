@@ -1,15 +1,19 @@
 <div style="text-align: right;">
   <input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
   <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
-  <a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
-  <a id="pending" class="super button pink" data-url="por_em_espera" data-method="put"><%= t('model.ticket.pending') %></a>
-  <a id="recall" class="super button pink" data-url="rechamar" data-method="put"><%= t('model.ticket.recall') %></a>
+
+  <div id="wicket_menu">
+    <div style="text-align: left; float: left; padding-left: 350px; font-size: 45px; font-weight: bold; color: #ACAB9A;"> <%= @wicket.value %> </div>
+    <div style="text-align: right; float; right;">
+      <a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
+    </div>
+  </div>
 
   <div id="dashboard">
 
     <div class="support">
       <div id="tickets_waiting" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.pending') %> </span> <span id="tickets_waiting_total" style="text-align: right;"><i>Total: <%= @tickets_waiting.length %></i></span>
+        <span style="text-align: left;"><%= t('model.ticket.pending.plural') %> </span> <span id="tickets_waiting_total" style="text-align: right;"><i>Total: <%= @tickets_waiting.length %></i></span>
         <ul id="tickets_waiting" class="holder">
           <% @val = {} %>
           <% if @tickets_waiting %>
@@ -34,14 +38,14 @@
     </div>
 
     <div class="support">
-      <div id="tickets_called" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.called') %> </span> <span id="tickets_called_total" style="text-align: right;"><i>Total: <%= @tickets_called.length %></i></span>
-        <ul id="tickets_called" class="holder">
-          <% if @tickets_called %>
-            <% @val[:call] = {} %>
-            <% @tickets_called.each do |ticket| %>
-              <% @val[:call][ticket.ticket_type_id.to_s] ||= 0
-               @val[:call][ticket.ticket_type_id.to_s] &&= @val[:call][ticket.ticket_type_id.to_s] + 1 %>
+      <div id="tickets_attended" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.attend.plural') %> </span> <span id="tickets_attended_total" style="text-align: right;"><i>Total: <%= @tickets_attended.length %></i></span>
+        <ul id="tickets_attended" class="holder">
+          <% if @tickets_attended %>
+            <% @val[:attend] = {} %>
+            <% @tickets_attended.each do |ticket| %>
+              <% @val[:attend][ticket.ticket_type_id.to_s] ||= 0
+               @val[:attend][ticket.ticket_type_id.to_s] &&= @val[:attend][ticket.ticket_type_id.to_s] + 1 %>
 
               <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
                 <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
@@ -54,7 +58,7 @@
         <ul class="tag">
           <% @tickets_type.each do |types| %>
             <li class="tittle"><%= types.value %></li>
-            <li id='<%= types.id %>' class="content"><%= @val[:call][types.id.to_s] %></li>
+            <li id='<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
           <% end %>
         </ul>
       </div>
@@ -62,11 +66,11 @@
 
     <div class="support">
       <div id="tickets_available" class="main">
-        <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span id="tickets_available_total" style="text-align: right;"><i>Total: <%= @tickets.length %></i></span>
+        <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span id="tickets_available_total" style="text-align: right;"><i>Total: <%= @tickets_available.length %></i></span>
         <ul id="tickets_available" class="holder">
-          <% if @tickets %>
+          <% if @tickets_available %>
             <% @val[:available]={} %>
-            <% @tickets.each do |ticket| %>
+            <% @tickets_available.each do |ticket| %>
               <% @val[:available][ticket.ticket_type_id.to_s] ||= 0
                  @val[:available][ticket.ticket_type_id.to_s] &&= @val[:available][ticket.ticket_type_id.to_s] + 1 %>
               <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
@@ -87,34 +91,5 @@
     </div>
   </div>
   <%= javascript_include_tag :juggernaut, 'juggernaut', 'wickets.core', 'jquery.pajinate.min', 'slide_table' %>
-  <script type="text/javascript" charset="utf-8">
-    /*
-      var jugAvailables = new Juggernaut();
-      jugAvailables.subscribe("availables<%= params[:place_id] %>", function(data){
-          $.dataSlide('#tickets_available', {
-              add : {
-                element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
-              }
-            });
-          size = $('ul#tickets_available.holder li').size();
-          $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
-          ticket_type_counter = 'ticket_type' + data.ticket_type_id;
-          tag = 'ul#tickets_available_tag #' + ticket_type_counter;
-          current_number = parseInt($(tag).text());
-          $(tag).text(current_number + 1);
-      }); 
-
-      $("body").bind("ajaxSend", function(e, xhr) {
-          xhr.setRequestHeader("X-Session-ID", jugAvailables.sessionID);
-      })
-
-      var jugCalled = new Juggernaut();
-      jugCalled.subscribe("calleds<%= params[:place_id] %>", function(data){
-          $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
-          size = $('ul#tickets_available.holder li').size();
-          $('span#tickets_available_total').html('<i>Total: '+size+'</i>');
-      });
-      */
-  </script>
   <div style="clear: both;"></div>
 </div>

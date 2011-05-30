@@ -329,9 +329,14 @@
       editing: "Editando uma Senha"
       title: "Listando todas as Senhas"
       name: "Senha"
-      pending: "Pendentes"
+      pending:
+        singular: "Pendente"
+        plural: "Pendentes"
       called: "Chamadas"
       recall: "Rechamar"
+      attend:
+        singular: "Atender"
+        plural: "Atendidos"
 
     local:
       new: "Novo Local"

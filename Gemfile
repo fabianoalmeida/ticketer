@@ -4,6 +4,7 @@ gem 'rails', '3.0.5'
 
 gem 'sqlite3'
 gem 'i18n'
+gem 'arel'
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
 gem 'rubycas-client'
 #gem 'rubycas-client-rails', :path => "lib/rubycas-client-rails"

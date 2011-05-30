@@ -18,6 +18,10 @@ class Wicket < ActiveRecord::Base
     :uniqueness => { :case_sensitive => false, :scope => :place_id },
     :allow_blank => false
   
+  def attended_tickets
+    tickets.where(:status_ticket_id => StatusTicket.attended.id).order("updated_at DESC")
+  end
+  
   def called_tickets
     tickets.where(:status_ticket_id => StatusTicket.called.id).order("updated_at DESC")
   end

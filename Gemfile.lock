@@ -114,6 +114,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  arel
   autotest
   autotest-notification
   autotest-rails

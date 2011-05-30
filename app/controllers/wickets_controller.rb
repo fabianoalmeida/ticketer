@@ -92,14 +92,15 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:wicket_id])
     @place =  Place.find(params[:place_id])
     @tickets_type = @place.ticket_types  
-    @tickets = @place.tickets_availables.today
+    @tickets_available = @place.tickets_availables.today
 
     if @wicket.priority
-      @tickets = @tickets.sort do |a, b|
+      @tickets_available = @tickets_available.sort do |a, b|
         (a.ticket_type.priority == b.ticket_type.priority) ? ((a.created_at < b.created_at) ? -1 : 1) : (a.ticket_type.priority ? -1 : 1)
       end
     end
 
+    @tickets_attended = @wicket.attended_tickets.today
     @tickets_called = @wicket.called_tickets.today
     @tickets_waiting = @wicket.pending_tickets.today
   end

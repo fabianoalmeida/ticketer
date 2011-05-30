@@ -5,6 +5,10 @@
     $('#facebox').delay(time).fadeOut('slow', function() { $(document).trigger('close.facebox') })
   }
 
+  facebox.afterCallNext = function () {
+    $('#facebox_overlay').unbind('click');
+  }
+
   facebox.new = function (data, klass) {
     facebox(data, klass);
     $('a.close').remove();
@@ -12,3 +16,4 @@
   }
 
 })(jQuery.facebox);
+

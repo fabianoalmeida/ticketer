@@ -1,5 +1,4 @@
 
-
 li{
     list-style: none;	
 }
@@ -162,7 +161,6 @@ a.swShowPage.active{
 #tickets_waiting li { 
   cursor: pointer;
   cursor: hand;
-  box-shadow: 5px 5px 5px 5px #CCCCCC;
 }
 .clear{
 	/* This class clears the floated elements */

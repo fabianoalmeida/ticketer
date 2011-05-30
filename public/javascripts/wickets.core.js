@@ -83,9 +83,9 @@ jQuery( document ).ready( function() {
          eventForLiPending();
          $.changeByOneValues('waiting', data.ticket.ticket_type_id, true);
          $.facebox.close();
-      }
+        }
+      });
     });
-
     jQuery('a#recall').jsonAjax({
         data : 'ticket_id='+$('input#current').val()
     });

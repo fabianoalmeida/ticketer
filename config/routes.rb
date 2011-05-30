@@ -21,6 +21,7 @@ Ticketer::Application.routes.draw do
         put 'recall', :path => 'rechamar'
         put 'attend', :path => 'atender'
         put 'put_waiting', :path => 'por_em_espera'
+        put 'back_available', :path => 'tornar_disponivel'
         delete 'cancel', :path => 'cancelar'
       end
       resources :totems do

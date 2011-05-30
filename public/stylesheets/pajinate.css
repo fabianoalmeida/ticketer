@@ -1,7 +1,7 @@
 
 
 li{
-	list-style: none;	
+    list-style: none;	
 }
 
 
@@ -153,14 +153,17 @@ a.swShowPage.active{
 	box-shadow:0 0 5px #111111;
 }
 
-.holder,
-.holder li{
+.holder, .holder li{
 	/* Applying rouded corners to both the holder and the holder lis */
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
-
+#tickets_waiting li { 
+  cursor: pointer;
+  cursor: hand;
+  box-shadow: 5px 5px 5px 5px #CCCCCC;
+}
 .clear{
 	/* This class clears the floated elements */
 	clear:both;

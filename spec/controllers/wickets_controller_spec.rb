@@ -230,11 +230,11 @@ describe WicketsController do
       end
     end
 
-    describe "POST attending ticket" do
+    describe "PUT attending ticket" do
 
       before(:each) do
         Ticket.stub(:find).and_return(mock_ticket(:attend => true))
-        post :attend, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+        put :attend, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 
       it "attending the given ticket" do
@@ -260,6 +260,25 @@ describe WicketsController do
       it "should redirect to #tickets" do 
         response.should redirect_to(place_wicket_tickets_url("1", "1"))
       end
+    end
+
+    describe "PUT back available" do
+     
+      before(:each) do
+        Ticket.stub(:find).and_return(mock_ticket(:pending => true)) 
+        mock_ticket.stub!(:reopen).and_return(true)
+        put :back_available, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
+      end
+
+      it "put waiting the given ticket" do
+        assigns(:ticket).should be(mock_ticket)
+      end
+       
+      it "should redirect to #tickets" do 
+        pending "To be resolve why don't only return json results "
+        response.content_type.should eq("application/json") 
+      end
+
     end
   end
 end

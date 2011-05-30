@@ -78,49 +78,46 @@ jQuery( document ).ready( function() {
               }
             })
 
-          size = $('ul#tickets_waiting.holder li').size();
-          $('span#tickets_waiting_total').html('<i>Total: '+size+'</i>');
-
-          $.changeByOneValues('waiting', data.ticket.ticket_type_id, true);
-          $.facebox.close();
-        }
-      });
+         size = $('ul#tickets_waiting.holder li').size();
+         $('span#tickets_waiting_total').html('<i>Total: '+size+'</i>');
+         eventForLiPending();
+         $.changeByOneValues('waiting', data.ticket.ticket_type_id, true);
+         $.facebox.close();
+      }
     });
 
     jQuery('a#recall').jsonAjax({
         data : 'ticket_id='+$('input#current').val()
+    });
+  };
+
+  function eventForLiPending(){
+
+    jQuery("ul#tickets_waiting li").click(function(){
+      size = $('ul#tickets_waiting.holder li').size();
+      button_cancel = '<a id="cancel" class="super button pink" data-url="cancelar" data-method="get" style="margin : 10 px;">Cancelar</a>';
+      button_reopen = '<a id="reopen" class="super button ajax pink" data-url="tornar_disponivel" data-method="get" style="margin : 10 px;">Disponibilizar</a>';
+   
+      buttons = button_cancel + button_reopen ;
+      jQuery.facebox.new(buttons);
+      jQuery("#cancel").jsonAjax({
+        method : 'delete', 
+        data : 'ticket_id='+ this.id,
+        success: function(data){
+          $.facebox.close();
+          $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
+        }
       });
+      jQuery("#reopen").jsonAjax({
+        method : 'put', 
+        data : 'ticket_id='+ this.id,
+        success: function(data){
+          $.facebox.close();
+          $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
+        }
+      });
+    });
   }
 
+  eventForLiPending();
  })
-
-//Order and pagination table
-jQuery(document).ready(function(){
-  jQuery('#tickets').pajinate({
-      num_page_links_to_display : 4,
-      nav_label_first : ' << ',
-      nav_label_last : ' >> ',
-      nav_label_prev : ' < ',
-      nav_label_next : ' > ',
-      nav_panel_id : '.page_nav'
-  });
-
-  jQuery('#tickets_waiting').pajinate({
-      num_page_links_to_display : 4,
-      nav_label_first : ' << ',
-      nav_label_last : ' >> ',
-      nav_label_prev : ' < ',
-      nav_label_next : ' > ',
-      nav_panel_id : '.page_nav'
-  });
-
-
-  jQuery('#tickets_called').pajinate({
-      num_page_links_to_display : 4,
-      nav_label_first : ' << ',
-      nav_label_last : ' >> ',
-      nav_label_prev : ' < ',
-      nav_label_next : ' > ',
-      nav_panel_id : '.page_nav'
-  });
-});

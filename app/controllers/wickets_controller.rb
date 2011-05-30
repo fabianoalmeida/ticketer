@@ -150,7 +150,7 @@ class WicketsController < ApplicationController
     end
   end
   #
-  #POST places/1/wicket/1/attend
+  #PUT places/1/wicket/1/attend
   def attend
     @ticket_attended = Ticket.find(params[:ticket_id]) 
     @wicket = Wicket.find(params[:wicket_id])
@@ -169,9 +169,23 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
       if @ticket_canceled.cancel 
-        CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
+        CallHistory.register(:ticket => @ticket_canceled, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
+        format.json { render :json => @ticket_canceled}
       end
     end
   end
+
+  #PUT places/1/wicket/1/back_available
+  def back_available
+    @ticket = Ticket.find(params[:ticket_id]) 
+    @wicket = Wicket.find(params[:wicket_id])
+    respond_to do |format|
+      if @ticket.reopen 
+          CallHistory.register(:ticket => @ticket, :wicket => @wicket)
+          format.json { render :json => @ticket}
+      end 
+    end
+  end
+
 end

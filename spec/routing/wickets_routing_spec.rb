@@ -51,5 +51,9 @@ describe WicketsController do
       { :delete => "/localidades/1/guiches/1/cancelar" }.should route_to(:place_id => "1", :controller => "wickets", :action => "cancel", :wicket_id => "1")
     end
 
+    it "recognizes and generates #back_available" do
+      { :put => "/localidades/1/guiches/1/tornar_disponivel" }.should route_to(:place_id => "1", :controller => "wickets", :action => "back_available", :wicket_id => "1")
+    end
+
   end
 end

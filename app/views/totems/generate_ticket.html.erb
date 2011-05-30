@@ -1,6 +1,11 @@
 <div style="magin: 0 0 0 10%; min-height: 500px; text-align: right;">
-  <div>
+  <div style="padding: 0px 10px 0px;">
     <h1><%= t('model.ticket_type.title') %></h1>
+  </div>
+  
+  <div style="padding: 0px 10px 0px;">
+    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+    <label class="jclock"></label>
   </div>
 
   <div class="totem">
@@ -14,8 +19,9 @@
   <% end %>
   </div>
 
-<%= javascript_include_tag 'facebox-plugin' %>
+<%= javascript_include_tag 'facebox-plugin', 'jquery.jclock', 'application' %>
 <script type="text/javascript" charset="utf-8">
+   jQuery.clock();
    jQuery( 'div.generate' ).click( function() { 
     jQuery( '#ticket_ticket_type_id' ).val( this.id );
     param = jQuery( '#new_ticket' ).serialize();

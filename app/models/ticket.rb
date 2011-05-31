@@ -30,7 +30,7 @@ class Ticket < ActiveRecord::Base
   def self.calleds_from_place(place)
     call = CallHistory.arel_table
     tick = self.arel_table
-    Ticket.joins(:call_histories).where(tick[:place_id].eq(place).and(call[:status_ticket_id].eq(StatusTicket.called.id))).group(tick[:id])
+    Ticket.joins(:call_histories).where(tick[:place_id].eq(place).and(call[:status_ticket_id].eq(StatusTicket.called.id)))
   end
 
   state_machine :initial => :available do 

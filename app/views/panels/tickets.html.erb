@@ -1,3 +1,4 @@
+<input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
 <div style="magin: 0 0 0 5%; text-align: right;">
   <div style="padding: 0px 5px 0px;">
     <h1><%= t('model.ticket_type.title') %></h1>
@@ -52,7 +53,7 @@
 
 <%= audio_tag "beep.ogg", :autoplay => false %>
 
-<%= javascript_include_tag :juggernaut, 'juggernaut', 'juggernaut.panel', 'jquery.jclock', 'application' %>
+<%= javascript_include_tag :juggernaut, 'juggernaut', 'juggernaut.panel', 'jquery.ui', 'jquery.jclock', 'application' %>
 <script type="text/javascript" charset="utf-8">
    jQuery.clock();
 </script>

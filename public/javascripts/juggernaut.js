@@ -38,8 +38,7 @@ jQuery(function($){
           });
          $.changeByOneValues( 'available', data.ticket_type_id, true);
         }else if (data.channel =="calleds"){ 
-          $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
-          $.changeByOneValues( 'available', data.ticket_type_id, false); 
+          callback(data);
         }
       }
     },

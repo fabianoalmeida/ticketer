@@ -1,20 +1,35 @@
-<!--  <h1><%= t('model.wicket.tickets.call') %></h1> -->
+<div style="magin: 0 0 0 5%; text-align: right;">
+  <div style="padding: 0px 5px 0px;">
+    <h1><%= t('model.ticket_type.title') %></h1>
+  </div>
+
+  <div style="padding: 0px 5px 0px;">
+    <h2><%= @place.value %></h2>
+  </div>
+  
+  <div style="padding: 0px 10px 0px;">
+    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+    <label class="jclock"></label>
+  </div>
+</div>
 
 <div class="highlight">
   <div class="arrow right">
-    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty?%>
-    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" %>
+    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
+    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
   </div>
   <div class="last_ticket">
+    <% unless @tickets.empty? %>
     <div style = "font-size:30px; color : black; margin : 20px 0;">
       Guichê :  <%= @tickets.first.wickets.last.value unless @tickets.empty? %><br/>
       Tipo : <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
     </div>
+    <% end %>
     <%= @tickets.first.value unless @tickets.empty? %>
   </div>
   <div class="arrow left">
     <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
-    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};"    %>
+    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
   </div>
  </div>
 <div class="history_calls">
@@ -37,28 +52,7 @@
 
 <%= audio_tag "beep.ogg", :autoplay => false %>
 
-<script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<%= javascript_include_tag :juggernaut, 'juggernaut', 'juggernaut.panel', 'jquery.jclock', 'application' %>
 <script type="text/javascript" charset="utf-8">
-   var jug = new Juggernaut();
-
-   $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
-
-   jug.subscribe("calleds<%= params[:place_id] %>", function(data){
-       $('div.last_ticket').html('<div style="font-size:30px; color : black; margin : 20px 0;">Guichê: '+data.wicket_value+'<br/>Tipo: '+data.ticket_type_value+'</div>'+data.value);
-       var items = $('div.history_calls .item');
-       items.last().remove();
-       items.stop().animate({left: items.width()}, 'slow');
-       $('div.history_calls .label').after('<div class="item"><div class="botton">'+data.time+'</div><div class="content">'+data.value+'</div>');
-       jQuery('audio')[0].play();
-
-        if(data.left){ 
-          jQuery('img#image_left').show();
-          jQuery('img#image_right').hide();
-        }
-
-        if(data.right){ 
-          jQuery('img#image_right').show();
-          jQuery('img#image_left').hide();
-        }
-    }); 
+   jQuery.clock();
 </script>

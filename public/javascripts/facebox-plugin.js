@@ -6,7 +6,8 @@
 
   facebox.afterCallNext = function () {
     $('#facebox').show().css({
-      top: '300px'
+      top: '300px',
+      width: '300px'
     })
   }
 

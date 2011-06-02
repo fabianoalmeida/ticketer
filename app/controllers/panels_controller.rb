@@ -89,6 +89,6 @@ class PanelsController < ApplicationController
 
   def tickets
     @place = Place.find(params[:place_id])
-    @tickets = Ticket.calleds_from_place(@place.id).today.order('updated_at DESC').take(10)
+    @tickets = Ticket.calleds_from_place(@place.id).today.order('updated_at DESC').take(9)
   end
 end

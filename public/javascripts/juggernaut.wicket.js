@@ -10,8 +10,11 @@ function process(data) {
      $.changeByOneValues( 'available', data.ticket_type_id, true);
     }else if (data.channel =="calleds"){ 
 
-     $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
-     $.changeByOneValues( 'available', data.ticket_type_id, false); 
+      elemento = $('li#'+data.id);
+      if (elemento.length > 0) {
+         $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );
+         $.changeByOneValues( 'available', data.ticket_type_id, false); 
+      }
     }
   }
 }

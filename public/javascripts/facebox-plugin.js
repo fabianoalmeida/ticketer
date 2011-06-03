@@ -5,9 +5,12 @@
   }
 
   facebox.afterCallNext = function () {
-    $('#facebox').show().css({
-      top: '300px',
-      width: '300px'
+    $('#facebox .content').css({
+      width: '515px'
+    })
+    $('#facebox').css({
+        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2),
+        textAlign: 'center'
     })
   }
 

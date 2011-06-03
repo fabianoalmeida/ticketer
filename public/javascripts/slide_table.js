@@ -54,7 +54,8 @@
     
     if(pagesNumber == 0) {
 
-      ul.append(createPage(numberPerPage, ul.height() )); 
+      // TODO This is needing construct a new form to calculate the width
+      ul.append(createPage(numberPerPage, '177px' /*ul.height()*/ )); 
       // Adding a link to the swControls div:
       attachHiperLink(swControls, 0 );
 

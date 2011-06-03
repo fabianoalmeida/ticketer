@@ -17,11 +17,11 @@ jQuery( document ).ready( function() {
   jQuery('a#call_next').jsonAjax({
       success : function(data){
           if ( data == null ) {
-            jQuery.facebox.new( '<div style="text-align: center;">Não existem senhas para serem chamadas.</div>' ).fadeOutIn(3000);
+            jQuery.facebox.new( '<div style="text-align: center;">Não existem senhas a serem chamadas.</div>' ).fadeOutIn(3000);
           } else {
             $('input#current').val(data.ticket.id);
 
-            jQuery.facebox.new( data.ticket.value+'<a id="attend" class="super button pink" data-url="atender" data-method="put">Atender</a><a id="pending" class="super button pink" data-url="por_em_espera" data-method="put">Pendente</a><a id="recall" class="super button pink" data-url="rechamar" data-method="put">Rechamar</a>' ).afterCallNext();
+            jQuery.facebox.new( '<span style="color: red; font-weight: bold; font-size: 40px;">'+data.ticket.value+'</span><br/><br/><a id="attend" class="super button pink" data-url="atender" data-method="put">Atender</a>&nbsp;<a id="pending" class="super button pink" data-url="por_em_espera" data-method="put">Pendente</a>&nbsp<a id="recall" class="super button pink" data-url="rechamar" data-method="put">Rechamar</a>' ).afterCallNext();
 
             trigger();
           }
@@ -98,7 +98,7 @@ jQuery( document ).ready( function() {
       button_cancel = '<a id="cancel" class="super button pink" data-url="cancelar" data-method="get" style="margin : 10 px;">Cancelar</a>';
       button_reopen = '<a id="reopen" class="super button ajax pink" data-url="tornar_disponivel" data-method="get" style="margin : 10 px;">Disponibilizar</a>';
    
-      buttons = button_cancel + button_reopen ;
+      buttons = button_cancel + '&nbsp;' + button_reopen ;
       jQuery.facebox.new(buttons);
       jQuery("#cancel").jsonAjax({
         method : 'delete', 
@@ -106,6 +106,7 @@ jQuery( document ).ready( function() {
         success: function(data){
           $.facebox.close();
           $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
+          $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false); 
         }
       });
       jQuery("#reopen").jsonAjax({
@@ -114,6 +115,7 @@ jQuery( document ).ready( function() {
         success: function(data){
           $.facebox.close();
           $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
+          $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false); 
         }
       });
     });

@@ -44,6 +44,7 @@ class TicketsController < ApplicationController
     @ticket.status_ticket = StatusTicket.available 
     respond_to do |format|
       if @ticket.save
+        TicketPrint.print( @ticket )
         @ticket[:created_at_formatted] = I18n.localize(@ticket.created_at, :format => :default)
         @ticket[:ticket_type_value] = @ticket.ticket_type.value.to_s
         @ticket[:place_value] = @ticket.place.value.to_s

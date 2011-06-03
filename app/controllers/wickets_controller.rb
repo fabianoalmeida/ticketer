@@ -158,6 +158,7 @@ class WicketsController < ApplicationController
       if @ticket_attended.attend 
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
         @ticket_attended[:time] = I18n.localize(@ticket_attended.updated_at, :format => :hour_minute)
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @ticket_attended }
       end 
     end

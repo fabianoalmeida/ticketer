@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "panels/tickets.html.erb" do 
 
-  before(:each) do 
+  before(:each) do
+    assign(:place, stub_model(Place, :value => "Yahoo"));
     @tickets = []
     @tickets << stub_model(Ticket, 
                  :value => "value",

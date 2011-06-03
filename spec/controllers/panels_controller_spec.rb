@@ -137,7 +137,7 @@ describe PanelsController do
     end
 
     it "grab all tickets for the place where it is" do
-      mock_place.stub_chain(:tickets_called, :today, :order){[mock_tickets]}
+      Ticket.stub_chain(:calleds_from_place, :today, :order){[mock_tickets]}
       get :tickets, :place_id => "1", :panel_id => "1"
       assigns(:tickets).should eq([mock_tickets])
     end

@@ -150,14 +150,16 @@ describe WicketsController do
 
       it "assigns all tickets for the place where  are the @wickets" do
         mock_wicket.stub_chain(:called_tickets, :today).and_return([mock_ticket])
+        mock_wicket.stub_chain(:attended_tickets, :today).and_return([mock_ticket])
         mock_wicket.stub_chain(:pending_tickets, :today).and_return([mock_ticket])
         mock_place.stub_chain(:tickets_availables, :today).and_return([mock_ticket])    
         Factory(:status_ticket, :value => "Called")
         Factory(:status_ticket, :value => "Pending")
         get :tickets, :place_id => "1", :wicket_id => "1"
-        assigns(:tickets).should eq([mock_ticket])
+        assigns(:tickets_available).should eq([mock_ticket])
         assigns(:tickets_called).should eq([mock_ticket])
         assigns(:tickets_waiting).should eq([mock_ticket])
+        assigns(:tickets_attended).should eq([mock_ticket])
       end
     end
     
@@ -233,7 +235,8 @@ describe WicketsController do
     describe "PUT attending ticket" do
 
       before(:each) do
-        Ticket.stub(:find).and_return(mock_ticket(:attend => true))
+        Ticket.stub(:find).and_return(mock_ticket(:attend => true, :updated_at => DateTime.now))
+        mock_ticket.stub(:[]=).and_return(nil)
         put :attend, :place_id => "1", :wicket_id => "1", :ticket_id => "1"
       end
 

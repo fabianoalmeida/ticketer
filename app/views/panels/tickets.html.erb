@@ -1,18 +1,19 @@
-<input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
-<div style="magin: 0 0 0 5%; text-align: right;">
-  <div style="padding: 0px 5px 0px;">
+<% content_for :header do %>
+<div style="text-align: right; padding-top: 20px; padding-right: 20px;">
+  <div style="float: right;">
+    <%= image_tag "hsi-logo.png" %>
+  </div>
+  <div style="float: right; padding-right: 20px;">
     <h1><%= t('model.ticket_type.title') %></h1>
-  </div>
-
-  <div style="padding: 0px 5px 0px;">
     <h2><%= @place.value %></h2>
-  </div>
-  
-  <div style="padding: 0px 10px 0px;">
     <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
     <label class="jclock"></label>
   </div>
+  <div style="clear: both;"></div>
 </div>
+<% end %>
+
+<input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
 
 <div class="highlight">
   <div class="arrow right">

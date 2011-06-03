@@ -8,7 +8,9 @@
 </head>
 <body>
     <%= image_tag 'scmba-logo.png', :class => 'logo' %>
-    <div class="header"></div>
+    <div class="header">
+      <%= yield :header  %>
+    </div>
     <div class="wrapper">
       <%= yield %>
     </div>

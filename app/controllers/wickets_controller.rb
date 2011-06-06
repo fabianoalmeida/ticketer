@@ -105,7 +105,7 @@ class WicketsController < ApplicationController
     @tickets_waiting = @wicket.pending_tickets.today
   end
 
-  #POST places/1/wicket/1/call_next
+  #GET places/1/wicket/1/call_next
   def call_next
     @wicket = Wicket.find(params[:wicket_id])
     @next_ticket = Ticket.next_to(params[:place_id], @wicket.priority)
@@ -114,8 +114,8 @@ class WicketsController < ApplicationController
       if @next_ticket && @next_ticket.call
         CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
         @next_ticket[:time] = I18n.localize(@next_ticket.updated_at, :format => :hour_minute)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @next_ticket }
+        format.html { redirect_to( place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
       else
         format.json { render :json => { :warning_message => I18n.t('model.no_tickets') }, :status => :no_content }
       end
@@ -158,7 +158,6 @@ class WicketsController < ApplicationController
       if @ticket_attended.attend 
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
         @ticket_attended[:time] = I18n.localize(@ticket_attended.updated_at, :format => :hour_minute)
-        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @ticket_attended }
       end 
     end

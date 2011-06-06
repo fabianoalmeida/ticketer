@@ -7,8 +7,11 @@ class TicketObserver < ActiveRecord::Observer
     end
   end
 
-  def after_save(ticket)
+  def after_create(ticket)
     Rails.logger.info "Generated a new ticket: #{ticket.value}!"
+  end
+
+  def after_save(ticket)
     emit_ticket(:availables, ticket) 
   end
 

@@ -5,7 +5,8 @@
   <div id="wicket_menu">
     <div style="text-align: left; float: left; padding-left: 350px; font-size: 45px; font-weight: bold; color: #ACAB9A;"> <%= @wicket.value %> </div>
     <div style="text-align: right; float; right;">
-      <a id="call_next" class="super button pink" data-url="chamar_proximo" data-method="get"><%= t('model.call') %></a>
+      <a id="call_next" class="super button pink" href="chamar_proximo" data-method="get" data-remote="true"><%= t('model.call') %></a>
+
     </div>
   </div>
 
@@ -90,6 +91,11 @@
       </div>
     </div>
   </div>
-  <%= javascript_include_tag :juggernaut, 'juggernaut', 'juggernaut.wicket', 'jquery.ui', 'wickets.core', 'jquery.pajinate.min', 'slide_table', 'facebox-plugin' %>
+  <%= javascript_include_tag :juggernaut, 'juggernaut', 'juggernaut.wicket', 'wicket', 'slide_table', 'facebox-plugin' %>
   <div style="clear: both;"></div>
+  <script type="text/javascript" >
+    $(document).ready(function(){
+        wicket.init();
+      })
+  </script>
 </div>

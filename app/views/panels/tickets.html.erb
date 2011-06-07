@@ -1,16 +1,16 @@
 <% content_for :header do %>
-<div style="text-align: right; padding-top: 20px; padding-right: 20px;">
-  <div style="float: right;">
-    <%= image_tag "hsi-logo.png" %>
+  <div style="text-align: right; padding-top: 20px; padding-right: 20px;">
+    <div style="float: right;">
+      <%= image_tag "hsi-logo.png" %>
+    </div>
+    <div style="float: right; padding-right: 20px;">
+      <h1><%= t('model.ticket_type.title') %></h1>
+      <h2><%= @place.value %></h2>
+      <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+      <label class="jclock"></label>
+    </div>
+    <div style="clear: both;"></div>
   </div>
-  <div style="float: right; padding-right: 20px;">
-    <h1><%= t('model.ticket_type.title') %></h1>
-    <h2><%= @place.value %></h2>
-    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
-    <label class="jclock"></label>
-  </div>
-  <div style="clear: both;"></div>
-</div>
 <% end %>
 
 <input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
@@ -52,7 +52,7 @@
    </div>
 </div>
 
-<%= javascript_include_tag :juggernaut, 'juggernaut','jquery.audio', 'juggernaut.panel', 'jquery.ui', 'jquery.jclock', 'application' %>
+<%= javascript_include_tag :juggernaut,'jquery.audio', 'juggernaut.panel', 'jquery.jclock' %>
 <script type="text/javascript" charset="utf-8">
    jQuery.clock();
 </script>

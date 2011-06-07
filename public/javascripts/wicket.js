@@ -111,8 +111,14 @@
       },
 
       recall :function(){
-        $('a#recall').jsonAjax({
-          data : 'ticket_id='+$('input#current').val()
+        $('a#recall').click(function(){
+          param = { ticket_id : $( 'input#current' ).val() } ;
+          $.ajax({
+            url: "rechamar",
+            type: "put",
+            data: param,
+            dataType: 'json'
+          });
         }); 
       },
 

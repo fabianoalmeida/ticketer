@@ -4,17 +4,11 @@ jQuery(function($){
 
     init : function(){ 
       this.socket = new Juggernaut; 
-      this.offline = $("<div></div>")
-    		.html("The connection has been disconnected! <br /> " + 
-    		      "Please go back online to use this service.")
-    		.dialog({
-    			autoOpen: false,
-    			modal:    true,
-    			width:    330,
-    			resizable: false,
-    			closeOnEscape: false,
-    			title: "Connection"
-    		});
+      this.offline = function(){ 
+                      $.facebox("A conexão foi encerrada inesperadamente! <br /> " + 
+    		      "Porfavor verifique se o computador está conectado  <br/> "+ 
+                      "corretamente a rede, e atualize a página."); 
+                  } 
       this.socket.on("disconnect", this.proxy(this.disconnect));
       this.socket.subscribe('/ticketer',process);
       $('body').bind('ajaxSend', this.proxy(function(e, xhr){
@@ -23,7 +17,7 @@ jQuery(function($){
     }, 
 
     disconnect: function(){
-      this.offline.dialog("open");
+      this.offline();
     },
 
     proxy: function(func){       

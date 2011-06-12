@@ -2,11 +2,13 @@
 <html>
 <head>
   <title>Ticketer</title>
+
   <%  if request.env['HTTP_USER_AGENT'] =~ /MSIE/ %>
     <%= stylesheet_link_tag :defaults_ie %>
   <% elsif %>
-    <%= stylesheet_link_tag :defaults %>
+    <%= stylesheet_link_tag :defaults, :forms %>
   <% end %>
+
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>

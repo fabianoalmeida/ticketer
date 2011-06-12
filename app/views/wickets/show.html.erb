@@ -1,36 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b><%= t('model.value') %>:</b>
-  <%= @wicket.value %>
-</p>
-
-<p>
-  <b><%= t('model.wicket.ticket_type_groups') %>:</b>
-  <%= @wicket.ticket_type_group.value %>
-</p>
-
-<p>
-  <b><%= t('model.guidance.name') %>:</b>
-  <%= t('model.wicket.guidance.left') if @wicket.guidance_left?  %>
-  <%= t('model.wicket.guidance.right') if @wicket.guidance_right?  %>
-</p>
-
-<p>
-  <b><%= t('model.wicket.priority.name') %>:</b>
-  <%= @wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %>
-</p>
-
-<p>
-  <b><%= t('model.status_des') %>:</b>
-  <%= @wicket.status.value %>
-</p>
-
-<p>
-  <b><%= t('model.user') %>:</b>
-  <%= @wicket.user %>
-</p>
-
-
-<%= link_to t('model.edit'), edit_place_wicket_path(@wicket.place, @wicket) %> |
-<%= link_to t('model.back'), place_wickets_path(@wicket.place) %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.wicket.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_place_wicket_path(@wicket.place, @wicket), :class => "button medium" %> 
+  <%= link_to t('model.back'), place_wickets_path(@wicket.place), :class => "button medium" %> 
+</div>

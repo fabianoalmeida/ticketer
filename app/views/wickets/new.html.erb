@@ -1,5 +1,9 @@
-<h1><%= t('model.wicket.new') %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.back'), place_wickets_path(@wicket.place) %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.wicket.new') %></legend>
+    <%= render :partial => 'form', :locals => {:disabled => false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.back'), place_wickets_path(@wicket.place), :class => "button medium" %>
+</div>

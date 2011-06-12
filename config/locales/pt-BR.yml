@@ -274,14 +274,14 @@
 
     status:
       new: "Novo Status"
-      editing: "Editando um Status"
+      editing: "Editando Status"
       title: "Listando todos os Status"
       active: "Ativo"
       inactive: "Inativo"
 
     status_ticket:
       new: "Novo Status de Senha"
-      editing: "Editando um Status de Senha"
+      editing: "Editando Status de Senha"
       title: "Listando todos os Status de Senha"
       opened: "Aberto"
       closed: "Fechado"
@@ -294,7 +294,7 @@
 
     ticket_type:
       new: "Novo Tipo de Senha"
-      editing: "Editando um Tipo de Senha"
+      editing: "Editando Tipo de Senha"
       title: "HOSPITAL SANTA IZABEL"
       short:
         singular: "Tipo"
@@ -305,7 +305,7 @@
 
     guidance:
       new: "Nova Orientação"
-      editing: "Editando uma Orientação"
+      editing: "Editando Orientação"
       title: "Listando todas as Orientações"
       name: "Orientação"
 
@@ -322,7 +322,7 @@
 
     wicket:
       new: "Novo Guichê"
-      editing: "Editando um Guichê"
+      editing: "Editando Guichê"
       title: "Listando todos os Guichês"
       name: "Guichê"
       ticket_type_groups: "Grupo Tipo de Senha"
@@ -339,7 +339,7 @@
 
     ticket:
       new: "Nova Senha"
-      editing: "Editando uma Senha"
+      editing: "Editando Senha"
       title: "Listando todas as Senhas"
       name: "Senha"
       pending:
@@ -353,28 +353,33 @@
 
     local:
       new: "Novo Local"
-      editing: "Editando um Local"
+      editing: "Editando Local"
       title: "Listando todos os Locais"
       name: "Local"
       description: "Descrição"
 
     place:
       new: "Nova Localidade"
-      editing: "Editando uma Localidade"
+      editing: "Editando Localidade"
       title: "Listando todas as Localidades"
       name: "Localidade"
       back: "Voltar para Localidade"
 
     totem:
       new: "Novo Totem"
-      editing: "Editando um Totem"
+      editing: "Editando Totem"
       title: "Listando todos os Totems"
       name: "Totem"
 
     panel:
       new: "Novo Painel"
-      editing: "Editando um Painel"
+      editing: "Editando Painel"
       title: "Listando todos os Painéis"
       name: "Painel"
       tickets : "Painel de Senhas"
+  
+  application :
+    search : "Pesquisar"
+    options : "Opções"
+
 

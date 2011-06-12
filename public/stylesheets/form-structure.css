@@ -20,7 +20,7 @@ Structure
 
 /* Field Grid */
 .grid-1-12, .grid-2-12, .grid-3-12, .grid-4-12, .grid-5-12, .grid-6-12, .grid-7-12, .grid-8-12, .grid-9-12, .grid-10-12, .grid-11-12, .grid-12-12 {
-display:inline; float:left; margin:0; padding: 0.5% 2% 0.8%;height:100%;
+display:inline; float:left; margin:0; padding: 0% 2% 0.8%;height:100%;
 /*ie7*/
 *margin-left:.8%; *margin-right:.8%;*padding: 0.5% 0.25% 0.8%;
 }

@@ -9,7 +9,8 @@ html, body{
 }
 
 #page{
- background: url("/images/bg.png") repeat-x scroll 0 0 #F2F2F2;
+ /* background: url("/images/body.png") repeat-x scroll 0 0 #F2F2F2; */
+ background: url("/images/body.gif") ;
  min-height: 100%;
  height: auto !important;
  height: 100%;
@@ -146,3 +147,42 @@ img.logout {
 #menu ul li a.active {
  background: rgba(197, 224, 0,0.6) !important; 
 }
+
+.buttons-nav {
+  padding : 4px 10px;
+  position : relative;
+  margin-bottom : 10px ;
+  top : -10px;
+}
+.button, .button:visited {
+  background: #C5E008 url(/images/overlay.png) repeat-x; #1C8E49
+  display: inline-block; 
+  padding: 5px 10px 6px; 
+  color:#402E16; 
+  text-decoration: none;
+  -moz-border-radius: 6px; 
+  -webkit-border-radius: 6px;
+  border-radius : 6px;
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  box-shadow : 0 1px 3px rgba(0,0,0,0.6);
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  position: relative;
+  cursor: pointer;
+  margin : 0 5px;
+}
+.button:hover { background-color: #A5BA0D; }  
+.button:active { top: 1px; }
+
+/* Sizes of buttons */
+.large.button, .large.button:visited {
+  font-size: 34px; 
+  padding: 8px 14px 9px;
+}
+
+.medium.button, .medium.button:visited {
+  font-size: 15px; 
+  padding: 4px 7px 4.5px;
+}
+

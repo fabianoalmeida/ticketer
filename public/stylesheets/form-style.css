@@ -17,12 +17,14 @@ Style
 .form {font: normal 12px/1em arial, Verdana, "Trebuchet MS", Helvetica, sans-serif;}
 
 .form fieldset {
-	border: 1px solid #EFF2E9;
-	border-top:3px solid #C0C0C0;
-	border-bottom: 1px solid #ccc;
-	background:#efefef;
+	border: 1px solid #C5E008;
+	border-top:3px solid #C5E008;
+	background: #EAEAEA ; 
 	padding-bottom: 1.2em;
-	margin: 0 ;
+	margin: auto 10px ;
+        -moz-border-radius: 3px; 
+        -webkit-border-radius: 3px;
+        border-radius : 3px;
 }
 
 /* hover effect */
@@ -34,7 +36,7 @@ Style
 	font-size:1.7em;
 	padding: 10px 10px 15px;
 	margin-bottom: 10px;
-	background:#C0C0C0;
+	background:#C5E008;
 	margin-left:1.04%;
 	color:#402E16;
 }
@@ -48,7 +50,7 @@ Style
 	font-weight: bold;
 	font-style:normal;
 	color:#d10000;
-	font-size:1.4em;
+	font-size:1.2em;
 }
 .form .form-txt, .form textarea, .form select {
         -moz-border-radius: 3px; 
@@ -70,6 +72,11 @@ Style
 	color:#402E16;
 }
 
+.form .form-txt:disabled, .form textarea:disabled, .form select:disabled {
+  border-color : transparent;
+  background : transparent;
+  font-weight : bold;
+}
 
 /* form msg status  */
 .form-msg-info, .form-msg-warning, .form-msg-error, .form-msg-success {
@@ -98,13 +105,59 @@ Style
 	color:#62b548;
 }
 
-
-/* form buttons */
-.form-button {
-	font-size:1.2em;
-	background:#235485;
-	color:#fff;
+/* form tables */ 
+.form table {
+  margin : 10px 10px;
+  border-spacing : 0;
+  border:  1px solid #C5E000;
+  border-radius : 5px 5px 0 0;
+  font-weight : bold;
 }
-.form-button:hover {background:#666;}
 
+.form table th{
+  background-color :#C5E000;
+  font-size : 1.2em;
+  padding : 5px ;
+  text-align : left;
+}
 
+.form table th.options{
+  text-align : center;
+}
+.form table .row { 
+  width : 100%;
+  height:100%;
+}
+
+.form table tr:hover { 
+  background:#DCEC66;
+}
+
+.form tr:nth-child(odd) {
+  background-color : #DBDBDB;
+}
+
+.form table td {
+  padding : 5px;
+  color :  #402E16;
+  font-size : 1.1em;
+  border-top : 1px solid  #C0C0C0;
+}
+
+.form .search {
+  position : relative; 
+  margin : auto 10px auto auto;
+  width : 350px;
+  top : 10px;
+  text-align : right;
+}
+
+.form .search input{
+  border : 1px solid #C0C0C0;
+  border-radius: 3px;
+  padding : 5px;
+  margin : 5px;
+  color : #333; 
+  font-size : 1.1em;
+  width : 170px;
+}

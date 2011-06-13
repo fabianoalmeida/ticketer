@@ -1,25 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b><%= t('model.value') %>:</b>
-  <%= @place.value %>
-</p>
-
-<p>
-  <b><%= t('model.user') %>:</b>
-  <%= @place.user %>
-</p>
-
-<p>
-  <b><%= t('model.local.name') %>:</b>
-  <%= @place.local.des_local %>
-</p>
-
-<p>
-  <b><%= t('model.status_des') %>:</b>
-  <%= @place.status.value %>
-</p>
-
-
-<%= link_to t('model.edit'), edit_place_path(@place) %> |
-<%= link_to t('model.back'), places_path %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.place.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_place_path(@place), :class => "button medium"%> 
+  <%= link_to t('model.back'), places_path, :class => "button medium" %>
+</div>

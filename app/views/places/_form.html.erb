@@ -1,38 +1,67 @@
 <%= form_for(@place) do |f| %>
   <% if @place.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being saved:</h2>
-
       <ul>
       <% @place.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
+  <div class="grid-12-12">
+    <%= f.label :valuel, :class => "form-lbl form-req"%>
+    <%= f.text_field :value, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="field">
-    <%= f.label :local %><br />
-    <%= f.collection_select( :local_id, Local.all, :id, :des_local, { :prompt => true } ) %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <% Status.all.each do |status| %>
-      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+
+  <div class="grid-12-12">
+    <%= f.label :local, :class => "form-lbl form-req" %>
+    <% if @place && @place.local_id && disabled %>
+      <input type="text" value="<%= @place.local.des_local %>" disabled="disabled" class="form-txt form-small" />
+    <% elsif %>
+      <%= f.collection_select( :local_id, Local.all, :id, :des_local, { :prompt => true }, :class => "form-small", :disabled => disabled  ) %>
     <% end %>
   </div>
-  <div class="field">
-    <%= f.label :ticket_type_groups %><br />
-    <% TicketTypeGroup.all.each do |ticket_type_group| %>
-      <%= check_box_tag "place[ticket_type_group_ids][]", ticket_type_group.id, @place.ticket_type_groups.include?(ticket_type_group) %>
-      <%= ticket_type_group.value %>
-    <% end %>  
+
+  <div class="grid-12-12">
+    <%= f.label :ticket_types, :class => "form-lbl form-req" %>
+    <ul class = "form-list-chk">
+      <% TicketTypeGroup.all.each do |ticket_type_group| %>
+        <li>
+          <%= check_box_tag "place[ticket_type_group_ids][]", ticket_type_group.id, @place.ticket_type_groups.include?(ticket_type_group), :disabled => disabled  %>
+          <%= f.label ticket_type_group.value, :class => "form-lbl" %>
+        </li>
+      <% end %>  
+    </ul>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="grid-12-12">
+    <%= f.label :status, :class => "form-lbl form-req"%>
+    <ul class="form-list-rdo">
+      <% Status.all.each do |status| %>
+        <li>
+          <%= f.radio_button :status_id, status.id , :disabled => disabled  %> 
+          <%= f.label status.value, :class => "form-lbl" %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-<% end %>
+
+  <div class="grid-12-12">
+    <%= f.label :ticket_types, :class => "form-lbl form-req" %>
+    <ul class = "form-list-chk">
+      <% TicketType.all.each do |ticket_type| %>
+        <li>
+          <%= check_box_tag "place[ticket_type_ids][]", ticket_type.id, @place.ticket_types.include?(ticket_type), :disabled => disabled   %>
+          <%= f.label ticket_type.value, :class => "form-lbl" %>
+        </li>
+      <% end %>  
+    </ul>
+  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <%end%>
+<% end %> 

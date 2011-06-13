@@ -1,6 +1,10 @@
-<h1><%= t('model.place.editing') %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.show'), @place %> |
-<%= link_to t('model.back'), places_path %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.place.editing') %></legend>
+    <%= render :partial => 'form', :locals => {:disabled => false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.show'), @place , :class => "button medium"%> 
+  <%= link_to t('model.back'), places_path , :class => "button medium"%>
+</div>

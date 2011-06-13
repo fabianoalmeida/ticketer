@@ -16,6 +16,7 @@ class TotemsController < ApplicationController
   # GET /totems/1.json
   def show
     @totem = Totem.find(params[:id])
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # show.html.erb

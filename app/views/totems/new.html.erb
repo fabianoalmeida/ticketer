@@ -1,5 +1,9 @@
-<h1><%= t('model.totem.new') %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.back'), place_totems_path(@place) %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.totem.new') %></legend>
+    <%= render :partial => 'form', :locals => {:disabled => false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.back'), place_totems_path(@place), :class => "button medium"  %>
+</div>

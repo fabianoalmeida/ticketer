@@ -2,31 +2,36 @@
   <%= f.hidden_field :place_id, :value => params[:place_id] %>
   <% if @totem.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@totem.errors.count, "error") %> prohibited this totem from being saved:</h2>
-
       <ul>
       <% @totem.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value, :maxlength => 80, :size => 30 %>
+  <div class="grid-12-12">
+    <%= f.label :value, :class => "form-lbl form-req" %>
+    <%= f.text_field :value, :maxlength => 80, :size => 30, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="field">
-    <%= f.label :ip %><br />
-    <%= f.text_field :ip, :maxlength => 15 %>
+  <div class="grid-12-12">
+    <%= f.label :ip, :class => "form-lbl form-req"  %>
+    <%= f.text_field :ip, :maxlength => 15, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <% Status.all.each do |status| %>
-      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
-    <% end %>
+  <div class="grid-12-12">
+    <%= f.label :status, :class => "form-lbl form-req" %>
+    <ul class="form-list-rdo">
+      <% Status.all.each do |status| %>
+        <li>
+          <%= f.radio_button :status_id, status.id , :disabled => disabled  %> 
+          <%= f.label status.value, :class => "form-lbl" %>
+        </li>
+      <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <% end %>
 <% end %>

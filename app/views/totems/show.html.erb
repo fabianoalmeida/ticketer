@@ -1,25 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.wicket.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
 
-<p>
-  <b><%= t('model.value') %>:</b>
-  <%= @totem.value %>
-</p>
-
-<p>
-  <b><%= t('model.ip') %>:</b>
-  <%= @totem.ip %>
-</p>
-
-<p>
-  <b><%= t('model.status_des') %>:</b>
-  <%= @totem.status.value %>
-</p>
-
-<p>
-  <b><%= t('model.user') %>:</b>
-  <%= @totem.user %>
-</p>
-
-
-<%= link_to t('model.edit'), edit_place_totem_path(@totem.place, @totem) %> |
-<%= link_to t('model.back'), place_totems_path(@totem.place) %>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_place_totem_path(@totem.place, @totem), :class => "button medium"  %> 
+  <%= link_to t('model.back'), place_totems_path(@totem.place), :class => "button medium"  %>
+</div>

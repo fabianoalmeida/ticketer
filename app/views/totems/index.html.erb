@@ -12,13 +12,13 @@
       <tr class="row">
         <td width ="100%"><%= totem.value %></td>
         <td>
-          <%= link_to image_tag("form/search.gif"), place_totem_path(totem.place, totem) %>
+          <%= link_to image_tag("form/search.gif"), place_totem_path(totem.place, totem), :title =>  t('model.show') %>
         </td>
         <td>
-          <%= link_to image_tag("form/edit.gif"), edit_place_totem_path(totem.place, totem) %>
+          <%= link_to image_tag("form/edit.gif"), edit_place_totem_path(totem.place, totem), :title =>  t('model.edit') %>
         </td>
         <td>
-          <%= link_to image_tag("form/trash.gif"), place_totem_generate_ticket_path(totem.place, totem.id) %>
+          <%= link_to image_tag("form/trash.gif"), place_totem_generate_ticket_path(totem.place, totem.id), :title =>  t('model.destroy') %>
         </td>
       </tr>
     <% end %>

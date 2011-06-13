@@ -1,25 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b><%= t('model.value') %>:</b>
-  <%= @panel.value %>
-</p>
-
-<p>
-  <b><%= t('model.ip') %>:</b>
-  <%= @panel.ip %>
-</p>
-
-<p>
-  <b><%= t('model.status_des') %>:</b>
-  <%= @panel.status.value %>
-</p>
-
-<p>
-  <b><%= t('model.user') %>:</b>
-  <%= @panel.user %>
-</p>
-
-
-<%= link_to t('model.edit'), edit_place_panel_path(@panel.place, @panel) %> |
-<%= link_to t('model.back'), place_panels_path(@panel.place) %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.panel.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_place_panel_path(@panel.place, @panel), :class => "button medium" %>
+  <%= link_to t('model.back'), place_panels_path(@panel.place), :class => "button medium" %>
+</div>

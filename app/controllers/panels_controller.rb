@@ -14,6 +14,7 @@ class PanelsController < ApplicationController
   # GET /panels/1.json
   def show
     @panel = Panel.find(params[:id])
+    @place = Place.find(params[:place_id])
 
     respond_to do |format|
       format.html # show.html.erb

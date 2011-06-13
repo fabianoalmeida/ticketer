@@ -14,7 +14,10 @@ Style
 
 
 /* Form Style */
-.form {font: normal 12px/1em arial, Verdana, "Trebuchet MS", Helvetica, sans-serif;}
+.form {
+  font: normal 12px/1em arial, Verdana, "Trebuchet MS", Helvetica, sans-serif;
+  min-height : 340px;
+}
 
 .form fieldset {
 	border: 1px solid #C5E008;

@@ -1,31 +1,30 @@
-<h1><%= t 'model.ticket_type.title' %></h1>
-
-<table>
-  <tr>
-    <th><%= t 'model.value' %></th>
-    <th><%= t 'model.acronym' %></th>
-    <th><%= t('model.ticket_type.priority.name') %></th>
-    <th><%= t 'model.user' %></th>
-    <th><%= t 'model.status_des' %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ticket_types.each do |ticket_type| %>
-  <tr>
-    <td><%= ticket_type.value %></td>
-    <td><%= ticket_type.acronym %></td>
-    <td><%= ticket_type.priority ? t('model.ticket_type.priority.sure') : t('model.ticket_type.priority.not') %></td>
-    <td><%= ticket_type.user %></td>
-    <td><%= ticket_type.status.value %></td>
-    <td><%= link_to t('model.show'), ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type) %></td>
-    <td><%= link_to t('model.edit'), edit_ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to t('model.ticket_type.new'), new_ticket_type_group_ticket_type_path(@ticket_type_group) %> |
-<%= link_to t('model.ticket_type_group.back'), ticket_type_groups_path %>
+<div class="form">
+  <div class="search">
+    <input type="text" value="search" id="search"/>
+    <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
+  </div>
+  <table>
+    <tr>
+      <th><%=  t('model.ticket_type.name_pluralize') %></th>
+      <th colspan="3" class="options"><%= t("application.options") %></th>
+    </tr>
+    <% @ticket_types.each do |ticket_type| %>
+      <tr class="row">
+        <td width="100%"><%= ticket_type.value %></td>
+        <td>
+          <%= link_to  image_tag("form/search.gif"), ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type), :title => t('model.show') %>
+        </td>
+        <td>
+          <%= link_to  image_tag("form/edit.gif"), edit_ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type), :title => t('model.edit')%>
+        </td>
+        <td>
+          <%= link_to  image_tag("form/trash.gif"), ticket_type, :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy')%>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.ticket_type.new'), new_ticket_type_group_ticket_type_path(@ticket_type_group) ,:class => "button medium" %>
+  <%= link_to t('model.ticket_type_group.back'), ticket_type_groups_path,:class => "button medium" %>
+</div>

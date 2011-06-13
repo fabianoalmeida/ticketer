@@ -2,36 +2,54 @@
   <%= f.hidden_field :ticket_type_group_id, :value => params[:ticket_type_group_id] %>
   <% if @ticket_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@ticket_type.errors.count, "error") %> prohibited this ticket_type from being saved:</h2>
-
       <ul>
       <% @ticket_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value, :maxlength => 80, :size => 30 %>
+
+  <div class="grid-12-12">
+    <%= f.label :value, :class => "form-lbl form-req" %>
+    <%= f.text_field :value, :maxlength => 80, :size => 30, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="field">
-    <%= f.label :acronym %><br />
-    <%= f.text_field :acronym , :maxlength => 3 %>
+
+  <div class="grid-12-12">
+    <%= f.label :acronym, :class => "form-lbl form-req"%>
+    <%= f.text_field :acronym , :maxlength => 3, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="field">
-    <%= f.label :priority %><br />
-    <%= f.radio_button :priority, "true" %> <%= t('model.ticket_type.priority.sure') %>
-    <%= f.radio_button :priority, "false" %> <%= t('model.ticket_type.priority.not') %>
+
+  <div class="grid-12-12">
+    <%= f.label :priority, :class => "form-lbl"%>
+    <ul class="form-list-rdo">
+      <li>
+        <%= f.radio_button :priority, "true", :disabled => disabled  %>
+        <%= f.label t('model.wicket.priority.sure'), :class => "form-lbl" %>
+      </li>
+      <li>
+        <%= f.radio_button :priority, "false", :disabled => disabled  %> 
+        <%= f.label t('model.wicket.priority.not'), :class => "form-lbl"%>
+      </li>
+    </ul>
+  </div> 
+
+  <div class="grid-12-12">
+    <%= f.label :status, :class => "form-lbl form-req"%>
+    <ul class="form-list-rdo">
+      <% Status.all.each do |status| %>
+        <li>
+          <%= f.radio_button :status_id, status.id , :disabled => disabled %>
+          <%= f.label status.value, :class => "form-lbl" %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <% Status.all.each do |status| %>
-      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+ 
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <%end%>
+<% end %> 

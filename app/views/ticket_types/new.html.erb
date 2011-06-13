@@ -1,5 +1,9 @@
-<h1><%= t 'model.ticket_type.new' %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.back'), ticket_type_group_ticket_types_path(@ticket_type_group) %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.ticket_type.new') %></legend>
+    <%= render :partial => 'form', :locals => {:disabled => false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.back'), ticket_type_group_ticket_types_path(@ticket_type_group), :class => "button medium" %>
+</div>

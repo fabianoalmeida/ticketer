@@ -1,9 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.local.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
 
-<p>
-  <b><%= t('model.local.description') %>:</b>
-  <%= @local.des_local %>
-</p>
-
-<%= link_to t('model.edit'), edit_local_path(@local) %> |
-<%= link_to t('model.back'), locals_path %>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_local_path(@local), :class => "button medium"  %>
+  <%= link_to t('model.back'), locals_path, :class => "button medium"  %>
+</div>

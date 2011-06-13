@@ -1,21 +1,23 @@
 <%= form_for(@local) do |f| %>
   <% if @local.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@local.errors.count, "error") %> prohibited this local from being saved:</h2>
-
       <ul>
       <% @local.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :des_local %><br />
-    <%= f.text_field :des_local %>
+  
+  <div class="grid-12-12">
+    <%= f.label :des_local, :class => "form-lbl form-req"%>
+    <%= f.text_field :des_local, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <% end %>
 <% end %>

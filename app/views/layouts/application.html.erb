@@ -4,7 +4,7 @@
   <title>Ticketer</title>
 
   <%  if request.env['HTTP_USER_AGENT'] =~ /MSIE/ %>
-    <%= stylesheet_link_tag :defaults_ie %>
+    <%= stylesheet_link_tag :defaults_ie, :forms %>
   <% elsif %>
     <%= stylesheet_link_tag :defaults, :forms %>
   <% end %>

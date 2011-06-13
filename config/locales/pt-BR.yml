@@ -273,6 +273,7 @@
     no_tickets: "Não existem senhas disponíveis!"
 
     status:
+      name : "Status"
       new: "Novo Status"
       editing: "Editando Status"
       title: "Listando todos os Status"
@@ -280,6 +281,7 @@
       inactive: "Inativo"
 
     status_ticket:
+      name : "Status de Senha"
       new: "Novo Status de Senha"
       editing: "Editando Status de Senha"
       title: "Listando todos os Status de Senha"
@@ -293,6 +295,8 @@
       back: "Voltar para Grupo"
 
     ticket_type:
+      name : "Tipo de Senha"
+      name_pluralize : "Tipos de Senhas"
       new: "Novo Tipo de Senha"
       editing: "Editando Tipo de Senha"
       title: "HOSPITAL SANTA IZABEL"

@@ -6,15 +6,15 @@ class TicketType < ActiveRecord::Base
   #Integer :status
 
   belongs_to :status
+  belongs_to :ticket_type_group
   has_many :tickets
-  has_and_belongs_to_many :places
 
-  validates :value, :acronym, :user, :status, :presence => true
+  validates :value, :acronym, :user, :status, :ticket_type_group, :presence => true
   validates_inclusion_of :priority, :in => [true, false]
 
   validates :value, 
     :length => { :in => 1..80 },
-    :uniqueness => { :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false, :scope => :ticket_type_group_id },
     :allow_blank => false
 
   validates :acronym, 

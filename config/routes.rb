@@ -1,5 +1,7 @@
 Ticketer::Application.routes.draw do
   
+  resources :ticket_type_groups
+
   scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do 
 
     resources :locals, :path => 'locais'

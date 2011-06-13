@@ -11,9 +11,9 @@ class Place < ActiveRecord::Base
   has_many :tickets
   has_many :panels
   has_many :totems
-  has_and_belongs_to_many :ticket_types, :uniq => :true
+  has_and_belongs_to_many :ticket_type_groups, :uniq => :true
 
-  validates :value, :status, :local, :user, :ticket_types, :presence => true
+  validates :value, :status, :local, :user, :ticket_type_groups, :presence => true
 
   accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
 

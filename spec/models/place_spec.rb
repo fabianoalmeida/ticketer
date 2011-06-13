@@ -25,11 +25,11 @@ describe Place do
     @place.should have(1).errors_on(:local)
   end
 
-  it "Should not be valid without a list of Ticket Type" do 
-    @place.ticket_types.should_not be_empty
-    @place.should have(:no).errors_on(:ticket_types)
-    @place.ticket_types= []
-    @place.should have(1).errors_on(:ticket_types)
+  it "Should not be valid without a list of Ticket Type Group" do 
+    @place.ticket_type_groups.should_not be_empty
+    @place.should have(:no).errors_on(:ticket_type_groups)
+    @place.ticket_type_groups= []
+    @place.should have(1).errors_on(:ticket_type_groups)
   end
 
 end

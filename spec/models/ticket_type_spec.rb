@@ -4,7 +4,6 @@ describe TicketType do
 
   before ( :each ) do
     @ticketType = Factory.build(:ticket_type)
-    @ticketType.places << stub_model(Place)
   end
 
   it "should be an instance valid" do
@@ -34,8 +33,16 @@ describe TicketType do
   it "should not permit to create a new register with an existing 'value' registered" do
     @ticketType.save
 
-    @ticketTypeInvalid = Factory.build(:ticket_type, :value => @ticketType.value)
+    @ticketTypeInvalid = Factory.build(:ticket_type, :value => @ticketType.value, :ticket_type_group => @ticketType.ticket_type_group)
     @ticketTypeInvalid.save.should be_false 
+  end
+
+  it "should permit to create a new register with an existing 'value' registered but with different 'ticket_type_group.value'" do
+    @ticketType.save
+    ticket_type_group = Factory.build(:ticket_type_group, :value => "Xpto")
+
+    @ticketTypeInvalid = Factory.build(:ticket_type, :value => @ticketType.value, :ticket_type_group => ticket_type_group)
+    @ticketTypeInvalid.save.should be_true 
   end
 
   it "should permit to create a new register with an unexisting 'value' registered" do
@@ -82,5 +89,9 @@ describe TicketType do
     @ticketType.status= nil
     @ticketType.should_not be_valid
   end
-
+  
+  it "should not be an instance valid if have not a relationship with 'ticket_type_group' model" do
+    @ticketType.ticket_type_group= nil
+    @ticketType.should have(1).errors_on(:ticket_type_group)
+  end
 end

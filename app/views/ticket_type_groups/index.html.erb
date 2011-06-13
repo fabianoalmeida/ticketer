@@ -1,0 +1,23 @@
+<h1>Listing ticket_type_groups</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ticket_type_groups.each do |ticket_type_group| %>
+  <tr>
+    <td><%= ticket_type_group.value %></td>
+    <td><%= link_to 'Show', ticket_type_group %></td>
+    <td><%= link_to 'Edit', edit_ticket_type_group_path(ticket_type_group) %></td>
+    <td><%= link_to 'Destroy', ticket_type_group, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ticket type group', new_ticket_type_group_path %>

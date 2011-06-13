@@ -45,11 +45,18 @@ Factory.define :panel do |f|
   f.association :place
 end
 
+Factory.define :ticket_type_group do |f|
+  f.value {Factory.next(:value)}
+  f.association :status
+  f.user "User_test"
+end
+
 Factory.define :ticket_type do |f| 
   f.value { Factory.next(:value)}
   f.acronym { Factory.next(:acronym)}
   f.user "User_Test"
   f.association :status
+  f.association :ticket_type_group
   f.priority false
 end
 
@@ -77,6 +84,6 @@ Factory.define :place do |f|
   f.user "User_test"
   f.association :local 
   f.association :status
-  f.ticket_types { |ticket_types| [ticket_types.association(:ticket_type)] }
+  f.ticket_type_groups { |ticket_type_groups| [ticket_type_groups.association(:ticket_type_group)] }
 end
 

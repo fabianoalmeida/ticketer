@@ -153,8 +153,6 @@ describe WicketsController do
         mock_wicket.stub_chain(:attended_tickets, :today).and_return([mock_ticket])
         mock_wicket.stub_chain(:pending_tickets, :today).and_return([mock_ticket])
         mock_place.stub_chain(:tickets_availables, :today).and_return([mock_ticket])    
-        Factory(:status_ticket, :value => "Called")
-        Factory(:status_ticket, :value => "Pending")
         get :tickets, :place_id => "1", :wicket_id => "1"
         assigns(:tickets_available).should eq([mock_ticket])
         assigns(:tickets_called).should eq([mock_ticket])

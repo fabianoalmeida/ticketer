@@ -15,11 +15,15 @@
   }
 
   facebox.new = function (data, klass) {
-    facebox(data, klass);
+    facebox.new_with_close(data, klass);
     $('a.close').remove();
-    $('#facebox_overlay').unbind('click');
     return facebox;
   }
 
+  facebox.new_with_close = function (data, klass) {
+    facebox(data, klass);
+    $('#facebox_overlay').unbind('click');
+    return facebox;
+  }
 })(jQuery.facebox);
 

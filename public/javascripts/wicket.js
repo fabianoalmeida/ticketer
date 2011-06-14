@@ -20,6 +20,9 @@
       },
       
       call_next : function(){
+        $('a#call_next').click(function(){
+          $.facebox({image : '/images/loading.gif'});
+        });
         $('a#call_next').bind('ajax:success', function(e, data, status, xhr) {
           if(xhr.status == 204) {
             $.facebox.new( '<div style="text-align: center;">Não existem senhas a serem chamadas.</div>' ).fadeOutIn(3000);
@@ -148,9 +151,9 @@
             data : {ticket_id : this.getAttribute('value') },
             dataType: 'json',  
             success : function(data){
-               $.facebox.close();
                $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
                $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false); 
+               $.facebox.close();
              }
           });    
         });
@@ -160,12 +163,13 @@
     event_pending : function(){
 
       $("ul#tickets_waiting li").click(function(){
+
         size = $('ul#tickets_waiting.holder li').size();
 
         button_cancel = '<a id="cancel" value='+this.id+' class="super button pink" style="margin : 10 px;">Cancelar</a>';
         button_reopen = '<a id="reopen" value='+this.id+' class="super button ajax pink" style="margin : 10 px;">Disponibilizar</a>';
    
-        $.facebox.new(button_cancel + '&nbsp;' + button_reopen);
+        $.facebox.new_with_close(button_cancel + '&nbsp;' + button_reopen);
 
         wicket.triggers.reopen();
         wicket.triggers.cancel();

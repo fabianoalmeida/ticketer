@@ -302,7 +302,7 @@
       $('#facebox .content').removeClass().addClass('content')
       $('#facebox .loading').remove()
       $(document).trigger('afterClose.facebox')
-    })
+    }).remove();
     hideOverlay()
   })
 

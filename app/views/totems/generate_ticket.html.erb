@@ -26,6 +26,8 @@
 <script type="text/javascript" charset="utf-8">
    jQuery.clock();
    jQuery( 'div.generate' ).click( function() { 
+
+    $.facebox.new({image : "/images/loading.gif"});
     jQuery( '#ticket_ticket_type_id' ).val( this.id );
     param = jQuery( '#new_ticket' ).serialize();
     jQuery.ajax({

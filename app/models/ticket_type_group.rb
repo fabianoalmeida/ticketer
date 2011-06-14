@@ -8,4 +8,8 @@ class TicketTypeGroup < ActiveRecord::Base
   validates :value, 
     :length => { :maximum => 80 },
     :uniqueness => { :case_sensitive => false }
+
+  def ticket_types
+    TicketType.where(:ticket_type_group_id => self.id)
+  end
 end

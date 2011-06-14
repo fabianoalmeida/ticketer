@@ -92,11 +92,11 @@ class TotemsController < ApplicationController
   # GET /generate_ticket
   def generate_ticket
     @place = Place.find(params[:place_id])
-    @ticket_types = @place.ticket_types
+    @ticket_type_groups = @place.ticket_type_groups
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @ticket_types }
+      format.json  { render :json => @ticket_type_groups }
     end
   end
 

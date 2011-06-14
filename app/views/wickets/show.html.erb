@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <b><%= t('model.wicket.ticket_type_groups') %>:</b>
+  <%= @wicket.ticket_type_group.value %>
+</p>
+
+<p>
   <b><%= t('model.guidance.name') %>:</b>
   <%= t('model.wicket.guidance.left') if @wicket.guidance_left?  %>
   <%= t('model.wicket.guidance.right') if @wicket.guidance_right?  %>

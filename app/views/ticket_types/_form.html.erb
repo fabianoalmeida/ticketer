@@ -1,4 +1,5 @@
-<%= form_for(@ticket_type) do |f| %>
+<%= form_for([@ticket_type_group, @ticket_type]) do |f| %>
+  <%= f.hidden_field :ticket_type_group_id, :value => params[:ticket_type_group_id] %>
   <% if @ticket_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ticket_type.errors.count, "error") %> prohibited this ticket_type from being saved:</h2>
@@ -23,6 +24,12 @@
     <%= f.label :priority %><br />
     <%= f.radio_button :priority, "true" %> <%= t('model.ticket_type.priority.sure') %>
     <%= f.radio_button :priority, "false" %> <%= t('model.ticket_type.priority.not') %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

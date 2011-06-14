@@ -91,8 +91,16 @@ class WicketsController < ApplicationController
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
     @place =  Place.find(params[:place_id])
-    @tickets_type = @place.ticket_types  
-    @tickets_available = @place.tickets_availables.today
+
+    @tickets_type= []
+
+    @place.ticket_type_groups.each do |ticket_type_group|
+      @tickets_type << ticket_type_group.ticket_types
+    end
+
+    @tickets_type= @tickets_type.flatten
+    
+    @tickets_available = @place.tickets_availables(@wicket.ticket_type_group).today
 
     if @wicket.priority
       @tickets_available = @tickets_available.sort do |a, b|
@@ -108,7 +116,7 @@ class WicketsController < ApplicationController
   #GET places/1/wicket/1/call_next
   def call_next
     @wicket = Wicket.find(params[:wicket_id])
-    @next_ticket = Ticket.next_to(params[:place_id], @wicket.priority)
+    @next_ticket = Ticket.next_to(@wicket)
     @next_ticket.current_wicket= @wicket if @next_ticket
     respond_to do |format|
       if @next_ticket && @next_ticket.call

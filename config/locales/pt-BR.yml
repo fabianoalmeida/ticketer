@@ -186,6 +186,7 @@
   activerecord:
     models:
       status_ticket: "Status de Senha"
+      ticket_type_group: "Grupo Tipo de Senha"
       ticket_type: "Tipo de Senha"
       guidance: "Orientação"
       call_history: "Registro de Chamadas"
@@ -202,6 +203,8 @@
       status_ticket:
         value: "Valor"
         acronym: "Sigla"
+      ticket_type_group:
+        value: "Valor"
       ticket_type:
         value: "Valor"
         acronym: "Sigla"
@@ -219,6 +222,7 @@
         user: "Usuário"
         guidance: "Orientação"
         priority: "Prioridade"
+        ticket_type_group: "Grupo Tipo de Senha"
       local:
         des_local: "Descrição"
         user: "Usuário"
@@ -228,7 +232,7 @@
         local: "Local"
         status: "Status"
         ticket_type: "Tipos de Senha"
-        ticket_types: "Tipos de Senha"
+        ticket_type_groups: "Grupos Tipo de Senha"
       totem:
         value: "Valor"
         ip: "IP"
@@ -282,10 +286,18 @@
       opened: "Aberto"
       closed: "Fechado"
 
+    ticket_type_group:
+      new: "Novo Grupo Tipo de Senha"
+      editing: "Editando um Grupo de Tipo de Senha"
+      title: "Grupo Tipo de Senhas"
+      back: "Voltar para Grupo"
+
     ticket_type:
       new: "Novo Tipo de Senha"
       editing: "Editando um Tipo de Senha"
       title: "HOSPITAL SANTA IZABEL"
+      short:
+        singular: "Tipo"
       priority: 
         name: "Prioridade"
         sure: "Sim"
@@ -313,6 +325,7 @@
       editing: "Editando um Guichê"
       title: "Listando todos os Guichês"
       name: "Guichê"
+      ticket_type_groups: "Grupo Tipo de Senha"
       guidance: 
         left: "Esquerda"
         right: "Direita"

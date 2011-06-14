@@ -26,10 +26,10 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :ticket_types %><br />
-    <% TicketType.all.each do |ticket_type| %>
-      <%= check_box_tag "place[ticket_type_ids][]", ticket_type.id, @place.ticket_types.include?(ticket_type) %>
-      <%= ticket_type.value %>
+    <%= f.label :ticket_type_groups %><br />
+    <% TicketTypeGroup.all.each do |ticket_type_group| %>
+      <%= check_box_tag "place[ticket_type_group_ids][]", ticket_type_group.id, @place.ticket_type_groups.include?(ticket_type_group) %>
+      <%= ticket_type_group.value %>
     <% end %>  
   </div>
   <div class="actions">

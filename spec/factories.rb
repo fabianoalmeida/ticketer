@@ -35,6 +35,7 @@ Factory.define :wicket do |f|
   f.association :place
   f.guidance true
   f.priority false
+  f.association :ticket_type_group
 end
 
 Factory.define :panel do |f|

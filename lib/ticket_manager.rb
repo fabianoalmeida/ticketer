@@ -4,16 +4,28 @@ module TicketManager
   end
   
   module InstanceMethods
-    def next_to(place, priority)
-      place= place.id if place.is_a? Place
-
+    def next_to(wicket)
       next_ticket = nil
 
-      if priority
-        next_ticket = where(:place_id => place, :ticket_type_id => TicketType.priorities, :status_ticket_id => StatusTicket.available.id).today.order(:created_at).first
+      ticket_type_group= wicket.ticket_type_group
+
+      if wicket.priority
+
+        priorities= TicketType.priorities(ticket_type_group) 
+
+        next_ticket = where(
+          :place_id => wicket.place.id, 
+          :ticket_type_id => priorities, 
+          :status_ticket_id => StatusTicket.available.id
+        ).today.order(:created_at).first
       end
 
-      next_ticket ||= where(:place_id => place, :status_ticket_id => StatusTicket.available.id).today.order(:created_at).first
+      next_ticket ||= includes(:ticket_type).where(
+        "ticket_types.ticket_type_group_id = #{ticket_type_group.id}")
+        .where(
+        :place_id => wicket.place.id, 
+        :status_ticket_id => StatusTicket.available.id
+      ).today.order("tickets.created_at").first
       
       next_ticket
     end

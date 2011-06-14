@@ -41,6 +41,7 @@ class TicketTypeGroupsController < ApplicationController
   # POST /ticket_type_groups.xml
   def create
     @ticket_type_group = TicketTypeGroup.new(params[:ticket_type_group])
+    @ticket_type_group.user = 'user test'
 
     respond_to do |format|
       if @ticket_type_group.save

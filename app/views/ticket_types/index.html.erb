@@ -19,13 +19,13 @@
     <td><%= ticket_type.priority ? t('model.ticket_type.priority.sure') : t('model.ticket_type.priority.not') %></td>
     <td><%= ticket_type.user %></td>
     <td><%= ticket_type.status.value %></td>
-    <td><%= link_to t('model.show'), ticket_type %></td>
-    <td><%= link_to t('model.edit'), edit_ticket_type_path(ticket_type) %></td>
-    <td><%= link_to t('model.destroy'), ticket_type, :confirm => t('model.destroy_question'), :method => :delete %></td>
+    <td><%= link_to t('model.show'), ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type) %></td>
+    <td><%= link_to t('model.edit'), edit_ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type) %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to t('model.ticket_type.new'), new_ticket_type_path %>
+<%= link_to t('model.ticket_type.new'), new_ticket_type_group_ticket_type_path(@ticket_type_group) %> |
+<%= link_to t('model.ticket_type_group.back'), ticket_type_groups_path %>

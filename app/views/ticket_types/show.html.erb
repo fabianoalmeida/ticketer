@@ -21,5 +21,5 @@
 </p>
 
 
-<%= link_to t('model.edit'), edit_ticket_type_path(@ticket_type) %> |
-<%= link_to t('model.back'), ticket_types_path %>
+<%= link_to t('model.edit'), edit_ticket_type_group_ticket_type_path(@ticket_type.ticket_type_group, @ticket_type) %> |
+<%= link_to t('model.back'), ticket_type_group_ticket_types_path(@ticket_type.ticket_type_group) %>

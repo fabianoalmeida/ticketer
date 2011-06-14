@@ -108,10 +108,11 @@ ActiveRecord::Schema.define(:version => 20110610151737) do
   end
 
   create_table "wickets", :force => true do |t|
-    t.string   "value",      :null => false
-    t.string   "user",       :null => false
-    t.integer  "status_id",  :null => false
-    t.integer  "place_id",   :null => false
+    t.string   "value",                :null => false
+    t.string   "user",                 :null => false
+    t.integer  "status_id",            :null => false
+    t.integer  "place_id",             :null => false
+    t.integer  "ticket_type_group_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "guidance"

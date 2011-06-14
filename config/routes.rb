@@ -1,16 +1,17 @@
 Ticketer::Application.routes.draw do
   
-  resources :ticket_type_groups
-
   scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do 
 
     resources :locals, :path => 'locais'
     resources :call_histories, :path => 'historico_de_chamadas'
     resources :guidances, :path => 'orientacoes'
     resources :tickets, :path => 'senhas'
-    resources :ticket_types, :path => 'tipos_de_senha'
     resources :statuses, :path => 'status'
     resources :status_tickets, :path => 'status_de_senha'
+
+    resources :ticket_type_groups, :path => 'grupos_tipo_de_senha' do
+      resources :ticket_types, :path => 'tipos_de_senha'
+    end
 
     resources :places, :path => 'localidades' do
 

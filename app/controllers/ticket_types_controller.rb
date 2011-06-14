@@ -2,7 +2,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types
   # GET /ticket_types.json
   def index
-    @ticket_types = TicketType.all
+    @ticket_types = TicketType.where(:ticket_type_group_id => params[:ticket_type_group_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +25,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types/new.json
   def new
     @ticket_type = TicketType.new( :priority => false )
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,18 +36,19 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types/1/edit
   def edit
     @ticket_type = TicketType.find(params[:id])
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
   end
 
   # POST /ticket_types
   # POST /ticket_types.json
   def create
     @ticket_type = TicketType.new(params[:ticket_type])
-    @ticket_type.status = Status.active
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
     @ticket_type.user = 'user test'
 
     respond_to do |format|
       if @ticket_type.save
-        format.html { redirect_to(@ticket_type, :notice => 'Ticket type was successfully created.') }
+        format.html { redirect_to(ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type), :notice => 'Ticket type was successfully created.') }
         format.json  { render :json => @ticket_type, :status => :created, :location => @ticket_type }
       else
         format.html { render :action => "new" }
@@ -59,10 +61,11 @@ class TicketTypesController < ApplicationController
   # PUT /ticket_types/1.json
   def update
     @ticket_type = TicketType.find(params[:id])
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
 
     respond_to do |format|
       if @ticket_type.update_attributes(params[:ticket_type])
-        format.html { redirect_to(@ticket_type, :notice => 'Ticket type was successfully updated.') }
+        format.html { redirect_to(ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type), :notice => 'Ticket type was successfully updated.') }
         format.json  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -75,10 +78,11 @@ class TicketTypesController < ApplicationController
   # DELETE /ticket_types/1.json
   def destroy
     @ticket_type = TicketType.find(params[:id])
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
     @ticket_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to(ticket_types_url) }
+      format.html { redirect_to(ticket_type_group_ticket_types_url) }
       format.json  { head :ok }
     end
   end

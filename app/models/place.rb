@@ -17,11 +17,35 @@ class Place < ActiveRecord::Base
 
   accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
 
-  def tickets_called 
-    tickets.where(:status_ticket_id => StatusTicket.called.id)
+  def tickets_called(ticket_type_group= nil) 
+    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
+
+    calleds = nil
+
+    if ticket_type_group
+      calleds = tickets.includes(:ticket_type)
+        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where(:status_ticket_id => StatusTicket.called.id)
+    end
+
+    calleds ||= tickets.where(:status_ticket_id => StatusTicket.called.id)
+
+    calleds
   end
 
-  def tickets_availables
-    tickets.where(:status_ticket_id => StatusTicket.available.id)
+  def tickets_availables(ticket_type_group= nil)
+    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
+
+    availables = nil
+
+    if ticket_type_group
+      availables = tickets.includes(:ticket_type)
+        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where(:status_ticket_id => StatusTicket.available.id)
+    end
+
+    availables ||= tickets.where(:status_ticket_id => StatusTicket.available.id)
+
+    availables
   end
 end

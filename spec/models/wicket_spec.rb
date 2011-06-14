@@ -63,5 +63,9 @@ describe Wicket do
     @wicket.status= nil
     @wicket.should_not be_valid
   end
-  
+   
+  it "should not be an instance valid if the 'ticket_type_group' property is nil" do
+    @wicket.ticket_type_group= nil
+    @wicket.should_not be_valid
+  end 
 end

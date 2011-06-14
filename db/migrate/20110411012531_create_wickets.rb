@@ -7,6 +7,7 @@ class CreateWickets < ActiveRecord::Migration
       t.references :guidance, :null => false
       t.references :status, :null => false
       t.references :place, :null => false
+      t.references :ticket_type_group, :null => false
 
       t.timestamps
     end

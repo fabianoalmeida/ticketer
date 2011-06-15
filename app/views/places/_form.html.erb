@@ -24,7 +24,7 @@
   </div>
 
   <div class="grid-12-12">
-    <%= f.label :ticket_types, :class => "form-lbl form-req" %>
+    <%= f.label :ticket_type_groups, :class => "form-lbl form-req" %>
     <ul class = "form-list-chk">
       <% TicketTypeGroup.all.each do |ticket_type_group| %>
         <li>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="grid-12-12">
-    <%= f.label :ticket_types, :class => "form-lbl form-req" %>
+    <%= f.label :ticket_type, :class => "form-lbl form-req" %>
     <ul class = "form-list-chk">
       <% TicketType.all.each do |ticket_type| %>
         <li>

@@ -112,6 +112,7 @@ class WicketsController < ApplicationController
     @tickets_attended = @wicket.attended_tickets.today
     @tickets_called = @wicket.called_tickets.today
     @tickets_waiting = @wicket.pending_tickets.today
+    render :layout => 'application-external'
   end
 
   #GET places/1/wicket/1/call_next

@@ -96,7 +96,7 @@ class TotemsController < ApplicationController
     @ticket_type_groups = @place.ticket_type_groups
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {render :layout => 'application-external'}
       format.json  { render :json => @ticket_type_groups }
     end
   end

@@ -20,24 +20,15 @@ class Wicket < ActiveRecord::Base
     :allow_blank => false
   
   def attended_tickets
-    tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{self.ticket_type_group.id}")
-        .where(:status_ticket_id => StatusTicket.attended.id)
-        .order("tickets.updated_at DESC")
+    tickets.where(:status_ticket_id => StatusTicket.attended.id).order("updated_at DESC")
   end
   
   def called_tickets
-    tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{self.ticket_type_group.id}")
-        .where(:status_ticket_id => StatusTicket.called.id)
-        .order("tickets.updated_at DESC")
+    tickets.where(:status_ticket_id => StatusTicket.called.id).order("updated_at DESC")
   end
   
   def pending_tickets
-    tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{self.ticket_type_group.id}")
-        .where(:status_ticket_id => StatusTicket.pending.id)
-        .order("tickets.updated_at DESC")
+    tickets.where(:status_ticket_id => StatusTicket.pending.id).order("updated_at DESC")
   end
 
   def guidance_left?

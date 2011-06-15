@@ -1,56 +1,66 @@
-<% content_for :header do %>
-  <div style="text-align: right; padding-top: 20px; padding-right: 20px;">
+<div class="left">
+  <div class="header">
     <div style="float: right;">
       <%= image_tag "hsi-logo.png" %>
     </div>
-    <div style="float: right; padding-right: 20px;">
-      <h1><%= t('model.ticket_type.title') %></h1>
+    <div style="float: right; padding-right: 20px; font-size :30px;">
       <h2><%= @place.value %></h2>
       <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
       <label class="jclock"></label>
     </div>
     <div style="clear: both;"></div>
   </div>
-<% end %>
 
-<input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
+  <div class="highlight">
+    <div class="last_ticket">
+      <div style = "font-size:40px; color : black; margin : 15px 0;">
+        <% unless @tickets.empty? %>
+          <%= @tickets.first.ticket_type.ticket_type_group.value %> &nbsp - &nbsp  
+          <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
+          <br/>
+          <%= @tickets.first.wickets.last.value unless @tickets.empty? %>
+        <% end %>
+      </div>
 
-<div class="highlight">
-  <div class="arrow right">
-    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
-    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
-  </div>
-  <div class="last_ticket">
-    <% unless @tickets.empty? %>
-    <div style = "font-size:30px; color : black; margin : 20px 0;">
-      Guichê :  <%= @tickets.first.wickets.last.value unless @tickets.empty? %><br/>
-      Tipo : <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
-    </div>
-    <% end %>
-    <%= @tickets.first.value unless @tickets.empty? %>
-  </div>
-  <div class="arrow left">
-    <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
-    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
-  </div>
- </div>
-<div class="history_calls">
-  <div class="label"> 
-     <%=   t('model.ticket.name') %> 
-   </div>
-   <div class="items" style="width: 1090px;">
-  <% @tickets.each do |ticket| %>
-    <div class="item">
-      <div class="botton">
-        <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+      <div class="arrow">
+        <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
+        <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
       </div>
-      <div class="content">
-        <%= ticket.value %>
+
+      <div class="label">
+        <%= @tickets.shift.value unless @tickets.empty? %>
       </div>
+
+      <div class="arrow">
+        <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
+        <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
+      </div>
+
+      <div style="clear : both" ></div>
     </div>
-  <% end %>
-   </div>
+  </div>
 </div>
+
+<div class="right">
+  <div class="history_calls">
+    <div class="label"> 
+       <%=   t('model.call_history.last') %> 
+     </div>
+
+     <div class="items">
+       <% @tickets.each do |ticket| %>
+         <div class="item">
+           <div class="content">
+             <%= ticket.ticket_type.ticket_type_group.value %> <br/>
+             <%= ticket.value %> - <%= ticket.wickets.last.value %>
+           </div>
+         </div>
+       <% end %>
+
+     </div>
+  </div>
+</div>
+<div style="clear:both"></div>
 
 <%= javascript_include_tag :juggernaut,'jquery.audio', 'juggernaut.panel', 'jquery.jclock' %>
 <script type="text/javascript" charset="utf-8">

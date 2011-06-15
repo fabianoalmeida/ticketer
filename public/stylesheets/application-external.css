@@ -8,77 +8,94 @@ body {
     color: #000000;
     font-family: Arial,comic Sans MS,sans-serif;
     line-height: 1.25;
-    margin: 0;
-    padding: 0;
 }
 
+.left{
+    width : 65%;
+    float : left;
+    position : relative; 
+    top : 50px;
+
+}
+.right{
+    width : 35%;
+    float : left;
+} 
+
 .header {
-    min-height: 50px;
+    text-align: right;
+    padding-top: 20px;
+    padding-right: 20px;
 }
 .wrapper {
     margin: 0 2% 0 7%;
 }
+
 .highlight {
-    margin: 2% 0;
+    margin: 15% 5% 0;
     min-height: 270px;
     text-align: center;
 }
+
 .highlight .last_ticket {
-    -moz-border-radius: 5px 5px 5px 5px;
-    -moz-box-shadow: 3px 3px 3px #1C8E49;
+    -moz-border-radius: 5px;
+    border-radius : 5px;
     background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid #1C8E49;
-    float: right;
-    height: 200px;
-    margin: 2% 0;
-    padding: 2% 12%;
-    width: 420px;
-    font-size: 80px;
-    color: red;
+    height: 100%;
+    margin: auto;
+    width: 100%;
+    padding : 4% 2% 12%;
+
 }
 
-.highlight .last_ticket span{ 
-   }
+.highlight .last_ticket .label { 
+  width : 60%;
+  float : right;
+  position : relative; 
+  font-size: 105px;
+  letter-spacing: -5px;
+  color: red;
+  margin : 10px 0;
+}
+
 .highlight .arrow {
-    margin: 7% 2%;
-}
-.highlight .right {
     float: right;
     height: 130px;
-    width: 130px;
+    width: 20%; 
 }
-.highlight .left {
-    float: right;
-    height: 130px;
-    width: 130px;
-}
+
 .history_calls {
-    -moz-border-radius: 5px 5px 5px 5px;
-    -moz-box-shadow: 3px 3px 3px #D1F0E0;
+    -moz-border-radius: 5px;
+    border-radius : 5px;
     border: 1px solid #1C8E49;
-    height: 155px;
-    margin : 0 0 0 10%;
+    margin : 60px 30px 0 30px;
     padding: 5px;
     text-align: center;
 }
 .history_calls .item {
-    float: left;
+
 }
+
 div.history_calls div.label {
     -moz-border-radius: 5px 5px 5px 5px;
-    background: none repeat scroll 0 0 #D1F0E0;
-    border: 3px solid #1C8E49;
-    color: #1C8E49;
+    background :url("/images/overlay.png") repeat-x scroll 0 0 #1C8E49;
+    color: #FFF;
+    font-size : 26px;
+    font-weight : bold;
     padding: 5px;
     position: relative;
 }
 .item .content {
-    -moz-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px;
+    border-radius : 3px;
     -moz-box-shadow: 3px 3px 3px #686B68;
+    box-shadow : 0 0 3px #686B68; 
     background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid gray;
     margin: 2px;
-    padding: 20px;
+    font-size : 30px;
+    padding: 1px;
 }
 .item .botton {
     -moz-border-radius: 10px 10px 10px 10px;
@@ -88,21 +105,12 @@ div.history_calls div.label {
     margin: 5px;
     padding: 7.5px;
 }
-.footer {
-    height: 10px;
-    margin: 1% 2% 1% 17%;
-    position: relative;
-}
+
 img.logo {
     height: 500px;
     position: absolute;
-    width: 500px;
+    width: 415px;
     z-index: -1;
-}
-.highlight .label {
-    clear: both;
-    font-size: 25px;
-    text-align: center;
 }
 
 .totem .ticket_type {

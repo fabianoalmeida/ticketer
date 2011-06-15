@@ -15,7 +15,7 @@
       $('div.history_calls .label').after('<div class="item"><div class="botton">'+data.time+'</div><div class="content">'+data.value+'</div>');
 
       //Plays songs of notification
-      $.playAudio("/audios/beep_alert.mp3");
+      $.playAudio("/audios/beep_alert.ogg");
 
       //Display the orientation for  the wicket that call the ticket.
       if(data.left){ 

@@ -169,7 +169,7 @@
         button_cancel = '<a id="cancel" value='+this.id+' class="super button pink" style="margin : 10 px;">Cancelar</a>';
         button_reopen = '<a id="reopen" value='+this.id+' class="super button ajax pink" style="margin : 10 px;">Disponibilizar</a>';
    
-        $.facebox.new_with_close(button_cancel + '&nbsp;' + button_reopen);
+        $.facebox(button_cancel + '&nbsp;' + button_reopen);
 
         wicket.triggers.reopen();
         wicket.triggers.cancel();

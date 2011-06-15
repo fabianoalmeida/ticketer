@@ -91,5 +91,6 @@ class PanelsController < ApplicationController
   def tickets
     @place = Place.find(params[:place_id])
     @tickets = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(9)
+    render :layout => 'application-external'
   end
 end

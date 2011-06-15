@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="grid-12-12">
-    <%= f.label :valuel, :class => "form-lbl form-req"%>
+    <%= f.label :value, :class => "form-lbl form-req"%>
     <%= f.text_field :value, :class => "form-txt form-small", :disabled => disabled %>
   </div>
 
@@ -44,18 +44,6 @@
           <%= f.label status.value, :class => "form-lbl" %>
         </li>
       <% end %>
-    </ul>
-  </div>
-
-  <div class="grid-12-12">
-    <%= f.label :ticket_type, :class => "form-lbl form-req" %>
-    <ul class = "form-list-chk">
-      <% TicketType.all.each do |ticket_type| %>
-        <li>
-          <%= check_box_tag "place[ticket_type_ids][]", ticket_type.id, @place.ticket_types.include?(ticket_type), :disabled => disabled   %>
-          <%= f.label ticket_type.value, :class => "form-lbl" %>
-        </li>
-      <% end %>  
     </ul>
   </div>
 

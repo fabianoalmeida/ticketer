@@ -18,7 +18,7 @@
           <%= link_to  image_tag("form/edit.gif"), edit_ticket_type_group_ticket_type_path(ticket_type.ticket_type_group, ticket_type), :title => t('model.edit')%>
         </td>
         <td>
-          <%= link_to  image_tag("form/trash.gif"), ticket_type, :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy')%>
+          <%= link_to  image_tag("form/trash.gif"), '', :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy')%>
         </td>
       </tr>
     <% end %>

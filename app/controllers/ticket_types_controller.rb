@@ -14,6 +14,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types/1.json
   def show
     @ticket_type = TicketType.find(params[:id])
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
 
     respond_to do |format|
       format.html # show.html.erb

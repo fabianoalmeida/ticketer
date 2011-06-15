@@ -17,7 +17,7 @@
 
   <div class="grid-12-12">
     <%= f.label :ticket_type_group, :class => "form-lbl form-req" %>
-    <% if @place && @place.ticket_type_group && disabled %>
+    <% if @place && !@place.ticket_type_groups.empty? && disabled %>
       <input type="text" value="<%= @place.local.des_local %>" disabled="disabled" class="form-txt form-small" />
     <% elsif %>
       <%= f.collection_select( :ticket_type_group_id, @place.ticket_type_groups, :id, :value, { :prompt => true }, :class => "form-small", :disabled => disabled ) %>

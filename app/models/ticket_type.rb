@@ -19,7 +19,7 @@ class TicketType < ActiveRecord::Base
 
   validates :acronym, 
     :length => { :maximum => 3 },
-    :uniqueness => { :case_sensitive => false },
+    :uniqueness => { :case_sensitive => false, :scope => :ticket_type_group_id },
     :allow_blank => false
 
   def self.preferencial 

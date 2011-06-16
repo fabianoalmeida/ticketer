@@ -1,11 +1,14 @@
 <div style="magin: 0 0 0 10%; min-height: 500px; text-align: right;">
-  <div style="padding: 0px 10px 0px;">
-    <h1><%= t('model.ticket_type.title') %></h1>
-  </div>
-  
-  <div style="padding: 0px 10px 0px;">
-    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
-    <label class="jclock"></label>
+  <div class="header">
+	<div style="float: right;">
+      <%= image_tag "hsi-logo.png" %>
+    </div>
+    <div style="float: right; padding-right: 20px; font-size: 30px;">
+      <h2><%= t('model.ticket_type.title') %></h2>
+      <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+      <label class="jclock"></label>
+    </div>
+    <div style="clear: both;"></div>
   </div>
 
   <div class="totem">
@@ -14,7 +17,7 @@
     <%= f.hidden_field :totem_id, :value => params[:totem_id] %>
     <%= f.hidden_field :place_id, :value => params[:place_id] %>
     <% @ticket_type_groups.each do |ticket_type_group| %>
-      <div><%= ticket_type_group.value %></div>
+      <div class="ticket_type_group"><%= ticket_type_group.value %></div>
       <% ticket_type_group.ticket_types.each do |ticket_type| %>
         <div id="<%= ticket_type.id %>" class="ticket_type generate"><span><%= ticket_type.value %></span></div>
       <% end %>

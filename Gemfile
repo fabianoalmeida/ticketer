@@ -12,6 +12,7 @@ gem 'state_machine'
 gem 'juggernaut' #, :git => 'https://github.com/maccman/juggernaut.git'
 
 gem "jquery-rails"
+gem "htmlentities"
 
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby

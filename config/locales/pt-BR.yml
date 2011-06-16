@@ -204,9 +204,9 @@
         value: "Valor"
         acronym: "Sigla"
       ticket_type_group:
-        value: "Valor"
+        value: "Nome"
       ticket_type:
-        value: "Valor"
+        value: "Nome"
         acronym: "Sigla"
         priority: "Prioridade"
       guidance:
@@ -218,7 +218,7 @@
       ticket:
         value: "Valor"
       wicket:
-        value: "Valor"
+        value: "Nome"
         user: "Usuário"
         guidance: "Orientação"
         priority: "Prioridade"
@@ -227,7 +227,7 @@
         des_local: "Descrição"
         user: "Usuário"
       place:
-        value: "Valor"
+        value: "Nome"
         user: "Usuário"
         local: "Local"
         status: "Status"
@@ -289,6 +289,7 @@
       closed: "Fechado"
 
     ticket_type_group:
+      name : "Grupos Tipo de Senha"
       new: "Novo Grupo Tipo de Senha"
       editing: "Editando um Grupo de Tipo de Senha"
       title: "Grupo Tipo de Senhas"

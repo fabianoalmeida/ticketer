@@ -1,0 +1,41 @@
+.menubox ol, ul {
+    list-style: none outside none;
+}
+
+.menubox :focus {
+    outline: 0 none;
+}
+
+.menubox .overlay {
+    border-radius: 5px 5px 5px 5px;
+    position: relative;
+    margin : -1px 0 0 0;
+}
+
+.menubox {
+    position: relative;
+}
+
+.sub-division ul, a {
+    padding: 10px;
+    font-size: 15px;
+    text-decoration: none;
+    text-transform : capitalize; 
+    color : #402E16; 
+}
+.sub-division a:visited, a:active {
+  text-decoration : none;
+  color : #402E16; 
+}
+.menubox .overlay .content {
+    background-color : #D0E05D; 
+    border-radius: 4px 4px 4px 4px;
+    display: table;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    padding: 10px;
+    text-align : left;
+    color : #402E16;
+}
+.menubox .sub-division h2 {
+    font-size: 20px;
+}

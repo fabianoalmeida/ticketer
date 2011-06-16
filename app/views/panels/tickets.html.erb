@@ -13,7 +13,7 @@
 
   <div class="highlight">
     <div class="last_ticket">
-      <div style = "font-size:40px; color : black; margin : 15px 0;">
+      <div class="infos" >
         <% unless @tickets.empty? %>
           <%= @tickets.first.ticket_type.ticket_type_group.value %> &nbsp - &nbsp  
           <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
@@ -50,10 +50,8 @@
      <div class="items">
        <% @tickets.each do |ticket| %>
          <div class="item">
-           <div class="content">
-             <%= ticket.ticket_type.ticket_type_group.value %> <br/>
-             <%= ticket.value %> - <%= ticket.wickets.last.value %>
-           </div>
+           <%= ticket.ticket_type.ticket_type_group.value %> <br/>
+           <%= ticket.value %> - <%= ticket.wickets.last.value %>
          </div>
        <% end %>
 

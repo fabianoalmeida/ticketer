@@ -48,6 +48,11 @@ body {
     padding : 4% 2% 12%;
 
 }
+.highlight .last_ticket .infos {
+  font-size:40px; 
+  color : black;
+  margin : 15px 0;
+}
 
 .highlight .last_ticket .label { 
   width : 60%;
@@ -73,9 +78,6 @@ body {
     padding: 5px;
     text-align: center;
 }
-.history_calls .item {
-
-}
 
 div.history_calls div.label {
     -moz-border-radius: 5px 5px 5px 5px;
@@ -86,7 +88,7 @@ div.history_calls div.label {
     padding: 5px;
     position: relative;
 }
-.item .content {
+.items .item {
     -moz-border-radius: 3px;
     border-radius : 3px;
     -moz-box-shadow: 3px 3px 3px #686B68;

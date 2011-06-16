@@ -20,9 +20,11 @@
       },
       
       call_next : function(){
+
         $('a#call_next').click(function(){
-          $.facebox({image : '/images/loading.gif'});
+          $.facebox.new({image : '/images/loading.gif'});
         });
+
         $('a#call_next').bind('ajax:success', function(e, data, status, xhr) {
           if(xhr.status == 204) {
             $.facebox.new( '<div style="text-align: center;">Não existem senhas a serem chamadas.</div>' ).fadeOutIn(3000);
@@ -169,7 +171,7 @@
         button_cancel = '<a id="cancel" value='+this.id+' class="super button pink" style="margin : 10 px;">Cancelar</a>';
         button_reopen = '<a id="reopen" value='+this.id+' class="super button ajax pink" style="margin : 10 px;">Disponibilizar</a>';
    
-        $.facebox(button_cancel + '&nbsp;' + button_reopen);
+        $.facebox.new_with_close(button_cancel + '&nbsp;' + button_reopen).afterCallNext();
 
         wicket.triggers.reopen();
         wicket.triggers.cancel();

@@ -32,7 +32,8 @@ class TicketObserver < ActiveRecord::Observer
             :right => ticket.current_wicket ? ticket.current_wicket.guidance_right? : nil ,
             :wicket_value => ticket.current_wicket ? ticket.current_wicket.value : nil,
             :ticket_type_id => ticket.ticket_type.id,
-            :ticket_type_value => ticket.ticket_type.value
+            :ticket_type_value => ticket.ticket_type.value, 
+            :ticket_type_group => ticket.ticket_type.ticket_type_group.value
           })
     end
   end

@@ -315,7 +315,7 @@
       name: "Orientação"
 
     call_history:
-      last : "Últimas Senhas"
+      last : "Senhas Chamadas"
       new: "Novo Registro de Chamada"
       editing: "Editando um Registro de Chamada"
       title: "Listando todos os Registros de Chamada"

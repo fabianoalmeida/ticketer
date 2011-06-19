@@ -3,7 +3,7 @@
     if(data.channel =="calleds"){ 
 
       //Replace the main infos ticket from view 
-      $('.highlight .last_ticket .infos').html(data.ticket_type_group + " &nbsp - &nbsp  " + data.ticket_type_value +"<br/>" + data.wicket_value );
+      $('.highlight .last_ticket .infos').text(data.wicket_value );
 
       //Set new Ticket that has been called
       $('.highlight .label').text(data.value);
@@ -17,7 +17,14 @@
 
       //Add the new one ticket  to history
       new_item = $('<div/>').addClass("item").html(data.ticket_type_group + "<br/>" + data.value + " - " + data.wicket_value);
-      $('div.history_calls .items').prepend(new_item);
+      tr = $("<tr/>").addClass("item");
+      td_value = $("<td/>").text(data.value);
+      td_wicket = $("<td/>").text(data.wicket_value); tr.append(td_value).append(td_wicket);
+
+      last_tr_from_first = $('div.history_calls #first.items table tr').last().remove();
+      $('div.history_calls #first.items .label').after(tr);
+      $('div.history_calls #second.items table tr').last().remove();
+      $('div.history_calls #second.items .label').after(last_tr_from_first);
 
       //Plays songs of notification
       $.playAudio("/audios/beep_alert.ogg");

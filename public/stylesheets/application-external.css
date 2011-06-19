@@ -24,15 +24,14 @@ body {
 
 .header {
     text-align: right;
-    padding-top: 20px;
-    padding-right: 20px;
+    padding-top: 15px;
 }
 .wrapper {
     margin: 0 2% 0 7%;
 }
 
 .highlight {
-    margin: 15% 5% 0;
+    #margin:0 20%;
     min-height: 270px;
     text-align: center;
 }
@@ -43,34 +42,34 @@ body {
     background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid #1C8E49;
     height: 100%;
-    margin: auto;
-    width: 100%;
-    padding : 4% 2% 12%;
+    float :right;
+    width: 59%;
 
-}
-.highlight .last_ticket .infos {
-  font-size:40px; 
-  color : black;
-  margin : 15px 0;
-}
-
-.highlight .last_ticket .label { 
-  width : 60%;
-  float : right;
-  position : relative; 
-  font-size: 105px;
-  letter-spacing: -5px;
-  color: red;
-  margin : 10px 0;
 }
 
 .highlight .arrow {
     float: right;
     height: 130px;
     width: 20%; 
+    margin : 10% 0 0;
+}
+.highlight .last_ticket .infos {
+  font-size:65px; 
+  color : #1C8E49;
+  margin : 15px 0;
+}
+
+.highlight .last_ticket .label { 
+  width : 100%;
+  position : relative; 
+  font-size: 150px;
+  letter-spacing: -5px;
+  color: red;
+  margin : 10px 0;
 }
 
 .history_calls {
+    background :url("/images/overlay.png") repeat-x scroll 0 0 #1C8E49;
     -moz-border-radius: 5px;
     border-radius : 5px;
     border: 1px solid #1C8E49;
@@ -79,14 +78,22 @@ body {
     text-align: center;
 }
 
-div.history_calls div.label {
-    -moz-border-radius: 5px 5px 5px 5px;
-    background :url("/images/overlay.png") repeat-x scroll 0 0 #1C8E49;
+.history_calls .label {
     color: #FFF;
-    font-size : 26px;
+    font-size : 30px;
     font-weight : bold;
     padding: 5px;
     position: relative;
+}
+
+.items { 
+  width :49%;
+  float:right;
+  margin :auto 5px;
+}
+
+.items table{
+  border-spacing : 0;
 }
 .items .item {
     -moz-border-radius: 3px;
@@ -96,7 +103,7 @@ div.history_calls div.label {
     background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid gray;
     margin: 2px;
-    font-size : 30px;
+    font-size : 40px;
     padding: 1px;
 }
 .item .botton {

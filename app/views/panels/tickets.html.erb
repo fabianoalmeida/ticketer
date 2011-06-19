@@ -1,64 +1,94 @@
-<div class="left">
-  <div class="header">
-    <div style="float: right;">
-      <%= image_tag "hsi-logo.png" %>
-    </div>
-    <div style="float: right; padding-right: 20px; font-size :30px;">
-      <h2><%= @place.value %></h2>
-      <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
-      <label class="jclock"></label>
-    </div>
-    <div style="clear: both;"></div>
+<div class="header">
+  <div style="float: right;">
+    <%= image_tag "hsi-logo.png" %>
   </div>
-
-  <div class="highlight">
-    <div class="last_ticket">
-      <div class="infos" >
-        <% unless @tickets.empty? %>
-          <%= @tickets.first.ticket_type.ticket_type_group.value %> &nbsp - &nbsp  
-          <%= @tickets.first.ticket_type.value unless @tickets.empty? %> 
-          <br/>
-          <%= @tickets.first.wickets.last.value unless @tickets.empty? %>
-        <% end %>
-      </div>
-
-      <div class="arrow">
-        <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
-        <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
-      </div>
-
-      <div class="label">
-        <%= @tickets.shift.value unless @tickets.empty? %>
-      </div>
-
-      <div class="arrow">
-        <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
-        <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
-      </div>
-
-      <div style="clear : both" ></div>
-    </div>
+  <div style="float: right; padding-right: 20px; font-size :30px;">
+    <h2><%= @place.value %></h2>
+    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+    <label class="jclock"></label>
   </div>
+  <div style="clear: both;"></div>
 </div>
 
-<div class="right">
-  <div class="history_calls">
-    <div class="label"> 
-       <%=   t('model.call_history.last') %> 
-     </div>
+<div class="highlight">
 
-     <div class="items">
-       <% @tickets.each do |ticket| %>
-         <div class="item">
-           <%= ticket.ticket_type.ticket_type_group.value %> <br/>
-           <%= ticket.value %> - <%= ticket.wickets.last.value %>
-         </div>
+  <div class="arrow">
+    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
+    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
+  </div>
+
+  <div class="last_ticket">
+    <div class="infos" >
+      <% unless @tickets.empty? %>
+        <%= @tickets.first.wickets.last.value unless @tickets.empty? %>
+      <% end %>
+    </div>
+
+    <div class="label">
+      <%= @tickets.shift.value unless @tickets.empty? %>
+    </div>
+  </div>
+
+  <div class="arrow">
+    <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
+    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
+  </div>
+  <div style="clear:both"></div>
+</div>
+
+<div class="history_calls">
+   <div  id="second" class="items">
+     <table width="100%">
+       <tr class="label">
+         <th>
+           <%= t('model.call_history.last') %> 
+         </th>
+
+         <th>
+           <%= t('model.wicket.name').pluralize %>
+         </th>
+       </tr>
+       <% @tickets_1 = @tickets.slice(0, @tickets.size/2)  %>
+       <% @tickets_1.each do |ticket| %>
+         <tr class="item">
+           <td>
+             <%= ticket.value %>
+           </td>
+           <td>
+             <%= ticket.wickets.last.value %>
+           </td>
+         </tr>
        <% end %>
+     </table>
+   </div>
 
-     </div>
-  </div>
+
+   <div id="first" class="items">
+     <table width="100%">
+       <tr class="label">
+         <th>
+           <%= t('model.call_history.last') %> 
+         </th>
+
+         <th>
+           <%= t('model.wicket.name').pluralize %>
+         </th>
+       </tr>
+       <% @tickets_2 = @tickets.slice(@tickets.size/2, @tickets.size)  %>
+       <% @tickets_2.each do |ticket| %>
+         <tr class="item">
+           <td>
+             <%= ticket.value %>
+           </td>
+           <td>
+             <%= ticket.wickets.last.value %>
+           </td>
+         </tr>
+       <% end %>
+     </table>
+   </div>
+   <div style="clear:both"></div>
 </div>
-<div style="clear:both"></div>
 
 <%= javascript_include_tag :juggernaut,'jquery.audio', 'juggernaut.panel', 'jquery.jclock' %>
 <script type="text/javascript" charset="utf-8">

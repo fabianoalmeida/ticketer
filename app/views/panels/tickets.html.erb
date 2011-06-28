@@ -19,13 +19,11 @@
 
   <div class="last_ticket">
     <div class="infos" >
-      <% unless @tickets.empty? %>
-        <%= @tickets.first.wickets.last.value unless @tickets.empty? %>
-      <% end %>
+      <%= @tickets.empty? ? "--" : @tickets.first.wickets.last.value  %>
     </div>
 
     <div class="label">
-      <%= @tickets.shift.value unless @tickets.empty? %>
+      <%=@tickets.empty? ? "--" : @tickets.shift.value   %>
     </div>
   </div>
 
@@ -48,16 +46,22 @@
            <%= t('model.wicket.name').pluralize %>
          </th>
        </tr>
-       <% @tickets_1 = @tickets.slice(0, @tickets.size/2)  %>
-       <% @tickets_1.each do |ticket| %>
-         <tr class="item">
-           <td>
-             <%= ticket.value %>
-           </td>
-           <td>
-             <%= ticket.wickets.last.value %>
-           </td>
-         </tr>
+       <% unless @tickets.empty? %>
+         <% @tickets_2 = @tickets.slice(@tickets.size/2, @tickets.size)  %>
+         <% @tickets_2.each do |ticket| %>
+           <tr class="item">
+             <td>
+               <%= ticket.value %>
+             </td>
+             <td>
+               <%= ticket.wickets.last.value %>
+             </td>
+           </tr>
+         <% end %>
+       <% else %> 
+        <tr class="item"><td>--</td><td>--</td></tr>
+        <tr class="item"><td>--</td><td>--</td></tr>
+        <tr class="item"><td>--</td><td>--</td></tr>
        <% end %>
      </table>
    </div>
@@ -74,18 +78,24 @@
            <%= t('model.wicket.name').pluralize %>
          </th>
        </tr>
-       <% @tickets_2 = @tickets.slice(@tickets.size/2, @tickets.size)  %>
-       <% @tickets_2.each do |ticket| %>
-         <tr class="item">
-           <td>
-             <%= ticket.value %>
-           </td>
-           <td>
-             <%= ticket.wickets.last.value %>
-           </td>
-         </tr>
+       <% unless @tickets.empty?  %>
+         <% @tickets_1 = @tickets.slice(0, 3)  %>
+         <% @tickets_2.each do |ticket| %>
+           <tr class="item">
+             <td>
+               <%= ticket.value %>
+             </td>
+             <td>
+               <%= ticket.wickets.last.value %>
+             </td>
+           </tr>
+         <% end %>
+        <% else %> 
+          <tr class="item"><td>--</td><td>--</td></tr>
+          <tr class="item"><td>--</td><td>--</td></tr>
+          <tr class="item"><td>--</td><td>--</td></tr>
        <% end %>
-     </table>
+      </table>
    </div>
    <div style="clear:both"></div>
 </div>

@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
-
 gem 'sqlite3'
 gem 'i18n'
 gem 'arel'
@@ -32,9 +31,12 @@ gem "htmlentities"
 
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-
-group :development, :test do
+group :development do
   gem 'ruby-debug19'
+  gem 'capistrano'
+end
+
+group :test do
   #gem 'webrat'
   gem 'rspec-rails', '~> 2.4'
   gem 'autotest'

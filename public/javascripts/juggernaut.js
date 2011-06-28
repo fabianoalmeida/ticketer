@@ -4,21 +4,14 @@ jQuery(function($){
 
     init : function(){ 
       this.socket = new Juggernaut; 
-      this.offline = function(){ 
-                      $.facebox("A conexão foi encerrada inesperadamente! <br /> " + 
-    		      "Porfavor verifique se o computador está conectado  <br/> "+ 
-                      "corretamente a rede, e atualize a página."); 
-                  } 
+   
       this.socket.on("disconnect", this.proxy(this.disconnect));
+
       this.socket.subscribe('/ticketer',process);
       $('body').bind('ajaxSend', this.proxy(function(e, xhr){
           xhr.setRequestHeader('X-Session-ID', this.socket.sessionID);
       }));
     }, 
-
-    disconnect: function(){
-      this.offline();
-    },
 
     proxy: function(func){       
       var thisObject = this;

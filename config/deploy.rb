@@ -14,7 +14,7 @@ default_run_options[:pty] = true
 #RVM RECIPE
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_bin_path, "$HOME/bin"
+#set :rvm_bin_path, "$HOME/,bin"
 set :rvm_ruby_string, '1.9.2-p180@ticketer'
 set :rvm_type, :user
 

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'i18n'
 gem 'arel'
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
@@ -15,18 +15,18 @@ gem "htmlentities"
 
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby
-#platforms :ruby do
-#  gem 'ruby-oci8', ">= 2.0.4"
-#end
+platforms :ruby do
+  gem 'ruby-oci8', ">= 2.0.4"
+end
 
 # Use either latest oracle_enhanced adapter version from github
-#gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
+gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
 
 # Or use released gem version
-# gem "activerecord-oracle_enhanced-adapter", "~>1.3.0"
+gem "activerecord-oracle_enhanced-adapter", "~>1.3.0"
 
 # optionally also use ruby-plsql
-#gem "ruby-plsql", ">=0.4.3"
+gem "ruby-plsql", ">=0.4.3"
 #----------------- End configuration for Oracle database ---------------#
 
 

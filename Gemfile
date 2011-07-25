@@ -20,7 +20,7 @@ platforms :ruby do
 end
 
 # Use either latest oracle_enhanced adapter version from github
-gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
+#gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
 
 # Or use released gem version
 gem "activerecord-oracle_enhanced-adapter", "~>1.3.0"

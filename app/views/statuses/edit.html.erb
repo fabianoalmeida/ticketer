@@ -1,6 +1,10 @@
-<h1><%= t('model.status.editing') %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.show'), @status %> |
-<%= link_to t('model.back'), statuses_path %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.status.editing') %></legend>
+    <%= render :partial => 'form', :locals => {:disabled => false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.show'), @status, :class => "button medium" %>
+  <%= link_to t('model.back'), statuses_path , :class => "button medium"%>
+</div>

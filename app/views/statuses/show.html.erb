@@ -1,15 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.status.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
 
-<p>
-  <b><%= t( 'model.value' ) %>:</b>
-  <%= @status.value %>
-</p>
-
-<p>
-  <b><%= t( 'model.user' ) %>:</b>
-  <%= @status.user %>
-</p>
-
-
-<%= link_to t( 'model.edit' ), edit_status_path(@status) %> |
-<%= link_to t( 'model.back' ), statuses_path %>
+<div class="buttons-nav">
+  <%= link_to t( 'model.edit' ), edit_status_path(@status), :class => "button medium"  %>
+  <%= link_to t( 'model.back' ), statuses_path, :class => "button medium"  %>
+</div>

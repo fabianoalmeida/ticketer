@@ -1,21 +1,22 @@
 <%= form_for(@status) do |f| %>
   <% if @status.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
-
       <ul>
       <% @status.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
+  <div class="grid-12-12">
+    <%= f.label :value, :class => "form-lbl form-req" %>
+    <%= f.text_field :value, :class => "form-txt form-small", :disabled => disabled %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <% end %>
 <% end %>

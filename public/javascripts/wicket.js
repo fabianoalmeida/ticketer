@@ -6,7 +6,7 @@
       //Trigger Events Success for buttons
       this.triggers.fireAll();
       this.event_pending();
-    }, 
+    },
 
     triggers : {
 
@@ -18,14 +18,15 @@
         this.reopen();
         this.cancel();
       },
-      
+
       call_next : function(){
 
         $('a#call_next').click(function(){
-          $.facebox.new({image : '/images/loading.gif'});
+          $.blockScreen();
         });
 
         $('a#call_next').bind('ajax:success', function(e, data, status, xhr) {
+          $.displayScreen()
           if(xhr.status == 204) {
             $.facebox.new( '<div style="text-align: center;">Não existem senhas a serem chamadas.</div>' ).fadeOutIn(3000);
          } else {
@@ -40,7 +41,7 @@
             //Refactor this
             $.facebox.new( '<span style="color: red; font-weight: bold; font-size: 40px;">'+data.ticket.value+'</span><br/><br/>'+button_attend+'&nbsp;'+button_pending+'&nbsp'+button_cancel).afterCallNext();
 
-            //Trigger for buttons early created 
+            //Trigger for buttons early created
             wicket.triggers.attend();
             wicket.triggers.pending();
             wicket.triggers.recall();
@@ -52,7 +53,7 @@
 
         param = { ticket_id:  $( 'input#current' ).val() };
 
-        $( 'a#attend' ).click( function() { 
+        $( 'a#attend' ).click( function() {
             param = 'ticket_id=' + $( 'input#current' ).val();
             $.ajax({
               url: "atender",
@@ -83,7 +84,7 @@
       },
 
       pending : function(){
-        $( 'a#pending' ).click( function() { 
+        $( 'a#pending' ).click( function() {
           param = { ticket_id : $( 'input#current' ).val() } ;
           $.ajax({
             url: "por_em_espera",
@@ -124,7 +125,7 @@
             data: param,
             dataType: 'json'
           });
-        }); 
+        });
       },
 
       cancel : function(){
@@ -137,7 +138,7 @@
              success: function(data){
                $.facebox.close();
                $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
-               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false); 
+               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false);
             }
           });
         });
@@ -151,13 +152,13 @@
             url: "tornar_disponivel",
             type: "put",
             data : {ticket_id : this.getAttribute('value') },
-            dataType: 'json',  
+            dataType: 'json',
             success : function(data){
                $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
-               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false); 
+               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false);
                $.facebox.close();
              }
-          });    
+          });
         });
       }
     },
@@ -170,7 +171,7 @@
 
         button_cancel = '<a id="cancel" value='+this.id+' class="super button pink" style="margin : 10 px;">Cancelar</a>';
         button_reopen = '<a id="reopen" value='+this.id+' class="super button ajax pink" style="margin : 10 px;">Disponibilizar</a>';
-   
+
         $.facebox.new_with_close(button_cancel + '&nbsp;' + button_reopen).afterCallNext();
 
         wicket.triggers.reopen();

@@ -36,7 +36,9 @@ namespace :redis do
 
   desc "Restarting the redis Server"
   task :restart, :roles => :app  do
-    run "#{try_sudo} #{redis_init_path} restart"
+    #run "#{try_sudo} #{redis_init_path} restart"
+    redis.stop
+    redis.start
   end
 end
 
@@ -64,9 +66,8 @@ end
 set :nginx_init_path, "/etc/init.d/nginx"
 namespace :deploy do
   task :start, :roles => :app do
-    run "#{try_sudo}  #{nginx_init_path} start"
     redis.start
-    juggernaut.strt
+    juggernaut.start
   end
 
   task :stop, :roles => :app do
@@ -77,8 +78,6 @@ namespace :deploy do
 
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-    redis.restart
-    juggernaut.restart
   end
 end
 

@@ -46,4 +46,6 @@ Ticketer::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  config.action_view.javascript_expansions[:juggernaut] = %w(http://ticketer.hsi.scmba.com.br:8080/application.js juggernaut)
+
 end

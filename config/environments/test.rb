@@ -32,4 +32,5 @@ Ticketer::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  config.action_view.javascript_expansions[:juggernaut] = %w(http://localhost:8080/application.js juggernaut)
 end

@@ -7,16 +7,16 @@ set :deploy_to, "/var/www/#{application}"
 set :local_repository, "."
 
 set :user , 'ticketer'
-set :use_sudo, false
+#set :use_sudo, false
 server "ticketer.hsi.scmba.com.br", :app, :web, :db, :primary => true
 default_run_options[:pty] = true
-
+#default_environment["LD_LIBRARY_PATH"] = "/opt/oracle/instantclient_10_2"
 #RVM RECIPE
-$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+#$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+#require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 #set :rvm_bin_path, "$HOME/,bin"
-set :rvm_ruby_string, '1.9.2-p180@ticketer'
-set :rvm_type, :user
+#set :rvm_ruby_string, '1.9.2-p180@ticketer'
+#set :rvm_type, :user
 
 #BUNDLE RECIPE
 require "bundler/capistrano"
@@ -64,7 +64,7 @@ end
 set :nginx_init_path, "/etc/init.d/nginx"
 namespace :deploy do
   task :start, :roles => :app do
-    run "#{try_sudo} #{nginx_init_path} start"
+    run "#{try_sudo}  #{nginx_init_path} start"
     redis.start
     juggernaut.strt
   end

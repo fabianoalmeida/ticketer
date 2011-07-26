@@ -1,23 +1,24 @@
-<h1><%= t 'model.ticket_type_group.title' %></h1>
+<div class="form">
+  <div class="search">
+    <input type="text" value="search" id="search"/>
+    <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
+  </div>
+  <table>
+    <tr>
+      <th><%=  t('model.ticket_type_group.name').pluralize %></th>
+      <th colspan="3" class="options"><%= t("application.options") %></th>
+    </tr>
+    <% @ticket_type_groups.each do |ticket_type_group| %>
+      <tr class="row">
+        <td width="100%"><%= ticket_type_group.value %></td>
+        <td><%= link_to image_tag("form/search.gif"), ticket_type_group %></td>
+        <td><%= link_to image_tag("form/edit.gif"), edit_ticket_type_group_path(ticket_type_group) %></td>
+        <td><%= link_to image_tag("form/trash.gif"), ticket_type_group_ticket_types_path(ticket_type_group) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-<table>
-  <tr>
-    <th><%= t 'model.value' %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ticket_type_groups.each do |ticket_type_group| %>
-  <tr>
-    <td><%= ticket_type_group.value %></td>
-    <td><%= link_to t('model.show'), ticket_type_group %></td>
-    <td><%= link_to t('model.edit'), edit_ticket_type_group_path(ticket_type_group) %></td>
-    <td><%= link_to t('model.ticket_type.short.singular'), ticket_type_group_ticket_types_path(ticket_type_group) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to t('model.ticket_type_group.new'), new_ticket_type_group_path %>
+<div class="buttons-nav">
+  <%= link_to t('model.ticket_type_group.new'), new_ticket_type_group_path, :class => "button medium" %>
+</div>

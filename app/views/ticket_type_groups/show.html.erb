@@ -1,10 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.local.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => {:disabled => true } %>
+  </fieldset>
+</div>
 
-<p>
-  <b>Value:</b>
-  <%= @ticket_type_group.value %>
-</p>
-
-
-<%= link_to 'Edit', edit_ticket_type_group_path(@ticket_type_group) %> |
-<%= link_to 'Back', ticket_type_groups_path %>
+<div class="buttons-nav">
+  <%= link_to 'Edit', edit_ticket_type_group_path(@ticket_type_group), :class => "button medium"  %>
+  <%= link_to 'Back', ticket_type_groups_path, :class => "button medium"  %>
+</div>

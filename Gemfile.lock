@@ -46,6 +46,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     columnize (0.3.3)
+    database_cleaner (0.6.7)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -140,6 +141,7 @@ DEPENDENCIES
   autotest-notification
   autotest-rails
   capistrano
+  database_cleaner
   factory_girl_rails
   htmlentities
   i18n

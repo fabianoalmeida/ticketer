@@ -1,6 +1,6 @@
 Ticketer::Application.routes.draw do
-  
-  scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do 
+
+  scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do
 
     resources :locals, :path => 'locais'
     resources :call_histories, :path => 'historico_de_chamadas'
@@ -15,9 +15,10 @@ Ticketer::Application.routes.draw do
 
     resources :places, :path => 'localidades' do
 
-      resources :panels, :path => 'paineis' do 
+      resources :panels, :path => 'paineis' do
         get 'tickets', :path => 'senhas'
       end
+
       resources :wickets, :path => 'guiches' do
         get 'tickets', :path => 'senhas'
         get 'call_next', :path => 'chamar_proximo'
@@ -32,6 +33,10 @@ Ticketer::Application.routes.draw do
       end
 
     end
-  end 
+  end
+
+  match 'guiches' => "wickets#wicket_home", :as => "wicket_home"
   match 'logout' => "session#logout"
+  root :to => 'wickets#wicket_home'
+
 end

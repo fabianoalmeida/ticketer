@@ -100,7 +100,7 @@ class WicketsController < ApplicationController
     end
 
     @tickets_type= @tickets_type.flatten
-    
+
     @tickets_available = @place.tickets_availables(@wicket.ticket_type_group).today
 
     if @wicket.priority
@@ -134,52 +134,52 @@ class WicketsController < ApplicationController
 
   #POST places/1/wicket/1/recall
   def recall
-    @ticket_recalled = Ticket.find(params[:ticket_id]) 
+    @ticket_recalled = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
-    @ticket_recalled.current_wicket= @wicket 
+    @ticket_recalled.current_wicket= @wicket
     respond_to do |format|
-      if @ticket_recalled.recall 
+      if @ticket_recalled.recall
         CallHistory.register(:ticket => @ticket_recalled, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json  { head :ok }
-      end 
+      end
     end
   end
 
   #PUT places/1/wicket/1/put_waiting
   def put_waiting
-    @ticket_waiting = Ticket.find(params[:ticket_id]) 
+    @ticket_waiting = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      if @ticket_waiting.pending 
+      if @ticket_waiting.pending
         CallHistory.register(:ticket => @ticket_waiting, :wicket => @wicket)
         @ticket_waiting[:time] = I18n.localize(@ticket_waiting.updated_at, :format => :hour_minute)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @ticket_waiting }
-      end 
+      end
     end
   end
   #
   #PUT places/1/wicket/1/attend
   def attend
-    @ticket_attended = Ticket.find(params[:ticket_id]) 
+    @ticket_attended = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      if @ticket_attended.attend 
+      if @ticket_attended.attend
         CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
         @ticket_attended[:time] = I18n.localize(@ticket_attended.updated_at, :format => :hour_minute)
         format.json { render :json => @ticket_attended }
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
-      end 
+      end
     end
   end
-  
+
   #DELETE places/1/wicket/1/cancel
   def cancel
-    @ticket_canceled = Ticket.find(params[:ticket_id]) 
+    @ticket_canceled = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      if @ticket_canceled.cancel 
+      if @ticket_canceled.cancel
         CallHistory.register(:ticket => @ticket_canceled, :wicket => @wicket)
         format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
         format.json { render :json => @ticket_canceled}
@@ -189,14 +189,19 @@ class WicketsController < ApplicationController
 
   #PUT places/1/wicket/1/back_available
   def back_available
-    @ticket = Ticket.find(params[:ticket_id]) 
+    @ticket = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      if @ticket.reopen 
+      if @ticket.reopen
           CallHistory.register(:ticket => @ticket, :wicket => @wicket)
           format.json { render :json => @ticket}
-      end 
+      end
     end
   end
 
+  #HOME FOR ALL WICKETS AVAILABLE
+  def wicket_home
+    @wickets = Wicket.where(:status_id => Status.active)
+    render :layout => 'wickets'
+  end
 end

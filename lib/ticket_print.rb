@@ -1,14 +1,15 @@
 module TicketPrint
 
-  def self.print( ticket, totem )
+  def self.print( ticket )
     escape = 27.chr
+    totem = ticket.totem
     ticket_file = <<-TICKET
             #{escape}VHOSPITAL SANTA IZABEL
             #{escape}V#{ticket.place.value}
-            
+
             #{14.chr} #{ticket.ticket_type.value}
             #{14.chr} #{escape}V#{ticket.value}
-            
+
           #{escape}V#{I18n.localize( ticket.updated_at, :format => :default) }
     #{escape}J4
     #{escape}w
@@ -21,5 +22,5 @@ module TicketPrint
 
     system("smbclient -N //#{totem.ip}/Diebold -c 'print tmp/ticket.txt'")
   end
-  
+
 end

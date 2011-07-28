@@ -1,16 +1,9 @@
-<div style="magin: 0 0 0 10%; min-height: 500px; text-align: right;">
-  <div class="header">
-	<div style="float: right;">
-      <%= image_tag "hsi-logo.png" %>
-    </div>
-    <div style="float: right; padding-right: 20px; font-size: 30px;">
-      <h2><%= t('model.ticket_type.title') %></h2>
-      <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
-      <label class="jclock"></label>
-    </div>
-    <div style="clear: both;"></div>
+<%= content_for :header do %>
+  <div class="hour-totem" style="padding-right: 20px; font-size: 30px;">
+    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+    <label class="jclock"></label>
   </div>
-
+<% end %>
   <div class="totem">
   <%= form_for( Ticket.new ) do |f| %>
     <%= f.hidden_field :ticket_type_id %>

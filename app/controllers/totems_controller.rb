@@ -96,12 +96,12 @@ class TotemsController < ApplicationController
     @ticket_type_groups = @place.ticket_type_groups
 
     respond_to do |format|
-      format.html {render :layout => 'application-external'}
+      format.html {render :layout => 'application-totem'}
       format.json  { render :json => @ticket_type_groups }
     end
   end
 
-  private 
+  private
 
   #Necessary to CAS authentication bypass
   def generate_ticket_must_pass

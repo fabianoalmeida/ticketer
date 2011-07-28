@@ -1,14 +1,11 @@
-<div class="header">
-  <div style="float: right;">
-    <%= image_tag "hsi-logo.png" %>
-  </div>
+<%=  content_for :header do %>
   <div style="float: right; padding-right: 20px; font-size :30px;">
     <h2><%= @place.value %></h2>
     <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
     <label class="jclock"></label>
   </div>
   <div style="clear: both;"></div>
-</div>
+<% end %>
 
 <div class="highlight">
 
@@ -39,7 +36,7 @@
      <table width="100%">
        <tr class="label">
          <th>
-           <%= t('model.call_history.last') %> 
+           <%= t('model.call_history.last') %>
          </th>
 
          <th>
@@ -58,7 +55,7 @@
              </td>
            </tr>
          <% end %>
-       <% else %> 
+       <% else %>
         <tr class="item"><td>--</td><td>--</td></tr>
         <tr class="item"><td>--</td><td>--</td></tr>
         <tr class="item"><td>--</td><td>--</td></tr>
@@ -71,7 +68,7 @@
      <table width="100%">
        <tr class="label">
          <th>
-           <%= t('model.call_history.last') %> 
+           <%= t('model.call_history.last') %>
          </th>
 
          <th>
@@ -90,7 +87,7 @@
              </td>
            </tr>
          <% end %>
-        <% else %> 
+        <% else %>
           <tr class="item"><td>--</td><td>--</td></tr>
           <tr class="item"><td>--</td><td>--</td></tr>
           <tr class="item"><td>--</td><td>--</td></tr>

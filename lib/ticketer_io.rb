@@ -30,7 +30,8 @@ module TicketerIo
 
     def emit_reload_panel
       Juggernaut.publish("/ticketer", {
-            :channel => 'reload'
+            :channel => 'reload',
+            :current_date => Date.today.strftime(I18n.t('date.formats.default'))
       })
     end
 

@@ -1,7 +1,7 @@
 <%=  content_for :header do %>
   <div style="float: right; padding-right: 20px; font-size :30px;">
     <h2><%= @place.value %></h2>
-    <%= Date.today.strftime( t('date.formats.default') )+ ' -' %>
+    <span class="current-date"><%= Date.today.strftime( t('date.formats.default') )+ ' -' %></span>
     <label class="jclock"></label>
   </div>
   <div style="clear: both;"></div>

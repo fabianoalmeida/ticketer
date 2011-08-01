@@ -8,6 +8,9 @@
       $('.highlight .label').text(" -- ");
       trList = $('tr.item');
 
+      //Update current Date
+      $('.current-date').html(data.current_date + " - ");
+
       trList.each(function() {
         tr = $(this);
         tr.children().remove()

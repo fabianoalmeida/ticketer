@@ -3,13 +3,14 @@
 (function($) {
   $.clock = function() {
     $('.jclock').jclock();
-  }
-
-  $.blockScreen = function(){
-    $('.screen_overlay').show();
-  }
-  $.displayScreen = function(){
-    $('.screen_overlay').hide();
-  }
-
+  };
 })($);
+
+$(function(){
+  $('input.date').datepicker({
+                    autoSize : true,
+                    dateFormat : 'yy-mm-dd',
+                    changeYear : true,
+                    changeMonth : true
+  });
+})

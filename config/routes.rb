@@ -2,6 +2,10 @@ Ticketer::Application.routes.draw do
 
   scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do
 
+    resources :reports, :path => 'relatorios', :only => :index do
+      get 'tickets_per_day', :path => 'senhas_por_dia', :on => :collection
+    end
+
     resources :locals, :path => 'locais'
     resources :call_histories, :path => 'historico_de_chamadas'
     resources :guidances, :path => 'orientacoes'

@@ -1,0 +1,92 @@
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom' %>
+<div class="form">
+  <div class="search" style="width:95%">
+    <form id="perday">
+      <%= text_field :search, :start_date, :class => "date", :readonly => true %>
+      <%= text_field :search, :end_date, :class => "date" %>
+      <%= link_to image_tag("form/search.png") + t('application.search'), '#', :class => "button medium"%>
+    </form>
+  </div>
+  <div id="center"></div>
+  <script src="/javascripts/protovis.js" type="text/javascript"></script>
+  <script type="text/javascript+protovis">
+    function renderProtovis(hash) {
+      var keys = Array();
+      var data = Array();
+      var max  = 0;
+
+      for (key in hash) {
+        keys.push(key);
+        data.push(hash[key]);
+        if ( hash[key] > max )
+          max = hash[key];
+      }
+
+      //var data = pv.range(5).map(function(d) { return Math.random() + .1; });
+      /* Sizing and scales. */
+      var w = 550,
+          h = keys.length * 30,
+          x = pv.Scale.linear(0, max).range(0, w),
+          y = pv.Scale.ordinal(pv.range(keys.length)).splitBanded(0, h, 0.7);
+
+      /* The root panel. */
+      var vis = new pv.Panel()
+          .width(w)
+          .height(h)
+          .bottom(20)
+          .left(100)
+          .right(10)
+          .top(5)
+          .canvas('center');
+
+      /* The bars. */
+      var bar = vis.add(pv.Bar)
+          .data(data)
+          .top(function() y(this.index))
+          .height(y.range().band)
+          .left(0)
+          .width(x)
+          .fillStyle('green');
+
+      /* The value label. */
+      bar.anchor("right").add(pv.Label)
+          .textStyle("white")
+          .text(function(d) d);
+
+      /* The variable label. */
+      bar.anchor("left").add(pv.Label)
+          .textMargin(5)
+          .textAlign("right")
+          .text(function() keys[this.index]);
+
+      /* X-axis ticks. */
+      vis.add(pv.Rule)
+          .data(x.ticks(5))
+          .left(x)
+          .strokeStyle(function(d) d ? "rgba(255,255,255,.3)" : "#000")
+        .add(pv.Rule)
+          .bottom(0)
+          .height(5)
+          .strokeStyle("#000")
+        .anchor("bottom").add(pv.Label)
+          .text(x.tickFormat);
+
+      vis.render();
+    }
+  </script>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+jQuery( 'a.medium' ).click( function() {
+  var form = $('form');
+  var param = form.serializeArray();
+  jQuery.ajax({
+    url: "/relatorios/senhas_por_dia",
+    dataType: 'json',
+    data: param,
+    success: function(data){
+      renderProtovis(data);
+    }
+  });
+});
+</script>

@@ -6,7 +6,7 @@ Version: 1.1
 Authors: Bernard De Luna - http://www.bernarddeluna.com
              Daniel Araujo - http://www.dnlaraujo.com.br
 			 Marcello Manso - http://www.marcellomanso.com.br
-			 
+
 ********************************************************************
 Style
 ********************************************************************/
@@ -22,17 +22,17 @@ Style
 .form fieldset {
 	border: 1px solid #C5E008;
 	border-top:3px solid #C5E008;
-	background: #EAEAEA ; 
+	background: #EAEAEA ;
 	padding-bottom: 1.2em;
 	margin: auto 10px ;
-        -moz-border-radius: 3px; 
+        -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius : 3px;
 }
 
 /* hover effect */
 .grid-1-12:hover, .grid-2-12:hover, .grid-3-12:hover, .grid-4-12:hover, .grid-5-12:hover, .grid-6-12:hover, .grid-7-12:hover, .grid-8-12:hover, .grid-9-12:hover, .grid-10-12:hover, .grid-11-12:hover, .grid-12-12:hover {background:#DCEC66;}
-.field-button:hover {background:transparent;} 
+.field-button:hover {background:transparent;}
 
 /* Form legend and titles */
 .form legend {
@@ -56,7 +56,7 @@ Style
 	font-size:1.2em;
 }
 .form .form-txt, .form textarea, .form select {
-        -moz-border-radius: 3px; 
+        -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius : 3px;
 	border-color:#235485;
@@ -108,7 +108,7 @@ Style
 	color:#62b548;
 }
 
-/* form tables */ 
+/* form tables */
 .form table {
   margin : 10px 10px;
   border-spacing : 0;
@@ -127,12 +127,12 @@ Style
 .form table th.options{
   text-align : center;
 }
-.form table .row { 
+.form table .row {
   width : 100%;
   height:100%;
 }
 
-.form table tr:hover { 
+.form table tr:hover {
   background:#DCEC66;
 }
 
@@ -148,7 +148,7 @@ Style
 }
 
 .form .search {
-  position : relative; 
+  position : relative;
   margin : auto 10px auto auto;
   width : 350px;
   top : 10px;
@@ -160,7 +160,13 @@ Style
   border-radius: 3px;
   padding : 5px;
   margin : 5px;
-  color : #333; 
+  color : #333;
   font-size : 1.1em;
   width : 170px;
+}
+
+.form .search .date {
+  width : 120px;
+  text-align : right;
+  background : url(/images/form/note.gif) no-repeat 5px 5px;
 }

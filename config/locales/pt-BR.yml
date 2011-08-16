@@ -17,7 +17,7 @@
       - :day
       - :month
       - :year
-  
+
   time:
     formats:
       default: "%d/%m/%Y - %H:%M:%S h"
@@ -253,7 +253,7 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-  
+
   model:
     value: "Valor"
     user: "Usuário"
@@ -303,7 +303,7 @@
       title: "HOSPITAL SANTA IZABEL"
       short:
         singular: "Tipo"
-      priority: 
+      priority:
         name: "Prioridade"
         sure: "Sim"
         not: "Não"
@@ -332,10 +332,10 @@
       title: "Listando todos os Guichês"
       name: "Guichê"
       ticket_type_groups: "Grupo Tipo de Senha"
-      guidance: 
+      guidance:
         left: "Esquerda"
         right: "Direita"
-      priority: 
+      priority:
         name: "Prioridade"
         sure: "Sim"
         not: "Não"
@@ -383,9 +383,10 @@
       title: "Listando todos os Painéis"
       name: "Painel"
       tickets : "Painel de Senhas"
-  
+
   application :
     search : "Pesquisar"
     options : "Opções"
-
+    reports :
+      tickets_per_day : "Senhas retiradas por dia"
 

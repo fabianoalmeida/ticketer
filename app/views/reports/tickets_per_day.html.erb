@@ -1,4 +1,4 @@
-<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom' %>
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
 <div class="form">
   <div class="search" style="width:95%">
     <form id="perday">
@@ -8,9 +8,11 @@
     </form>
   </div>
   <div id="center"></div>
-  <script src="/javascripts/protovis.js" type="text/javascript"></script>
+  <%= javascript_include_tag 'protovis', 'jquery.tipsy' %>
   <script type="text/javascript+protovis">
+
     function renderProtovis(hash) {
+
       var keys = Array();
       var data = Array();
       var max  = 0;
@@ -22,7 +24,6 @@
           max = hash[key];
       }
 
-      //var data = pv.range(5).map(function(d) { return Math.random() + .1; });
       /* Sizing and scales. */
       var w = 550,
           h = keys.length * 30,
@@ -46,7 +47,8 @@
           .height(y.range().band)
           .left(0)
           .width(x)
-          .fillStyle('green');
+          .fillStyle('green')
+          .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}));
 
       /* The value label. */
       bar.anchor("right").add(pv.Label)

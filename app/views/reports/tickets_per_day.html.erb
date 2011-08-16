@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
 <div class="form">
-  <div class="search" style="width:95%">
+  <div class="search" style="width:95%; margin-bottom: 30px">
     <form id="perday">
       <%= text_field :search, :start_date, :class => "date", :readonly => true %>
       <%= text_field :search, :end_date, :class => "date" %>
@@ -8,7 +8,7 @@
     </form>
   </div>
   <div id="center"></div>
-  <%= javascript_include_tag 'protovis', 'jquery.tipsy' %>
+  <%= javascript_include_tag 'protovis', 'jquery.tipsy', 'tipsy' %>
   <script type="text/javascript+protovis">
 
     function renderProtovis(hash) {
@@ -16,12 +16,11 @@
       var keys = Array();
       var data = Array();
       var max  = 0;
-
-      for (key in hash) {
-        keys.push(key);
-        data.push(hash[key]);
-        if ( hash[key] > max )
-          max = hash[key];
+      for (index in hash) {
+        keys.push(hash[index].ticket.date_local);
+        data.push(hash[index].ticket.count_id);
+        if ( hash[index].ticket.count_id > max )
+          max = hash[index].ticket.count_id ;
       }
 
       /* Sizing and scales. */
@@ -47,12 +46,13 @@
           .height(y.range().band)
           .left(0)
           .width(x)
-          .fillStyle('green')
+          .text(function(d) 'Dia ' + keys[this.index] + ' foi(ram) gerada(s) ' + d + ' senha(s)'  )
+          .fillStyle('#C5E008')
           .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}));
 
       /* The value label. */
       bar.anchor("right").add(pv.Label)
-          .textStyle("white")
+          .textStyle("#402E16")
           .text(function(d) d);
 
       /* The variable label. */

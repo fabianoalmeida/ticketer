@@ -1,5 +1,9 @@
 function renderProtovis(hash) {
 
+  if(hash == null){
+    alert('Nenhum registro encontrao para as datas selecionadas');
+    return
+  }
   var keys = Array();
   var data = Array();
   var max  = 0;

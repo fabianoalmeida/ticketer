@@ -166,7 +166,14 @@ Style
 }
 
 .form .search .date {
-  width : 120px;
+  width : 105px;
   text-align : right;
-  background : url(/images/form/note.gif) no-repeat 5px 5px;
+  background : url(/images/form/calendar.gif) no-repeat 5px 5px;
+}
+
+.form .spotlight {
+  color : #402E16;
+  margin : 10px;
+  font-weight : bold;
+  font-size : 18pt;
 }

@@ -1,7 +1,7 @@
 function renderProtovis(hash) {
 
   if(hash == null){
-    alert('Nenhum registro encontrao para as datas selecionadas');
+    alert('Nenhum registro encontrado para as datas selecionadas');
     return
   }
   var keys = Array();

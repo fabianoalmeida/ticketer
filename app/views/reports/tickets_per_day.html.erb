@@ -4,9 +4,9 @@
   <div class="search" style="width:95%; margin-bottom: 30px">
     <form id="perday">
       <%= label_tag t('application.reports.since') %>
-      <%= text_field_tag :start_date, nil, :class => "date", :readonly => true %>
+      <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
       <%= label_tag t('application.reports.to') %>
-      <%= text_field_tag :end_date, nil, :class => "date" %>
+      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true%>
       <%= link_to image_tag("form/search.png") + t('application.search'), '#', :class => "button medium"%>
     </form>
   </div>

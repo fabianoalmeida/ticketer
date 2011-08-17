@@ -4,6 +4,7 @@ Ticketer::Application.routes.draw do
 
     resources :reports, :path => 'relatorios', :only => :index do
       get 'tickets_per_day', :path => 'senhas_por_dia', :on => :collection
+      get 'attendances_group_by_wickets_per_day', :path => 'atendimentos_por_guiche_por_dia', :on => :collection
     end
 
     resources :locals, :path => 'locais'

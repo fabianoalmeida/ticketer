@@ -5,12 +5,16 @@
   </div>
   <table>
     <tr>
-      <th><%=  t('model.place.name').pluralize %></th>
+      <th><%= t('application.reports.name').pluralize %></th>
       <th class="options"><%= t("application.options") %></th>
     </tr>
-      <tr class="row">
-        <td width ="100%"><%= 'Tickets per day' %></td>
-        <td><%= link_to image_tag("form/search.gif"), tickets_per_day_reports_path, :title => t('model.show') %></td>
-      </tr>
+    <tr class="row">
+      <td width ="100%"><%= t('application.reports.tickets_per_day') %></td>
+      <td><%= link_to image_tag("form/search.gif"), tickets_per_day_reports_path, :title => t('model.show') %></td>
+    </tr>
+    <tr class="row">
+      <td width ="100%"><%= t('application.reports.attendances_by_wickets_per_day') %></td>
+      <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_day_reports_path, :title => t('model.show') %></td>
+    </tr>
   </table>
 </div>

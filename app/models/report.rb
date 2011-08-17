@@ -9,7 +9,7 @@ class Report
   end
 
   def self.attendances_by_wickets_per_day(start_date, end_date)
-    CallHistory.select("wickets.value, to_char(trunc(call_histories.created_at), 'dd/MM/yyyy' ) as date_local, count('call_histories.id') as count_id")
+    call_histories = CallHistory.select("wickets.value, to_char(trunc(call_histories.created_at), 'dd/MM/yyyy' ) as date_local, count('call_histories.id') as count_id")
           .joins(:wicket)
           .where(
             :created_at => start_date.midnight..end_date.tomorrow.midnight, 
@@ -17,5 +17,6 @@ class Report
           )
           .group("wickets.value, trunc(call_histories.created_at)")
           .order("wickets.value ASC, trunc(call_histories.created_at) DESC")
+    call_histories
   end
 end

@@ -1,5 +1,7 @@
 class ReportsController < ApplicationController
 
+  prawnto :filename => "#{DateTime.now.to_i}.pdf", :inline => false
+
   def index; end
 
   def tickets_per_day
@@ -13,6 +15,7 @@ class ReportsController < ApplicationController
         unless @tickets_per_day.empty?
           format.html
           format.json { render :json => @tickets_per_day }
+          format.pdf
         end
       end
       format.html {render :notice => I18n.t('application.no_results')}

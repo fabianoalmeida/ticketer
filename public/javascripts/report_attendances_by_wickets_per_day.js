@@ -1,48 +1,51 @@
 function renderProtovis(hash) {
 
+
   if(hash == null){
     alert('Nenhum registro encontrado para as datas selecionadas');
     return
   }
 
   var keys = Array();
-  var data = Array();
+  var data_array = Array();
   var max  = 0;
-  
+
   for (index in hash) {
-    keys.push(hash[index].call_history.date_local);
-    data.push(hash[index].call_history.count_id);
-    if ( hash[index].call_history.count_id > max )
-      max = hash[index].call_history.count_id ;
+    keys.push(hash[index][0]);
+    data_array.push(hash[index][1]);
+    //if ( hash[index].call_history.count_id > max )
+      //max = hash[index].call_history.count_id ;
   }
 
   /* Sizing and scales. */
   var w = 550,
-      h = keys.length * 30,
-      x = pv.Scale.linear(0, max).range(0, w),
-      y = pv.Scale.ordinal(pv.range(keys.length)).splitBanded(0, h, 0.7);
+      h = keys.length * 300,
+      x = pv.Scale.linear(0, 40).range(0, w),
+      y = pv.Scale.ordinal(pv.range(keys.length)).splitBanded(0, h, 0.9);
 
   /* The root panel. */
   var vis = new pv.Panel()
       .width(w)
       .height(h)
       .bottom(20)
-      .left(20)
+      .left(70)
       .right(10)
       .top(5)
       .canvas('center');
 
   /* The bars. */
   var bar = vis.add(pv.Panel)
-      .data(data)
+      .data(data_array)
       .top(function() y(this.index))
       .height(y.range().band)
     .add(pv.Bar)
-      .data(function(d) d)
-      .top(function() this.index * y.range().band / m)
-      .height(y.range().band / m)
+      .data(function(d) d.values)
+      .top( function() this.index * y.range().band / data_array[this.parent.index].values.length)
+      .height( function() y.range().band / data_array[this.parent.index].values.length )
       .left(0)
       .width(x)
+      .text(function(d) data_array[this.parent.index].dates[this.index])
+      .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}))
       .fillStyle(pv.Colors.category20().by(pv.index));
 
   /* The value label. */
@@ -54,7 +57,7 @@ function renderProtovis(hash) {
   bar.parent.anchor("left").add(pv.Label)
       .textAlign("right")
       .textMargin(5)
-      .text(function() keys[this.index]);
+      .text(function() keys[this.parent.index]);
 
   /* X-axis ticks. */
   vis.add(pv.Rule)

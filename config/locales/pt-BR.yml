@@ -390,7 +390,13 @@
     options : "Opções"
     reports :
       name: "Relatório"
+      plural: "Relatórios"
       since : "De"
       to : "até"
-      tickets_per_day : "Senhas retiradas por dia"
-      attendances_by_wickets_per_day : "Atendimentos por Guichê por dia"
+      tickets_per_day: 
+        name: "Senhas retiradas por dia"
+        date: "Data"
+        quantity: "Quantidade"
+      attendances_by_wickets_per_day: 
+        name: "Atendimentos por Guichê por dia"
+      print: "Imprimir"

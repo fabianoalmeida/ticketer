@@ -11,11 +11,10 @@ class ReportsController < ApplicationController
           params[:start_date].to_date,
           params[:end_date].to_date
         )
-        debugger
         unless @tickets_per_day.empty?
           format.html
           format.json { render :json => @tickets_per_day }
-          format.pdf
+          format.pdf { render :layout => false }
         end
       end
       format.html {render :notice => I18n.t('application.no_results')}

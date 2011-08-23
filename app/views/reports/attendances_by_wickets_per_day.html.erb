@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'jquery-ui-1.8.15.custom' %>
 <div class="form">
-  <h1 class="spotlight"><%= t('application.reports.attendances_by_wickets_per_day') %></h1>
+  <h1 class="spotlight"><%= t('application.reports.attendances_by_wickets_per_day.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
     <form id="perday">
       <%= label_tag t('application.reports.since') %>
@@ -11,5 +11,5 @@
     </form>
   </div>
   <div id="center"></div>
-  <%= javascript_include_tag 'protovis', 'report_attendances_by_wickets_per_day' %>
+  <%= javascript_include_tag 'protovis', 'report', 'report_attendances_by_wickets_per_day' %>
 </div>

@@ -31,7 +31,25 @@ class ReportsController < ApplicationController
         )
         unless @attendances_per_day.empty?
           format.html
-          format.json { render :json => @attendances_per_day }
+          format.json { render :json => @attendances_per_day.to_json }
+        end
+      else
+        format.html {render :notice => I18n.t('application.no_results')}
+        format.json {render :json => nil}
+      end
+    end
+  end
+  
+  def waiting_time_by_wicket
+    respond_to do |format|
+      unless params[:start_date].blank? && params[:end_date].blank?
+        @attendances_per_day = Report.waiting_time_by_wicket(
+          params[:start_date].to_date,
+          params[:end_date].to_date
+        )
+        unless @attendances_per_day.empty?
+          format.html
+          format.json { render :json => @attendances_per_day.to_json }
         end
       else
         format.html {render :notice => I18n.t('application.no_results')}

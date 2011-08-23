@@ -1,7 +1,6 @@
 function renderProtovis(hash) {
 
   if(hash == null){
-    alert('Nenhum registro encontrado para as datas selecionadas');
     return
   }
   var keys = Array();
@@ -28,7 +27,7 @@ function renderProtovis(hash) {
       .left(100)
       .right(10)
       .top(5)
-      .canvas('center');
+      .canvas('graph');
 
   /* The bars. */
   var bar = vis.add(pv.Bar)
@@ -72,11 +71,7 @@ $('a.medium' ).click( function() {
   var param = form.serializeArray();
   $.ajax({
     url: "/relatorios/senhas_por_dia",
-    dataType: 'json',
-    data: param,
-    success: function(data){
-      renderProtovis(data);
-    }
+    data: param
   });
 });
 

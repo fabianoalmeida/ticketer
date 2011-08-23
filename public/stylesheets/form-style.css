@@ -165,6 +165,16 @@ Style
   width : 170px;
 }
 
+.form .search input[type=submit] {
+  border : 1px solid #C0C0C0;
+  border-radius: 3px;
+  padding : 5px;
+  margin : 5px;
+  color : #333;
+  font-size : 1.1em;
+  width : 70px;
+}
+
 .form .search .date {
   width : 105px;
   text-align : right;
@@ -176,4 +186,14 @@ Style
   margin : 10px;
   font-weight : bold;
   font-size : 18pt;
+}
+
+.form .graph {
+  padding-bottom : 20px;
+}
+
+.form .print {
+  float : right;
+  padding-right : 15px;
+  padding-top : 20px;
 }

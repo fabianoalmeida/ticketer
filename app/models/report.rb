@@ -49,20 +49,31 @@ class Report
       SQL
 
       select = <<-SQL
-        called.wicket_id, to_char(trunc(called.created), 'dd/MM/yyyy') as data , count(called.ticket_id) as total , avg(attended.created-called.created) as time_release
+        called.wicket_id, wickets.value as wicket_name , to_char(trunc(called.created), 'dd/MM/yyyy') as data , count(called.ticket_id) as total , avg(attended.created-called.created) as time
       SQL
 
-      where = <<-SQL
+        where = <<-SQL
         attended.wicket_id = called.wicket_id
         and attended.ticket_id = called.ticket_id
+        and attended.wicket_id = wickets.id
+        and called.wicket_id = wickets.id
       SQL
 
-      Wicket.select(select)
-          .from(" #{attended_table}, #{called_table} ")
+      results = Wicket.select(select)
+          .from(" wickets, #{attended_table}, #{called_table} ")
           .where(where)
-          .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
-          .group("called.wicket_id, trunc(called.created)")
-          .order("called.wicket_id, trunc(called.created) DESC")
+            .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
+          .group("called.wicket_id, wickets.value, trunc(called.created)")
+          .order("called.wicket_id, wickets.value, trunc(called.created) DESC")
+          
+      var_return = {}
+     
+      results.each do |call|
+        var_return[call.wicket_name.to_sym] ||= []
+        var_return[call.wicket_name.to_sym] << call
+      end
+     
+      var_return.to_a
     end
   end
 end

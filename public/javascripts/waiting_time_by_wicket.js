@@ -21,10 +21,18 @@ function WaitingTimeByTicketD3(params){
 	
 	var init = function(){
 		extract = extractDataAndKey(settings.map);
-		settings.keys = extract.keys;
-		settings.data = extract.data;		
-		settings.y    = d3.scale.linear().domain([0, d3.max(settings.data)]).range([0 + settings.margin, settings.h - settings.margin]),
-		settings.x    = d3.time.scale().domain([d3.min(settings.keys), d3.max(settings.keys)]).range([0 + settings.margin, settings.w - settings.margin]);
+		settings.map     = extract.map;
+		settings.times   = extract.times;
+		settings.data    = extract.data;
+		settings.wickets = extract.wickets;
+		settings.acount  = extract.acount;
+		settings.y       = d3.scale.linear()
+									.domain([0, d3.max(settings.times)])
+									.range([0 + settings.margin, settings.h - settings.margin]);
+		settings.x       = d3.time.scale()
+									.domain([d3.min(settings.data), d3.max(settings.data)])
+									.range([0 + settings.margin, settings.w - settings.margin]);
+
 		$.extend(this,settings);
 		buildGraph();
 	}
@@ -35,16 +43,41 @@ function WaitingTimeByTicketD3(params){
 	*/
 	
 	var extractDataAndKey = function(hash) {
-		var keys = new Array(),
-			data = new Array();
+		var times   = new Array(),
+			data    = new Array(),
+			wickets = new Array(),
+			acount  = new Array(),
+			graphs  = new Array(),
+			map     = new Array(),
+			colors  = d3.scale.category10();
+			
 			
 		for (var index = hash.length - 1; index >= 0; index--){
-			keys.push(settings.format.parse(hash[index].ticket.date_local));
-			data.push(hash[index].ticket.count_id);
+			
+			graphs.push({
+				name : hash[index][0],
+				id : hash[index][1][0], 
+				list : hash[index][1],
+				color : colors(index)
+			});
+			
+			list = hash[index][1];
+			
+			map = map.concat(list);
+			
+			for (var x = list.length -1 ; x >= 0; x--){
+				data.push(settings.format.parse(list[x].wicket.data));
+				times.push(list[x].wicket.time);
+				acount.push(list[x].wicket.total);
+			};
 		};
 		
-		return{ keys : keys, data : data};
-	}
+		return{ times : times, 
+				data : data, 
+				wickets : graphs, 
+				acount : acount, 
+				map : map };
+	};
 	
 	var buildGraph = function(){
 		var vis            = buildVisualization(), 
@@ -52,16 +85,45 @@ function WaitingTimeByTicketD3(params){
 		    lineHorizontal = buildLineHorizontal(rule),
 		    lineVertical   = buildLineVertical(rule), 
 			textVertical   = buildTextVertical(rule),
-			textHorizontal = buildTextHorizontal(rule),
-			pathLine       = drawGraph(vis);
-	}
+			textHorizontal = buildTextHorizontal(rule);
+			// legend         = buildLegend(vis, "red");
+			
+		for (var i = wickets.length - 1; i >= 0; i--){
+				drawGraph(vis,wickets[i].list, wickets[i].color );
+		};
+	};
 	
-	var drawGraph = function(d3Object, callback){
-		var line		 =  d3.svg.line(map)
-							.x(function(d) { return x(format.parse(d.ticket.date_local)); })
-							.y(function(d) { return -1 * y(d.ticket.count_id); }),
-		   objectReturn =   d3Object.append("svg:path")
-								   .attr("d", line(map));
+	var buildLegend = function(d3Object, element, callback){
+		var legend  = d3Object.selectAll('g:legend')
+								  .enter()
+								  .append.svg.symbol()
+								  .type("square")
+								  .style("stroke", element)
+								  
+	};
+	
+	var buildRule = function(d3Object, callback){
+		var objectReturn = d3Object.selectAll("g.rule")
+								.data(x.ticks(d3.time.days, 1))
+								.enter()
+								.append("svg:g")
+								.attr("class", "rule");
+
+		if(callback) callback(objectReturn);
+
+		return objectReturn;
+	};
+
+	
+	
+	var drawGraph = function(d3Object, map, color, callback){
+		var line		 = d3.svg.line(map)
+							 .x(function(d) { return x(format.parse(d.wicket.data)); })
+							 .y(function(d) { return -1 * y(d.wicket.time); }),
+
+		   objectReturn  = d3Object.append("svg:path")
+								    .style("stroke", color )
+								    .attr("d", line(map));
 						
 		if(callback) callback(objectReturn);
 
@@ -82,19 +144,7 @@ function WaitingTimeByTicketD3(params){
 		return objectReturn;
 	};
 	
-	
-	var buildRule = function(d3Object, callback){
-		var objectReturn = d3Object.selectAll("g.rule")
-								.data(x.ticks(d3.time.days, 1))
-								.enter()
-								.append("svg:g")
-								.attr("class", "rule");
-					
-		if(callback) callback(objectReturn);
 
-		return objectReturn;
-	};
-	
 	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
 								   .attr("class","x")
@@ -117,7 +167,7 @@ function WaitingTimeByTicketD3(params){
 								   .attr("y1",function(d) { return -1 * y(d) })
 								   .attr("y2", function(d) { return -1 * y(d) })
 								   .attr("x1", 0 + margin )
-								   .attr("x2", x(d3.max(keys)) - margin)
+								   .attr("x2", x(d3.max(data)) - margin)
 								   .attr("text-anchor", "middle");
 					
 		if(callback) callback(objectReturn);

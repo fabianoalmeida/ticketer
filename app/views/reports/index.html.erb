@@ -16,9 +16,15 @@
       <td><%= t('application.reports.attendances_by_wickets_per_day.name') %></td>
       <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_day_reports_path, :title => t('model.show') %></td>
     </tr>
+
     <tr class="row">
       <td><%= t('application.reports.waiting_time_by_wicket.name') %></td>
       <td><%= link_to image_tag("form/search.gif"), waiting_time_by_wicket_reports_path, :title => t('model.show') %></td>
+    </tr>
+
+    <tr class="row">
+      <td><%= t('application.reports.waiting_time_by_client.name') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_client_reports_path, :title => t('model.show') %></td>
     </tr>
   </table>
 </div>

@@ -16,16 +16,43 @@ pdf.fill_color "000000"
 
 data ||= [ ["#{ t('application.reports.tickets_per_day.date') }", "#{ t('application.reports.tickets_per_day.quantity') }"] ]
 
+pdf.font_size 10
+
+total= 0
+length= @tickets_per_day.length
+
 @tickets_per_day.each do |ticket|
   data << [ ticket.date_local, ticket.count_id ]
+  total += ticket.count_id
 end
 
 pdf.table(
   data, 
   :header => true, 
   :column_widths => [270, 270], 
-  :row_colors => ["F0F0F0", "FFFFCC"]
-)
+  :row_colors => ["F0F0F0", "FFFFFF"]) do
+
+  row(0).style :background_color => '5F9410', :text_color => 'ffffff', :align => :center, :font_style => :bold
+  row(1..length).style :align => :center
+end
+
+footer ||= []
+footer << [ "#{t('application.reports.average')}", total / length ]
+footer << [ "#{t('application.reports.total')}", total ]
+
+pdf.table(
+  footer, 
+  :column_widths => [270, 270]) do
+
+  row(0).style :background_color => 'B2C430', :text_color => 'ffffff', :align => :center, :font_style => :bold
+  row(0).columns(0).style :align => :right
+  row(1).style :background_color => '5F9410', :text_color => 'ffffff', :align => :center, :font_style => :bold
+  row(1).columns(0).style :align => :right
+end
 
 pdf.fill_color "000000"
 pdf.text_box "#{ l(DateTime.now, :format => :default) }", :size => 10, :at => [0, 15]
+
+pdf.repeat(:all, :dynamic => true) do
+  pdf.draw_text pdf.page_number, :at => [500, 0]
+end

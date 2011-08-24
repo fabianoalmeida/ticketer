@@ -17,12 +17,23 @@
         <th><%= t("application.reports.tickets_per_day.date") %></th>
         <th><%= t("application.reports.tickets_per_day.quantity") %></th>
       </tr>
+      <% total= 0 %>
+      <% length= @tickets_per_day.length %>
       <% @tickets_per_day.each do |ticket| %>
         <tr class="row">
           <td width="100%"><%= ticket.date_local %></td>
           <td style="text-align: center;"><%= ticket.count_id %></td>
         </tr>
+        <% total += ticket.count_id %>
       <% end %>
+      <tr>
+        <td style="text-align: right;"><%= t('application.reports.average') %></td>
+        <td style="text-align: center;"><%= total / length %></td>
+      </tr>
+      <tr>
+        <td style="text-align: right;"><%= t('application.reports.total') %></td>
+        <td style="text-align: center;"><%= total %></td>
+      </tr>
     </table>
     <div class="print">
       <%= link_to t('application.reports.print'), tickets_per_day_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>

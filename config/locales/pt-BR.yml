@@ -393,12 +393,16 @@
       plural: "Relatórios"
       since : "De"
       to : "até"
+      total: "Total"
+      average: "Média"
       tickets_per_day: 
         name: "Senhas retiradas por dia"
         date: "Data"
         quantity: "Quantidade"
       attendances_by_wickets_per_day: 
         name: "Atendimentos por Guichê por dia"
+        date: "Data"
+        quantity: "Quantidade"
       waiting_time_by_wicket : 
         name: "Tempo de atendimento por Guichê"
       waiting_time_by_client : 

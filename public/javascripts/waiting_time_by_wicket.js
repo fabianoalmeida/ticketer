@@ -1,4 +1,4 @@
-function WaitingTimeByTicketD3(params){
+function WaitingTimeByWicketD3(params){
 	
 	if(params.data == null || params.element == null){
 		if(params.data == null){
@@ -214,7 +214,7 @@ $('a.medium' ).click( function() {
 		dataType: 'json',
 		data: param,
 		success: function(data){
-			new WaitingTimeByTicketD3({element : "#center", data : data});
+			new WaitingTimeByWicketD3({element : "#center", data : data});
 		}
 	});
 });

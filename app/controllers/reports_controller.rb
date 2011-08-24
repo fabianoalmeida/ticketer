@@ -44,18 +44,44 @@ class ReportsController < ApplicationController
   def waiting_time_by_wicket
     respond_to do |format|
       unless params[:start_date].blank? && params[:end_date].blank?
-        @waiting_time_by_wicket = Report.waiting_time_by_wicket(
-          params[:start_date].to_date,
-          params[:end_date].to_date
-        )
-        unless @waiting_time_by_wicket.empty?
-          format.html
-          format.json { render :json => @waiting_time_by_wicket }
+        unless (params[:end_date].to_date - params[:start_date].to_date).to_i > 15
+          @waiting_time_by_wicket = Report.waiting_time_by_wicket(
+            params[:start_date].to_date,
+            params[:end_date].to_date
+          )
+          unless @waiting_time_by_wicket.empty?
+            format.html
+            format.json { render :json => @waiting_time_by_wicket }
+          end
+        else
+          format.json {render :json => nil}
         end
       else
-        format.html {render :notice => I18n.t('application.no_results')}
-        format.json {render :json => nil}
+         format.html {render :notice => I18n.t('application.no_results')}
+         format.json {render :json => nil}
       end
     end
   end
+  
+  def waiting_time_by_client
+     respond_to do |format|
+       unless params[:start_date].blank? && params[:end_date].blank?
+         unless (params[:end_date].to_date - params[:start_date].to_date).to_i > 15
+           @waiting_time_by_client = Report.waiting_time_by_client(
+             params[:start_date].to_date,
+             params[:end_date].to_date
+           )
+           unless @waiting_time_by_client.empty?
+             format.html
+             format.json { render :json => @waiting_time_by_client }
+           end
+         else
+            format.json {render :json => nil}
+         end
+       else
+         format.html {render :notice => I18n.t('application.no_results')}
+         format.json {render :json => nil}
+       end
+     end
+   end
 end

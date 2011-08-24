@@ -1,0 +1,33 @@
+<style type="text/css" media="screen">
+path {
+    stroke: #C5E008;
+    stroke-width: 5;
+    fill: none;
+}
+ 
+line {
+    stroke: gray;
+}
+ 
+text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+</style>
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
+<div class="form">
+  <h1 class="spotlight"><%= t('application.reports.waiting_time_by_client.name') %></h1>
+  <div class="search" style="width:95%; margin-bottom: 30px">
+    <form id="perday">
+      <%= label_tag t('application.reports.since') %>
+      <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
+      <%= label_tag t('application.reports.to') %>
+      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true%>
+      <%= link_to image_tag("form/search.png") + t('application.search'), '#', :class => "button medium"%>
+    </form>
+  </div>
+  <div id="center" style="text-align:center"></div>
+  <div id="center2"></div>
+
+  <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_client', 'report'	 %>
+</div>

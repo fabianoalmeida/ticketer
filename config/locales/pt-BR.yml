@@ -399,6 +399,8 @@
         quantity: "Quantidade"
       attendances_by_wickets_per_day: 
         name: "Atendimentos por Guichê por dia"
-      waiting_time_by_wicket: 
-        name: "Tempo de atendimentos por Guichê"
+      waiting_time_by_wicket : 
+        name: "Tempo de atendimento por Guichê"
+      waiting_time_by_client : 
+        name: "Tempo de espera do Cliente"
       print: "Imprimir"

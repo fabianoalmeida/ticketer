@@ -35,7 +35,7 @@ class Report
       called_table = <<-SQL
         (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
            FROM call_histories
-           WHERE call_histories.status_ticket_id = 3
+           WHERE call_histories.status_ticket_id = #{StatusTicket.called.id}
            GROUP BY call_histories.ticket_id, call_histories.wicket_id
            ORDER BY call_histories.wicket_id, call_histories.ticket_id) called
       SQL
@@ -43,7 +43,7 @@ class Report
       attended_table = <<-SQL
         (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
            FROM call_histories
-           WHERE call_histories.status_ticket_id = 2
+           WHERE call_histories.status_ticket_id = #{StatusTicket.attended.id}
            GROUP BY call_histories.ticket_id, call_histories.wicket_id
            ORDER BY call_histories.wicket_id, call_histories.ticket_id) attended
       SQL
@@ -75,5 +75,26 @@ class Report
      
       var_return.to_a
     end
-  end
+    
+    def waiting_time_by_client(start_date, end_date)
+      attended_table = <<-SQL
+        (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
+           FROM call_histories
+           WHERE call_histories.status_ticket_id = #{StatusTicket.attended.id}
+           GROUP BY call_histories.ticket_id, call_histories.wicket_id
+           ORDER BY call_histories.wicket_id, call_histories.ticket_id) attended
+      SQL
+      
+      select = <<-SQL 
+        to_char(trunc(t.created_at), 'dd/MM/yyyy') as data, count(attended.ticket_id) as total, avg(attended.created - t.created_at)  as time
+      SQL
+      
+      CallHistory.select(select)  
+                 .from("tickets t, #{attended_table}")
+                 .where("attended.ticket_id = t.id")
+                 .where("t.created_at" => start_date.midnight..end_date.tomorrow.midnight)
+                 .group("trunc(t.created_at)")
+                 .order("trunc(t.created_at)")
+    end
+  end #end Class#Self
 end

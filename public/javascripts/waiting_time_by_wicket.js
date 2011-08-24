@@ -133,6 +133,7 @@ function WaitingTimeByTicketD3(params){
 	
 	var buildVisualization = function(callback){
 		var objectReturn=  d3.select(element)
+							 .html("")
 							 .append("svg:svg")
 						  	 .attr("width", w + margin * 2)
 							 .attr("height", h + margin * 2)

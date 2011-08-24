@@ -2,14 +2,36 @@
 <div class="form">
   <h1 class="spotlight"><%= t('application.reports.attendances_by_wickets_per_day.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
-    <form id="perday">
+    <%= form_tag( attendances_by_wickets_per_day_reports_path, :method => "get" ) do %>
       <%= label_tag t('application.reports.since') %>
       <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
       <%= label_tag t('application.reports.to') %>
-      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true%>
-      <%= link_to image_tag("form/search.png") + t('application.search'), '#', :class => "button medium"%>
-    </form>
+      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true %>
+      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+    <% end %>
   </div>
-  <div id="center"></div>
-  <%= javascript_include_tag 'protovis', 'report_attendances_by_wickets_per_day', 'jquery.tipsy', 'tipsy' %>
+  <div id="graph" class="graph"></div>
+  <% if @attendances_per_day %>
+    <table>
+      <tr>
+        <th><%= "Guiche" %></th>
+        <th><%= "Data" %></th>
+        <th><%= "Quantidade" %></th>
+      </tr>
+      <% @attendances_per_day.each do |call_history| %>
+        <tr class="row">
+          <td><%= call_history.value %></td>
+          <td><%= call_history.date_local %></td>
+          <td><%= call_history.count_id %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="print">
+      <%= link_to t('application.reports.print'), attendances_by_wickets_per_day_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+    </div>
+  <% end %>
+  <%= javascript_include_tag 'protovis', 'report_attendances_by_wickets_per_day', 'jquery.tipsy', 'report', 'tipsy' %>
+  <script type='text/javascript'>
+    renderProtovis(<%= @attendances_per_day.to_json.html_safe %>);
+  </script>
 </div>

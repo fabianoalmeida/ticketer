@@ -2,7 +2,6 @@ function renderProtovis(hash) {
 
 
   if(hash == null){
-    alert('Nenhum registro encontrado para as datas selecionadas');
     return
   }
 
@@ -31,7 +30,7 @@ function renderProtovis(hash) {
       .left(70)
       .right(10)
       .top(5)
-      .canvas('center');
+      .canvas('graph');
 
   /* The bars. */
   var bar = vis.add(pv.Panel)

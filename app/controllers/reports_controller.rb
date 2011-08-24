@@ -52,6 +52,7 @@ class ReportsController < ApplicationController
           unless @waiting_time_by_wicket.empty?
             format.html
             format.json { render :json => @waiting_time_by_wicket }
+            format.pdf { render :layout => false }
           end
         else
           format.json {render :json => nil}
@@ -74,6 +75,7 @@ class ReportsController < ApplicationController
            unless @waiting_time_by_client.empty?
              format.html
              format.json { render :json => @waiting_time_by_client }
+             format.pdf { render :layout => false }
            end
          else
             format.json {render :json => nil}

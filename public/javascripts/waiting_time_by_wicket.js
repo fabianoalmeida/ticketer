@@ -214,7 +214,7 @@ $('a.medium' ).click( function() {
 		dataType: 'json',
 		data: param,
 		success: function(data){
-			new WaitingTimeByWicketD3({element : "#center", data : data});
+			new WaitingTimeByWicketD3({element : "#graph", data : data});
 		}
 	});
 });

@@ -164,7 +164,7 @@ $('a.medium' ).click( function() {
 		dataType: 'json',
 		data: param,
 		success: function(data){
-			new WaitingTimeByClientD3({element : "#center", data : data});
+			new WaitingTimeByClientD3({element : "#graph", data : data});
 		}
 	});
 });

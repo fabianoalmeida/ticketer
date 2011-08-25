@@ -96,7 +96,7 @@ function WaitingTimeByClientD3(params){
 		return objectReturn;
 	};
 	
-	var buildLineHorizontal = function(d3Object, callback){
+	var buildLineVertical = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
 								   .attr("class","x")
 								   .attr("x1", x)
@@ -111,7 +111,7 @@ function WaitingTimeByClientD3(params){
 		
 	};
 	
-	var buildLineVertical = function(d3Object, callback){
+	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
 								   .data(y.ticks(4)) 
 								   .attr("class", function(d) { return d ? null : "axis"; })
@@ -126,21 +126,21 @@ function WaitingTimeByClientD3(params){
 		return objectReturn;
 	};
 
-	var buildTextVertical = function(d3Object, callback){
+	var  buildTextHorizontal  = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:text")
 								   .data(y.ticks(4)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
 								   .attr("dx", "-.4em")
 								   .attr("text-anchor", "right")
-								   .text(String);
+								   .text(function(d) {return d + "h"});
 					
 		if(callback) callback(objectReturn);
 
 		return objectReturn;
 	};
 
-	var buildTextHorizontal = function(d3Object, callback){
+	var buildTextVertical = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:text")
 								   .attr("x", x)
 			       				   .attr("y", 3)

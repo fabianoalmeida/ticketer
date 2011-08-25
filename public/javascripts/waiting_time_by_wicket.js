@@ -83,24 +83,50 @@ function WaitingTimeByWicketD3(params){
 		var vis            = buildVisualization(), 
 		    rule           = buildRule(vis), 
 		    lineHorizontal = buildLineHorizontal(rule),
-		    lineVertical   = buildLineVertical(rule), 
 			textVertical   = buildTextVertical(rule),
 			textHorizontal = buildTextHorizontal(rule);
-			// legend         = buildLegend(vis, "red");
+		 	legend         = buildLegendBar(vis, wickets);
 			
 		for (var i = wickets.length - 1; i >= 0; i--){
 				drawGraph(vis,wickets[i].list, wickets[i].color );
 		};
 	};
 	
-	var buildLegend = function(d3Object, element, callback){
-		var legend  = d3Object.selectAll('g:legend')
-								  .enter()
-								  .append.svg.symbol()
-								  .type("square")
-								  .style("stroke", element)
+	var buildLegendBar = function(d3Object, elements, callback){
+		
+		var legendScale  =  d3.scale.linear().domain([0, elements.length]).range([0+margin, w - margin]),
+		
+			legend 		 =	d3Object.append("svg:g")
+									.attr("class","legend");
+									
+			legend.selectAll("rect")
+					.data(elements)
+					.enter()
+					.append("svg:rect")
+					.attr("width", "25")
+					.attr("height","15")
+					.attr("fill", function(d) {return d.color})
+					.attr("x", function(d,i) { return legendScale(i); })
+					.attr("y", margin);
+
+			d3Object.select("g.legend")
+					.selectAll("text.legend")
+					.data(elements)
+					.enter()
+					.append("svg:text")
+					.attr("class","legend")
+					.attr("x", function(d,i) { return legendScale(i); })
+					.attr("y", margin)
+					.attr("dx", "3em")
+					.attr("dy", "1em")
+					.text(function(d) {return d.name});
 								  
 	};
+	
+	var buildLenged = function(d3Object, element, positionX, color, callback){
+
+									
+	}
 	
 	var buildRule = function(d3Object, callback){
 		var objectReturn = d3Object.selectAll("g.rule")
@@ -146,7 +172,7 @@ function WaitingTimeByWicketD3(params){
 	};
 	
 
-	var buildLineHorizontal = function(d3Object, callback){
+	var buildLineVertical = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
 								   .attr("class","x")
 								   .attr("x1", x)
@@ -161,7 +187,7 @@ function WaitingTimeByWicketD3(params){
 		
 	};
 	
-	var buildLineVertical = function(d3Object, callback){
+	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
 								   .data(y.ticks(4)) 
 								   .attr("class", function(d) { return d ? null : "axis"; })
@@ -181,9 +207,9 @@ function WaitingTimeByWicketD3(params){
 								   .data(y.ticks(4)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
-								   .attr("dx", "-.4em")
+								   .attr("dx", "-1em")
 								   .attr("text-anchor", "right")
-								   .text(String);
+								   .text(function(d) { return d + "h"});
 					
 		if(callback) callback(objectReturn);
 
@@ -207,6 +233,8 @@ function WaitingTimeByWicketD3(params){
 }
 
 $('a.medium' ).click( function() {
+	// WaitingTimeByWicketD3({element : "#center", data : json()})
+	
 	var form = $('form');
 	var param = form.serializeArray();
 	$.ajax({

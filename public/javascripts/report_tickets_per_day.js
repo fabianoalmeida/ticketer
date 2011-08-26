@@ -1,6 +1,6 @@
 function renderProtovis(hash) {
 
-  if(hash == ""){
+  if(hash == "" || hash == null){
     return
   }
   var keys = Array();

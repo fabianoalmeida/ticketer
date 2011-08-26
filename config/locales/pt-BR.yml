@@ -405,6 +405,12 @@
         quantity: "Quantidade"
       waiting_time_by_wicket : 
         name: "Tempo de atendimento por Guichê"
+        date : "Data"
+        time : "Tempo"
+        total : "Total"
       waiting_time_by_client : 
         name: "Tempo de espera do Cliente"
+        date: "Data"
+        time : "Tempo"
+        quantity: "Quantidade"
       print: "Imprimir"

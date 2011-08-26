@@ -1,10 +1,6 @@
 function WaitingTimeByWicketD3(params){
 	
 	if(params.data == null || params.element == null){
-		if(params.data == null){
-			alert('Nenhum registro encontrado para as datas selecionadas');
-			return null;
-		}
 		return null;
 	};
 		
@@ -98,7 +94,7 @@ function WaitingTimeByWicketD3(params){
 		
 			legend 		 =	d3Object.append("svg:g")
 									.attr("class","legend");
-									
+			//Colors of Wicket correspondent to graph						
 			legend.selectAll("rect")
 					.data(elements)
 					.enter()
@@ -108,7 +104,7 @@ function WaitingTimeByWicketD3(params){
 					.attr("fill", function(d) {return d.color})
 					.attr("x", function(d,i) { return legendScale(i); })
 					.attr("y", margin);
-
+             // Name of wicket to givem color
 			d3Object.select("g.legend")
 					.selectAll("text.legend")
 					.data(elements)

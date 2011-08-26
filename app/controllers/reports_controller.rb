@@ -53,14 +53,19 @@ class ReportsController < ApplicationController
             format.html
             format.json { render :json => @waiting_time_by_wicket }
             format.pdf { render :layout => false }
+          else
+              format.json {render :json => nil}
           end
         else
+          format.html {render :notice => I18n.t('application.no_results')}
           format.json {render :json => nil}
         end
       else
          format.html {render :notice => I18n.t('application.no_results')}
          format.json {render :json => nil}
       end
+        format.html {render :notice => I18n.t('application.no_results')}
+        format.json {render :json => nil}
     end
   end
   
@@ -78,6 +83,7 @@ class ReportsController < ApplicationController
              format.pdf { render :layout => false }
            end
          else
+            format.html {render :notice => I18n.t('application.no_results')}
             format.json {render :json => nil}
          end
        else

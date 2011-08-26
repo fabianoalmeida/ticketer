@@ -22,11 +22,11 @@ total= 0
 length= 0
 
 @attendances_per_day.each do |call_history|
+  length += call_history[1].values[0].size
   call_history[1].values[0].each_with_index do |val, index|
 	current_date = call_history[1][:dates][index].to_date
     data << [ index == 0 ? call_history[0].to_s : "", "#{l(current_date, :format => :default)} (#{l(current_date, :format => '%A')})", val.to_s ]
     total += val
-	length += 1
   end
 end
 

@@ -20,8 +20,9 @@
         <th style="text-align: center;"><%= t('application.reports.attendances_by_wickets_per_day.quantity') %></th>
       </tr>
       <% total= 0 %>
-      <% length= @attendances_per_day.length %>
+      <% length= 0 %>
       <% @attendances_per_day.each do |call_history| %>
+		<% length += call_history[1].values[0].size %>
         <tr>
           <td width="180px" style="text-align: center; background-color : white" rowspan="<%=call_history[1].values[0].size + 1 %>"><%= call_history[0]%></td>
         </tr>
@@ -36,7 +37,7 @@
       <% end %>
         <tr>
           <td colspan="2" style="text-align: right;"><%= t('application.reports.average') %></td>
-          <td style="text-align: center;"><%= t(total / length, :format => :default) %></td>
+          <td style="text-align: center;"><%= total / length %></td>
         </tr>
         <tr>
           <td colspan="2" style="text-align: right;"><%= t('application.reports.total') %></td>

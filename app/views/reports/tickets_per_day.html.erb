@@ -11,7 +11,7 @@
     <% end %>
   </div>
   <div id="graph" class="graph"></div>
-  <% if @tickets_per_day %>
+  <% unless @tickets_per_day.nil? || @tickets_per_day.empty? %>
     <table>
       <tr>
         <th><%= t("application.reports.tickets_per_day.date") %></th>
@@ -20,8 +20,9 @@
       <% total= 0 %>
       <% length= @tickets_per_day.length %>
       <% @tickets_per_day.each do |ticket| %>
+        <% current_date = ticket.date_local.to_date %>
         <tr class="row">
-          <td width="100%"><%= ticket.date_local %></td>
+          <td width="100%"><%= l(current_date, :format => :default) %> (<%=l(current_date, :format => '%A') %>)</td>
           <td style="text-align: center;"><%= ticket.count_id %></td>
         </tr>
         <% total += ticket.count_id %>

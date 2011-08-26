@@ -31,7 +31,7 @@ length       = 0
 	current_date = call_history[1][index][:data].to_date
     data << [  index == 0 ? call_history[0].to_s : "", 
 			 "#{l(current_date, :format => :default)} (#{l(current_date, :format => '%A')})", 
-			  "#{number_with_precision(call_history[1][index][:time], :precision => 2)} #{t('datetime.prompts.hour').pluralize}", 
+			  "#{call_history[1][index][:time].duration}", 
 			  val[:total] ]
     totalTimes += call_history[1][index][:time]
     totalTickets += val[:total]
@@ -41,7 +41,7 @@ end
 pdf.table(
   data, 
   :header => true, 
-  :column_widths => [130, 140, 140, 120], 
+  :column_widths => [130, 140, 160, 100], 
   :row_colors => ["F0F0F0", "FFFFFF"]) do
 
   row(0).style :background_color => '5F9410', :text_color => 'ffffff', :align => :center, :font_style => :bold
@@ -50,17 +50,17 @@ end
 
 footer = [["", 
 		   "#{t('application.reports.average')}", 
-		   "#{number_with_precision(totalTimes / length, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" ,
+		   "#{(totalTimes / length).duration}" ,
 			totalTickets / length 
 			],
  		   ["",
  		   "#{t('application.reports.total')}", 
-			"#{number_with_precision(totalTimes, :precision => 2)} #{t('datetime.prompts.hour').pluralize}",
+			"#{totalTimes.duration}",
 			totalTickets ]]
 
 pdf.table(
   footer, 
-  :column_widths => [130, 140, 140, 120]) do
+  :column_widths => [130, 140, 160, 100]) do
 
   row(0).style :background_color => 'B2C430', :text_color => 'ffffff', :align => :center, :font_style => :bold
   row(0).columns(0).style :align => :right

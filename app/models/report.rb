@@ -49,7 +49,7 @@ class Report
       SQL
 
       select = <<-SQL
-        called.wicket_id, wickets.value as wicket_name , to_char(trunc(called.created), 'dd/MM/yyyy') as data , count(called.ticket_id) as total , avg(attended.created-called.created) * 24 as time
+        called.wicket_id, wickets.value as wicket_name , to_char(trunc(called.created), 'dd/MM/yyyy') as data , count(called.ticket_id) as total , avg(attended.created-called.created) * 24 * 60 as time
       SQL
 
         where = <<-SQL

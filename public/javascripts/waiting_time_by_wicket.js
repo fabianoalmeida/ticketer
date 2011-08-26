@@ -12,7 +12,7 @@ function WaitingTimeByWicketD3(params){
 			print   : d3.time.format("%d/%m"),
 			w       : 700,
 			h       : 400,
-			margin  : 20
+			margin  : 30
 	};
 	
 	var init = function(){
@@ -118,11 +118,7 @@ function WaitingTimeByWicketD3(params){
 					.text(function(d) {return d.name});
 								  
 	};
-	
-	var buildLenged = function(d3Object, element, positionX, color, callback){
 
-									
-	}
 	
 	var buildRule = function(d3Object, callback){
 		var objectReturn = d3Object.selectAll("g.rule")
@@ -203,9 +199,9 @@ function WaitingTimeByWicketD3(params){
 								   .data(y.ticks(4)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
-								   .attr("dx", "-1em")
+								   .attr("dx", "-2em")
 								   .attr("text-anchor", "right")
-								   .text(function(d) { return d + "h"});
+								   .text(function(d) { return d + " min"});
 					
 		if(callback) callback(objectReturn);
 

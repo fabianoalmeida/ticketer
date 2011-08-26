@@ -12,15 +12,15 @@ function WaitingTimeByClientD3(params){
 			print   : d3.time.format("%d/%m"),
 			w       : 700,
 			h       : 400,
-			margin  : 20
+			margin  : 30
 	};
 	
 	var init = function(){
-		extract = extractDataAndKey(settings.map);
-		settings.keys = extract.keys;
-		settings.data = extract.data;		
+		extract = extractDataAndKey(settings.map),
+		settings.keys = extract.keys,
+		settings.data = extract.data,
 		settings.y    = d3.scale.linear().domain([0, d3.max(settings.data)]).range([0 + settings.margin, settings.h - settings.margin]),
-		settings.x    = d3.time.scale().domain([d3.min(settings.keys), d3.max(settings.keys)]).range([0 + settings.margin, settings.w - settings.margin]);
+		settings.x    = d3.time.scale().domain([d3.min(settings.keys), d3.max(settings.keys)]).range([0 + settings.margin, settings.w - settings.margin]),
 		$.extend(this,settings);
 		buildGraph();
 	}
@@ -36,7 +36,7 @@ function WaitingTimeByClientD3(params){
 			
 		for (var index = hash.length - 1; index >= 0; index--){
 			keys.push(settings.format.parse(hash[index].call_history.data));
-			data.push(hash[index].call_history.time);
+			data.push(Math.round(hash[index].call_history.time));
 		};
 		
 		return{ keys : keys, data : data};
@@ -109,7 +109,7 @@ function WaitingTimeByClientD3(params){
 	
 	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
-								   .data(y.ticks(4)) 
+								   .data(y.ticks(6)) 
 								   .attr("class", function(d) { return d ? null : "axis"; })
 								   .attr("y1",function(d) { return -1 * y(d) })
 								   .attr("y2", function(d) { return -1 * y(d) })
@@ -124,12 +124,12 @@ function WaitingTimeByClientD3(params){
 
 	var  buildTextHorizontal  = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:text")
-								   .data(y.ticks(4)) 
+								   .data(y.ticks(6)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
-								   .attr("dx", "-.4em")
+								   .attr("dx", "-1.5em")
 								   .attr("text-anchor", "right")
-								   .text(function(d) {return d + "h"});
+								   .text(function(d) {return d + " min"});
 					
 		if(callback) callback(objectReturn);
 

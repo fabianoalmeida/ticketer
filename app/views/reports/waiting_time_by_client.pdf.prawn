@@ -27,7 +27,7 @@ length= @waiting_time_by_client.length
 @waiting_time_by_client.each do |call_history|
 	current_date = call_history[:data].to_date
     data << [ "#{l(current_date, :format => :default)} (#{l(current_date, :format => '%A')})", 
-			  "#{number_with_precision(call_history[:time], :precision => 2)} #{t('datetime.prompts.hour').pluralize}", 
+			  "#{call_history[:time].duration}", 
               call_history[:total]]
 
     totalHour += call_history[:time]
@@ -37,7 +37,7 @@ end
 pdf.table(
   data, 
   :header => true, 
-  :column_widths => [180, 180, 180], 
+  :column_widths => [180, 200, 160], 
   :row_colors => ["F0F0F0", "FFFFFF"]) do
 
   row(0).style :background_color => '5F9410', :text_color => 'ffffff', :align => :center, :font_style => :bold
@@ -45,16 +45,16 @@ pdf.table(
 end
 
 footer = [[ "#{t('application.reports.average')}", 
-		   "#{number_with_precision(totalHour / length, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" ,
+		   "#{(totalHour / length).duration}" ,
 			totalTickets / length
 			],
 		  [ "#{t('application.reports.total')}", 
-		   "#{number_with_precision(totalHour, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" ,
+		   "#{totalHour.duration}" ,
 			totalTickets ]]
 
 pdf.table(
   footer, 
-  :column_widths => [180, 180, 180]) do
+  :column_widths => [180, 200, 160]) do
 
   row(0).style :background_color => 'B2C430', :text_color => 'ffffff', :align => :center, :font_style => :bold
   row(0).columns(0).style :align => :right

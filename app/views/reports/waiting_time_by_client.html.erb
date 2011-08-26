@@ -46,7 +46,7 @@ text {
          <tr class="row">
 		   <% current_date = call_history[:data].to_date %>
            <td width="50%"><%= l(current_date, :format => :default) %> (<%=l(current_date, :format => '%A') %>)</td>
- 		   <td style="text-align : center" width="40%"><%= "#{number_with_precision(call_history[:time], :precision => 2)}  #{t('datetime.prompts.hour').pluralize}"%></td>
+ 		   <td style="text-align : center" width="40%"><%= call_history[:time].duration %></td>
            <td style="text-align : center" ><%= call_history[:total] %></td>
          </tr>
          <% totalHours += call_history[:time] %>
@@ -54,12 +54,12 @@ text {
       <% end %>
         <tr>
           <td style="text-align: right;"><%= t('application.reports.average') %></td>
-          <td style="text-align: center;"><%= "#{number_with_precision((totalHours / length), :precision => 2)} #{t('datetime.prompts.hour').pluralize}" %></td>
+          <td style="text-align: center;"><%= (totalHours / length).duration %></td>
           <td style="text-align: center;"><%= totalTickets / length %></td>
         </tr>
         <tr>
           <td style="text-align: right;"><%= t('application.reports.total') %></td>
-          <td style="text-align: center;"><%= "#{number_with_precision(totalHours, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" %></td>
+          <td style="text-align: center;"><%= totalHours.duration %></td>
           <td style="text-align: center;"><%= totalTickets %></td>
         </tr>
     </table>

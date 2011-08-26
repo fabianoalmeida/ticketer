@@ -86,7 +86,7 @@ class Report
       SQL
       
       select = <<-SQL 
-        to_char(trunc(t.created_at), 'dd/MM/yyyy') as data, count(attended.ticket_id) as total, avg(attended.created - t.created_at) * 24  as time
+        to_char(trunc(t.created_at), 'dd/MM/yyyy') as data, count(attended.ticket_id) as total, avg(attended.created - t.created_at) * 24 * 60 as time
       SQL
       
       CallHistory.select(select)  

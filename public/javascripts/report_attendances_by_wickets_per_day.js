@@ -1,7 +1,6 @@
 function renderProtovis(hash) {
 
-
-  if(hash == null){
+  if(hash == ""){
     return
   }
 

@@ -8,23 +8,25 @@ pdf.text_box "Ticketer", :font => "Georgia, Serif", :size => 40, :at => [355, 71
 pdf.move_down 30
 
 pdf.fill_color "000000"
-pdf.text "#{ t('application.reports.tickets_per_day.name') }", :size => 20, :align => :center
+pdf.text "#{ t('application.reports.attendances_by_wickets_per_day.name') }", :size => 20, :align => :center
 
 pdf.move_down 20
 
 pdf.fill_color "000000"
 
-data ||= [ ["#{ t('activerecord.models.wicket') }", "#{ t('application.reports.attendances_by_wickets_per_day.date') }", "#{ t('application.reports.attendances_by_wickets_per_day.quantity') }"] ]
+data = [ [ t('activerecord.models.wicket').to_s, t('application.reports.attendances_by_wickets_per_day.date').to_s,  t('application.reports.attendances_by_wickets_per_day.quantity').to_s ] ]
 
 pdf.font_size 10
 
 total= 0
-length= @attendances_per_day.length
+length= 0
 
 @attendances_per_day.each do |call_history|
   call_history[1].values[0].each_with_index do |val, index|
-    data << [ call_history[0], call_history[1][:dates][index], val ]
+	current_date = call_history[1][:dates][index].to_date
+    data << [ index == 0 ? call_history[0].to_s : "", "#{l(current_date, :format => :default)} (#{l(current_date, :format => '%A')})", val.to_s ]
     total += val
+	length += 1
   end
 end
 
@@ -38,7 +40,7 @@ pdf.table(
   row(1..length).style :align => :center
 end
 
-footer ||= []
+footer = []
 footer << [ "", "#{t('application.reports.average')}", total / length ]
 footer << [ "", "#{t('application.reports.total')}", total ]
 
@@ -56,5 +58,5 @@ pdf.fill_color "000000"
 pdf.text_box "#{ l(DateTime.now, :format => :default) }", :size => 10, :at => [0, 15]
 
 pdf.repeat(:all, :dynamic => true) do
-  pdf.draw_text pdf.page_number, :at => [500, 0]
+  pdf.draw_text pdf.page_number, :at => [550, 0]
 end

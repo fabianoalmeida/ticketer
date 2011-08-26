@@ -38,6 +38,8 @@ class ReportsController < ApplicationController
         format.html {render :notice => I18n.t('application.no_results')}
         format.json {render :json => nil}
       end
+      format.html {render :notice => I18n.t('application.no_results')}
+      format.json {render :json => nil}
     end
   end
   

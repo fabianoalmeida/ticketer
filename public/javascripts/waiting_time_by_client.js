@@ -1,10 +1,6 @@
 function WaitingTimeByClientD3(params){
 	
 	if(params.data == null || params.element == null){
-		if(params.data == null){
-			alert('Nenhum registro encontrado para as datas selecionadas');
-			return null;
-		}
 		return null;
 	};
 		

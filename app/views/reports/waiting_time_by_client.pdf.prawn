@@ -8,24 +8,30 @@ pdf.text_box "Ticketer", :font => "Georgia, Serif", :size => 40, :at => [355, 71
 pdf.move_down 30
 
 pdf.fill_color "000000"
-pdf.text "#{ t('application.reports.tickets_per_day.name') }", :size => 20, :align => :center
+pdf.text "#{ t('application.reports.waiting_time_by_client.name') }", :size => 20, :align => :center
 
 pdf.move_down 20
 
 pdf.fill_color "000000"
 
-data ||= [ ["#{ t('activerecord.models.wicket') }", "#{ t('application.reports.attendances_by_wickets_per_day.date') }", "#{ t('application.reports.attendances_by_wickets_per_day.quantity') }"] ]
+data = [["#{ t('application.reports.waiting_time_by_client.date') }", 
+		 "#{ t('application.reports.waiting_time_by_client.time') }", 
+		 "#{ t('application.reports.waiting_time_by_client.quantity') }"] ]
 
 pdf.font_size 10
 
-total= 0
-length= @attendances_per_day.length
+totalHour = 0
+totalTickets = 0
+length= @waiting_time_by_client.length
 
-@attendances_per_day.each do |call_history|
-  call_history[1].values[0].each_with_index do |val, index|
-    data << [ call_history[0], call_history[1][:dates][index], val ]
-    total += val
-  end
+@waiting_time_by_client.each do |call_history|
+	current_date = call_history[:data].to_date
+    data << [ "#{l(current_date, :format => :default)} (#{l(current_date, :format => '%A')})", 
+			  "#{number_with_precision(call_history[:time], :precision => 2)} #{t('datetime.prompts.hour').pluralize}", 
+              call_history[:total]]
+
+    totalHour += call_history[:time]
+    totalTickets += call_history[:total]
 end
 
 pdf.table(
@@ -38,9 +44,13 @@ pdf.table(
   row(1..length).style :align => :center
 end
 
-footer ||= []
-footer << [ "", "#{t('application.reports.average')}", total / length ]
-footer << [ "", "#{t('application.reports.total')}", total ]
+footer = [[ "#{t('application.reports.average')}", 
+		   "#{number_with_precision(totalHour / length, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" ,
+			totalTickets / length
+			],
+		  [ "#{t('application.reports.total')}", 
+		   "#{number_with_precision(totalHour, :precision => 2)} #{t('datetime.prompts.hour').pluralize}" ,
+			totalTickets ]]
 
 pdf.table(
   footer, 

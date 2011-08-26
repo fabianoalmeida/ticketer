@@ -63,7 +63,7 @@ function WaitingTimeByWicketD3(params){
 			
 			for (var x = list.length -1 ; x >= 0; x--){
 				data.push(settings.format.parse(list[x].wicket.data));
-				times.push(list[x].wicket.time);
+				times.push(Math.round(list[x].wicket.time));
 				acount.push(list[x].wicket.total);
 			};
 		};

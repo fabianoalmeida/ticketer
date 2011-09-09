@@ -52,7 +52,7 @@
                <%= ticket.value %>
              </td>
              <td>
-               <%= ticket.wickets.last.value %>
+               <%= truncate ticket.wickets.last.value,  :length => 12 %>
              </td>
            </tr>
          <% end %>
@@ -84,7 +84,7 @@
                <%= ticket.value %>
              </td>
              <td>
-               <%= ticket.wickets.last.value %>
+               <%= truncate ticket.wickets.last.value,  :length => 12 %>
              </td>
            </tr>
          <% end %>

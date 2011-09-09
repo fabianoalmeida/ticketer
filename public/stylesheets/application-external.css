@@ -139,9 +139,9 @@ img.logo {
   box-shadow: 3px 1px 15.9px #000000;
   color: #FFFFFF;
   float: right;
-  font-size: 60px;
+  font-size: 50px;
   margin: 10px;
-  padding: 30px 30px 15px;
+  padding: 20px 30px 10px;
   text-align: left;
   text-shadow: 2px 2px #1C8E49;
   width: 600px;
@@ -154,7 +154,7 @@ img.logo {
     padding: 30px 30px 5px;
     text-align: left;
     width: 600px;
-    margin: 30px 140px;
+    margin: 10px 140px;
 }
 
 div.ticket_type:hover {

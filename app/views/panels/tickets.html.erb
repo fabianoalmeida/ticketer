@@ -78,7 +78,7 @@
        </tr>
        <% unless @tickets.empty?  %>
          <% @tickets_1 = @tickets.slice(0, 3)  %>
-         <% @tickets_2.each do |ticket| %>
+         <% @tickets_1.each do |ticket| %>
            <tr class="item">
              <td>
                <%= ticket.value %>

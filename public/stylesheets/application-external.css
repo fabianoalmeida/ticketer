@@ -148,9 +148,10 @@ img.logo {
 }
 
 .totem .ticket_type_group {
-    color: #1C8E49;
+    color: #D10000;
     float: right;
-    font-size: 35px;
+    font-size: 48px;
+	font-weight: bold;
     padding: 30px 30px 5px;
     text-align: left;
     width: 600px;

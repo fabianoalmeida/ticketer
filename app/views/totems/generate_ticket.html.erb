@@ -1,5 +1,5 @@
 <div class="totem">
-<%= form_for( Ticket.new ) do |f| %>
+<%= form_for( @ticket ) do |f| %>
   <%= f.hidden_field :ticket_type_id %>
   <%= f.hidden_field :totem_id, :value => params[:totem_id] %>
   <%= f.hidden_field :place_id, :value => params[:place_id] %>

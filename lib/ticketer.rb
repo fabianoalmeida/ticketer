@@ -7,8 +7,13 @@ module Ticketer
   ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
     self.default_sequence_start_value = 1
   end
+
+  class << self
+    def redis
+      @redis ||= Redis.new
+    end
+  end
   
- 
 end
 class Numeric
    def duration

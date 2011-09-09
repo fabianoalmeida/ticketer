@@ -3,14 +3,17 @@ jQuery(function($){
   var juggernaut = { 
 
     init : function(){ 
-      this.socket = new Juggernaut; 
-   
-      this.socket.on("disconnect", this.proxy(this.disconnect));
 
-      this.socket.subscribe('/ticketer',process);
-      $('body').bind('ajaxSend', this.proxy(function(e, xhr){
-          xhr.setRequestHeader('X-Session-ID', this.socket.sessionID);
-      }));
+
+   	var client =  new Faye.Client("http://"+ window.location.hostname +":8080/faye", {
+       	timeout: 120
+   	});
+
+    client.subscribe('/ticketer', process);
+      // 
+      // $('body').bind('ajaxSend', this.proxy(function(e, xhr){
+      //     xhr.setRequestHeader('X-Session-ID', this.socket.sessionID);
+      // }));
     }, 
 
     proxy: function(func){       

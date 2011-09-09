@@ -33,7 +33,7 @@
       new_item = $('<div/>').addClass("item").html(data.ticket_type_group + "<br/>" + data.value + " - " + data.wicket_value);
       tr = $("<tr/>").addClass("item");
       td_value = $("<td/>").text(data.value);
-      td_wicket = $("<td/>").text(data.wicket_value);
+      td_wicket = $("<td/>").text(data.wicket_value.slice(0,9));
       tr.append(td_value).append(td_wicket);
 
       $('div.history_calls #first.items .label').after(tr);

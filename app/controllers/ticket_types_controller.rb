@@ -2,7 +2,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types
   # GET /ticket_types.json
   def index
-    @ticket_types = TicketType.where(:ticket_type_group_id => params[:ticket_type_group_id])
+    @ticket_types = TicketType.where(:ticket_type_group_id => params[:ticket_type_group_id], :status_id => Status.active)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,9 +79,9 @@ class TicketTypesController < ApplicationController
   # DELETE /ticket_types/1.json
   def destroy
     @ticket_type = TicketType.find(params[:id])
-    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
-    @ticket_type.destroy
-
+    @ticket_type.status = Status.inactive
+    @ticket_type.save 
+    
     respond_to do |format|
       format.html { redirect_to(ticket_type_group_ticket_types_url) }
       format.json  { head :ok }

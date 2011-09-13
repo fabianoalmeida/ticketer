@@ -19,9 +19,9 @@
           <%= link_to image_tag("form/edit.gif"), edit_place_wicket_path(wicket.place, wicket),  :title => t('model.edit') %>
         </td>
         <td>
-          <%= link_to image_tag("form/trash.gif"), "#",  :title => t('model.destroy') %>
-        </td>
-      </tr>
+			<%= link_to image_tag("form/trash.gif"), place_wicket_path(wicket.place, wicket), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %>
+		</td>   
+	  </tr>
     <% end %>
 
   </table>

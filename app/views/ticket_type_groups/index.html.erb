@@ -6,14 +6,15 @@
   <table>
     <tr>
       <th><%=  t('model.ticket_type_group.name').pluralize %></th>
-      <th colspan="3" class="options"><%= t("application.options") %></th>
+      <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @ticket_type_groups.each do |ticket_type_group| %>
       <tr class="row">
         <td width="100%"><%= ticket_type_group.value %></td>
         <td><%= link_to image_tag("form/search.gif"), ticket_type_group %></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_ticket_type_group_path(ticket_type_group) %></td>
-        <td><%= link_to image_tag("form/trash.gif"), ticket_type_group_ticket_types_path(ticket_type_group) %></td>
+        <td><%= link_to image_tag("form/note.gif"), ticket_type_group_ticket_types_path(ticket_type_group) %></td>
+        <td><%= link_to image_tag("form/trash.gif"), ticket_type_group, :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %></td>
       </tr>
     <% end %>
   </table>

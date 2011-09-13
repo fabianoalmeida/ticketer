@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all
+    @places = Place.where(:status_id => Status.active.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -74,8 +74,9 @@ class PlacesController < ApplicationController
   # DELETE /places/1.json
   def destroy
     @place = Place.find(params[:id])
-    @place.destroy
-
+    @place.status = Status.active
+    @place.save
+    
     respond_to do |format|
       format.html { redirect_to(places_url) }
       format.json  { head :ok }

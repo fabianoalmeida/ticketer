@@ -6,7 +6,7 @@
   <table>
     <tr>
       <th><%=  t('model.totem.name').pluralize %></th>
-      <th colspan="3" class="options"><%= t("application.options") %></th>
+      <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @totems.each do |totem| %>
       <tr class="row">
@@ -20,6 +20,9 @@
         <td>
           <%= link_to image_tag("form/note.gif"), place_totem_generate_ticket_path(totem.place, totem.id), :title => t('model.generate') %>
         </td>
+        <td>
+			<%= link_to image_tag("form/trash.gif"), place_totem_path(totem.place, totem), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %>
+		</td>
       </tr>
     <% end %>
   </table>

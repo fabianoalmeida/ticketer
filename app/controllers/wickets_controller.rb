@@ -2,7 +2,7 @@ class WicketsController < ApplicationController
   # GET /wickets
   # GET /wickets.json
   def index
-    @wickets = Wicket.where(:place_id => params[:place_id])
+    @wickets = Wicket.where(:place_id => params[:place_id], :status_id => Status.active)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,8 +79,8 @@ class WicketsController < ApplicationController
   # DELETE /wickets/1.json
   def destroy
     @wicket = Wicket.find(params[:id])
-    @place = Place.find(params[:place_id])
-    @wicket.destroy
+    @wicket.status = Status.inactive
+    @wicket.save
 
     respond_to do |format|
       format.html { redirect_to(place_wickets_url(@place)) }

@@ -4,7 +4,7 @@ class TotemsController < ApplicationController
   # GET /totems
   # GET /totems.json
   def index
-    @totems = Totem.where(:place_id => params[:place_id])
+    @totems = Totem.where(:place_id => params[:place_id], :status_id => Status.active)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,8 +81,8 @@ class TotemsController < ApplicationController
   # DELETE /totems/1.json
   def destroy
     @totem = Totem.find(params[:id])
-    @place = Place.find(params[:place_id])
-    @totem.destroy
+    @totem.status = Status.inactive
+    @totem.save
 
     respond_to do |format|
       format.html { redirect_to(place_totems_url(@place)) }

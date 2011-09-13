@@ -2,7 +2,7 @@ class TicketTypeGroupsController < ApplicationController
   # GET /ticket_type_groups
   # GET /ticket_type_groups.xml
   def index
-    @ticket_type_groups = TicketTypeGroup.all
+    @ticket_type_groups = TicketTypeGroup.where(:status_id => Status.active)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -74,8 +74,9 @@ class TicketTypeGroupsController < ApplicationController
   # DELETE /ticket_type_groups/1.xml
   def destroy
     @ticket_type_group = TicketTypeGroup.find(params[:id])
-    @ticket_type_group.destroy
-
+    @ticket_type_group.status = Status.inactive
+    @ticket_type_group.save
+    
     respond_to do |format|
       format.html { redirect_to(ticket_type_groups_url) }
       format.xml  { head :ok }

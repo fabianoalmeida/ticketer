@@ -2,7 +2,7 @@ class PanelsController < ApplicationController
   # GET /panels
   # GET /panels.json
   def index
-    @panels = Panel.where(:place_id => params[:place_id])
+    @panels = Panel.where(:place_id => params[:place_id], :status_id => Status.active)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,9 +79,9 @@ class PanelsController < ApplicationController
   # DELETE /panels/1.json
   def destroy
     @panel = Panel.find(params[:id])
-    @place = Place.find(params[:place_id])
-    @panel.destroy
-
+    @panel.status = Status.inactive
+    @panel.save 
+    
     respond_to do |format|
       format.html { redirect_to(place_panels_url(@place)) }
       format.json  { head :ok }

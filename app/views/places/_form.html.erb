@@ -19,7 +19,7 @@
     <% if @place && @place.local_id && disabled %>
       <input type="text" value="<%= @place.local.des_local %>" disabled="disabled" class="form-txt form-small" />
     <% elsif %>
-      <%= f.collection_select( :local_id, Local.all, :id, :des_local, { :prompt => true }, :class => "form-small", :disabled => disabled  ) %>
+      <%= f.collection_select( :local_id, @locals, :id, :des_local, { :prompt => true }, :class => "form-small", :disabled => disabled  ) %>
     <% end %>
   </div>
 
@@ -31,7 +31,7 @@
           <%= check_box_tag "place[ticket_type_group_ids][]", ticket_type_group.id, @place.ticket_type_groups.include?(ticket_type_group), :disabled => disabled  %>
           <%= f.label ticket_type_group.value, :class => "form-lbl" %>
         </li>
-      <% end %>  
+      <% end %>
     </ul>
   </div>
 
@@ -40,7 +40,7 @@
     <ul class="form-list-rdo">
       <% Status.all.each do |status| %>
         <li>
-          <%= f.radio_button :status_id, status.id , :disabled => disabled  %> 
+          <%= f.radio_button :status_id, status.id , :disabled => disabled  %>
           <%= f.label status.value, :class => "form-lbl" %>
         </li>
       <% end %>
@@ -52,4 +52,4 @@
       <%= f.submit :class => "button form-right medium" %>
     </div>
   <%end%>
-<% end %> 
+<% end %>

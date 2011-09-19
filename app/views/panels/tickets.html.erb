@@ -11,23 +11,23 @@
 <div class="highlight">
 
   <div class="arrow">
-    <% display = @tickets.first.wickets.last.guidance_right? ? "block" : "none" unless @tickets.empty? %>
-    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets.empty? %>
+    <% display = @last_wicket.guidance_right? ? "block" : "none" if @last_wicket %>
+    <%= image_tag "arrow_right.png", :id => "image_right", :style => "display:#{display};" unless @tickets_empty %>
   </div>
 
   <div class="last_ticket">
     <div class="infos" >
-      <%= @tickets.empty? ? "--" : @tickets.first.wickets.last.value  %>
+      <%= @last_wicket.nil? ? "--" : @last_wicket.value  %>
     </div>
 
     <div class="label">
-      <%=@tickets.empty? ? "--" : @tickets.shift.value   %>
+      <%=@last_ticket.nil? ? "--" : @last_ticket.value   %>
     </div>
   </div>
 
   <div class="arrow">
-    <% display = @tickets.first.wickets.last.guidance_left? ? "block" : "none" unless @tickets.empty? %>
-    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets.empty? %>
+    <% display = @last_wicket.guidance_left? ? "block" : "none" if @last_wicket %>
+    <%= image_tag "arrow_left.png", :id => "image_left", :style => "display:#{display};" unless @tickets_empty %>
   </div>
   <div style="clear:both"></div>
 </div>
@@ -44,22 +44,16 @@
            <%= t('model.wicket.name').pluralize %>
          </th>
        </tr>
-       <% unless @tickets.empty? %>
-         <% @tickets_2 = @tickets.slice(@tickets.size/2, @tickets.size)  %>
-         <% @tickets_2.each do |ticket| %>
-           <tr class="item">
-             <td>
-               <%= ticket.value %>
-             </td>
-             <td>
-               <%= truncate ticket.wickets.last.value,  :length => 9, :omission => ''  %>
-             </td>
-           </tr>
-         <% end %>
-       <% else %>
-        <tr class="item"><td>--</td><td>--</td></tr>
-        <tr class="item"><td>--</td><td>--</td></tr>
-        <tr class="item"><td>--</td><td>--</td></tr>
+
+       <% 3.times do |index| %>
+         <tr class="item">
+           <td>
+             <%= @second_column[index].nil? ? "--" : @second_column[index].value %>
+           </td>
+           <td>
+             <%= @second_column[index].nil? ? "--" : @second_column[index].wickets.last.value %>
+           </td>
+         </tr>
        <% end %>
      </table>
    </div>
@@ -76,24 +70,17 @@
            <%= t('model.wicket.name').pluralize %>
          </th>
        </tr>
-       <% unless @tickets.empty?  %>
-         <% @tickets_1 = @tickets.slice(0, 3)  %>
-         <% @tickets_1.each do |ticket| %>
-           <tr class="item">
-             <td>
-               <%= ticket.value %>
-             </td>
-             <td>
-               <%= truncate ticket.wickets.last.value,  :length => 9, :omission => ''  %>
-             </td>
-           </tr>
-         <% end %>
-        <% else %>
-          <tr class="item"><td>--</td><td>--</td></tr>
-          <tr class="item"><td>--</td><td>--</td></tr>
-          <tr class="item"><td>--</td><td>--</td></tr>
+       <% 3.times do |index| %>
+         <tr class="item">
+           <td>
+             <%= @first_column[index].nil? ? "--" : @first_column[index].value %>
+           </td>
+           <td>
+             <%= @first_column[index].nil? ? "--" : @first_column[index].last_wicket_to_call.value %>
+           </td>
+         </tr>
        <% end %>
-      </table>
+     </table>
    </div>
    <div style="clear:both"></div>
 </div>

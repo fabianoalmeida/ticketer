@@ -78,6 +78,7 @@ class PanelsController < ApplicationController
   # DELETE /panels/1
   # DELETE /panels/1.json
   def destroy
+    @place = Place.find(params[:place_id])
     @panel = Panel.find(params[:id])
     @panel.status = Status.inactive
     @panel.save 
@@ -90,7 +91,22 @@ class PanelsController < ApplicationController
 
   def tickets
     @place = Place.find(params[:place_id])
-    @tickets = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(7)
+
+    tickets = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(7)
+    @tickets_empty = tickets.empty?
+    @first_column = @second_column = []
+
+    unless  @tickets_empty
+
+      @main_ticket = tickets.first
+      @last_wicket = CallHistory.last_wicket_to_call @main_ticket
+
+      tickets = tickets.split(6)
+      @first_column = tickets.first
+      @second_column = tickets.second if tickets.second
+    end
+
+
     render :layout => 'application-external'
   end
 end

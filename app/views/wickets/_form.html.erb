@@ -20,7 +20,11 @@
     <% if @place && !@place.ticket_type_groups.empty? && disabled %>
       <input type="text" value="<%= @place.local.des_local %>" disabled="disabled" class="form-txt form-small" />
     <% elsif %>
-      <%= f.collection_select( :ticket_type_group_id, @place.ticket_type_groups, :id, :value, { :prompt => true }, :class => "form-small", :disabled => disabled ) %>
+      <%= f.collection_select( :ticket_type_group_id,
+                              @ticket_type_groups,
+                              :id, :value,
+                              { :prompt => true },
+                              :class => "form-small", :disabled => disabled ) %>
     <% end %>
   </div>
 
@@ -46,7 +50,7 @@
         <%= f.label t('model.wicket.priority.sure'), :class => "form-lbl" %>
       </li>
       <li>
-        <%= f.radio_button :priority, "false", :disabled => disabled  %> 
+        <%= f.radio_button :priority, "false", :disabled => disabled  %>
         <%= f.label t('model.wicket.priority.not'), :class => "form-lbl"%>
       </li>
     </ul>
@@ -57,7 +61,7 @@
     <ul class="form-list-rdo">
       <% Status.all.each do |status| %>
         <li>
-          <%= f.radio_button :status_id, status.id , :disabled => disabled  %> 
+          <%= f.radio_button :status_id, status.id , :disabled => disabled  %>
           <%= f.label status.value, :class => "form-lbl" %>
         </li>
       <% end %>
@@ -68,4 +72,4 @@
       <%= f.submit :class => "button form-right medium" %>
     </div>
   <%end%>
-<% end %> 
+<% end %>

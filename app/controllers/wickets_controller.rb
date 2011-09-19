@@ -15,7 +15,7 @@ class WicketsController < ApplicationController
   def show
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-
+    @ticket_type_groups  = @place.ticket_type_groups
     respond_to do |format|
       format.html # show.html.erb
       format.json  { render :json => @wicket }
@@ -27,7 +27,7 @@ class WicketsController < ApplicationController
   def new
     @wicket = Wicket.new( :priority => false )
     @place = Place.find(params[:place_id])
-
+    @ticket_type_groups  = @place.ticket_type_groups
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @wicket }
@@ -38,6 +38,7 @@ class WicketsController < ApplicationController
   def edit
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
+    @ticket_type_groups  = @place.ticket_type_groups
   end
 
   # POST /wickets
@@ -45,6 +46,7 @@ class WicketsController < ApplicationController
   def create
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
+    @ticket_type_groups  = @place.ticket_type_groups
     @wicket.user= "user test"
 
     respond_to do |format|
@@ -63,6 +65,7 @@ class WicketsController < ApplicationController
   def update
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
+    @ticket_type_groups  = @place.ticket_type_groups
 
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])
@@ -78,6 +81,7 @@ class WicketsController < ApplicationController
   # DELETE /wickets/1
   # DELETE /wickets/1.json
   def destroy
+    @place  = Place.find(params[:place_id])
     @wicket = Wicket.find(params[:id])
     @wicket.status = Status.inactive
     @wicket.save

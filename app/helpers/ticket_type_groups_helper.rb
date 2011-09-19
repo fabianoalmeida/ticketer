@@ -1,2 +1,0 @@
-module TicketTypeGroupsHelper
-end

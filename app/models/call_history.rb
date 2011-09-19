@@ -12,8 +12,11 @@ class CallHistory < ActiveRecord::Base
 
   def self.register(record={})
     return false if record.empty?
-    new_record = self.new(:ticket => record[:ticket], :status_ticket => record[:ticket].status_ticket, :wicket => record[:wicket])
-    new_record.save
+    self.create(:ticket => record[:ticket], :status_ticket => record[:ticket].status_ticket, :wicket => record[:wicket])
 
+  end
+
+  def self.last_wicket_to_call(ticket)
+    where(:ticket_id => ticket.id, :status_ticket_id => StatusTicket.called.id).order(:created_at).last.wicket
   end
 end

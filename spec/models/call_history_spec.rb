@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CallHistory do
-  
+
   before( :each ) do
     @call_history = Factory.build(:call_history)
   end
@@ -22,35 +22,43 @@ describe CallHistory do
 
   context "Log and change state of ticket" do
 
-    before :each do 
+    before :each do
       @ticket = Factory(:ticket)
       @wicket = Factory(:wicket)
     end
 
-    it "register a new occurrence " do 
+    it "register a new occurrence " do
       CallHistory.register(:ticket => @ticket, :wicket => @wicket).should be_true
       CallHistory.where(:ticket_id => @ticket.id).should have_at_least(1).items
-      
     end
   end
-   describe "Call History Register for any State Transition" do 
-     
-     before :each do
-       @wicket = Factory :wicket 
-       @ticket = Factory :ticket 
-     end 
+  context "Retrieving data from call history" do
+    it "Should return the last wicket that called an given tickete" do
+      status = Factory(:status_ticket, :value => "Called")
+      wicket = Factory(:wicket)
+      ticket = Factory(:ticket, :status_ticket_id => status.id)
+      CallHistory.register(:ticket => ticket, :wicket => wicket).should be_true
+      CallHistory.last_wicket_to_call(ticket).should == wicket
+    end
+  end
+  describe "Call History Register for any State Transition" do
 
-     after :each do 
-       @wicket.destroy 
-       @ticket.destroy 
-     end
+    before :each do
+      @wicket = Factory :wicket
+      @ticket = Factory :ticket
+    end
 
-     it "Should register trnasition of ticket from opened to called" do 
-       CallHistory.register(:wicket => @wicket, :ticket => @ticket).should be_true
-       call_history_registed = CallHistory.where(:ticket_id => @ticket.id, :wicket_id => @wicket.id, :status_ticket_id => @ticket.status_ticket.id )
-       call_history_registed.should have(1).items
-       
-     end
-   end
+    after :each do
+      @wicket.destroy
+      @ticket.destroy
+    end
+
+    it "Should register trnasition of ticket from opened to called" do
+      CallHistory.register(:wicket => @wicket, :ticket => @ticket).should be_true
+      call_history_registed = CallHistory.where(:ticket_id => @ticket.id, :wicket_id => @wicket.id, :status_ticket_id => @ticket.status_ticket.id )
+      call_history_registed.should have(1).items
+
+    end
+  end
 
 end

@@ -6,6 +6,9 @@ require 'spec_helper'
 
 describe TicketTypesController do
 
+
+  render_views
+
   before( :each ) do
     TicketTypeGroup.stub(:find).with("1") {mock_ticket_type_group}
   end
@@ -119,7 +122,7 @@ describe TicketTypesController do
   describe "DELETE destroy" do
     it "destroys the requested ticket_type" do
       TicketType.stub(:find).with("37") { mock_ticket_type }
-      mock_ticket_type.should_receive(:destroy)
+      mock_ticket_type.should_receive(:status=) 
       delete :destroy, :id => "37", :ticket_type_group_id => "1"
     end
 

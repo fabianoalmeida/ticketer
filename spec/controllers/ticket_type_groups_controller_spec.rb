@@ -6,13 +6,15 @@ require 'spec_helper'
 
 describe TicketTypeGroupsController do
 
+  render_views
+
   def mock_ticket_type_group(stubs={})
     @mock_ticket_type_group ||= mock_model(TicketTypeGroup, stubs).as_null_object
   end
 
   describe "GET index" do
     it "assigns all ticket_type_groups as @ticket_type_groups" do
-      TicketTypeGroup.stub(:all) { [mock_ticket_type_group] }
+      TicketTypeGroup.stub(:where) { [mock_ticket_type_group] } 
       get :index
       assigns(:ticket_type_groups).should eq([mock_ticket_type_group])
     end
@@ -111,7 +113,7 @@ describe TicketTypeGroupsController do
   describe "DELETE destroy" do
     it "destroys the requested ticket_type_group" do
       TicketTypeGroup.stub(:find).with("37") { mock_ticket_type_group }
-      mock_ticket_type_group.should_receive(:destroy)
+      mock_ticket_type_group.should_receive(:status=)
       delete :destroy, :id => "37"
     end
 

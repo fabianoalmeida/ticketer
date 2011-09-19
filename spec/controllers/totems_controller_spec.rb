@@ -113,7 +113,7 @@ describe TotemsController do
   describe "DELETE destroy" do
     it "destroys the requested totem" do
       Totem.stub(:find).with("37") { mock_totem }
-      mock_totem.should_receive(:destroy)
+      mock_totem.should_receive(:status=)
       delete :destroy, :id => "37", :place_id => "1"
     end
 

@@ -80,6 +80,7 @@ class TotemsController < ApplicationController
   # DELETE /totems/1
   # DELETE /totems/1.json
   def destroy
+    @place = Place.find(params[:place_id])
     @totem = Totem.find(params[:id])
     @totem.status = Status.inactive
     @totem.save

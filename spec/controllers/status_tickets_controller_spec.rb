@@ -6,6 +6,8 @@ require 'spec_helper'
 
 describe StatusTicketsController do
 
+  render_views
+
   def mock_status_ticket(stubs={})
     @mock_status_ticket ||= mock_model(StatusTicket, stubs).as_null_object
   end

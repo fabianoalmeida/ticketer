@@ -6,6 +6,8 @@ require 'spec_helper'
 
 describe LocalsController do
 
+  render_views
+
   def mock_local(stubs={})
     @mock_local ||= mock_model(Local, stubs).as_null_object
   end

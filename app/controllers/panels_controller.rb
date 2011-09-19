@@ -94,15 +94,17 @@ class PanelsController < ApplicationController
 
     tickets = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(7)
     @tickets_empty = tickets.empty?
-    @first_column = @second_column = []
+    @second_column = [] 
+    @first_column = []
 
     unless  @tickets_empty
 
       @main_ticket = tickets.first
       @last_wicket = CallHistory.last_wicket_to_call @main_ticket
-
-      tickets = tickets.split(6)
-      @first_column = tickets.first
+      
+      tickets = tickets.each_slice(3).to_a
+      
+      @first_column = tickets.first 
       @second_column = tickets.second if tickets.second
     end
 

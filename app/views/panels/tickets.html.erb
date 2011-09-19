@@ -21,7 +21,7 @@
     </div>
 
     <div class="label">
-      <%=@last_ticket.nil? ? "--" : @last_ticket.value   %>
+      <%=@main_ticket.nil? ? "--" : @main_ticket.value   %>
     </div>
   </div>
 
@@ -31,7 +31,6 @@
   </div>
   <div style="clear:both"></div>
 </div>
-
 <div class="history_calls">
    <div  id="second" class="items">
      <table width="100%">
@@ -51,7 +50,7 @@
              <%= @second_column[index].nil? ? "--" : @second_column[index].value %>
            </td>
            <td>
-             <%= @second_column[index].nil? ? "--" : @second_column[index].wickets.last.value %>
+             <%= @second_column[index].nil? ? "--" : (truncate @second_column[index].last_wicket_to_call.value, :length => 9, :omission => '') %>
            </td>
          </tr>
        <% end %>
@@ -76,7 +75,7 @@
              <%= @first_column[index].nil? ? "--" : @first_column[index].value %>
            </td>
            <td>
-             <%= @first_column[index].nil? ? "--" : @first_column[index].last_wicket_to_call.value %>
+             <%= @first_column[index].nil? ? "--" : (truncate @first_column[index].last_wicket_to_call.value, :length => 9, :omission => '')%>
            </td>
          </tr>
        <% end %>

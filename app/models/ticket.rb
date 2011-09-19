@@ -34,6 +34,9 @@ class Ticket < ActiveRecord::Base
     Ticket.joins(:call_histories).where(tick[:place_id].eq(place).and(call[:status_ticket_id].eq(StatusTicket.called.id)))
   end
 
+  def last_wicket_to_call
+    self.wickets.last
+  end
 #select avg(strftime('%s', attended.created_at) - strftime('%s', called.created_at)) as avg_time from tickets t join (select ch.ticket_id, max( ch.created_at ) as created_at from call_histories ch where ch.status_ticket_id = 1 group by ch.ticket_id) called on called.ticket_id = t.id join
   #(select ch.ticket_id, max( ch.created_at ) as created_at from call_histories ch where ch.status_ticket_id = 3 group by ch.ticket_id) attended
   #on attended.ticket_id = t.id;

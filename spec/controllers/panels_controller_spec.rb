@@ -139,7 +139,7 @@ describe PanelsController do
     end
 
     it "grab all tickets for the place where it is" do
-      Ticket.stub_chain(:calleds_from_place, :today, :order){[mock_ticket(:value => "test", :last_wicket_to_call => mock_wicket)]}
+      Ticket.stub_chain(:calleds_from_place, :today, :order){ [mock_ticket(:value => "test", :last_wicket_to_call => mock_wicket)] }
       CallHistory.stub(:last_wicket_to_call){mock_wicket} 
       get :tickets, :place_id => "1", :panel_id => "1"
       assigns(:tickets_empty).should be_false

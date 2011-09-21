@@ -43,8 +43,13 @@ describe TicketsController do
       assigns(:ticket).should be(mock_ticket)
     end
   end
-
+  
   describe "POST create" do
+    
+    before :each do
+      TicketPrint.stub(:print){nil}
+    end
+    
     describe "with valid params" do
       it "assigns a newly created ticket as @ticket" do
         Ticket.stub(:new).with({'these' => 'params'}) { mock_ticket(:save => true) }
@@ -123,5 +128,4 @@ describe TicketsController do
       response.should redirect_to(tickets_url)
     end
   end
-
 end

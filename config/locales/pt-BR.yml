@@ -406,11 +406,11 @@
       waiting_time_by_wicket : 
         name: "Tempo de atendimento por Guichê"
         date : "Data"
-        time : "Tempo"
+        time : "Tempo Médio"
         total : "Total"
       waiting_time_by_client : 
         name: "Tempo de espera do Cliente"
         date: "Data"
-        time : "Tempo"
+        time : "Tempo Médio"
         quantity: "Quantidade"
       print: "Imprimir"

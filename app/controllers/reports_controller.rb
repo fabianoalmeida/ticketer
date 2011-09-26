@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
     end
   end
   
-  def waiting_time_by_wicket
+    def waiting_time_by_wicket
     respond_to do |format|
       unless params[:start_date].blank? && params[:end_date].blank?
         unless (params[:end_date].to_date - params[:start_date].to_date).to_i > 15
@@ -94,4 +94,23 @@ class ReportsController < ApplicationController
        end
      end
    end
+   
+   def tickets_per_month
+
+     respond_to do |format|
+       unless(params[:start_date].blank? && params[:end_date].blank?)
+         @tickets_per_day = Report.tickets_per_month(
+           params[:start_date].to_date,
+           params[:end_date].to_date
+         )
+         unless @tickets_per_day.empty?
+           format.html
+           format.json { render :json => @tickets_per_day }
+           format.pdf { render :layout => false }
+         end
+       end
+       format.html {render :notice => I18n.t('application.no_results')}
+       format.json {render :json => nil}
+     end    
+   end 
 end

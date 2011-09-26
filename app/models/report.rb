@@ -96,5 +96,20 @@ class Report
                  .group("trunc(t.created_at)")
                  .order("trunc(t.created_at)")
     end
+  
+    def tickets_per_month(start_date)
+      format = "{%Y, %m, %d}"
+      start  = Date.strptime("{#{start_date[:year]},#{start_date[:month]},01}", format)
+      ending = Date.strptime("{#{end_date[:year]},#{end_date[:month]},01}", format)
+     
+      Ticket.select("to_char(trunc(created_at), 'MM/yyyy' ) as date_local, count(id) as count_id")
+           .where(:created_at => start...ending.end_of_month)
+           .group("to_char(trunc(created_at), 'MM/yyyy' )")
+           .order("to_char(trunc(created_at), 'MM/yyyy' ) DESC")
+    end
+    
+    
   end #end Class#Self
+  
+  
 end

@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
+<div class="form">
+  <h1 class="spotlight"><%= t('application.reports.tickets_per_month.name') %></h1>
+  <div class="search" style="width:95%; margin-bottom: 30px">
+    <%= form_tag( tickets_per_month_reports_path, :method => "get" ) do %>
+      <%= label_tag t('application.reports.since') %>
+	  <%= select_date(Date.today, :prefix => :start_date, :discart_day => true) %>
+      <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
+      <%= label_tag t('application.reports.to') %>
+      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true %>
+      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+    <% end %>
+  </div>
+  <div id="graph" class="graph"></div>
+  <% unless @tickets_per_day.nil? || @tickets_per_day.empty? %>
+    <table>
+      <tr>
+        <th><%= t("application.reports.tickets_per_month.date") %></th>
+        <th><%= t("application.reports.tickets_per_month.quantity") %></th>
+      </tr>
+      <% total= 0 %>
+      <% length= @tickets_per_day.length %>
+      <% @tickets_per_day.each do |ticket| %>
+        <% current_date = ticket.date_local.to_date %>
+        <tr class="row">
+          <td width="100%"><%= l(current_date, :format => :default) %> (<%=l(current_date, :format => '%A') %>)</td>
+          <td style="text-align: center;"><%= ticket.count_id %></td>
+        </tr>
+        <% total += ticket.count_id %>
+      <% end %>
+      <tr>
+        <td style="text-align: right;"><%= t('application.reports.average') %></td>
+        <td style="text-align: center;"><%= total / length %></td>
+      </tr>
+      <tr>
+        <td style="text-align: right;"><%= t('application.reports.total') %></td>
+        <td style="text-align: center;"><%= total %></td>
+      </tr>
+    </table>
+    <div class="print">
+      <%= link_to t('application.reports.print'), tickets_per_month_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+    </div>
+  <% end %>
+  <%= javascript_include_tag 'protovis', 'jquery.tipsy', 'report', 'tipsy', 'report_tickets_per_day' %>
+  <script type='text/javascript'>
+   renderProtovis(<%= @tickets_per_day.to_json.html_safe %>);
+  </script>
+</div>
+

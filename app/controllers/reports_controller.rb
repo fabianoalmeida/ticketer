@@ -134,4 +134,25 @@ class ReportsController < ApplicationController
       format.json {render :json => nil}
     end
   end
+
+  def waiting_time_by_wicket_per_month
+    respond_to do |format|
+      unless (params[:start_date].blank? && params[:end_date].blank?)
+        @wickets_per_month = Report.waiting_time_by_wicket_per_month(
+          params[:start_date],
+          params[:end_date]
+        )
+        unless @wickets_per_month.empty?
+          format.html
+          format.json { render :json => @wickets_per_month.to_json }
+          format.pdf { render :layout => false }
+        end
+      else
+        format.html {render :notice => I18n.t('application.no_results')}
+        format.json {render :json => nil}
+      end
+      format.html {render :notice => I18n.t('application.no_results')}
+      format.json {render :json => nil}
+    end
+  end
 end

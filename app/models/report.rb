@@ -135,6 +135,56 @@ class Report
 
       var_return.to_a
     end   
+
+    def waiting_time_by_wicket_per_month(start_date, end_date)
+
+      format = "{%Y, %m, %d}"
+      start  = Date.strptime("{#{start_date[:year]}, #{start_date[:month]}, 01}", format)
+      finish = Date.strptime("{#{end_date[:year]}, #{end_date[:month]}, 01}", format)
+
+      called_table = <<-SQL
+        (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
+           FROM call_histories
+           WHERE call_histories.status_ticket_id = #{StatusTicket.called.id}
+           GROUP BY call_histories.ticket_id, call_histories.wicket_id
+           ORDER BY call_histories.wicket_id, call_histories.ticket_id) called
+      SQL
+
+      attended_table = <<-SQL
+        (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
+           FROM call_histories
+           WHERE call_histories.status_ticket_id = #{StatusTicket.attended.id}
+           GROUP BY call_histories.ticket_id, call_histories.wicket_id
+           ORDER BY call_histories.wicket_id, call_histories.ticket_id) attended
+      SQL
+
+      select = <<-SQL
+        called.wicket_id, wickets.value as wicket_name , to_char(trunc(called.created), 'MM/yyyy') as data , count(called.ticket_id) as total , avg(attended.created-called.created) * 24 * 60 as time
+      SQL
+
+      where = <<-SQL
+        attended.wicket_id = called.wicket_id
+        and attended.ticket_id = called.ticket_id
+        and attended.wicket_id = wickets.id
+        and called.wicket_id = wickets.id
+      SQL
+
+      results = Wicket.select(select)
+          .from(" wickets, #{attended_table}, #{called_table} ")
+          .where(where)
+          .where("called.created" => start..finish.end_of_month.tomorrow)
+          .group("called.wicket_id, wickets.value, to_char(trunc(called.created), 'MM/yyyy')")
+          .order("called.wicket_id, wickets.value, to_char(trunc(called.created), 'MM/yyyy') DESC")
+          
+      var_return = {}
+     
+      results.each do |call|
+        var_return[call.wicket_name.to_sym] ||= []
+        var_return[call.wicket_name.to_sym] << call
+      end
+     
+      var_return.to_a     
+    end
     
   end #end Class#Self
   

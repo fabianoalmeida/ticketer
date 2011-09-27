@@ -8,6 +8,7 @@ Ticketer::Application.routes.draw do
       get 'attendances_by_wickets_per_day', :path => 'atendimentos_por_guiche_por_dia', :on => :collection
       get 'attendances_by_wickets_per_month', :path => 'atendimentos_por_guiche_por_mes', :on => :collection
       get 'waiting_time_by_wicket', :path => 'tempo_de_espera_por_guiche', :on => :collection
+      get 'waiting_time_by_wicket_per_month', :path => 'tempo_de_espera_por_guiche_por_mes', :on => :collection
       get 'waiting_time_by_client', :path => 'tempo_de_espera_por_cliente', :on => :collection
     end
 

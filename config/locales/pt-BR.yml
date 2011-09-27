@@ -411,14 +411,19 @@
         name: "Atendimentos por Guichê por mês"
         month_year: "Mês / Ano"
         quantity: "Quantidade"
-      waiting_time_by_wicket : 
+      waiting_time_by_wicket: 
         name: "Tempo de atendimento por Guichê"
-        date : "Data"
-        time : "Tempo Médio"
-        total : "Total"
+        date: "Data"
+        time: "Tempo Médio"
+        total: "Total"
+      waiting_time_by_wicket_per_month: 
+        name: "Tempo de atendimento por Guichê por mês"
+        month_year: "Mês / Ano"
+        time: "Tempo Médio"
+        total: "Total"
       waiting_time_by_client : 
         name: "Tempo de espera do Cliente"
         date: "Data"
-        time : "Tempo Médio"
+        time: "Tempo Médio"
         quantity: "Quantidade"
       print: "Imprimir"

@@ -107,7 +107,34 @@ class Report
            .group("to_char(trunc(created_at), 'MM/yyyy' )")
            .order("to_char(trunc(created_at), 'MM/yyyy' ) DESC")
     end
-    
+
+    def attendances_by_wickets_per_month(start_date, end_date)
+
+      format = "{%Y, %m, %d}"
+      start  = Date.strptime("{#{start_date[:year]}, #{start_date[:month]}, 01}", format)
+      finish = Date.strptime("{#{end_date[:year]}, #{end_date[:month]}, 01}", format)
+
+      call_histories = CallHistory.select("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy') as date_local, count('call_histories.id') as count_id")
+            .joins(:wicket)
+            .where(
+              :created_at => start..finish.end_of_month.tomorrow,
+              :status_ticket_id => StatusTicket.called.id
+            )
+            .group("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy')")
+            .order("wickets.value ASC, to_char(trunc(call_histories.created_at), 'MM/yyyy') DESC")
+
+      var_return = {}
+
+      call_histories.each do |call|
+        var_return[call.value.to_sym] ||= {}
+        var_return[call.value.to_sym][:values] ||= []
+        var_return[call.value.to_sym][:dates] ||= []
+        var_return[call.value.to_sym][:values]  << call.count_id
+        var_return[call.value.to_sym][:dates]  << call.date_local
+      end
+
+      var_return.to_a
+    end   
     
   end #end Class#Self
   

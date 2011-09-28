@@ -48,7 +48,7 @@
       <%= link_to t('application.reports.print'), attendances_by_wickets_per_day_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
-  <%= javascript_include_tag 'protovis', 'report_attendances_by_wickets_per_day', 'jquery.tipsy', 'report', 'tipsy' %>
+  <%= javascript_include_tag 'protovis', 'attendances_by_wickets', 'jquery.tipsy', 'report', 'tipsy' %>
   <script type='text/javascript'>
     renderProtovis(<%= @attendances_per_day.to_json.html_safe %>);
   </script>

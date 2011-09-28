@@ -57,7 +57,15 @@ class ReportsController < ApplicationController
     handle_result @report, :wickets_per_month
     
   end
-   
+
+  def attendances_by_days_per_wicket
+
+    filter_date
+    @report = Report.attendances_by_days_per_wicket( @first_date, @second_date )
+    handle_result @report, :attendances_per_wicket
+
+  end
+
    private 
    
    def handle_result(report, result) 
@@ -79,5 +87,4 @@ class ReportsController < ApplicationController
      @second_date = params[:end_date] && params[:end_date].to_date
    end
     
-
 end

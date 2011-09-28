@@ -14,7 +14,8 @@ class Report
   end    
 
   queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day,
-          :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month
+          :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month, 
+          :attendances_by_days_per_wicket
 
   def valid?
     @valid = valid_range_of_dates? && results? 
@@ -214,7 +215,31 @@ class Report
          .order("to_char(trunc(created_at), 'MM/yyyy' ) DESC")
          
   end
-  
+
+  def attendances_by_days_per_wicket(start_date, end_date)
+
+      call_histories = CallHistory.select("to_char(trunc(call_histories.created_at), 'dd/MM/yyyy' ) as date_local, wickets.value, count('call_histories.id') as count_id")
+            .joins(:wicket)
+            .where(
+              :created_at => start_date.midnight..end_date.tomorrow.midnight,
+              :status_ticket_id => StatusTicket.called.id
+            )
+            .group("trunc(call_histories.created_at), wickets.value")
+            .order("trunc(call_histories.created_at) DESC, wickets.value ASC")
+
+      var_return = {}
+
+      call_histories.each do |call|
+        var_return[call.date_local.to_sym]           ||= {}
+        var_return[call.date_local.to_sym][:wickets] ||= []
+        var_return[call.date_local.to_sym][:values]  ||= []
+        var_return[call.date_local.to_sym][:wickets]  << call.value
+        var_return[call.date_local.to_sym][:values]   << call.count_id
+      end
+
+      var_return.to_a
+  end
+
   def results? 
     if valid_range_of_dates?
       @results = send(query, first, second)

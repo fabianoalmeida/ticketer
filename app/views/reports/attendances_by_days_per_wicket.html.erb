@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
+<div class="form">
+  <h1 class="spotlight"><%= t('application.reports.attendances_by_days_per_wicket.name') %></h1>
+  <div class="search" style="width:95%; margin-bottom: 30px">
+    <%= form_tag( attendances_by_days_per_wicket_reports_path, :method => "get" ) do %>
+      <%= label_tag t('application.reports.since') %>
+      <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
+      <%= label_tag t('application.reports.to') %>
+      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true %>
+      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+    <% end %>
+  </div>
+
+  <div id="graph" class="graph"></div>
+  <% unless @attendances_per_wicket.nil? || @attendances_per_wicket.empty? %>
+    <table>
+      <tr>
+        <th style="text-align: center;"><%= t('application.reports.attendances_by_days_per_wicket.date') %></th>
+        <th style="text-align: center;"><%= t('activerecord.models.wicket') %></th>
+        <th style="text-align: center;"><%= t('application.reports.attendances_by_days_per_wicket.quantity') %></th>
+      </tr>
+      <% total= 0 %>
+      <% length= 0 %>
+      <% @attendances_per_wicket.each do |call_history| %>
+	<% length += call_history[1].values[0].size %>
+        <% current_date = call_history[0].to_s.to_date %>
+        <tr>
+          <td width="180px" style="text-align: center; background-color : white" rowspan="<%= call_history[1].values[0].size + 1 %>"><%= l(current_date, :format => :default) %> (<%=l(current_date, :format => '%A') %>)</td>
+        </tr>
+        <% call_history[1].values[1].each_with_index do |val, index| %>
+          <tr>
+            <td width="40%" style="text-align: center;"><%= call_history[1][:wickets][index] %></td>
+            <td width="40%" style="text-align: center;"><%= val %></td>
+          </tr>
+          <% total += val.to_i %>
+        <% end %>
+      <% end %>
+        <tr>
+          <td colspan="2" style="text-align: right;"><%= t('application.reports.average') %></td>
+          <td style="text-align: center;"><%= total / length %></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: right;"><%= t('application.reports.total') %></td>
+          <td style="text-align: center;"><%= total %></td>
+        </tr>
+    </table>
+    <div class="print">
+      <%= link_to t('application.reports.print'), attendances_by_days_per_wicket_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+    </div>
+  <% end %>
+  <%= javascript_include_tag 'protovis', 'report_attendances_by_days_per_wicket', 'jquery.tipsy', 'report', 'tipsy' %>
+  <script type='text/javascript'>
+    renderProtovis(<%= @attendances_per_wicket.to_json.html_safe %>);
+  </script>
+</div>

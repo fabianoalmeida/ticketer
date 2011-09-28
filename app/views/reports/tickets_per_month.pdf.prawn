@@ -22,7 +22,7 @@ total= 0
 length= @tickets_per_month.length
 
 @tickets_per_month.each do |ticket|
-  data << [ ticket.date_local, ticket.count_id ]
+  data << [ unabbreviated_month_year(ticket.date_local), ticket.count_id ]
   total += ticket.count_id
 end
 

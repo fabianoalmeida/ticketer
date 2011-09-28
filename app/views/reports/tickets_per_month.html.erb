@@ -25,7 +25,7 @@
       <% @tickets_per_month.each do |ticket| %>
         <% current_date = ticket.date_local %>
         <tr class="row">
-          <td width="100%"><%= current_date %></td>
+          <td width="100%"><%= unabbreviated_month_year(current_date) %> </td>
           <td style="text-align: center;"><%= ticket.count_id %></td>
         </tr>
         <% total += ticket.count_id %>

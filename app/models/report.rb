@@ -13,7 +13,7 @@ class Report
     end
   end    
 
-  queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day
+  queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day,
           :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month
 
   def valid?
@@ -229,8 +229,8 @@ class Report
     if( first.instance_of? Date) && ( second.instance_of? Date )
       return true if first <= second 
     elsif( first.kind_of? Hash ) && ( second.kind_of? Hash )
-      return true if first[:year] < second[:year]
-      return true if first[:year] == second[:year] && first[:month] <= second[:month]
+      return true if first[:year].to_i < second[:year].to_i
+      return true if first[:year].to_i == second[:year].to_i && first[:month].to_i <= second[:month].to_i
     end
     error = "Range invalido!"
     return false

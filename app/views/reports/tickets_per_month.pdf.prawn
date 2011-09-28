@@ -14,7 +14,7 @@ pdf.move_down 20
 
 pdf.fill_color "000000"
 
-data ||= [ ["#{ t('application.reports.tickets_per_month.date') }", "#{ t('application.reports.tickets_per_month.quantity') }"] ]
+data ||= [ ["#{ t('application.reports.tickets_per_month.month_year') }", "#{ t('application.reports.tickets_per_month.quantity') }"] ]
 
 pdf.font_size 10
 

@@ -401,7 +401,7 @@
         quantity: "Quantidade"
       tickets_per_month: 
         name: "Senhas retiradas por mês"
-        date: "Data"
+        month_year: "Mês / Ano"
         quantity: "Quantidade"
       attendances_by_wickets_per_day: 
         name: "Atendimentos por Guichê por dia"
@@ -412,7 +412,7 @@
         month_year: "Mês / Ano"
         quantity: "Quantidade"
       waiting_time_by_wicket: 
-        name: "Tempo de atendimento por Guichê"
+        name: "Tempo de atendimento por Guichê por dia"
         date: "Data"
         time: "Tempo Médio"
         total: "Total"

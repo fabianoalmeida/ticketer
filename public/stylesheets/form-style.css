@@ -197,3 +197,7 @@ Style
   padding-right : 15px;
   padding-top : 20px;
 }
+
+.form .select-date select {
+	width : 130px;
+}

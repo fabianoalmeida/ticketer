@@ -2,28 +2,30 @@
 <div class="form">
   <h1 class="spotlight"><%= t('application.reports.tickets_per_month.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
+
     <%= form_tag( tickets_per_month_reports_path, :method => "get" ) do %>
-      <%= label_tag t('application.reports.since') %>
-	  <%= select_date(Date.today, :prefix => :start_date, :discart_day => true) %>
-      <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
-      <%= label_tag t('application.reports.to') %>
-      <%= text_field_tag :end_date, nil, :class => "date to", :readonly => true %>
-      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+	  <div class="select-date">
+      	<%= label_tag t('application.reports.since') %>
+	  	<%= select_date( nil,  :prefix=>"start_date", :discard_day => true, :prompt => {:month =>  t('application.reports.chose.month'), :year =>  t('application.reports.chose.year')}) %>
+	  	<%= label_tag t('application.reports.to') %>
+	  	<%= select_date( nil,  :prefix=>"end_date", :discard_day => true, :prompt => {:month =>  t('application.reports.chose.month'), :year =>  t('application.reports.chose.year')}) %>
+	    <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+	  </div>
     <% end %>
   </div>
   <div id="graph" class="graph"></div>
-  <% unless @tickets_per_day.nil? || @tickets_per_day.empty? %>
+  <% unless @tickets_per_month.nil? || @tickets_per_month.empty? %>
     <table>
       <tr>
         <th><%= t("application.reports.tickets_per_month.date") %></th>
         <th><%= t("application.reports.tickets_per_month.quantity") %></th>
       </tr>
       <% total= 0 %>
-      <% length= @tickets_per_day.length %>
-      <% @tickets_per_day.each do |ticket| %>
-        <% current_date = ticket.date_local.to_date %>
+      <% length= @tickets_per_month.length %>
+      <% @tickets_per_month.each do |ticket| %>
+        <% current_date = ticket.date_local %>
         <tr class="row">
-          <td width="100%"><%= l(current_date, :format => :default) %> (<%=l(current_date, :format => '%A') %>)</td>
+          <td width="100%"><%= current_date %></td>
           <td style="text-align: center;"><%= ticket.count_id %></td>
         </tr>
         <% total += ticket.count_id %>
@@ -43,7 +45,7 @@
   <% end %>
   <%= javascript_include_tag 'protovis', 'jquery.tipsy', 'report', 'tipsy', 'report_tickets_per_day' %>
   <script type='text/javascript'>
-   renderProtovis(<%= @tickets_per_day.to_json.html_safe %>);
+   renderProtovis(<%= @tickets_per_month.to_json.html_safe %>);
   </script>
 </div>
 

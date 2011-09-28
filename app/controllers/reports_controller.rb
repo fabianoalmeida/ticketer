@@ -66,6 +66,13 @@ class ReportsController < ApplicationController
 
   end
 
+  def waiting_time_by_day_per_wicket
+    
+    filter_date
+    @report = Report.waiting_time_by_day_per_wicket( @first_date, @second_date )
+    handle_result @report, :waiting_time_by_wicket  
+  
+  end
    private 
    
    def handle_result(report, result) 

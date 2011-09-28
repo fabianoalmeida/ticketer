@@ -15,7 +15,7 @@ class Report
 
   queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day,
           :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month, 
-          :attendances_by_days_per_wicket
+          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket
 
   def valid?
     @valid = valid_range_of_dates? && results? 
@@ -238,6 +238,52 @@ class Report
       end
 
       var_return.to_a
+  end
+
+  def waiting_time_by_day_per_wicket(start_date, end_date)
+
+    called_table = <<-SQL
+      (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
+         FROM call_histories
+         WHERE call_histories.status_ticket_id = #{StatusTicket.called.id}
+         GROUP BY call_histories.ticket_id, call_histories.wicket_id
+         ORDER BY call_histories.wicket_id, call_histories.ticket_id) called
+    SQL
+
+    attended_table = <<-SQL
+      (SELECT call_histories.wicket_id, call_histories.ticket_id, max(call_histories.created_at) as created
+         FROM call_histories
+         WHERE call_histories.status_ticket_id = #{StatusTicket.attended.id}
+         GROUP BY call_histories.ticket_id, call_histories.wicket_id
+         ORDER BY call_histories.wicket_id, call_histories.ticket_id) attended
+    SQL
+
+    select = <<-SQL
+      to_char(trunc(called.created), 'dd/MM/yyyy') as data, called.wicket_id, wickets.value as wicket_name, count(called.ticket_id) as total, avg(attended.created-called.created) * 24 * 60 as time
+    SQL
+
+      where = <<-SQL
+      attended.wicket_id = called.wicket_id
+      and attended.ticket_id = called.ticket_id
+      and attended.wicket_id = wickets.id
+      and called.wicket_id = wickets.id
+    SQL
+
+    results = Wicket.select(select)
+        .from(" wickets, #{attended_table}, #{called_table} ")
+        .where(where)
+          .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
+        .group("trunc(called.created), called.wicket_id, wickets.value")
+        .order("trunc(called.created) DESC, called.wicket_id, wickets.value")
+        
+    var_return = {}
+   
+    results.each do |call|
+      var_return[call.data.to_sym] ||= []
+      var_return[call.data.to_sym] << call
+    end
+   
+    var_return.to_a
   end
 
   def results? 

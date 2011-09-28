@@ -430,6 +430,11 @@
         name: "Atendimentos por dia por Guichê"
         date: "Data"
         quantity: "Quantidade"
+      waiting_time_by_day_per_wicket:
+        name: "Tempo de atendimento por dia por Guichê"
+        date: "Data"
+        time: "Tempo Médio"
+        total: "Total"
       print: "Imprimir"
       chose : 
           day : "Escolha o dia"

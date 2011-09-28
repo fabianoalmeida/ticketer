@@ -11,12 +11,13 @@ function renderProtovis(hash) {
   for (index in hash) {
     keys.push(hash[index][0]);
     data_array.push(hash[index][1]);
+    hash[index][1].values.forEach(function(el){ max = el > max ? el : max;});
   }
 
   /* Sizing and scales. */
   var w = 550,
       h = keys.length * 300,
-      x = pv.Scale.linear(0, 40).range(0, w),
+      x = pv.Scale.linear(0, max).range(0, w),
       y = pv.Scale.ordinal(pv.range(keys.length)).splitBanded(0, h, 0.9);
 
   /* The root panel. */
@@ -25,7 +26,7 @@ function renderProtovis(hash) {
       .height(h)
       .bottom(20)
       .left(85)
-      .right(10)
+      .right(15)
       .top(5)
       .canvas('graph');
 

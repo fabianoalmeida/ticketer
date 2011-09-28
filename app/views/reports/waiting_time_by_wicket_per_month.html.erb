@@ -19,11 +19,13 @@ text {
   <h1 class="spotlight"><%= t('application.reports.waiting_time_by_wicket_per_month.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
     <%= form_tag( waiting_time_by_wicket_per_month_reports_path, :method => "get" ) do %>
-      <%= label_tag t('application.reports.since') %>
-      <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
-      <%= label_tag t('application.reports.to') %>
-      <%= select_date(nil, :prefix => "end_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
-      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+	  <div class="select-date">
+      	<%= label_tag t('application.reports.since') %>
+	      <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+	      <%= label_tag t('application.reports.to') %>
+	      <%= select_date(nil, :prefix => "end_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+	      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+		</div>
     <% end %>
   </div>
   <div id="graph" class="graph" style="text-align:center"></div>

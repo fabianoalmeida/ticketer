@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
 
   def attendances_by_wickets_per_month
     
-    @report = Report.attendances_by_wickets_per_month( @first_date, @second_date )
+    @report = Report.attendances_by_wickets_per_month( params[:start_date], params[:end_date] )
     handle_result @report, :attendances_per_month
     
   end

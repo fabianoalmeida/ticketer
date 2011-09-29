@@ -20,6 +20,11 @@ class Report
   def valid?
     @valid = valid_range_of_dates? && results? 
   end
+
+  def to(place)
+    @place = place
+    self
+  end
     
   private
 
@@ -30,6 +35,7 @@ class Report
   def tickets_per_day(start_date, end_date)
     Ticket.select("to_char(trunc(created_at), 'dd/MM/yyyy' ) as date_local, count(id) as count_id")
          .where(:created_at => start_date.midnight..end_date.tomorrow.midnight)
+         .where(:place_id => @place)
          .group("trunc(created_at)")
          .order("trunc(created_at) DESC")
   end
@@ -69,7 +75,8 @@ class Report
            .joins(:wicket)
            .where(  
              :created_at => start_date.midnight..end_date.tomorrow.midnight,
-             :status_ticket_id => StatusTicket.called.id
+             :status_ticket_id => StatusTicket.called.id,
+             "wickets.place_id" => @place
            )
            .group("trunc(call_histories.created_at), wickets.value")
            .order("trunc(call_histories.created_at) DESC, wickets.value ASC")

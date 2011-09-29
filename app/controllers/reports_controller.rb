@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
   def tickets_per_day
 
     filter_date 
-    @report = Report.tickets_per_day(@first_date, @second_date)
+    @report = Report.tickets_per_day(@first_date, @second_date).to(params[:place_id])
     handle_result @report, :tickets_per_day
 
   end
@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
   def attendances_by_wickets_per_day
 
     filter_date
-    @report = Report.attendances_by_wickets_per_day( @first_date, @second_date )
+    @report = Report.attendances_by_wickets_per_day( @first_date, @second_date ).to(params[:place_id])
     handle_result @report, :attendances_per_day
 
   end
@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
   def waiting_time_by_wicket
     
     filter_date
-    @report = Report.waiting_time_by_wicket( @first_date, @second_date )
+    @report = Report.waiting_time_by_wicket( @first_date, @second_date ).to(params[:place_id])
     handle_result @report, :waiting_time_by_wicket  
   
   end

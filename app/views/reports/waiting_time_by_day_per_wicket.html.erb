@@ -76,6 +76,6 @@ text {
   <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_wicket', 'report' %>
 
   <script type='text/javascript'>
-    new WaitingTimeByWicketD3({element : "#graph", data : <%= @waiting_time_by_wicket.to_json.html_safe %>,  by : "day" });
+    new WaitingTimeByWicketD3({element : "#graph", data : <%= @waiting_time_by_wicket.to_json.html_safe %>,  by : "day", kind : "days"});
   </script>
 </div>

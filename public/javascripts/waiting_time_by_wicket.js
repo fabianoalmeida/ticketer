@@ -1,6 +1,8 @@
 function WaitingTimeByWicketD3(params){
 	
-	if(params.data == null || params.element == null || params.by == null){
+	if(params == null || params.data == null || 
+		params.element == null || params.by == null ||
+			params.kind == null){
 		return null;
 	};
 		
@@ -9,15 +11,14 @@ function WaitingTimeByWicketD3(params){
 			by    : params.by,
 			map     : params.data,
 			element : params.element,
-			format  : d3.time.format("%d/%m/%Y"),
-			print   : d3.time.format("%d/%m"),
+			kind    : params.kind,
 			w       : 700,
 			h       : 400,
 			margin  : 30
 	};
 	
 	var init = function(){
-		
+		kindSettings();
 		extract = extractors[params.by].call(this,settings.map);
 		settings.map     = extract.map;
 		settings.times   = extract.times;
@@ -39,6 +40,18 @@ function WaitingTimeByWicketD3(params){
 	/*
 		Private methods 
 	*/
+	
+	var kindSettings = function() {
+		if(settings.kind == "days"){
+			settings.format = d3.time.format("%d/%m/%Y");
+			settings.tick = d3.time.days;
+			settings.print  = d3.time.format("%d/%m");
+		}else if(settings.kind == "months"){
+			settings.format = d3.time.format("%m/%Y");
+			settings.tick = d3.time.months;
+			settings.print  = d3.time.format("%m/%Y");
+		}
+	};
 	
 	var extractors = { 
 		wicket : function(hash) {
@@ -65,7 +78,10 @@ function WaitingTimeByWicketD3(params){
 				map = map.concat(list);
 			
 				for (var x = list.length -1 ; x >= 0; x--){
-					data.push(settings.format.parse(list[x].wicket.data));
+					var canAdd = true, 
+						date   = settings.format.parse(list[x].wicket.data);
+					data.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
+					if( canAdd ) data.push(date);
 					times.push(Math.round(list[x].wicket.time));
 					acount.push(list[x].wicket.total);
 				};
@@ -107,7 +123,10 @@ function WaitingTimeByWicketD3(params){
 				  });	
 				}
 
-				data.push(settings.format.parse(list[x].wicket.data));
+				var canAdd = true, 
+					date   = settings.format.parse(list[x].wicket.data);
+				data.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
+				if( canAdd ) data.push(date);
 				times.push(Math.round(list[x].wicket.time));
 				acount.push(list[x].wicket.total);
 			  };
@@ -122,12 +141,16 @@ function WaitingTimeByWicketD3(params){
 					map : map };
 		}
 	}
+	
 	var buildGraph = function(){
 		var vis            = buildVisualization(), 
-		    rule           = buildRule(vis), 
-		    lineHorizontal = buildLineHorizontal(rule),
-			textVertical   = buildTextVertical(rule),
-			textHorizontal = buildTextHorizontal(rule);
+		    ruleVertical   = buildRule(vis, data, "vrule"), 
+			ruleHorizontal = buildRule(vis, y.ticks(4), "hrule"),
+		    lineHorizontal = buildLineHorizontal(ruleHorizontal),
+			// This might look like a little confuse but if stop and think the 
+			// text is alignment vertical with the horizontal lines, just like the horizontal text is with vertical lines
+			textVertical   = buildTextVertical(ruleHorizontal),
+			textHorizontal = buildTextHorizontal(ruleVertical);
 		 	legend         = buildLegendBar(vis, wickets);
 			
 		for (var i = wickets.length - 1; i >= 0; i--){
@@ -151,7 +174,8 @@ function WaitingTimeByWicketD3(params){
 					.attr("fill", function(d) {return d.color})
 					.attr("x", function(d,i) { return legendScale(i); })
 					.attr("y", margin);
-             // Name of wicket to givem color
+					
+            // Name of wicket to givem color
 			d3Object.select("g.legend")
 					.selectAll("text.legend")
 					.data(elements)
@@ -167,12 +191,12 @@ function WaitingTimeByWicketD3(params){
 	};
 
 	
-	var buildRule = function(d3Object, callback){
-		var objectReturn = d3Object.selectAll("g.rule")
-								.data(x.ticks(d3.time.days, 1))
+	var buildRule = function(d3Object, data, _class, callback){
+		var objectReturn = d3Object.selectAll("g."+ _class)
+								.data(data)
 								.enter()
 								.append("svg:g")
-								.attr("class", "rule");
+								.attr("class", _class);
 
 		if(callback) callback(objectReturn);
 
@@ -197,6 +221,7 @@ function WaitingTimeByWicketD3(params){
 	};
 	
 	var buildVisualization = function(callback){
+		
 		var objectReturn=  d3.select(element)
 							 .html("")
 							 .append("svg:svg")
@@ -208,6 +233,7 @@ function WaitingTimeByWicketD3(params){
 		if(callback) callback(objectReturn);
 
 		return objectReturn;
+		
 	};
 	
 
@@ -228,7 +254,7 @@ function WaitingTimeByWicketD3(params){
 	
 	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
-								   .data(y.ticks(4)) 
+								   // .data(y.ticks(10)) 
 								   .attr("class", function(d) { return d ? null : "axis"; })
 								   .attr("y1",function(d) { return -1 * y(d) })
 								   .attr("y2", function(d) { return -1 * y(d) })
@@ -243,7 +269,7 @@ function WaitingTimeByWicketD3(params){
 
 	var buildTextVertical = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:text")
-								   .data(y.ticks(4)) 
+								   //.data(y.ticks(4)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
 								   .attr("dx", "-2em")

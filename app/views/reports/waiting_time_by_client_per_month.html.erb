@@ -1,0 +1,77 @@
+<style type="text/css" media="screen">
+path {
+    stroke: #C5E008;
+    stroke-width: 5;
+    fill: none;
+}
+ 
+line {
+    stroke: gray;
+}
+ 
+text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+</style>
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
+<div class="form">
+  <h1 class="spotlight"><%= t('application.reports.waiting_time_by_client_per_month.name') %></h1>
+  <div class="search" style="width:95%; margin-bottom: 30px">
+    <%= form_tag( waiting_time_by_client_per_month_reports_path, :method => "get" ) do %>
+      <div class="select-date">
+        <%= label_tag t('application.reports.since') %>
+        <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+        <%= label_tag t('application.reports.to') %>
+        <%= select_date(nil, :prefix => "end_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+        <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+      </div>
+    <% end %>
+  </div>
+  <div id="graph" class="graph" style="text-align:center"></div>
+  <div id="center2"></div>
+
+  <% unless @waiting_time_clients_per_month.nil? || @waiting_time_clients_per_month.empty? %>
+
+    <table>
+      <tr>
+        <th><%= t('application.reports.waiting_time_by_client_per_month.month_year') %></th>
+        <th style="text-align : center"><%= t('application.reports.waiting_time_by_client_per_month.time') %></th>
+        <th style="text-align : center"><%= t('application.reports.waiting_time_by_client_per_month.quantity') %></th>
+      </tr>
+
+      <% totalHours = 0 %>
+      <% totalTickets = 0 %>
+      <% length= @waiting_time_clients_per_month.length %>
+
+      <% @waiting_time_clients_per_month.each do |call_history| %>
+         <tr class="row">
+           <td width="50%"><%= unabbreviated_month_year(call_history[:data]) %></td>
+           <td style="text-align : center" width="40%"><%= call_history[:time].duration %></td>
+           <td style="text-align : center" ><%= call_history[:total] %></td>
+         </tr>
+         <% totalHours += call_history[:time] %>
+         <% totalTickets += call_history[:total] %>
+      <% end %>
+        <tr>
+          <td style="text-align: right;"><%= t('application.reports.average') %></td>
+          <td style="text-align: center;"><%= (totalHours / length).duration %></td>
+          <td style="text-align: center;"><%= totalTickets / length %></td>
+        </tr>
+        <tr>
+          <td style="text-align: right;"><%= t('application.reports.total') %></td>
+          <td style="text-align: center;"><%= totalHours.duration %></td>
+          <td style="text-align: center;"><%= totalTickets %></td>
+        </tr>
+    </table>
+    <div class="print">
+      <%= link_to t('application.reports.print'), waiting_time_by_client_per_month_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+    </div>
+  <% end %>
+
+  <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_client_per_month', 'report' %>
+
+  <script type='text/javascript'>
+    new WaitingTimeByClientPerMonthD3({element : "#graph", data : <%= @waiting_time_clients_per_month.to_json.html_safe %> });
+  </script>
+</div>

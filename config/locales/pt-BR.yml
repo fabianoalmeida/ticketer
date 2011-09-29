@@ -426,6 +426,11 @@
         date: "Data"
         time: "Tempo Médio"
         quantity: "Quantidade"
+      waiting_time_by_client_per_month:
+        name: "Tempo de espera do Cliente por mês"
+        month_year: "Mês / Ano"
+        time: "Tempo Médio"
+        quantity: "Quantidade"
       attendances_by_days_per_wicket: 
         name: "Atendimentos por dia por Guichê"
         date: "Data"

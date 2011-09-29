@@ -73,25 +73,33 @@ class ReportsController < ApplicationController
     handle_result @report, :waiting_time_by_wicket  
   
   end
-   private 
+
+  def waiting_time_by_client_per_month
+
+    @report = Report.waiting_time_by_client_per_month( params[:start_date], params[:end_date] )
+    handle_result @report, :waiting_time_clients_per_month
+
+  end
+
+  private 
    
-   def handle_result(report, result) 
-     respond_to do |format|
-        if report.valid?
-          instance_variable_set("@#{result}", report.results)
-          format.html
-          format.json { render :json => instance_variable_get("@#{result}") }
-          format.pdf { render :layout => false }
-        else
-           format.html {render :notice => I18n.t('application.no_results')}
-           format.json {render :json => nil}
-        end
-      end    
-   end
-   
-   def filter_date
-     @first_date = params[:start_date] && params[:start_date].to_date 
-     @second_date = params[:end_date] && params[:end_date].to_date
-   end
+  def handle_result(report, result) 
+    respond_to do |format|
+      if report.valid?
+        instance_variable_set("@#{result}", report.results)
+        format.html
+        format.json { render :json => instance_variable_get("@#{result}") }
+        format.pdf { render :layout => false }
+      else
+        format.html {render :notice => I18n.t('application.no_results')}
+        format.json {render :json => nil}
+      end
+    end    
+  end
+  
+  def filter_date
+    @first_date = params[:start_date] && params[:start_date].to_date 
+    @second_date = params[:end_date] && params[:end_date].to_date
+  end
     
 end

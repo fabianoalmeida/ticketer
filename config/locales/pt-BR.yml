@@ -421,6 +421,11 @@
         month_year: "Mês / Ano"
         time: "Tempo Médio"
         total: "Total"
+      waiting_time_by_month_per_wicket: 
+        name: "Tempo de atendimento por Mês por Guichê"
+        month_year: "Mês / Ano"
+        time: "Tempo Médio"
+        total: "Total"
       waiting_time_by_client : 
         name: "Tempo de espera do Cliente"
         date: "Data"

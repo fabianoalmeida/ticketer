@@ -1,0 +1,81 @@
+<style type="text/css" media="screen">
+path {
+    stroke: #C5E008;
+    stroke-width: 5;
+    fill: none;
+}
+ 
+line {
+    stroke: gray;
+}
+ 
+text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+</style>
+<%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
+<div class="form">
+  <h1 class="spotlight"><%= t('application.reports.waiting_time_by_month_per_wicket.name') %></h1>
+  <div class="search" style="width:95%; margin-bottom: 30px">
+    <%= form_tag( waiting_time_by_month_per_wicket_reports_path, :method => "get" ) do %>
+	  <div class="select-date">
+      	<%= label_tag t('application.reports.since') %>
+	      <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+	      <%= label_tag t('application.reports.to') %>
+	      <%= select_date(nil, :prefix => "end_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
+	      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+		</div>
+    <% end %>
+  </div>
+  <div id="graph" class="graph" style="text-align:center"></div>
+  <div id="center2"></div>
+  <% unless @wickets_per_month.nil? || @wickets_per_month.empty? %>
+
+    <table style="text-align: center">
+      <tr>
+        <th><%= t('activerecord.models.wicket') %></th>
+        <th style="text-align: center"><%= t('application.reports.waiting_time_by_month_per_wicket.month_year') %></th>
+        <th style="text-align: center"><%= t('application.reports.waiting_time_by_month_per_wicket.time') %></th>
+        <th><%= t('application.reports.waiting_time_by_month_per_wicket.total') %></th>
+      </tr>
+      <% totalHoras= 0 %>
+	  <% totalTickets = 0%>
+      <% length= 0 %>
+      <% @wickets_per_month.each do |call_history| %>
+	    <% length += call_history[1].size %>
+        <tr>
+          <td style="background-color: white" width="20%" rowspan="<%=call_history[1].size + 1 %>"><%= unabbreviated_month_year call_history[0]%></td>
+        </tr>
+        <% call_history[1].each_with_index do |val, index| %>
+          <tr class="row">
+            <td width="30%"><%= call_history[1][index][:wicket_name] %></td>
+	    	<td width="50%"> <%= call_history[1][index][:time].duration %> </td>
+            <td><%= val.total %></td>
+          </tr>
+          <% totalTickets += val[:total] %>
+	  <% totalHoras   += call_history[1][index][:time]%>
+        <% end %>
+      <% end %>
+        <tr>
+          <td colspan="2" style="text-align: right;"><%= t('application.reports.average') %></td>
+          <td style="text-align: center;"><%= (totalHoras / length).duration %></td>
+          <td style="text-align: center;"><%= totalTickets / length %></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: right;"><%= t('application.reports.total') %></td>
+          <td style="text-align: center;"><%= totalHoras.duration %></td>
+          <td style="text-align: center;"><%= totalTickets %></td>
+        </tr>
+    </table>
+    <div class="print">
+      <%= link_to t('application.reports.print'), waiting_time_by_month_per_wicket_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+    </div>
+  <% end %>
+
+  <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_wicket_per_month', 'report' %>
+
+  <script type='text/javascript'>
+    new WaitingTimeByWicketD3({element : "#graph", data : <%= @wickets_per_month.to_json.html_safe %> });
+  </script>
+</div>

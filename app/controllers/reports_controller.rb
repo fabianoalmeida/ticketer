@@ -58,6 +58,13 @@ class ReportsController < ApplicationController
     
   end
 
+  def waiting_time_by_month_per_wicket
+    
+    @report = Report.waiting_time_by_month_per_wicket( params[:start_date], params[:end_date] )
+    handle_result @report, :wickets_per_month
+    
+  end
+
   def attendances_by_days_per_wicket
 
     filter_date

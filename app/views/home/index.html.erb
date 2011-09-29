@@ -1,0 +1,9 @@
+<div style="position:relative; top: -40px">
+  <% @places.each do |place| %>
+    <div style="width : 184px; heigth: 200px; float: left">
+      <%= link_to image_tag("computer.png", :width => "184px"), place_home_path(place.id), :style => "padding:0"  %>
+      <h3 style="text-align: center"><%= place.value %></h3>
+    </div>
+  <% end %>
+  <div style="clear:both"></div>
+</div>

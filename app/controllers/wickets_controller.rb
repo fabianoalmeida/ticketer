@@ -202,10 +202,4 @@ class WicketsController < ApplicationController
       end
     end
   end
-
-  #HOME FOR ALL WICKETS AVAILABLE
-  def wicket_home
-    @wickets = Wicket.where(:status_id => Status.active)
-    render :layout => 'wickets'
-  end
 end

@@ -82,4 +82,10 @@ class PlacesController < ApplicationController
       format.json  { head :ok }
     end
   end
+
+  #HOME FOR ALL PLACES AVAILABLE
+  def home
+    @place = Place.find(params[:place_id])
+    render :layout => 'places'
+  end
 end

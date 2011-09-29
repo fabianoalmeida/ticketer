@@ -48,4 +48,8 @@ class Place < ActiveRecord::Base
 
     availables
   end
+
+  def self.actives
+    self.where( :status_id => Status.active.id ).order( :value )
+  end
 end

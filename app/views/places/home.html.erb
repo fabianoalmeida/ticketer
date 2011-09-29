@@ -1,5 +1,5 @@
-<div class="wickets" style="position:relative; top: -40px">
-  <% @wickets.each do |wicket| %>
+<div style="position:relative; top: -40px">
+  <% @place.wickets.each do |wicket| %>
     <div style="width : 184px; heigth: 200px; float: left">
       <%= link_to image_tag("computer.png", :width => "184px"), place_wicket_tickets_path(wicket.place.id, wicket.id), :style => "padding:0"  %>
       <h3 style="text-align: center"><%= wicket.value %></h3>

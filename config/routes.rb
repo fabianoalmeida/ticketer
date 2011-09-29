@@ -28,6 +28,8 @@ Ticketer::Application.routes.draw do
 
     resources :places, :path => 'localidades' do
 
+      get 'home', :path => 'lista_de_guiches'
+
       resources :panels, :path => 'paineis' do
         get 'tickets', :path => 'senhas'
       end
@@ -48,8 +50,8 @@ Ticketer::Application.routes.draw do
     end
   end
 
-  match 'guiches' => "wickets#wicket_home", :as => "wicket_home"
+  match 'localidades' => "places#home", :as => "home"
   match 'logout' => "session#logout"
-  root :to => 'wickets#wicket_home'
+  root :to => 'home#index'
 
 end

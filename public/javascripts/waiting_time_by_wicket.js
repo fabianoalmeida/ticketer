@@ -1,11 +1,12 @@
 function WaitingTimeByWicketD3(params){
 	
-	if(params.data == null || params.element == null){
+	if(params.data == null || params.element == null || params.by == null){
 		return null;
 	};
 		
 	// Options defaults 
 	var settings = {
+			by    : params.by,
 			map     : params.data,
 			element : params.element,
 			format  : d3.time.format("%d/%m/%Y"),
@@ -16,7 +17,8 @@ function WaitingTimeByWicketD3(params){
 	};
 	
 	var init = function(){
-		extract = extractDataAndKey(settings.map);
+		
+		extract = extractors[params.by].call(this,settings.map);
 		settings.map     = extract.map;
 		settings.times   = extract.times;
 		settings.data    = extract.data;
@@ -38,43 +40,88 @@ function WaitingTimeByWicketD3(params){
 		Private methods 
 	*/
 	
-	var extractDataAndKey = function(hash) {
-		var times   = new Array(),
-			data    = new Array(),
-			wickets = new Array(),
-			acount  = new Array(),
-			graphs  = new Array(),
-			map     = new Array(),
-			colors  = d3.scale.category10();
+	var extractors = { 
+		wicket : function(hash) {
+			var times   = new Array(),
+				data    = new Array(),
+				wickets = new Array(),
+				acount  = new Array(),
+				graphs  = new Array(),
+				map     = new Array(),
+				colors  = d3.scale.category10();
 			
 			
-		for (var index = hash.length - 1; index >= 0; index--){
+			for (var index = hash.length - 1; index >= 0; index--){
 			
-			graphs.push({
-				name : hash[index][0],
-				id : hash[index][1][0], 
-				list : hash[index][1],
-				color : colors(index)
-			});
+				graphs.push({
+					name : hash[index][0],
+					id : hash[index][1][0], 
+					list : hash[index][1],
+					color : colors(index)
+				});
 			
-			list = hash[index][1];
+				list = hash[index][1];
 			
-			map = map.concat(list);
+				map = map.concat(list);
 			
-			for (var x = list.length -1 ; x >= 0; x--){
+				for (var x = list.length -1 ; x >= 0; x--){
+					data.push(settings.format.parse(list[x].wicket.data));
+					times.push(Math.round(list[x].wicket.time));
+					acount.push(list[x].wicket.total);
+				};
+			};
+		
+			return{ times : times, 
+					data : data, 
+					wickets : graphs, 
+					acount : acount, 
+					map : map };
+		},
+		day : function(hash) {
+			var times   = new Array(),
+				data    = new Array(),
+				wickets = new Array(),
+				acount  = new Array(),
+				graphs  = new Array(),
+				map     = new Array(),
+				refGraph = null,
+				colors  = d3.scale.category10();
+
+
+			for (var index = hash.length - 1; index >= 0; index--){
+			  list = hash[index][1];
+			  for (var x = list.length -1 ; x >= 0; x--){	
+
+				graphs.forEach(function(wicket) {
+					if (wicket.id == list[x].wicket.wicket_id) refGraph = wicket
+				});
+
+				if(refGraph){
+				  refGraph.list.push(list[x]);
+				}else {
+				  graphs.push({
+					name : list[x].wicket.wicket_name,
+					id : list[x].wicket.wicket_id	, 
+					list : [list[x]],
+				    color : ""
+				  });	
+				}
+
 				data.push(settings.format.parse(list[x].wicket.data));
 				times.push(Math.round(list[x].wicket.time));
 				acount.push(list[x].wicket.total);
+			  };
 			};
-		};
-		
-		return{ times : times, 
-				data : data, 
-				wickets : graphs, 
-				acount : acount, 
-				map : map };
-	};
-	
+
+			graphs.forEach(function(w,i) {map = map.concat(w.list) ; w.color = colors(i)});			
+
+			return{ times : times, 
+					data : data, 
+					wickets : graphs, 
+					acount : acount, 
+					map : map };
+		}
+	}
 	var buildGraph = function(){
 		var vis            = buildVisualization(), 
 		    rule           = buildRule(vis), 

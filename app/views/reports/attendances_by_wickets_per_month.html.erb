@@ -2,7 +2,7 @@
 <div class="form">
   <h1 class="spotlight"><%= t('application.reports.attendances_by_wickets_per_month.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
-    <%= form_tag( attendances_by_wickets_per_month_reports_path, :method => "get" ) do %>
+    <%= form_tag( attendances_by_wickets_per_month_place_reports_path, :method => "get" ) do %>
 	  <div class="select-date">
 	      <%= label_tag t('application.reports.since') %>
 	      <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
@@ -46,7 +46,7 @@
         </tr>
     </table>
     <div class="print">
-      <%= link_to t('application.reports.print'), attendances_by_wickets_per_month_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+      <%= link_to t('application.reports.print'), attendances_by_wickets_per_month_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
   <%= javascript_include_tag 'protovis', 'attendances_by_wickets', 'jquery.tipsy', 'report', 'tipsy' %>

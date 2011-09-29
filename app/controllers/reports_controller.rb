@@ -2,7 +2,9 @@ class ReportsController < ApplicationController
 
   prawnto :filename => "#{DateTime.now.to_i}.pdf", :inline => false
 
-  def index; end
+  def index
+    @place = Place.find(params[:place_id])
+  end
 
   def tickets_per_day
 

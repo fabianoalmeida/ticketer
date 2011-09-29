@@ -20,7 +20,7 @@
           <ul>
 	    <li><a title="Inicio" href="#">Inicio</a></li>
 	    <li><a class="active cadastro" title="Cadastros" href="#">Cadastros</a></li>
-	    <li><%= link_to t('application.reports.plural'), reports_path %></li>
+	    <li><%= link_to t('application.reports.plural'), place_reports_path(params[:place_id]) %></li>
 	    <li><a title="Guiches" href="#">Guiches</a></li>
 	    <li><a title="Usuario" href="#">Usuario</a></li>
           </ul>

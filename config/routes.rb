@@ -2,20 +2,6 @@ Ticketer::Application.routes.draw do
 
   scope(:path_names => { :new => 'novo', :show => 'visualizar', :edit => 'editar' } ) do
 
-    resources :reports, :path => 'relatorios', :only => :index do
-      get 'tickets_per_day', :path => 'senhas_por_dia', :on => :collection
-      get 'tickets_per_month', :path => 'senhas_por_mes', :on => :collection
-      get 'attendances_by_days_per_wicket', :path => 'atendimentos_por_dia_por_guiche', :on => :collection
-      get 'attendances_by_wickets_per_day', :path => 'atendimentos_por_guiche_por_dia', :on => :collection
-      get 'attendances_by_wickets_per_month', :path => 'atendimentos_por_guiche_por_mes', :on => :collection
-      get 'waiting_time_by_wicket', :path => 'tempo_de_espera_por_guiche', :on => :collection
-      get 'waiting_time_by_day_per_wicket', :path => 'tempo_de_espera_por_dia_por_guiche', :on => :collection
-      get 'waiting_time_by_wicket_per_month', :path => 'tempo_de_espera_por_guiche_por_mes', :on => :collection
-      get 'waiting_time_by_month_per_wicket', :path => 'tempo_de_espera_por_mes_por_guiche', :on => :collection
-      get 'waiting_time_by_client', :path => 'tempo_de_espera_por_cliente', :on => :collection
-      get 'waiting_time_by_client_per_month', :path => 'tempo_de_espera_por_cliente_por_mes', :on => :collection
-    end
-
     resources :locals, :path => 'locais'
     resources :call_histories, :path => 'historico_de_chamadas'
     resources :guidances, :path => 'orientacoes'
@@ -30,6 +16,19 @@ Ticketer::Application.routes.draw do
     resources :places, :path => 'localidades' do
 
       get 'home', :path => 'lista_de_guiches'
+
+      resources :reports, :path => 'relatorios', :only => :index do
+        get 'tickets_per_day', :path => 'senhas_por_dia', :on => :collection
+        get 'tickets_per_month', :path => 'senhas_por_mes', :on => :collection
+        get 'attendances_by_days_per_wicket', :path => 'atendimentos_por_dia_por_guiche', :on => :collection
+        get 'attendances_by_wickets_per_day', :path => 'atendimentos_por_guiche_por_dia', :on => :collection
+        get 'attendances_by_wickets_per_month', :path => 'atendimentos_por_guiche_por_mes', :on => :collection
+        get 'waiting_time_by_wicket', :path => 'tempo_de_espera_por_guiche', :on => :collection
+        get 'waiting_time_by_day_per_wicket', :path => 'tempo_de_espera_por_dia_por_guiche', :on => :collection
+        get 'waiting_time_by_wicket_per_month', :path => 'tempo_de_espera_por_guiche_por_mes', :on => :collection
+        get 'waiting_time_by_client', :path => 'tempo_de_espera_por_cliente', :on => :collection
+        get 'waiting_time_by_client_per_month', :path => 'tempo_de_espera_por_cliente_por_mes', :on => :collection
+      end
 
       resources :panels, :path => 'paineis' do
         get 'tickets', :path => 'senhas'

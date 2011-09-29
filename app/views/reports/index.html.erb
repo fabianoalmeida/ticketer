@@ -1,4 +1,7 @@
 <div class="form">
+  <div>
+    <%= @place.value %>
+  </div>
   <div class="search">
     <input type="text" value="search" id="search"/>
     <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
@@ -10,51 +13,51 @@
     </tr>
     <tr class="row">
       <td width ="100%"><%= t('application.reports.tickets_per_day.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), tickets_per_day_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), tickets_per_day_place_reports_path, :title => t('model.show') %></td>
     </tr>
     <tr class="row">
       <td><%= t('application.reports.attendances_by_wickets_per_day.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_day_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_day_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td><%= t('application.reports.waiting_time_by_wicket.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_wicket_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_wicket_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td><%= t('application.reports.waiting_time_by_client.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_client_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_client_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td width ="100%"><%= t('application.reports.tickets_per_month.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), tickets_per_month_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), tickets_per_month_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td width ="100%"><%= t('application.reports.attendances_by_wickets_per_month.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_month_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), attendances_by_wickets_per_month_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
      <tr class="row">
       <td width ="100%"><%= t('application.reports.waiting_time_by_wicket_per_month.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_wicket_per_month_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_wicket_per_month_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td><%= t('application.reports.attendances_by_days_per_wicket.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), attendances_by_days_per_wicket_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), attendances_by_days_per_wicket_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td><%= t('application.reports.waiting_time_by_day_per_wicket.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_day_per_wicket_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_day_per_wicket_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">
       <td><%= t('application.reports.waiting_time_by_client_per_month.name') %></td>
-      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_client_per_month_reports_path, :title => t('model.show') %></td>
+      <td><%= link_to image_tag("form/search.gif"), waiting_time_by_client_per_month_place_reports_path, :title => t('model.show') %></td>
     </tr>
 
     <tr class="row">

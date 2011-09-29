@@ -2,7 +2,7 @@
 <div class="form">
   <h1 class="spotlight"><%= t('application.reports.tickets_per_day.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
-    <%= form_tag( tickets_per_day_reports_path, :method => "get" ) do %>
+    <%= form_tag( tickets_per_day_place_reports_path, :method => "get" ) do %>
       <%= label_tag t('application.reports.since') %>
       <%= text_field_tag :start_date, nil, :class => "date from", :readonly => true %>
       <%= label_tag t('application.reports.to') %>
@@ -37,7 +37,7 @@
       </tr>
     </table>
     <div class="print">
-      <%= link_to t('application.reports.print'), tickets_per_day_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+      <%= link_to t('application.reports.print'), tickets_per_day_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
   <%= javascript_include_tag 'protovis', 'jquery.tipsy', 'report', 'tipsy', 'report_tickets_per_day' %>

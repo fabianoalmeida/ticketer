@@ -15,11 +15,7 @@ class Report
 
   queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day,
           :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month, 
-<<<<<<< HEAD
-          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket, :waiting_time_by_client_per_month
-=======
-          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket, :waiting_time_by_month_per_wicket
->>>>>>> Adding new report: waiting time by month by wicket
+          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket, :waiting_time_by_month_per_wicket, :waiting_time_by_client_per_month
 
   def valid?
     @valid = valid_range_of_dates? && results? 

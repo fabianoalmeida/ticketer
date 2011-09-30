@@ -1,6 +1,8 @@
 <div style="position:relative; top: -40px">
   <div class="place-spot">
-    <%= @place.value %>
+    <%= @place.value %><br/><br/>
+	<%= link_to image_tag("report.gif", :width => "44px", :style =>"vertical-align:middle") + "  #{t('application.reports.plural')}", place_reports_path(params[:place_id]), :style => "padding:0;font-size:20px" %>
+
   </div>
   <% @wickets.each do |wicket| %>
     <div style="width : 184px; heigth: 200px; float: left">

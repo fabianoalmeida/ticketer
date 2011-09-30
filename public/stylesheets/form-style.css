@@ -205,4 +205,5 @@ Style
 .place-spot { 
     font-size : 20px;
 	margin-left : 10px;
+	vertical-align:middle;
 }

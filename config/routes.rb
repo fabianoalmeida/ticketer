@@ -29,6 +29,7 @@ Ticketer::Application.routes.draw do
         get 'waiting_time_by_client', :path => 'tempo_de_espera_por_cliente', :on => :collection
         get 'waiting_time_by_client_per_month', :path => 'tempo_de_espera_por_cliente_por_mes', :on => :collection
         get 'waiting_time_by_month_per_wicket', :path => 'tempo_de_espera_por_mes_por_guiche', :on => :collection
+        get 'attendances_by_month_per_wicket', :path => 'atendimentos_por_mes_por_guiche', :on => :collection
       end
 
       resources :panels, :path => 'paineis' do

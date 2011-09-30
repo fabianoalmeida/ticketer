@@ -411,6 +411,10 @@
         name: "Atendimentos por Guichê por mês"
         month_year: "Mês / Ano"
         quantity: "Quantidade"
+      attendances_by_month_per_wicket: 
+        name: "Atendimentos por Mês por Guichê"
+        month_year: "Mês / Ano"
+        quantity: "Quantidade"
       waiting_time_by_wicket: 
         name: "Tempo de atendimento por Guichê por dia"
         date: "Data"

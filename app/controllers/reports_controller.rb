@@ -90,6 +90,13 @@ class ReportsController < ApplicationController
 
   end
 
+  def attendances_by_month_per_wicket
+    
+    @report = Report.attendances_by_month_per_wicket( params[:start_date], params[:end_date] )
+    handle_result @report, :attendances_per_month
+    
+  end
+
   private 
    
   def handle_result(report, result) 

@@ -15,7 +15,8 @@ class Report
 
   queries :tickets_per_day, :waiting_time_by_client, :waiting_time_by_wicket, :attendances_by_wickets_per_day,
           :tickets_per_month, :waiting_time_by_wicket_per_month, :attendances_by_wickets_per_month, 
-          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket, :waiting_time_by_month_per_wicket, :waiting_time_by_client_per_month
+          :attendances_by_days_per_wicket, :waiting_time_by_day_per_wicket, :waiting_time_by_month_per_wicket, 
+          :waiting_time_by_client_per_month, :attendances_by_month_per_wicket
 
   def valid?
     @valid = valid_range_of_dates? && results? 
@@ -167,6 +168,38 @@ class Report
 
   def attendances_by_wickets_per_month(start_date, end_date)
     
+    results = query_attendance_by_wicket(start_date, end_date)
+    
+    var_return = {}
+
+    results.each do | r |
+      var_return[r.value.to_sym] ||= {}
+      (var_return[r.value.to_sym][:values] ||=[])  << r.count_id
+      (var_return[r.value.to_sym][:dates] ||=[] ) << r.date_local
+    end
+
+    var_return.to_a
+    
+  end
+  
+  def attendances_by_month_per_wicket(start_date, end_date)
+    
+      results = query_attendance_by_wicket(start_date, end_date)
+
+      var_return = {}
+
+      results.each do | r |
+        var_return[r.date_local.to_sym] ||= {}
+        (var_return[r.date_local.to_sym][:values] ||=[])  << r.count_id
+        (var_return[r.date_local.to_sym][:dates] ||=[] ) << r.value
+      end
+
+      var_return.to_a
+    
+  end
+  
+  def query_attendance_by_wicket(start_date, end_date)
+
     format = "{%Y, %m, %d}"
     start  = Date.strptime("{#{start_date[:year]}, #{start_date[:month]}, 01}", format)
     finish = Date.strptime("{#{end_date[:year]}, #{end_date[:month]}, 01}", format)
@@ -178,19 +211,7 @@ class Report
             :status_ticket_id => StatusTicket.called.id
           )
           .group("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy')")
-          .order("wickets.value ASC, to_char(trunc(call_histories.created_at), 'MM/yyyy') DESC")
-
-    var_return = {}
-
-    call_histories.each do |call|
-      var_return[call.value.to_sym] ||= {}
-      var_return[call.value.to_sym][:values] ||= []
-      var_return[call.value.to_sym][:dates] ||= []
-      var_return[call.value.to_sym][:values]  << call.count_id
-      var_return[call.value.to_sym][:dates]  << call.date_local
-    end
-
-    var_return.to_a
+          .order("wickets.value ASC, to_char(trunc(call_histories.created_at), 'MM/yyyy') DESC")    
   end
   
   def waiting_time_by_month_per_wicket(start_date, end_date)

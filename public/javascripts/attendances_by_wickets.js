@@ -41,7 +41,7 @@ function renderProtovis(hash) {
       .height( function() y.range().band / data_array[this.parent.index].values.length )
       .left(0)
       .width(x)
-      .text(function(d) data_array[this.parent.index].dates[this.index])
+      .text(function(d) data_array[this.parent.index].dates[this.index] +" - "+ data_array[this.parent.index].values[this.index])
       .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}))
       .fillStyle(pv.Colors.category20().by(pv.index));
 

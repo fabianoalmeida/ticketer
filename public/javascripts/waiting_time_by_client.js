@@ -1,6 +1,7 @@
 function WaitingTimeByClientD3(params){
 	
-	if(params.data == null || params.element == null){
+	if(params == null || params.data == null || 
+		params.element == null || params.kind == null){
 		return null;
 	};
 		
@@ -8,15 +9,16 @@ function WaitingTimeByClientD3(params){
 	var settings = {
 			map     : params.data,
 			element : params.element,
-			format  : d3.time.format("%d/%m/%Y"),
-			print   : d3.time.format("%d/%m"),
+			kind    : params.kind, 
 			w       : 700,
 			h       : 400,
 			margin  : 30
 	};
 	
 	var init = function(){
-		extract = extractDataAndKey(settings.map),
+		
+		kindSettings();
+		extract = extractors[params.kind].call(this,settings.map);
 		settings.keys = extract.keys,
 		settings.data = extract.data,
 		settings.y    = d3.scale.linear().domain([0, d3.max(settings.data)]).range([0 + settings.margin, settings.h - settings.margin]),
@@ -30,25 +32,62 @@ function WaitingTimeByClientD3(params){
 		Private methods 
 	*/
 	
-	var extractDataAndKey = function(hash) {
-		var keys = new Array(),
+	var kindSettings = function() {
+		if(settings.kind == "day"){
+			settings.format = d3.time.format("%d/%m/%Y");
+			settings.tick = d3.time.days;
+			settings.print  = d3.time.format("%d/%m");
+		}else if(settings.kind == "month"){
+			settings.format = d3.time.format("%m/%Y");
+			settings.tick = d3.time.months;
+			settings.print  = d3.time.format("%m/%Y");
+		}
+	};
+	
+	var extractors = {
+		
+		day : function(hash) {
+			
+			var keys = new Array(),
+			
 			data = new Array();
 			
-		for (var index = hash.length - 1; index >= 0; index--){
-			keys.push(settings.format.parse(hash[index].call_history.data));
-			data.push(Math.round(hash[index].call_history.time));
-		};
+			for (var index = hash.length - 1; index >= 0; index--){
+				keys.push(settings.format.parse(hash[index].call_history.data));
+				data.push(Math.round(hash[index].call_history.time));
+			};
 		
-		return{ keys : keys, data : data};
+			return{ keys : keys, data : data};
+		},
+		month : function(hash) {
+			var keys = new Array(),
+			
+			data = new Array();
+			
+			for (var index = hash.length - 1; index >= 0; index--){
+				var canAdd = true, 
+					date   = settings.format.parse(hash[index].call_history.data);
+				keys.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
+				if( canAdd ) keys.push(date);
+				//keys.push(settings.format.parse(hash[index].call_history.data));
+				data.push(Math.round(hash[index].call_history.time));
+			};
+		
+			return{ keys : keys, data : data};
+		}
+	}
+	var extractDataAndKey = function(hash) {
 	}
 	
 	var buildGraph = function(){
 		var vis            = buildVisualization(), 
-		    rule           = buildRule(vis), 
-		    lineHorizontal = buildLineHorizontal(rule),
-		    lineVertical   = buildLineVertical(rule), 
-			textVertical   = buildTextVertical(rule),
-			textHorizontal = buildTextHorizontal(rule),
+		    ruleVertical   = buildRule(vis, x.ticks(tick, 1), "vrule"), 
+			ruleHorizontal = buildRule(vis, y.ticks(4), "hrule"),
+		    lineHorizontal = buildLineHorizontal(ruleHorizontal),
+			lineVertical   = buildLineVertical(ruleVertical), 
+			textVertical   = buildTextVertical(ruleVertical),
+			textHorizontal = buildTextHorizontal(ruleHorizontal),
+	
 			pathLine       = drawGraph(vis);
 	}
 	
@@ -79,18 +118,18 @@ function WaitingTimeByClientD3(params){
 		return objectReturn;
 	};
 	
-	
-	var buildRule = function(d3Object, callback){
-		var objectReturn = d3Object.selectAll("g.rule")
-								.data(x.ticks(d3.time.days, 1))
+	var buildRule = function(d3Object, _data, _class, callback){
+		var objectReturn = d3Object.selectAll("g."+ _class)
+								.data(_data)
 								.enter()
 								.append("svg:g")
-								.attr("class", "rule");
-					
+								.attr("class", _class);
+
 		if(callback) callback(objectReturn);
 
 		return objectReturn;
 	};
+	
 	
 	var buildLineVertical = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
@@ -109,12 +148,12 @@ function WaitingTimeByClientD3(params){
 	
 	var buildLineHorizontal = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:line")
-								   .data(y.ticks(6)) 
+								   // .data(y.ticks(6)) 
 								   .attr("class", function(d) { return d ? null : "axis"; })
 								   .attr("y1",function(d) { return -1 * y(d) })
 								   .attr("y2", function(d) { return -1 * y(d) })
 								   .attr("x1", 0 + margin )
-								   .attr("x2", x(d3.max(keys)) - margin)
+								   .attr("x2", x(d3.max(keys)))
 								   .attr("text-anchor", "middle");
 					
 		if(callback) callback(objectReturn);
@@ -124,7 +163,7 @@ function WaitingTimeByClientD3(params){
 
 	var  buildTextHorizontal  = function(d3Object, callback){
 		var objectReturn = d3Object.append("svg:text")
-								   .data(y.ticks(6)) 
+								   // .data(y.ticks(6)) 
 								   .attr("y", function(d) { return -1 * y(d) })
 								   .attr("x", 0)
 								   .attr("dx", "-1.5em")

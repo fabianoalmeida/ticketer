@@ -69,9 +69,9 @@ text {
     </div>
   <% end %>
 
-  <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_client_per_month', 'report' %>
+  <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_client', 'report' %>
 
   <script type='text/javascript'>
-    new WaitingTimeByClientPerMonthD3({element : "#graph", data : <%= @waiting_time_clients_per_month.to_json.html_safe %> });
+    new WaitingTimeByClientD3({element : "#graph", data : <%= @waiting_time_clients_per_month.to_json.html_safe %>, kind : "month" });
   </script>
 </div>

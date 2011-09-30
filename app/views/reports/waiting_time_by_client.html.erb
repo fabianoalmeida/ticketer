@@ -71,6 +71,6 @@ text {
   <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_client', 'report' %>
 
   <script type='text/javascript'>
-    new WaitingTimeByClientD3({element : "#graph", data : <%= @waiting_time_by_client.to_json.html_safe %> });
+    new WaitingTimeByClientD3({element : "#graph", data : <%= @waiting_time_by_client.to_json.html_safe %>, kind : "day" });
   </script>
 </div>

@@ -54,7 +54,7 @@ function renderProtovis(hash) {
   bar.parent.anchor("left").add(pv.Label)
       .textAlign("right")
       .textMargin(5)
-      .text(function() keys[this.parent.index]);
+      .text(function() split(keys[this.parent.index]) );
 
   /* X-axis ticks. */
   vis.add(pv.Rule)
@@ -69,6 +69,15 @@ function renderProtovis(hash) {
       .text(x.tickFormat);
 
   vis.render();
+
+  function split(string){
+	
+	if(string.length > 9){
+		return string.slice(0,9)
+	}
+	
+	return string
+  }
 }
 
 $('a.medium' ).click( function() {

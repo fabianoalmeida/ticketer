@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
   def waiting_time_by_wicket
     
     filter_date
-    @report = Report.waiting_time_by_wicket( @first_date, @second_date ).to(params[:place_id])
+    @report = Report.waiting_time_by_wicket( @first_date, @second_date ).to(params[:place_id]).to(params[:place_id])
     handle_result @report, :waiting_time_by_wicket  
   
   end
@@ -33,14 +33,14 @@ class ReportsController < ApplicationController
   def waiting_time_by_client 
      
     filter_date
-    @report = Report.waiting_time_by_client( @first_date, @second_date )
+    @report = Report.waiting_time_by_client( @first_date, @second_date ).to(params[:place_id])
     handle_result @report, :waiting_time_by_client
      
   end
    
   def tickets_per_month
 
-    @report = Report.tickets_per_month( params[:start_date], params[:end_date] )
+    @report = Report.tickets_per_month( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result  @report,  :tickets_per_month 
    
   end 
@@ -48,21 +48,21 @@ class ReportsController < ApplicationController
 
   def attendances_by_wickets_per_month
     
-    @report = Report.attendances_by_wickets_per_month( params[:start_date], params[:end_date] )
+    @report = Report.attendances_by_wickets_per_month( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result @report, :attendances_per_month
     
   end
 
   def waiting_time_by_wicket_per_month
     
-    @report = Report.waiting_time_by_wicket_per_month( params[:start_date], params[:end_date] )
+    @report = Report.waiting_time_by_wicket_per_month( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result @report, :wickets_per_month
     
   end
 
   def waiting_time_by_month_per_wicket
     
-    @report = Report.waiting_time_by_month_per_wicket( params[:start_date], params[:end_date] )
+    @report = Report.waiting_time_by_month_per_wicket( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result @report, :wickets_per_month
     
   end
@@ -70,7 +70,7 @@ class ReportsController < ApplicationController
   def attendances_by_days_per_wicket
 
     filter_date
-    @report = Report.attendances_by_days_per_wicket( @first_date, @second_date )
+    @report = Report.attendances_by_days_per_wicket( @first_date, @second_date ).to(params[:place_id])
     handle_result @report, :attendances_per_wicket
 
   end
@@ -78,21 +78,21 @@ class ReportsController < ApplicationController
   def waiting_time_by_day_per_wicket
     
     filter_date
-    @report = Report.waiting_time_by_day_per_wicket( @first_date, @second_date )
+    @report = Report.waiting_time_by_day_per_wicket( @first_date, @second_date ).to(params[:place_id])
     handle_result @report, :waiting_time_by_wicket  
   
   end
 
   def waiting_time_by_client_per_month
 
-    @report = Report.waiting_time_by_client_per_month( params[:start_date], params[:end_date] )
+    @report = Report.waiting_time_by_client_per_month( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result @report, :waiting_time_clients_per_month
 
   end
 
   def attendances_by_month_per_wicket
     
-    @report = Report.attendances_by_month_per_wicket( params[:start_date], params[:end_date] )
+    @report = Report.attendances_by_month_per_wicket( params[:start_date], params[:end_date] ).to(params[:place_id])
     handle_result @report, :attendances_per_month
     
   end

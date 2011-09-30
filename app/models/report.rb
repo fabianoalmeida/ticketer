@@ -139,7 +139,8 @@ class Report
     results = Wicket.select(select)
         .from(" wickets, #{attended_table}, #{called_table} ")
         .where(where)
-          .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
+        .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
+        .where(:place_id => @place)
         .group("called.wicket_id, wickets.value, trunc(called.created)")
         .order("called.wicket_id, wickets.value, trunc(called.created) DESC")
     
@@ -161,7 +162,8 @@ class Report
     CallHistory.select(select)  
                .from("tickets t, #{attended_table}")
                .where("attended.ticket_id = t.id")
-               .where("t.created_at" => start_date.midnight..end_date.tomorrow.midnight)
+               .where("t.created_at" => start_date.midnight..end_date.tomorrow.midnight, 
+                       "t.place_id" => @place)
                .group("trunc(t.created_at)")
                .order("trunc(t.created_at)")
   end
@@ -208,7 +210,8 @@ class Report
           .joins(:wicket)
           .where(
             :created_at => start..finish.end_of_month.tomorrow,
-            :status_ticket_id => StatusTicket.called.id
+            :status_ticket_id => StatusTicket.called.id,
+            "wickets.place_id" => @place
           )
           .group("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy')")
           .order("wickets.value ASC, to_char(trunc(call_histories.created_at), 'MM/yyyy') DESC")    
@@ -277,6 +280,7 @@ class Report
     results = Wicket.select(select)
         .from(" wickets, #{attended_table}, #{called_table} ")
         .where(where)
+        .where(:place_id => @place)
         .where("called.created" => start..finish.end_of_month.tomorrow)
         .group("called.wicket_id, wickets.value, to_char(trunc(called.created), 'MM/yyyy')")
         .order("called.wicket_id, wickets.value, to_char(trunc(called.created), 'MM/yyyy') DESC")
@@ -290,7 +294,7 @@ class Report
     ending = Date.strptime("{#{end_date[:year]},#{end_date[:month]},01}", format)
    
     Ticket.select("to_char(trunc(created_at), 'MM/yyyy' ) as date_local, count(id) as count_id")
-         .where(:created_at => start..ending.end_of_month.tomorrow)
+         .where(:created_at => start..ending.end_of_month.tomorrow, :place_id => @place)
          .group("to_char(trunc(created_at), 'MM/yyyy' )")
          .order("to_char(trunc(created_at), 'MM/yyyy' ) DESC")
          
@@ -317,7 +321,8 @@ class Report
     CallHistory.select(select)  
                .from("tickets t, #{attended_table}")
                .where("attended.ticket_id = t.id")
-               .where("t.created_at" => start..ending.end_of_month.tomorrow)
+               .where("t.created_at" => start..ending.end_of_month.tomorrow, 
+                      "t.place_id" => @place)
                .group("to_char(trunc(t.created_at), 'MM/yyyy')")
                .order("to_char(trunc(t.created_at), 'MM/yyyy') DESC")
   end

@@ -201,3 +201,8 @@ Style
 .form .select-date select {
 	width : 130px;
 }
+
+.place-spot { 
+    font-size : 20px;
+	margin-left : 10px;
+}

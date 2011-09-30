@@ -1,8 +1,8 @@
 <div style="position:relative; top: -40px">
-  <div>
+  <div class="place-spot">
     <%= @place.value %>
   </div>
-  <% @place.wickets.each do |wicket| %>
+  <% @wickets.each do |wicket| %>
     <div style="width : 184px; heigth: 200px; float: left">
       <%= link_to image_tag("computer.png", :width => "184px"), place_wicket_tickets_path(wicket.place.id, wicket.id), :style => "padding:0"  %>
       <h3 style="text-align: center"><%= wicket.value %></h3>

@@ -91,20 +91,11 @@
       </div>
     </div>
   </div>
-  <%= javascript_include_tag 'http://10.0.0.100:8080/faye.js', :cache => true %>
-  <%= javascript_include_tag 'juggernaut.wicket','facebox', 'facebox-plugin','data-slide', 'wicket'  %>
-  <script type="text/javascript" charset="utf-8">
-	$(function() {
-  	 var client =  new Faye.Client("http://"+ window.location.hostname +":8080/faye", {
-  	         timeout: 120
-  	       });
-  	 
-  	       client.subscribe('/ticketer', function (message) {
-  	         console.log("MESSAGE", message);
-  	       });		
-	});
-  </script>
+  <%= javascript_include_tag :juggernaut, 'juggernaut.wicket','facebox', 'facebox-plugin','data-slide', 'wicket'  %>
   <div style="clear: both;"></div>
   <script type="text/javascript" >
+    $(document).ready(function(){
+        wicket.init();
+      })
   </script>
 </div>

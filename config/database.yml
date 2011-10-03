@@ -1,7 +1,6 @@
 development:
   adapter: oracle_enhanced
-  database: 10.30.5.8:1522/prod01
-  #database: 10.30.0.22:1521/dese01
+  database: 10.30.0.22:1521/dese01
   username: ticketer
   password: ticketer
   pool: 5

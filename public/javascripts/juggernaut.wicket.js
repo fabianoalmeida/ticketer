@@ -1,11 +1,7 @@
 function process(data) {
-  console.log(data);
-  // data = $.parseJSON(data);
   placeId = $('#place_id').val(); 
   if(placeId && placeId == data.place){
-	  alert("WTF!")
     if(data.channel == "availables"){
-	  alert("WTF2!")
       $.dataSlide('#tickets_available', {
             add : {
               element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
@@ -13,7 +9,7 @@ function process(data) {
       });
      $.changeByOneValues( 'available', data.ticket_type_id, true);
     }else if (data.channel =="calleds"){ 
-  		alert("WTF!3")
+
       elemento = $('li#'+data.id);
       if (elemento.length > 0) {
          $.dataSlide('#tickets_available', { remove : 'li#'+data.id } );

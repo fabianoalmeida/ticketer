@@ -93,7 +93,6 @@ class TotemsController < ApplicationController
 
   # GET /generate_ticket
   def generate_ticket
-    @ticket = Ticket.new
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups
 

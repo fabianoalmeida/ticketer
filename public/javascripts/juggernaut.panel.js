@@ -1,5 +1,4 @@
 (function(window){
-	
   window.process = function(data) {
 
     if(data.channel =="reload"){

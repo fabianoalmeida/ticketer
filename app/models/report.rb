@@ -23,7 +23,12 @@ class Report
   end
 
   def to(place)
-    @place = place
+    @place = (place.is_a? Place) ? place.id : place
+    self
+  end
+
+  def filtered_by(wickets)
+    @wicket_ids = wickets unless wickets.nil? || wickets.empty?
     self
   end
     
@@ -163,7 +168,7 @@ class Report
                .from("tickets t, #{attended_table}")
                .where("attended.ticket_id = t.id")
                .where("t.created_at" => start_date.midnight..end_date.tomorrow.midnight, 
-                       "t.place_id" => @place)
+                      "t.place_id" => @place)
                .group("trunc(t.created_at)")
                .order("trunc(t.created_at)")
   end
@@ -206,8 +211,11 @@ class Report
     start  = Date.strptime("{#{start_date[:year]}, #{start_date[:month]}, 01}", format)
     finish = Date.strptime("{#{end_date[:year]}, #{end_date[:month]}, 01}", format)
 
+    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+
     call_histories = CallHistory.select("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy') as date_local, count('call_histories.id') as count_id")
           .joins(:wicket)
+          .where(filter)
           .where(
             :created_at => start..finish.end_of_month.tomorrow,
             :status_ticket_id => StatusTicket.called.id,
@@ -276,10 +284,13 @@ class Report
       and attended.wicket_id = wickets.id
       and called.wicket_id = wickets.id
     SQL
-    
+
+    filter = @wicket_ids ? { "id" => @wicket_ids } : ""
+     
     results = Wicket.select(select)
         .from(" wickets, #{attended_table}, #{called_table} ")
         .where(where)
+        .where(filter)
         .where(:place_id => @place)
         .where("called.created" => start..finish.end_of_month.tomorrow)
         .group("called.wicket_id, wickets.value, to_char(trunc(called.created), 'MM/yyyy')")
@@ -335,16 +346,25 @@ class Report
   end
 
   def valid_range_of_dates?
-
-    return false  if first.nil? || second.nil? 
+    
+    return false if first.nil? || second.nil? 
   
     if( first.instance_of? Date) && ( second.instance_of? Date )
       return true if first <= second 
     elsif( first.kind_of? Hash ) && ( second.kind_of? Hash )
-      return true if first[:year].to_i < second[:year].to_i
-      return true if first[:year].to_i == second[:year].to_i && first[:month].to_i <= second[:month].to_i
+      return valid_range_of_hashes?
     end
     
     return false
   end
+
+  def valid_range_of_hashes?
+    return false if first[:year].empty? || second[:year].empty?
+    return false if first[:month].empty? || second[:month].empty?
+
+    return true if first[:year].to_i < second[:year].to_i
+    return true if first[:year].to_i == second[:year].to_i && first[:month].to_i <= second[:month].to_i
+
+    return false
+  end 
 end

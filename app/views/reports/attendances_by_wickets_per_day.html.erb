@@ -1,5 +1,6 @@
 <%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
 <div class="form">
+  <div class="place-spot"><%= @place.value %></div>
   <h1 class="spotlight"><%= t('application.reports.attendances_by_wickets_per_day.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
     <%= form_tag( attendances_by_wickets_per_day_place_reports_path, :method => "get" ) do %>
@@ -48,6 +49,9 @@
       <%= link_to t('application.reports.print'), attendances_by_wickets_per_day_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
+  <div style="width:95%; margin-bottom: 30px; padding-top: 20px; margin-left: 10px">
+    <%= link_to t('model.back'), place_reports_path(@place.id), :class => "button medium"%>
+  </div>
   <%= javascript_include_tag 'protovis', 'attendances_by_wickets', 'jquery.tipsy', 'report', 'tipsy' %>
   <script type='text/javascript'>
     renderProtovis(<%= @attendances_per_day.to_json.html_safe %>);

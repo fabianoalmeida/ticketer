@@ -16,16 +16,30 @@ text {
 </style>
 <%= stylesheet_link_tag 'jquery-ui-1.8.15.custom', 'tipsy' %>
 <div class="form">
+  <div class="place-spot"><%= @place.value %></div>
   <h1 class="spotlight"><%= t('application.reports.waiting_time_by_wicket_per_month.name') %></h1>
   <div class="search" style="width:95%; margin-bottom: 30px">
     <%= form_tag( waiting_time_by_wicket_per_month_place_reports_path, :method => "get" ) do %>
 	  <div class="select-date">
-      	<%= label_tag t('application.reports.since') %>
+            <div style="float: right;">
+	      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
+            </div>
+            <div style="float: right;">
+      	      <%= label_tag t('application.reports.since') %>
 	      <%= select_date(nil, :prefix => "start_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
 	      <%= label_tag t('application.reports.to') %>
 	      <%= select_date(nil, :prefix => "end_date", :discard_day => true, :prompt => {:month => t('application.reports.chose.month'), :year => t('application.reports.chose.year')}) %>
-	      <%= submit_tag( t('application.search'), :class => "button medium" ) %>
-		</div>
+            </div>
+            <% if @wickets %>
+              <div style="float: right;">
+      	        <%= label_tag t('model.wicket.name') %>:
+                <% @wickets.each do |wicket| %>
+                  <%= check_box_tag "wicket[ids][]", wicket.id %>
+                  <%= (truncate wicket.value, :length => 9, :omission => '') %>
+                <% end %>
+              </div>
+            <% end %>
+	</div>
     <% end %>
   </div>
   <div id="graph" class="graph" style="text-align:center"></div>
@@ -70,12 +84,13 @@ text {
         </tr>
     </table>
     <div class="print">
-      <%= link_to t('application.reports.print'), waiting_time_by_wicket_per_month_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+      <%= link_to t('application.reports.print'), waiting_time_by_wicket_per_month_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :wicket => params[:wicket], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
-
+  <div style="width:95%; margin-bottom: 30px; padding-top: 20px; margin-left: 10px">
+    <%= link_to t('model.back'), place_reports_path(@place.id), :class => "button medium"%>
+  </div>
   <%= javascript_include_tag 'd3', 'jquery.tipsy', 'd3.time', 'waiting_time_by_wicket', 'report' %>
-
   <script type='text/javascript'>
     new WaitingTimeByWicketD3({element : "#graph", data : <%= @wickets_per_month.to_json.html_safe %>, by : "wicket", kind : "months" });
   </script>

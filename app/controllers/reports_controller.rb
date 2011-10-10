@@ -60,7 +60,7 @@ class ReportsController < ApplicationController
   
   def waiting_time_by_wicket
     filter_date
-    @report = Report.waiting_time_by_wicket(@first_date, @second_date).to(@place)
+    @report = Report.waiting_time_by_wicket(@first_date, @second_date).to(@place).filtered_by(@wicket_ids)
     handle_result @report, :waiting_time_by_wicket  
   end
  
@@ -82,7 +82,7 @@ class ReportsController < ApplicationController
 
   def waiting_time_by_day_per_wicket
     filter_date
-    @report = Report.waiting_time_by_day_per_wicket(@first_date, @second_date).to(@place)
+    @report = Report.waiting_time_by_day_per_wicket(@first_date, @second_date).to(@place).filtered_by(@wicket_ids)
     handle_result @report, :waiting_time_by_wicket  
   end
 

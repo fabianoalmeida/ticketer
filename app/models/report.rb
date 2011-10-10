@@ -141,9 +141,12 @@ class Report
       and called.wicket_id = wickets.id
     SQL
 
+    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+
     results = Wicket.select(select)
         .from(" wickets, #{attended_table}, #{called_table} ")
         .where(where)
+        .where(filter)
         .where("called.created" => start_date.midnight..end_date.tomorrow.midnight)
         .where(:place_id => @place)
         .group("called.wicket_id, wickets.value, trunc(called.created)")

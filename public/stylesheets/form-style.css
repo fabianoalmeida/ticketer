@@ -175,6 +175,15 @@ Style
   width : 70px;
 }
 
+.form .search input[type=checkbox] {
+  border : 1px solid #C0C0C0;
+  border-radius: 3px;
+  padding : 5px;
+  margin : 5px;
+  color : #333;
+  font-size : 1.1em;
+}
+
 .form .search .date {
   width : 105px;
   text-align : right;

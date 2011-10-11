@@ -182,6 +182,7 @@ Style
   margin : 5px;
   color : #333;
   font-size : 1.1em;
+  width : 0px;
 }
 
 .form .search .date {

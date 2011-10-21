@@ -76,7 +76,9 @@ class Report
   end
   
   def query_attendance_wicket(start_date, end_date)
-  
+    
+    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+
     call_histories = CallHistory.select("to_char(trunc(call_histories.created_at), 'dd/MM/yyyy' ) as date_local, wickets.value, count('call_histories.id') as count_id")
            .joins(:wicket)
            .where(  
@@ -84,6 +86,7 @@ class Report
              :status_ticket_id => StatusTicket.called.id,
              "wickets.place_id" => @place
            )
+           .where(filter)
            .group("trunc(call_histories.created_at), wickets.value")
            .order("trunc(call_histories.created_at) DESC, wickets.value ASC")
   end

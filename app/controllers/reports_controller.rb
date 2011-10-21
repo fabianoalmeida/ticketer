@@ -14,7 +14,9 @@ class ReportsController < ApplicationController
 
   def attendances_by_wickets_per_day
     filter_date
-    @report = Report.attendances_by_wickets_per_day(@first_date, @second_date).to(@place)
+    @report = Report.attendances_by_wickets_per_day(@first_date, @second_date)
+                    .to(@place)
+                    .filtered_by(@wicket_ids)
     handle_result @report, :attendances_per_day
   end
   
@@ -42,7 +44,9 @@ class ReportsController < ApplicationController
 
   def attendances_by_days_per_wicket
     filter_date
-    @report = Report.attendances_by_days_per_wicket(@first_date, @second_date).to(@place)
+    @report = Report.attendances_by_days_per_wicket(@first_date, @second_date)
+                    .to(@place)
+                    .filtered_by(@wicket_ids)
     handle_result @report, :attendances_per_wicket
   end
  

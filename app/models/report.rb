@@ -83,7 +83,7 @@ class Report
            .joins(:wicket)
            .where(  
              :created_at => start_date.midnight..end_date.tomorrow.midnight,
-             :status_ticket_id => StatusTicket.called.id,
+             :status_ticket_id => StatusTicket.attended.id,
              "wickets.place_id" => @place
            )
            .where(filter)

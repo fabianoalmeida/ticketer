@@ -224,7 +224,7 @@ class Report
           .where(filter)
           .where(
             :created_at => start..finish.end_of_month.tomorrow,
-            :status_ticket_id => StatusTicket.called.id,
+            :status_ticket_id => StatusTicket.attended.id,
             "wickets.place_id" => @place
           )
           .group("wickets.value, to_char(trunc(call_histories.created_at), 'MM/yyyy')")

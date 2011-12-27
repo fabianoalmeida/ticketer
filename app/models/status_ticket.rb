@@ -18,25 +18,17 @@ class StatusTicket < ActiveRecord::Base
     :uniqueness => { :case_sensitive => false },
     :allow_blank => false
 
-  def self.available
-    self.where( :value => "Available" ).first
-  end
+  def self.statuses(*args) 
+    args.each do |status| 
+      instance_eval do 
+        define_singleton_method status do
+          self.where( :value => "#{status.to_s.capitalize}" ).first
+        end 
+      end
+    end
+  end    
 
-  def self.called
-    self.where( :value => "Called" ).first
-  end
-
-  def self.pending
-    self.where( :value => "Pending" ).first
-  end
-
-  def self.canceled
-    self.where( :value => "Canceled" ).first
-  end
-
-  def self.attended
-    self.where( :value => "Attended" ).first
-  end
+  statuses :available, :called, :pending, :canceled, :attended, :examed
 
   def self.id_for(state_string)
     self.where("lower(value) = ?", state_string.downcase).first

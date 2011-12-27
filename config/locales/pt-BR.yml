@@ -222,6 +222,7 @@
         user: "Usuário"
         guidance: "Orientação"
         priority: "Prioridade"
+        second_level: "Segundo Nível"
         ticket_type_group: "Grupo Tipo de Senha"
       local:
         des_local: "Descrição"
@@ -337,6 +338,10 @@
         right: "Direita"
       priority:
         name: "Prioridade"
+        sure: "Sim"
+        not: "Não"
+      second_level:
+        name: "Segundo Nível"
         sure: "Sim"
         not: "Não"
       tickets:

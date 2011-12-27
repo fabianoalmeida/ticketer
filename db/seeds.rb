@@ -11,7 +11,8 @@ StatusTicket.create([
   {:value => "Attended", :acronym => "ATT", :user => "SYSTEM"},
   {:value => "Called", :acronym => "CLD", :user => "SYSTEM"},
   {:value => "Canceled", :acronym => "CAN", :user => "SYSTEM"},
-  {:value => "Pending", :acronym => "PEN", :user => "SYSTEM"}
+  {:value => "Pending", :acronym => "PEN", :user => "SYSTEM"},
+  {:value => "Examed", :acronym => "XMD", :user => "SYSTEM"}
 ])
 
 Status.create([

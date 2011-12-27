@@ -57,6 +57,20 @@
   </div>
 
   <div class="grid-12-12">
+    <%= f.label :second_level, :class => "form-lbl form-req"%>
+    <ul class="form-list-rdo">
+      <li>
+        <%= f.radio_button :second_level, "true", :disabled => disabled  %>
+        <%= f.label t('model.wicket.second_level.sure'), :class => "form-lbl" %>
+      </li>
+      <li>
+        <%= f.radio_button :second_level, "false", :disabled => disabled  %>
+        <%= f.label t('model.wicket.second_level.not'), :class => "form-lbl"%>
+      </li>
+    </ul>
+  </div>
+
+  <div class="grid-12-12">
     <%= f.label :status, :class => "form-lbl form-req"%>
     <ul class="form-list-rdo">
       <% Status.all.each do |status| %>

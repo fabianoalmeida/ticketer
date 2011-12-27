@@ -49,6 +49,22 @@ class Place < ActiveRecord::Base
     availables
   end
 
+  def tickets_attended(ticket_type_group= nil)
+    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
+
+    attended = nil
+
+    if ticket_type_group
+      attended = tickets.includes(:ticket_type)
+        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where(:status_ticket_id => StatusTicket.attended.id)
+    end
+
+    attended ||= tickets.where(:status_ticket_id => StatusTicket.attended.id)
+
+    attended
+  end
+
   def self.actives
     self.where( :status_id => Status.active.id ).order( :value )
   end

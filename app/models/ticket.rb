@@ -63,6 +63,10 @@ class Ticket < ActiveRecord::Base
     event :attend do
       transition :called => :attended
     end
+
+    event :exam do
+      transition :attended => :examed
+    end
   end
 
   private

@@ -105,7 +105,8 @@ class WicketsController < ApplicationController
 
     @tickets_type= @tickets_type.flatten
 
-    @tickets_available = @place.tickets_availables(@wicket.ticket_type_group).today
+    @tickets_available = @place.tickets_availables(@wicket.ticket_type_group).today unless @wicket.second_level?
+    @tickets_available ||= @place.tickets_attended(@wicket.ticket_type_group).today 
 
     if @wicket.priority
       @tickets_available = @tickets_available.sort do |a, b|
@@ -113,9 +114,19 @@ class WicketsController < ApplicationController
       end
     end
 
-    @tickets_attended = @wicket.attended_tickets.today
-    @tickets_called = @wicket.called_tickets.today
-    @tickets_waiting = @wicket.pending_tickets.today
+    @tickets_attended = nil
+    @tickets_called   = nil 
+    @tickets_waiting  = nil 
+
+    unless @wicket.second_level?
+      @tickets_attended = @wicket.attended_tickets.today
+      @tickets_called   = @wicket.called_tickets.today
+      @tickets_waiting  = @wicket.pending_tickets.today
+    end
+
+    @tickets_attended ||= @wicket.examed_tickets.today
+    @tickets_called   ||= []
+    @tickets_waiting  ||= []
     render :layout => 'application-external'
   end
 

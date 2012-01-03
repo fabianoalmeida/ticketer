@@ -5,4 +5,8 @@ class HomeController < ApplicationController
     render :layout => 'home'
   end
 
+  def main
+    render :layout => 'home'
+  end
+
 end

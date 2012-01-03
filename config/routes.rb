@@ -52,6 +52,7 @@ Ticketer::Application.routes.draw do
     end
   end
 
+  match 'main' => "home#main", :as => "main"
   match 'localidades' => "places#home", :as => "home"
   match 'logout' => "session#logout"
   root :to => 'home#index'

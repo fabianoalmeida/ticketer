@@ -17,14 +17,12 @@ class Place < ActiveRecord::Base
 
   accepts_nested_attributes_for :totems, :tickets, :wickets, :panels
 
-  def tickets_called(ticket_type_group= nil) 
-    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
-
+  def tickets_called(ticket_type_groups= []) 
     calleds = nil
 
-    if ticket_type_group
+    unless ticket_type_groups.empty?
       calleds = tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where("ticket_types.ticket_type_group_id" => ticket_type_groups)
         .where(:status_ticket_id => StatusTicket.called.id)
     end
 
@@ -33,14 +31,12 @@ class Place < ActiveRecord::Base
     calleds
   end
 
-  def tickets_availables(ticket_type_group= nil)
-    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
-
+  def tickets_availables(ticket_type_groups= [])
     availables = nil
 
-    if ticket_type_group
+    unless ticket_type_groups.empty?
       availables = tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where("ticket_types.ticket_type_group_id" => ticket_type_groups)
         .where(:status_ticket_id => StatusTicket.available.id)
     end
 
@@ -49,14 +45,12 @@ class Place < ActiveRecord::Base
     availables
   end
 
-  def tickets_attended(ticket_type_group= nil)
-    ticket_type_group= ticket_type_group.id if ticket_type_group.is_a? TicketTypeGroup
-
+  def tickets_attended(ticket_type_groups= [])
     attended = nil
 
-    if ticket_type_group
+    unless ticket_type_groups.empty?
       attended = tickets.includes(:ticket_type)
-        .where("ticket_types.ticket_type_group_id = #{ticket_type_group}")
+        .where("ticket_types.ticket_type_group_id" => ticket_type_groups)
         .where(:status_ticket_id => StatusTicket.attended.id)
     end
 

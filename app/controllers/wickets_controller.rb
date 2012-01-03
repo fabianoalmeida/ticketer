@@ -2,7 +2,8 @@ class WicketsController < ApplicationController
   # GET /wickets
   # GET /wickets.json
   def index
-    @wickets = Wicket.where(:place_id => params[:place_id], :status_id => Status.active)
+    @place = Place.find(params[:place_id])
+    @wickets = Wicket.where(:place_id => @place.id).order( "value ASC" )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +16,7 @@ class WicketsController < ApplicationController
   def show
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups  = @place.ticket_type_groups
+    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
     respond_to do |format|
       format.html # show.html.erb
       format.json  { render :json => @wicket }
@@ -27,7 +28,7 @@ class WicketsController < ApplicationController
   def new
     @wicket = Wicket.new( :priority => false )
     @place = Place.find(params[:place_id])
-    @ticket_type_groups  = @place.ticket_type_groups
+    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @wicket }
@@ -38,15 +39,16 @@ class WicketsController < ApplicationController
   def edit
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups  = @place.ticket_type_groups
+    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
   end
 
   # POST /wickets
   # POST /wickets.json
   def create
+    debugger
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups  = @place.ticket_type_groups
+    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
     @wicket.user= "user test"
 
     respond_to do |format|
@@ -65,7 +67,7 @@ class WicketsController < ApplicationController
   def update
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups  = @place.ticket_type_groups
+    @ticket_type_groups = @wicket.ticket_type_groups.order( "value ASC" )
 
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])
@@ -99,14 +101,14 @@ class WicketsController < ApplicationController
 
     @tickets_type= []
 
-    @place.ticket_type_groups.each do |ticket_type_group|
+    @wicket.ticket_type_groups.each do |ticket_type_group|
       @tickets_type << ticket_type_group.ticket_types
     end
 
     @tickets_type= @tickets_type.flatten
 
-    @tickets_available = @place.tickets_availables(@wicket.ticket_type_group).today unless @wicket.second_level?
-    @tickets_available ||= @place.tickets_attended(@wicket.ticket_type_group).today 
+    @tickets_available = @place.tickets_availables(@wicket.ticket_type_groups).today unless @wicket.second_level?
+    @tickets_available ||= @place.tickets_attended(@wicket.ticket_type_groups).today 
 
     if @wicket.priority
       @tickets_available = @tickets_available.sort do |a, b|

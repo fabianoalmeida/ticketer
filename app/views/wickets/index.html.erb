@@ -1,26 +1,33 @@
 <div class="form">
+  <div class="place-spot">
+    <%= "#{t('model.place.name')}: " %><b><%= @place.value %></b>
+  </div>
   <div class="search">
     <input type="text" value="search" id="search"/>
     <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
   </div>
   <table>
     <tr>
-      <th><%=  t('model.wicket.name').pluralize %></th>
+      <th><%= t('model.wicket.name') %></th>
+      <th><%= t('model.ticket_type_group.name') %></th>
+      <th><%= t('model.wicket.guidance.name') %></th>
+      <th><%= t('model.wicket.priority.name') %></th>
+      <th><%= t('model.wicket.second_level.name') %></th>
+      <th><%= t('model.status.name') %></th>
       <th colspan="3" class="options"><%= t("application.options") %></th>
     </tr>
 
     <% @wickets.each do |wicket| %>
       <tr class="row">
-        <td width ="100%"><%= wicket.value %></td>
-        <td>
-          <%= link_to image_tag("form/search.gif"), place_wicket_path(wicket.place, wicket), :title => t('model.show')%>
-        </td>
-        <td>
-          <%= link_to image_tag("form/edit.gif"), edit_place_wicket_path(wicket.place, wicket),  :title => t('model.edit') %>
-        </td>
-        <td>
-			<%= link_to image_tag("form/trash.gif"), place_wicket_path(wicket.place, wicket), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %>
-		</td>   
+        <td width ="20%"><%= wicket.value %></td>
+        <td width ="30%"><%= wicket.ticket_types %></td>
+        <td width ="15%"><%= wicket.guidance_left? ? t('model.wicket.guidance.left') : t('model.wicket.guidance.right') %></td>
+        <td width ="15%"><%= wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %></td>
+        <td width ="15%"><%= wicket.second_level ? t('model.wicket.second_level.sure') : t('model.wicket.second_level.not') %></td>
+        <td width ="15%"><%= wicket.active? ? t('model.status.active') : t('model.status.inactive') %></td>
+        <td><%= link_to image_tag("form/search.gif"), place_wicket_path(wicket.place, wicket), :title => t('model.show')%></td>
+        <td><%= link_to image_tag("form/edit.gif"), edit_place_wicket_path(wicket.place, wicket),  :title => t('model.edit') %></td>
+        <td><%= link_to image_tag("form/trash.gif"), place_wicket_path(wicket.place, wicket), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %></td>   
 	  </tr>
     <% end %>
 

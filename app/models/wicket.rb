@@ -7,11 +7,11 @@ class Wicket < ActiveRecord::Base
 
   belongs_to :status
   belongs_to :place
-  belongs_to :ticket_type_group
   has_many :call_histories
   has_many :tickets, :through => :call_histories, :uniq => :true
+  has_and_belongs_to_many :ticket_type_groups, :uniq => :true
 
-  validates :value, :user, :status, :place, :ticket_type_group, :presence => true
+  validates :value, :user, :status, :place, :ticket_type_groups, :presence => true
   validates_inclusion_of :guidance, :priority, :second_level, :in => [true, false]
 
   validates :value,
@@ -37,6 +37,14 @@ class Wicket < ActiveRecord::Base
 
   def guidance_right?
     return guidance ? true : false
+  end
+  
+  def ticket_types
+    values = []
+    ticket_type_groups.order("value ASC").each do |ttg|
+      values << ttg.value
+    end
+    values.join(", ")
   end
 
 end

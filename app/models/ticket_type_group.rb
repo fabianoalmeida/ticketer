@@ -2,6 +2,7 @@ class TicketTypeGroup < ActiveRecord::Base
 
   belongs_to :status
   has_and_belongs_to_many :places
+  has_and_belongs_to_many :wickets
 
   validates :value, :user, :status, :presence => true
 

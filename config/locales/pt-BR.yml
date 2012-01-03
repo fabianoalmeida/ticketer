@@ -223,7 +223,7 @@
         guidance: "Orientação"
         priority: "Prioridade"
         second_level: "Segundo Nível"
-        ticket_type_group: "Grupo Tipo de Senha"
+        ticket_type_groups: "Grupos Tipo de Senha"
       local:
         des_local: "Descrição"
         user: "Usuário"
@@ -290,11 +290,12 @@
       closed: "Fechado"
 
     ticket_type_group:
-      name : "Grupos Tipo de Senha"
+      name: "Grupo Tipo de Senha"
       new: "Novo Grupo Tipo de Senha"
       editing: "Editando um Grupo de Tipo de Senha"
       title: "Grupo Tipo de Senhas"
       back: "Voltar para Grupo"
+      value: "Nome"
 
     ticket_type:
       name : "Tipo de Senha"
@@ -302,6 +303,7 @@
       new: "Novo Tipo de Senha"
       editing: "Editando Tipo de Senha"
       title: "HOSPITAL SANTA IZABEL"
+      acronym: "Sigla"
       short:
         singular: "Tipo"
       priority:
@@ -334,6 +336,7 @@
       name: "Guichê"
       ticket_type_groups: "Grupo Tipo de Senha"
       guidance:
+        name: "Orientação"
         left: "Esquerda"
         right: "Direita"
       priority:

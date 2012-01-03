@@ -3,6 +3,10 @@ module Ticketer
     def self.today
       where(:created_at => Date.today.midnight...Date.tomorrow.midnight)
     end
+    
+    def active?
+      status.eql? Status.active unless status.nil?
+    end
   end
   ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
     self.default_sequence_start_value = 1

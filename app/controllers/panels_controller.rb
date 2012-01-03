@@ -2,7 +2,8 @@ class PanelsController < ApplicationController
   # GET /panels
   # GET /panels.json
   def index
-    @panels = Panel.where(:place_id => params[:place_id], :status_id => Status.active)
+    @place = Place.find(params[:place_id])
+    @panels = Panel.where(:place_id => @place.id).order( "value ASC" )
 
     respond_to do |format|
       format.html # index.html.erb

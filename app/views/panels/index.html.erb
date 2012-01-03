@@ -1,16 +1,23 @@
 <div class="form">
+  <div class="place-spot">
+    <%= "#{t('model.place.name')}: " %><b><%= @place.value %></b>
+  </div>
   <div class="search">
     <input type="text" value="search" id="search"/>
     <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
   </div>
   <table>
     <tr>
-      <th><%=  t('model.panel.name').pluralize %></th>
+      <th><%= t('model.panel.name').pluralize %></th>
+      <th><%= t('model.totem.ip') %></th>
+      <th><%= t('model.status.name') %></th>
       <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @panels.each do |panel| %>
       <tr class="row">
-        <td width="100%"><%= panel.value %></td>
+        <td width="60%"><%= panel.value %></td>
+        <td width="20%"><%= panel.ip %></td>
+        <td width="20%"><%= panel.active?  ? t('model.status.active') : t('model.status.inactive') %></td>
         <td><%= link_to image_tag("form/search.gif"), place_panel_path(panel.place, panel), :title =>  t('model.show') %></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_place_panel_path(panel.place, panel), :title =>  t('model.edit') %></td>
         <td><%= link_to image_tag("form/panel.gif"), place_panel_tickets_path(panel.place, panel.id), :title =>  t('model.destroy') %></td>

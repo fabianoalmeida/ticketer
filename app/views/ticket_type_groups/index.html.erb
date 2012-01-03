@@ -1,11 +1,14 @@
 <div class="form">
+  <div class="place-spot">
+    <%= t('model.ticket_type_group.name').pluralize %>
+  </div>
   <div class="search">
     <input type="text" value="search" id="search"/>
     <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
   </div>
   <table>
     <tr>
-      <th><%=  t('model.ticket_type_group.name').pluralize %></th>
+      <th><%= t('model.ticket_type_group.value').pluralize %></th>
       <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @ticket_type_groups.each do |ticket_type_group| %>

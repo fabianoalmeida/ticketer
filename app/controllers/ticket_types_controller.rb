@@ -2,7 +2,8 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types
   # GET /ticket_types.json
   def index
-    @ticket_types = TicketType.where(:ticket_type_group_id => params[:ticket_type_group_id], :status_id => Status.active)
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
+    @ticket_types = TicketType.where(:ticket_type_group_id => @ticket_type_group.id)
 
     respond_to do |format|
       format.html # index.html.erb

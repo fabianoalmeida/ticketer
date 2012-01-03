@@ -2,7 +2,7 @@ class TicketTypeGroupsController < ApplicationController
   # GET /ticket_type_groups
   # GET /ticket_type_groups.xml
   def index
-    @ticket_type_groups = TicketTypeGroup.where(:status_id => Status.active)
+    @ticket_type_groups = TicketTypeGroup.where(:status_id => Status.active).order( "value ASC" )
 
     respond_to do |format|
       format.html # index.html.erb

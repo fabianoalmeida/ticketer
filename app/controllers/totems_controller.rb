@@ -4,7 +4,8 @@ class TotemsController < ApplicationController
   # GET /totems
   # GET /totems.json
   def index
-    @totems = Totem.where(:place_id => params[:place_id], :status_id => Status.active)
+    @place = Place.find(params[:place_id])
+    @totems = Totem.where(:place_id => @place.id).order( "value ASC" )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -94,7 +95,7 @@ class TotemsController < ApplicationController
   # GET /generate_ticket
   def generate_ticket
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @place.ticket_type_groups
+    @ticket_type_groups = @place.ticket_type_groups.order("value ASC")
 
     respond_to do |format|
       format.html {render :layout => 'application-totem'}

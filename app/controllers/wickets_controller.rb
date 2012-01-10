@@ -190,6 +190,20 @@ class WicketsController < ApplicationController
       end
     end
   end
+  
+  #PUT places/1/wicket/1/examine
+  def examine
+    @ticket_attended = Ticket.find(params[:ticket_id])
+    @wicket = Wicket.find(params[:wicket_id])
+    respond_to do |format|
+      if @ticket_attended.exam
+        CallHistory.register(:ticket => @ticket_attended, :wicket => @wicket)
+        @ticket_attended[:time] = I18n.localize(@ticket_attended.updated_at, :format => :hour_minute)
+        format.json { render :json => @ticket_attended }
+        format.html { redirect_to(place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
+      end
+    end
+  end
 
   #DELETE places/1/wicket/1/cancel
   def cancel

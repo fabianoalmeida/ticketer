@@ -102,6 +102,17 @@ class TotemsController < ApplicationController
       format.json  { render :json => @ticket_type_groups }
     end
   end
+  
+  # GET /ticket_type_groups
+  def ticket_type_groups
+    @place = Place.find(params[:place_id])
+    @ticket_type_groups = @place.ticket_type_groups.order("value ASC")
+
+    respond_to do |format|
+      format.html {render :layout => 'application-totem'}
+      format.json  { render :json => @ticket_type_groups }
+    end
+  end
 
   private
 

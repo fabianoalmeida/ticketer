@@ -8,7 +8,8 @@ module TicketerIo
 
     #This should be moved to a module
     def emit_ticket(channel, ticket)
-      channel = [:called.to_s, :recalled.to_s ].include?(ticket.state)? :calleds : ticket.state.eql?(:available.to_s) ? :availables : nil
+      
+      channel = [:called.to_s, :recalled.to_s ].include?(ticket.state)? :calleds : ticket.state.eql?(:available.to_s) ? :availables : channel.eql?(:examed.to_s) ? :examed : nil
 
       if channel
         Rails.logger.info "Publish new ticket #{ticket.value} with state #{ticket.state}, for the channel #{channel}"

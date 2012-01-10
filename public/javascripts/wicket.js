@@ -17,6 +17,50 @@
         this.attend();
         this.reopen();
         this.cancel();
+        this.exam();
+      },
+
+      exam : function(){
+	    
+        if ( $('input#second_level').val() == "true" ) {
+          
+          $("ul#tickets_available li").css("cursor", "pointer");
+
+	      $("ul#tickets_available li").click(function(){
+
+	        size = $('ul#tickets_available.holder li').size();
+
+	        button_examed = '<a id="examed" value='+this.id+' class="super button pink" style="margin : 10 px;">Examinado</a>';
+
+	        $.facebox.new_with_close(button_examed).afterCallNext();
+
+	        wicket.triggers.examed();
+	      });
+        }
+      },
+
+      examed : function(){
+        $('a#examed').click(function(){
+          $.ajax({
+            url: "examinar",
+            type: "put",
+            data : {ticket_id : this.getAttribute('value') },
+            dataType: 'json',
+            success : function(data){
+               $.dataSlide('ul#tickets_attended', {
+                   add : {
+                     element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+                     position : 'top'
+                   }
+                 })
+
+               $.changeByOneValues('attended', data.ticket.ticket_type_id, true);
+               $.changeByOneValues('available', data.ticket.ticket_type_id, false);
+               $.dataSlide('#tickets_available', { remove : 'li#'+data.ticket.id } );
+               $.facebox.close();
+             }
+          });
+        });
       },
 
       call_next : function(){
@@ -76,6 +120,8 @@
                 $('span#tickets_attended_total').html('<i>Total: '+size+'</i>');
 
                 $.changeByOneValues('attended', data.ticket.ticket_type_id, true);
+                $.changeByOneValues('available', data.ticket.ticket_type_id, false);
+                $.dataSlide('#tickets_available', { remove : 'li#'+data.ticket.id } );
                 $.facebox.close();
               }
             });

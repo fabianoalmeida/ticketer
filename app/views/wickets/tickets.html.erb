@@ -1,12 +1,14 @@
 <div style="text-align: right;">
   <input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
   <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
+  <input id="second_level" type="hidden" value="<%= @wicket.second_level %>"/>
 
   <div id="wicket_menu">
     <div style="text-align: left; float: left; padding-left: 350px; font-size: 45px; font-weight: bold; color: #ACAB9A;"> <%= @wicket.value %> </div>
     <div style="text-align: right; float; right;">
-      <a id="call_next" class="super button pink" href="chamar_proximo" data-method="get" data-remote="true"><%= t('model.call') %></a>
-
+	  <% unless @wicket.second_level? %>
+        <a id="call_next" class="super button pink" href="chamar_proximo" data-method="get" data-remote="true"><%= t('model.call') %></a>
+      <% end %>
     </div>
   </div>
 
@@ -29,12 +31,14 @@
         </ul>
       </div>
       <div class="tags">
-        <ul id="tickets_waiting_tag" class="tag">
-          <% @tickets_type.each do |types| %>
-            <li class="tittle"><%= types.value %></li>
-            <li id='ticket_type<%= types.id %>' class="content"><%= @val[types.id.to_s] %></li>
-          <% end %>
-        </ul>
+	    <% unless @wicket.second_level? %>
+          <ul id="tickets_waiting_tag" class="tag">
+            <% @tickets_type.each do |types| %>
+              <li class="tittle"><%= types.value %></li>
+              <li id='ticket_type<%= types.id %>' class="content"><%= @val[types.id.to_s] %></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
 
@@ -56,12 +60,14 @@
         </ul>
       </div>
       <div class="tags">
-        <ul id="tickets_attended_tag" class="tag">
-          <% @tickets_type.each do |types| %>
-            <li class="tittle"><%= types.value %></li>
-            <li id='ticket_type<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
-          <% end %>
-        </ul>
+	    <% unless @wicket.second_level? %>
+          <ul id="tickets_attended_tag" class="tag">
+            <% @tickets_type.each do |types| %>
+              <li class="tittle"><%= types.value %></li>
+              <li id='ticket_type<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
 
@@ -82,12 +88,14 @@
         </ul>
       </div>
       <div class="tags">
-        <ul id="tickets_available_tag" class="tag">
-          <% @tickets_type.each do |types| %>
-            <li class="tittle"><%= types.value %></li>
-            <li id="ticket_type<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
-          <% end %>
-        </ul>
+	    <% unless @wicket.second_level? %>
+          <ul id="tickets_available_tag" class="tag">
+            <% @tickets_type.each do |types| %>
+              <li class="tittle"><%= types.value %></li>
+              <li id="ticket_type<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
   </div>

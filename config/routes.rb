@@ -43,10 +43,16 @@ Ticketer::Application.routes.draw do
         put 'attend', :path => 'atender'
         put 'put_waiting', :path => 'por_em_espera'
         put 'back_available', :path => 'tornar_disponivel'
+        put 'examine', :path => 'examinar'
         delete 'cancel', :path => 'cancelar'
       end
       resources :totems do
+        get 'ticket_type_groups', :path => 'grupos_tipo_senha'
         get 'generate_ticket', :path => 'gerar_senha'
+        
+        resources :ticket_type_groups do
+          get 'generate_ticket', :path => 'gerar_senha'
+        end
       end
 
     end

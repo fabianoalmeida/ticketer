@@ -1,0 +1,12 @@
+<div class="totem_group">
+<%= form_for( Ticket.new ) do |f| %>
+  <%= f.hidden_field :totem_id, :value => params[:totem_id] %>
+  <%= f.hidden_field :place_id, :value => params[:place_id] %>
+  <% @ticket_type_groups.each do |ticket_type_group| %>
+    <div class="ticket_type_group generate"><span><%= link_to ticket_type_group.value, place_totem_ticket_type_group_generate_ticket_path(params[:place_id], params[:totem_id], ticket_type_group.id), :title => t('model.generate') %></span></div>
+  <% end %>
+<% end %>
+</div>
+
+<%= javascript_include_tag 'jquery.jclock' %>
+</div>

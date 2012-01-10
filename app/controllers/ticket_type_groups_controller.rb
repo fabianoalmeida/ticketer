@@ -82,4 +82,14 @@ class TicketTypeGroupsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # GET /generate_ticket
+  def generate_ticket
+    @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
+
+    respond_to do |format|
+      format.html {render :layout => 'application-totem'}
+      format.json  { render :json => @ticket_type_group }
+    end
+  end
 end

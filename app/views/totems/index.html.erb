@@ -25,7 +25,11 @@
           <%= link_to image_tag("form/edit.gif"), edit_place_totem_path(totem.place, totem), :title => t('model.edit') %>
         </td>
         <td>
+	    <% if @place.ticket_type_groups.size > 2 %>
+          <%= link_to image_tag("form/note.gif"), place_totem_ticket_type_groups_path(totem.place, totem.id), :title => t('model.generate') %>
+        <% else %>
           <%= link_to image_tag("form/note.gif"), place_totem_generate_ticket_path(totem.place, totem.id), :title => t('model.generate') %>
+        <% end %>
         </td>
         <td>
 			<%= link_to image_tag("form/trash.gif"), place_totem_path(totem.place, totem), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %>

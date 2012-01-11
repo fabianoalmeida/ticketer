@@ -364,6 +364,9 @@
       attend:
         singular: "Atender"
         plural: "Atendidos"
+      examed:
+        singular: "Examinar"
+        plural: "Examinados"
 
     local:
       new: "Novo Local"

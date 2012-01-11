@@ -24,11 +24,11 @@
 	    
         if ( $('input#second_level').val() == "true" ) {
           
-          $("ul#tickets_available li").css("cursor", "pointer");
+          $("ul#tickets_preexam li").css("cursor", "pointer");
 
-	      $("ul#tickets_available li").click(function(){
+	      $("ul#tickets_preexam li").click(function(){
 
-	        size = $('ul#tickets_available.holder li').size();
+	        size = $('ul#tickets_preexam.holder li').size();
 
 	        button_examed = '<a id="examed" value='+this.id+' class="super button pink" style="margin : 10 px;">Examinado</a>';
 
@@ -47,16 +47,17 @@
             data : {ticket_id : this.getAttribute('value') },
             dataType: 'json',
             success : function(data){
-               $.dataSlide('ul#tickets_attended', {
+	
+	           $.dataSlide('#tickets_preexam', { remove : 'li#'+data.ticket.id } );
+	
+               $.dataSlide('ul#tickets_examed', {
                    add : {
                      element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
                      position : 'top'
                    }
                  })
 
-               $.changeByOneValues('attended', data.ticket.ticket_type_id, true);
-               $.changeByOneValues('available', data.ticket.ticket_type_id, false);
-               $.dataSlide('#tickets_available', { remove : 'li#'+data.ticket.id } );
+               $.changeByOneValues('examed', data.ticket.ticket_type_id, true);
                $.facebox.close();
              }
           });
@@ -120,8 +121,6 @@
                 $('span#tickets_attended_total').html('<i>Total: '+size+'</i>');
 
                 $.changeByOneValues('attended', data.ticket.ticket_type_id, true);
-                $.changeByOneValues('available', data.ticket.ticket_type_id, false);
-                $.dataSlide('#tickets_available', { remove : 'li#'+data.ticket.id } );
                 $.facebox.close();
               }
             });

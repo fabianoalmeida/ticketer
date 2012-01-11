@@ -46,6 +46,7 @@ Ticketer::Application.routes.draw do
         put 'examine', :path => 'examinar'
         delete 'cancel', :path => 'cancelar'
       end
+      
       resources :totems do
         get 'ticket_type_groups', :path => 'grupos_tipo_senha'
         get 'generate_ticket', :path => 'gerar_senha'

@@ -1,6 +1,7 @@
 <div style="text-align: right;">
   <input type="hidden" name="place_id" value="<%= params[:place_id] %>" id="place_id"/>
   <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
+  <input id="ticket_type_groups" type="hidden" value="<%= @ticket_type_groups_id %>"/>
   <input id="second_level" type="hidden" value="<%= @wicket.second_level %>"/>
 
   <div id="wicket_menu">
@@ -43,6 +44,7 @@
     </div>
 
     <div class="support">
+	<% unless @wicket.second_level? %>
       <div id="tickets_attended" class="main">
         <span style="text-align: left;"><%= t('model.ticket.attend.plural') %> </span> <span id="tickets_attended_total" style="text-align: right;"><i>Total: <%= @tickets_attended.length %></i></span>
         <ul id="tickets_attended" class="holder">
@@ -60,18 +62,37 @@
         </ul>
       </div>
       <div class="tags">
-	    <% unless @wicket.second_level? %>
-          <ul id="tickets_attended_tag" class="tag">
-            <% @tickets_type.each do |types| %>
-              <li class="tittle"><%= types.value %></li>
-              <li id='ticket_type<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
-            <% end %>
-          </ul>
-        <% end %>
+        <ul id="tickets_attended_tag" class="tag">
+          <% @tickets_type.each do |types| %>
+            <li class="tittle"><%= types.value %></li>
+            <li id='ticket_type<%= types.id %>' class="content"><%= @val[:attend][types.id.to_s] %></li>
+          <% end %>
+        </ul>
       </div>
+    <% else %>
+      <div id="tickets_examed" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.examed.plural') %> </span> <span id="tickets_examed_total" style="text-align: right;"><i>Total: <%= @tickets_examed.length %></i></span>
+        <ul id="tickets_examed" class="holder">
+          <% if @tickets_examed %>
+            <% @val[:attend] = {} %>
+            <% @tickets_examed.each do |ticket| %>
+              <% @val[:attend][ticket.ticket_type_id.to_s] ||= 0
+               @val[:attend][ticket.ticket_type_id.to_s] &&= @val[:attend][ticket.ticket_type_id.to_s] + 1 %>
+
+              <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+                <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tags">
+      </div>
+    <% end %>
     </div>
 
     <div class="support">
+	<% unless @wicket.second_level? %>
       <div id="tickets_available" class="main">
         <span style="text-align: left;"><%= t('model.ticket.name') %> </span> <span id="tickets_available_total" style="text-align: right;"><i>Total: <%= @tickets_available.length %></i></span>
         <ul id="tickets_available" class="holder">
@@ -88,16 +109,35 @@
         </ul>
       </div>
       <div class="tags">
-	    <% unless @wicket.second_level? %>
-          <ul id="tickets_available_tag" class="tag">
-            <% @tickets_type.each do |types| %>
-              <li class="tittle"><%= types.value %></li>
-              <li id="ticket_type<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
-            <% end %>
-          </ul>
-        <% end %>
+        <ul id="tickets_available_tag" class="tag">
+          <% @tickets_type.each do |types| %>
+            <li class="tittle"><%= types.value %></li>
+            <li id="ticket_type<%= types.id %>" class="content"><%= @val[:available][types.id.to_s] %></li>
+          <% end %>
+        </ul>
       </div>
+    <% else %>
+      <div id="tickets_preexam" class="main">
+        <span style="text-align: left;"><%= t('model.ticket.attend.plural') %> </span> <span id="tickets_preexam_total" style="text-align: right;"><i>Total: <%= @tickets_attended.length %></i></span>
+        <ul id="tickets_preexam" class="holder">
+          <% if @tickets_attended %>
+            <% @val[:attend] = {} %>
+            <% @tickets_attended.each do |ticket| %>
+              <% @val[:attend][ticket.ticket_type_id.to_s] ||= 0
+               @val[:attend][ticket.ticket_type_id.to_s] &&= @val[:attend][ticket.ticket_type_id.to_s] + 1 %>
+
+              <li id='<%= ticket.id %>' style="width: 145px; text-align: center;">
+                <span style="color: red;"><%= ticket.value %></span> <%= ticket.updated_at.strftime( t('time.formats.hour_minute') )%>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="tags">
+      </div>
+    <% end %>
     </div>
+
   </div>
   <%= javascript_include_tag :juggernaut, 'juggernaut.wicket','facebox', 'facebox-plugin','data-slide', 'wicket'  %>
   <div style="clear: both;"></div>

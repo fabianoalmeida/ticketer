@@ -337,5 +337,7 @@ $(document).ready(function(){
   $('ul#tickets_available').dataSlide({numberPerPage:10, parent:"div#tickets_available"});
   $('ul#tickets_attended').dataSlide({numberPerPage:10, parent:"div#tickets_attended"});
   $('ul#tickets_waiting').dataSlide({numberPerPage:10, parent:"div#tickets_waiting"});
+  $('ul#tickets_preexam').dataSlide({numberPerPage:10, parent:"div#tickets_preexam"});
+  $('ul#tickets_examed').dataSlide({numberPerPage:10, parent:"div#tickets_examed"});
  
 });

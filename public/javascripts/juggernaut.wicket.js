@@ -20,12 +20,14 @@ function process(data) {
       }
 
     } else if (data.channel == "attendeds"){
+	
       $.dataSlide('#tickets_preexam', {
             add : {
               element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>'
             }
       });
-     $.changeByOneValues( 'preexam', data.ticket_type_id, true);
+      $.changeByOneValues( 'preexam', data.ticket_type_id, true);
+	  wicket.triggers.exam();
 
     } else if (data.channel == "exameds"){
 	

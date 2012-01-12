@@ -185,6 +185,13 @@ img.logo {
 .totem_group .ticket_type_group a:hover   { color: #FFFFFF; text-decoration:none; }
 .totem_group .ticket_type_group a:active  { color: #FFFFFF; text-decoration:none; }
 
+div.ticket_type_group:hover {
+  cursor: pointer;
+  cursor: hand;
+  box-shadow: 5px 5px 5px 5px #CCCCCC;
+  -moz-box-shadow: 5px 5px 5px 5px #CCCCCC;
+}
+
 div.ticket_type:hover {
   cursor: pointer;
   cursor: hand;

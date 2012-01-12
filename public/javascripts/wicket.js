@@ -58,6 +58,7 @@
                  })
 
                $.changeByOneValues('examed', data.ticket.ticket_type_id, true);
+               $.changeByOneValues('preexam', data.ticket.ticket_type_id, false);
                $.facebox.close();
              }
           });

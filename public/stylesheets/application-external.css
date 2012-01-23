@@ -163,7 +163,7 @@ img.logo {
   margin-top: 150px;
 }
 
-.totem_group .ticket_type_group {
+.totem_group .ticket_type_groups {
   background: none repeat scroll 0 0 #00873B;
   border: 2px solid #FFFFFF;
   -moz-border-radius: 20px 0 0 20px;
@@ -180,12 +180,12 @@ img.logo {
   width: 520px;
 }
 
-.totem_group .ticket_type_group a:link    { color: #FFFFFF; text-decoration:none; }
-.totem_group .ticket_type_group a:visited { color: #FFFFFF; text-decoration:none; }
-.totem_group .ticket_type_group a:hover   { color: #FFFFFF; text-decoration:none; }
-.totem_group .ticket_type_group a:active  { color: #FFFFFF; text-decoration:none; }
+.totem_group .ticket_type_groups a:link    { color: #FFFFFF; text-decoration:none; }
+.totem_group .ticket_type_groups a:visited { color: #FFFFFF; text-decoration:none; }
+.totem_group .ticket_type_groups a:hover   { color: #FFFFFF; text-decoration:none; }
+.totem_group .ticket_type_groups a:active  { color: #FFFFFF; text-decoration:none; }
 
-div.ticket_type_group:hover {
+div.ticket_type_groups:hover {
   cursor: pointer;
   cursor: hand;
   box-shadow: 5px 5px 5px 5px #CCCCCC;

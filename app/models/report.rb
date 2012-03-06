@@ -170,9 +170,12 @@ class Report
       to_char(trunc(t.created_at), 'dd/MM/yyyy') as data, count(attended.ticket_id) as total, avg(attended.created - t.created_at) * 24 * 60 as time
     SQL
     
+    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+    
     CallHistory.select(select)  
                .from("tickets t, #{attended_table}")
                .where("attended.ticket_id = t.id")
+               .where(filter)
                .where("t.created_at" => start_date.midnight..end_date.tomorrow.midnight, 
                       "t.place_id" => @place)
                .group("trunc(t.created_at)")
@@ -318,6 +321,8 @@ class Report
   end
 
   def waiting_time_by_client_per_month(start_date, end_date)
+    
+    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
 
     format = "{%Y, %m, %d}" 
     start  = Date.strptime("{#{start_date[:year]},#{start_date[:month]},01}", format)
@@ -338,6 +343,7 @@ class Report
     CallHistory.select(select)  
                .from("tickets t, #{attended_table}")
                .where("attended.ticket_id = t.id")
+               .where(filter)
                .where("t.created_at" => start..ending.end_of_month.tomorrow, 
                       "t.place_id" => @place)
                .group("to_char(trunc(t.created_at), 'MM/yyyy')")

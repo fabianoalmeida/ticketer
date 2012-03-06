@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   end
 
   def tickets_per_day
-    filter_date 
+    filter_date
     @report = Report.tickets_per_day(@first_date, @second_date).to(@place)
     handle_result @report, :tickets_per_day
   end
@@ -52,13 +52,17 @@ class ReportsController < ApplicationController
  
   def waiting_time_by_client 
     filter_date
-    @report = Report.waiting_time_by_client(@first_date, @second_date).to(@place)
+    @report = Report.waiting_time_by_client(@first_date, @second_date)
+                    .to(@place)
+                    .filtered_by(@wicket_ids)
     handle_result @report, :waiting_time_by_client
   end
  
   def waiting_time_by_client_per_month
-    filter_place
-    @report = Report.waiting_time_by_client_per_month(params[:start_date], params[:end_date]).to(@place)
+    filter_wicket
+    @report = Report.waiting_time_by_client_per_month(params[:start_date], params[:end_date])
+                    .to(@place)
+                    .filtered_by(@wicket_ids)
     handle_result @report, :waiting_time_clients_per_month
   end
   

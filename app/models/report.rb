@@ -170,7 +170,7 @@ class Report
       to_char(trunc(t.created_at), 'dd/MM/yyyy') as data, count(attended.ticket_id) as total, avg(attended.created - t.created_at) * 24 * 60 as time
     SQL
     
-    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+    filter = @wicket_ids ? { "attended.wicket_id" => @wicket_ids } : ""
     
     CallHistory.select(select)  
                .from("tickets t, #{attended_table}")
@@ -322,7 +322,7 @@ class Report
 
   def waiting_time_by_client_per_month(start_date, end_date)
     
-    filter = @wicket_ids ? { "wickets.id" => @wicket_ids } : ""
+    filter = @wicket_ids ? { "attended.wicket_id" => @wicket_ids } : ""
 
     format = "{%Y, %m, %d}" 
     start  = Date.strptime("{#{start_date[:year]},#{start_date[:month]},01}", format)

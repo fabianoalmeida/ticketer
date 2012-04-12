@@ -26,7 +26,7 @@ class TicketTypesController < ApplicationController
   # GET /ticket_types/new
   # GET /ticket_types/new.json
   def new
-    @ticket_type = TicketType.new( :priority => false )
+    @ticket_type = TicketType.new( :priority => false, :status => Status.active )
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
 
     respond_to do |format|

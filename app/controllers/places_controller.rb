@@ -24,7 +24,7 @@ class PlacesController < ApplicationController
   # GET /places/new
   # GET /places/new.json
   def new
-    @place = Place.new
+    @place = Place.new( :status => Status.active )
     @locals = Local.all
     respond_to do |format|
       format.html # new.html.erb

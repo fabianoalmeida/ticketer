@@ -28,7 +28,7 @@ class TotemsController < ApplicationController
   # GET /totems/new
   # GET /totems/new.json
   def new
-    @totem = Totem.new
+    @totem = Totem.new( :status => Status.active )
     @place = Place.find(params[:place_id])
 
     respond_to do |format|

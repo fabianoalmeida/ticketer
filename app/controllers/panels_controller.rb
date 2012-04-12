@@ -26,7 +26,7 @@ class PanelsController < ApplicationController
   # GET /panels/new
   # GET /panels/new.json
   def new
-    @panel = Panel.new
+    @panel = Panel.new( :status => Status.active )
     @place = Place.find(params[:place_id])
 
     respond_to do |format|

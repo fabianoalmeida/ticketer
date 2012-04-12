@@ -24,7 +24,7 @@ class TicketTypeGroupsController < ApplicationController
   # GET /ticket_type_groups/new
   # GET /ticket_type_groups/new.xml
   def new
-    @ticket_type_group = TicketTypeGroup.new
+    @ticket_type_group = TicketTypeGroup.new( :status => Status.active )
 
     respond_to do |format|
       format.html # new.html.erb

@@ -26,7 +26,7 @@ class WicketsController < ApplicationController
   # GET /wickets/new
   # GET /wickets/new.json
   def new
-    @wicket = Wicket.new( :priority => false )
+    @wicket = Wicket.new( :priority => false, :status => Status.active )
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
     respond_to do |format|

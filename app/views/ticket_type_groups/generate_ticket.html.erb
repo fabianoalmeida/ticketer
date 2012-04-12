@@ -10,6 +10,12 @@
 <% end %>
 </div>
 
+<div class="totem">
+  <%= link_to place_totem_ticket_type_groups_path(params[:place_id], params[:totem_id]) do %>
+    <div class="back"><span><%= t "model.back" %></span></div>
+  <% end %>
+</div>
+
 <%= javascript_include_tag  'facebox', 'facebox-plugin', 'jquery.jclock' %>
 <script type="text/javascript" charset="utf-8">
    jQuery.clock();

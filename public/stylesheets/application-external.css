@@ -148,6 +148,35 @@ img.logo {
   width: 600px;
 }
 
+.totem .back {
+  background: none repeat scroll 0 0 #00873B;
+  border: 2px solid #FFFFFF;
+  -moz-border-radius: 20px 20px 20px 20px;
+  border-radius: 20px 20px 20px 20px;
+  -moz-box-shadow: 3px 1px 15.9px #000000;
+  box-shadow: 3px 1px 15.9px #000000;
+  color: #FFFFFF;
+  float: left;
+  font-size: 50px;
+  margin: 150px 10px 10px;
+  padding: 20px 30px 10px;
+  text-align: left;
+  text-shadow: 2px 2px #1C8E49;
+  width: 130px;
+}
+
+.totem .back a:link    { color: #FFFFFF; text-decoration:none; }
+.totem .back a:visited { color: #FFFFFF; text-decoration:none; }
+.totem .back a:hover   { color: #FFFFFF; text-decoration:none; }
+.totem .back a:active  { color: #FFFFFF; text-decoration:none; }
+
+div.back:hover {
+  cursor: pointer;
+  cursor: hand;
+  box-shadow: 5px 5px 5px 5px #CCCCCC;
+  -moz-box-shadow: 5px 5px 5px 5px #CCCCCC;
+}
+
 .totem .ticket_type_group {
     color: #D10000;
     float: right;

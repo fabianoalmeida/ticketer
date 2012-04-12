@@ -2,7 +2,7 @@ class CallHistoriesController < ApplicationController
   # GET /call_histories
   # GET /call_histories.json
   def index
-    @call_histories = CallHistory.all
+    @call_histories = CallHistory.today.order( "created_at DESC" )
 
     respond_to do |format|
       format.html # index.html.erb

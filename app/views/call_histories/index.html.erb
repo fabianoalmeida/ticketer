@@ -1,26 +1,28 @@
-<h1><%= t 'model.call_history.title' %></h1>
+<div class="form">
+  <div class="place-spot">
+    <b><%= t 'model.call_history.title' %></b>
+  </div>
+  <div class="search">
+    <input type="text" value="search" id="search"/>
+    <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
+  </div>
+  <table>
+    <tr>
+      <th><%= t('model.place.name') %></th>
+      <th><%= t('model.wicket.name') %></th>
+      <th><%= t('model.ticket.name') %></th>
+      <th><%= t('model.created_at') %></th>
+      <th class="options"></th>
+    </tr>
 
-<table>
-  <tr>
-    <th><%= t('model.ticket.name') %></th>
-    <th><%= t('model.wicket.name') %></th>
-    <th><%= t('model.created_at') %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @call_histories.each do |call_history| %>
-  <tr>
-    <td><%= call_history.ticket.value %></td>
-    <td><%= call_history.wicket.value %></td>
-    <td><%= call_history.created_at.strftime( t('time.formats.default') ) %></td>
-    <td><%= link_to t('model.show'), call_history %></td>
-    <td><%= link_to t('model.edit'), edit_call_history_path(call_history) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to t('model.call_history.new'), new_call_history_path %>
+    <% @call_histories.each do |call_history| %>
+      <tr class="row">
+        <td width ="30%"><%= call_history.wicket.place.value %></td>
+        <td width ="25%"><%= call_history.wicket.value %></td>
+        <td width ="25%"><%= call_history.ticket.value %></td>
+        <td width ="20%"><%= call_history.created_at.strftime( t('time.formats.default') ) %></td>
+        <td width ="0%"></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

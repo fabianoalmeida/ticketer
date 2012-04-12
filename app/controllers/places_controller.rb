@@ -86,7 +86,7 @@ class PlacesController < ApplicationController
   #HOME FOR ALL PLACES AVAILABLE
   def home
     @place = Place.find(params[:place_id])
-    @wickets = @place.wickets.where( :status_id => Status.active.id )
+    @wickets = @place.wickets.where( :status_id => Status.active.id ).order( :value )
     render :layout => 'places'
   end
 end

@@ -70,6 +70,20 @@
   </div>
 
   <div class="grid-12-12">
+    <%= f.label :alternate, :class => "form-lbl form-req"%>
+    <ul class="form-list-rdo">
+      <li>
+        <%= f.radio_button :alternate, "true", :disabled => disabled  %>
+        <%= f.label t('model.wicket.alternate.sure'), :class => "form-lbl" %>
+      </li>
+      <li>
+        <%= f.radio_button :alternate, "false", :disabled => disabled  %>
+        <%= f.label t('model.wicket.alternate.not'), :class => "form-lbl"%>
+      </li>
+    </ul>
+  </div>
+
+  <div class="grid-12-12">
     <%= f.label :status, :class => "form-lbl form-req"%>
     <ul class="form-list-rdo">
       <% Status.all.each do |status| %>

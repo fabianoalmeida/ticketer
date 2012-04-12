@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103121135) do
+ActiveRecord::Schema.define(:version => 20120412175659) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20120103121135) do
     t.boolean  "guidance"
     t.boolean  "priority"
     t.boolean  "second_level", :default => false, :null => false
+    t.boolean  "alternate",    :default => false
   end
 
 end

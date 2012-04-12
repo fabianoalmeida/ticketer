@@ -12,7 +12,7 @@ class Wicket < ActiveRecord::Base
   has_and_belongs_to_many :ticket_type_groups, :uniq => :true
 
   validates :value, :user, :status, :place, :ticket_type_groups, :presence => true
-  validates_inclusion_of :guidance, :priority, :second_level, :in => [true, false]
+  validates_inclusion_of :guidance, :priority, :second_level, :alternate, :in => [true, false]
 
   validates :value,
     :length => { :in => 1..80 },

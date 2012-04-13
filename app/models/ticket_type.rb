@@ -34,14 +34,14 @@ class TicketType < ActiveRecord::Base
     self.where(:acronym => "ATT").first
   end
 
-  def self.priorities(ticket_type_groups= [])
+  def self.priorities(ticket_type_groups= [], priority= true)
     priorities = nil
     
     unless ticket_type_groups.empty?
-      priorities = self.where(:priority => true, :ticket_type_group_id => ticket_type_groups)
+      priorities = self.where(:priority => priority, :ticket_type_group_id => ticket_type_groups)
     end
 
-    priorities ||= self.where(:priority => true)
+    priorities ||= self.where(:priority => priority)
 
     priorities
   end

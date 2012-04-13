@@ -223,6 +223,7 @@
         guidance: "Orientação"
         priority: "Prioridade"
         second_level: "Segundo Nível"
+        alternate: "Alternado"
         ticket_type_groups: "Grupos Tipo de Senha"
       local:
         des_local: "Descrição"
@@ -321,7 +322,7 @@
       last : "Senhas Chamadas"
       new: "Novo Registro de Chamada"
       editing: "Editando um Registro de Chamada"
-      title: "Listando todos os Registros de Chamada"
+      title: "Registro de Chamadas"
 
     call_history_type:
       new: "Novo Tipo de Registro de Chamada"
@@ -345,6 +346,10 @@
         not: "Não"
       second_level:
         name: "Segundo Nível"
+        sure: "Sim"
+        not: "Não"
+      alternate:
+        name: "Alternado"
         sure: "Sim"
         not: "Não"
       tickets:

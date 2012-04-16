@@ -10,6 +10,7 @@
     <tr>
       <th><%= t('model.wicket.name') %></th>
       <th><%= t('model.ticket_type_group.name') %></th>
+      <th><%= t('model.wicket.reference_groups') %></th>
       <th><%= t('model.wicket.guidance.name') %></th>
       <th><%= t('model.wicket.priority.name') %></th>
       <th><%= t('model.wicket.second_level.name') %></th>
@@ -21,12 +22,13 @@
     <% @wickets.each do |wicket| %>
       <tr class="row">
         <td width ="20%"><%= wicket.value %></td>
-        <td width ="30%"><%= wicket.ticket_types %></td>
+        <td width ="20%"><%= wicket.ticket_types %></td>
+        <td width ="20%"><%= wicket.references %></td>
         <td width ="10%"><%= wicket.guidance_left? ? t('model.wicket.guidance.left') : t('model.wicket.guidance.right') %></td>
-        <td width ="10%"><%= wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %></td>
-        <td width ="15%"><%= wicket.second_level ? t('model.wicket.second_level.sure') : t('model.wicket.second_level.not') %></td>
-        <td width ="10%"><%= wicket.alternate ? t('model.wicket.alternate.sure') : t('model.wicket.alternate.not') %></td>
-        <td width ="15%"><%= wicket.active? ? t('model.status.active') : t('model.status.inactive') %></td>
+        <td width ="5%"><%= wicket.priority ? t('model.wicket.priority.sure') : t('model.wicket.priority.not') %></td>
+        <td width ="10%"><%= wicket.second_level ? t('model.wicket.second_level.sure') : t('model.wicket.second_level.not') %></td>
+        <td width ="5%"><%= wicket.alternate ? t('model.wicket.alternate.sure') : t('model.wicket.alternate.not') %></td>
+        <td width ="10%"><%= wicket.active? ? t('model.status.active') : t('model.status.inactive') %></td>
         <td><%= link_to image_tag("form/search.gif"), place_wicket_path(wicket.place, wicket), :title => t('model.show')%></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_place_wicket_path(wicket.place, wicket),  :title => t('model.edit') %></td>
         <td><%= link_to image_tag("form/trash.gif"), place_wicket_path(wicket.place, wicket), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %></td>   

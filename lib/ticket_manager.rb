@@ -9,6 +9,7 @@ module TicketManager
       next_ticket   = next_priority(wicket)  if wicket.priority
       next_ticket ||= next_alternate(wicket) if wicket.alternate
       next_ticket ||= next_default(wicket)
+      next_ticket ||= next_reference(wicket)
       next_ticket
     end
     
@@ -41,6 +42,19 @@ module TicketManager
         .where( "ticket_types.ticket_type_group_id" => wicket.ticket_type_groups )
         .where( :place_id => wicket.place.id, :status_ticket_id => StatusTicket.available.id )
         .today.order("tickets.created_at").first
+      next_ticket
+    end
+    
+    def next_reference(wicket)
+      next_ticket = nil
+      
+      if wicket.has_reference?
+        next_ticket = includes(:ticket_type)
+          .where( "ticket_types.ticket_type_group_id" => wicket.reference_groups )
+          .where( :place_id => wicket.place.id, :status_ticket_id => StatusTicket.available.id )
+          .today.order("tickets.created_at").first
+      end
+      
       next_ticket
     end
   end

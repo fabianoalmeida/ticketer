@@ -17,6 +17,7 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
+    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
     respond_to do |format|
       format.html # show.html.erb
       format.json  { render :json => @wicket }
@@ -29,6 +30,7 @@ class WicketsController < ApplicationController
     @wicket = Wicket.new( :priority => false, :status => Status.active )
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
+    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
     respond_to do |format|
       format.html # new.html.erb
       format.json  { render :json => @wicket }
@@ -40,15 +42,16 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
+    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
   end
 
   # POST /wickets
   # POST /wickets.json
   def create
-    debugger
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
+    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
     @wicket.user= "user test"
 
     respond_to do |format|
@@ -68,6 +71,7 @@ class WicketsController < ApplicationController
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
     @ticket_type_groups = @wicket.ticket_type_groups.order( "value ASC" )
+    @reference_groups = @wicket.ticket_type_groups.order( "value ASC" )
 
     respond_to do |format|
       if @wicket.update_attributes(params[:wicket])

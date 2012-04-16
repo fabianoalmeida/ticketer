@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412175659) do
+ActiveRecord::Schema.define(:version => 20120416130939) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(:version => 20120412175659) do
   create_table "places_ticket_type_groups", :id => false, :force => true do |t|
     t.integer "ticket_type_group_id", :null => false
     t.integer "place_id",             :null => false
+  end
+
+  create_table "reference_groups_wickets", :id => false, :force => true do |t|
+    t.integer "ticket_type_group_id"
+    t.integer "wicket_id"
   end
 
   create_table "status_tickets", :force => true do |t|

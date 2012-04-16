@@ -28,6 +28,18 @@
   </div>
 
   <div class="grid-12-12">
+    <%= f.label :reference_groups, :class => "form-lbl form-req" %>
+    <ul class = "form-list-chk">
+      <% @reference_groups.each do |reference_group| %>
+        <li>
+          <%= check_box_tag "wicket[reference_group_ids][]", reference_group.id, @wicket.reference_groups.include?(reference_group), :disabled => disabled  %>
+          <%= f.label reference_group.value, :class => "form-lbl" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="grid-12-12">
     <%= f.label :guidance, :class => "form-lbl form-req"%>
     <ul class="form-list-rdo">
       <li>

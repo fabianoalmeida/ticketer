@@ -225,6 +225,7 @@
         second_level: "Segundo Nível"
         alternate: "Alternado"
         ticket_type_groups: "Grupos Tipo de Senha"
+        reference_groups: "Grupos de Referência"
       local:
         des_local: "Descrição"
         user: "Usuário"
@@ -336,20 +337,21 @@
       title: "Listando todos os Guichês"
       name: "Guichê"
       ticket_type_groups: "Grupo Tipo de Senha"
+      reference_groups: "Referência"
       guidance:
-        name: "Orientação"
+        name: "Orient."
         left: "Esquerda"
         right: "Direita"
       priority:
-        name: "Prioridade"
+        name: "Prior."
         sure: "Sim"
         not: "Não"
       second_level:
-        name: "Segundo Nível"
+        name: "Seg. Nível"
         sure: "Sim"
         not: "Não"
       alternate:
-        name: "Alternado"
+        name: "Alter."
         sure: "Sim"
         not: "Não"
       tickets:

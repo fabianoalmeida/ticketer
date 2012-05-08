@@ -79,7 +79,7 @@ text {
         </tr>
     </table>
     <div class="print">
-      <%= link_to t('application.reports.print'), waiting_time_by_client_per_month_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+      <%= link_to t('application.reports.print'), waiting_time_by_client_per_month_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :wicket => params[:wicket], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
   <div style="width:95%; margin-bottom: 30px; padding-top: 20px; margin-left: 10px">

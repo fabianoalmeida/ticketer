@@ -61,4 +61,4 @@
             $("#menu_overlay").remove();
           }
 
-      })(jQuery);
+      })($);

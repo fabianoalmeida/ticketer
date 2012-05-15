@@ -8,9 +8,9 @@ module Ticketer
       status.eql? Status.active unless status.nil?
     end
   end
-  ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
-    self.default_sequence_start_value = 1
-  end
+#  ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
+#    self.default_sequence_start_value = 1
+#  end
   
  
 end

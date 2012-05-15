@@ -48,17 +48,17 @@
             dataType: 'json',
             success : function(data){
 	
-	           $.dataSlide('#tickets_preexam', { remove : 'li#'+data.ticket.id } );
+	           $.dataSlide('#tickets_preexam', { remove : 'li#'+data.id } );
 	
                $.dataSlide('ul#tickets_examed', {
                    add : {
-                     element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+                     element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
                      position : 'top'
                    }
                  })
 
-               $.changeByOneValues('examed', data.ticket.ticket_type_id, true);
-               $.changeByOneValues('preexam', data.ticket.ticket_type_id, false);
+               $.changeByOneValues('examed', data.ticket_type_id, true);
+               $.changeByOneValues('preexam', data.ticket_type_id, false);
                $.facebox.close();
              }
           });
@@ -77,7 +77,7 @@
             $.facebox.new( '<div style="text-align: center;">Não existem senhas a serem chamadas.</div>' ).fadeOutIn(3000);
          } else {
 
-            $('input#current').val(data.ticket.id);
+            $('input#current').val(data.id);
 
 
             var button_attend = '<a id="attend" class="super button pink" >Atender</a>';
@@ -85,7 +85,7 @@
             var button_cancel = '<a id="recall" class="super button pink">Rechamar</a>';
 
             //Refactor this
-            $.facebox.new( '<span style="color: red; font-weight: bold; font-size: 40px;">'+data.ticket.value+'</span><br/><br/>'+button_attend+'&nbsp;'+button_pending+'&nbsp'+button_cancel).afterCallNext();
+            $.facebox.new( '<span style="color: red; font-weight: bold; font-size: 40px;">'+data.value+'</span><br/><br/>'+button_attend+'&nbsp;'+button_pending+'&nbsp'+button_cancel).afterCallNext();
 
             //Trigger for buttons early created
             wicket.triggers.attend();
@@ -113,7 +113,7 @@
 
                 $.dataSlide('ul#tickets_attended', {
                     add : {
-                      element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+                      element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
                       position : 'top'
                     }
                   })
@@ -121,7 +121,7 @@
                 size = $('ul#tickets_attended.holder li').size();
                 $('span#tickets_attended_total').html('<i>Total: '+size+'</i>');
 
-                $.changeByOneValues('attended', data.ticket.ticket_type_id, true);
+                $.changeByOneValues('attended', data.ticket_type_id, true);
                 $.facebox.close();
               }
             });
@@ -138,14 +138,14 @@
             data: param,
             dataType: 'json',
             success: function(data){
-              $.dataSlide('#tickets_called', { remove : 'li#'+data.ticket.id } );
+              $.dataSlide('#tickets_called', { remove : 'li#'+data.id } );
 
               size = $('ul#tickets_called.holder li').size();
               $('span#tickets_called_total').html('<i>Total: '+size+'</i>');
 
               $.dataSlide('#tickets_waiting',{
                   add : {
-                    element : '<li id='+data.ticket.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.ticket.value+'</span> '+data.ticket.time+'</li>',
+                    element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
                     position : 'top'
                   }
               });
@@ -155,7 +155,7 @@
 
               wicket.event_pending();
 
-              $.changeByOneValues('waiting', data.ticket.ticket_type_id, true);
+              $.changeByOneValues('waiting', data.ticket_type_id, true);
               $.facebox.close();
             }
           });
@@ -183,8 +183,8 @@
              dataType: 'json',
              success: function(data){
                $.facebox.close();
-               $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
-               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false);
+               $.dataSlide('#tickets_waiting', { remove : 'li#'+data.id } );
+               $.changeByOneValues( 'waiting', data.ticket_type_id, false);
             }
           });
         });
@@ -200,8 +200,8 @@
             data : {ticket_id : this.getAttribute('value') },
             dataType: 'json',
             success : function(data){
-               $.dataSlide('#tickets_waiting', { remove : 'li#'+data.ticket.id } );
-               $.changeByOneValues( 'waiting', data.ticket.ticket_type_id, false);
+               $.dataSlide('#tickets_waiting', { remove : 'li#'+data.id } );
+               $.changeByOneValues( 'waiting', data.ticket_type_id, false);
                $.facebox.close();
              }
           });

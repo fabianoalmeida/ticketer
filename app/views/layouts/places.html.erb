@@ -4,12 +4,12 @@
   <title>Ticketer</title>
 
   <%  if request.env['HTTP_USER_AGENT'] =~ /MSIE/ %>
-    <%= stylesheet_link_tag :defaults_ie, :forms %>
+    <%= stylesheet_link_tag "application-ie-suport", "form-structure", "form-style" %>
   <% elsif %>
-    <%= stylesheet_link_tag :defaults, :forms, 'menubox' %>
+    <%= stylesheet_link_tag "application", "form-structure", "form-style", 'menubox' %>
   <% end %>
 
-  <%= javascript_include_tag :defaults, 'menubox' %>
+  <%= javascript_include_tag "application", 'menubox' %>
   <%= csrf_meta_tag %>
 </head>
 <body>

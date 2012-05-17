@@ -25,14 +25,14 @@ end
 #----------------- Begin configuration for Oracle database ---------------#
 # Prevent loading of ruby-oci8 gem in JRuby
 platforms :ruby do
-  gem 'ruby-oci8', ">= 2.0.4"
+  gem 'ruby-oci8', "~> 2.1.0"
 end
 
 # Use either latest oracle_enhanced adapter version from github
 #gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
 
 # Or use released gem version
-gem "activerecord-oracle_enhanced-adapter", "~>1.3.0"
+gem "activerecord-oracle_enhanced-adapter", "~> 1.4.0"
 
 # optionally also use ruby-plsql
 gem "ruby-plsql", ">=0.4.3"

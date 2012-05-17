@@ -53,8 +53,8 @@ function WaitingTimeByClientD3(params){
 			data = new Array();
 			
 			for (var index = hash.length - 1; index >= 0; index--){
-				keys.push(settings.format.parse(hash[index].call_history.data));
-				data.push(Math.round(hash[index].call_history.time));
+				keys.push(settings.format.parse(hash[index].data));
+				data.push(Math.round(hash[index].time));
 			};
 		
 			return{ keys : keys, data : data};
@@ -66,11 +66,11 @@ function WaitingTimeByClientD3(params){
 			
 			for (var index = hash.length - 1; index >= 0; index--){
 				var canAdd = true, 
-					date   = settings.format.parse(hash[index].call_history.data);
+					date   = settings.format.parse(hash[index].data);
 				keys.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
 				if( canAdd ) keys.push(date);
 				//keys.push(settings.format.parse(hash[index].call_history.data));
-				data.push(Math.round(hash[index].call_history.time));
+				data.push(Math.round(hash[index].time));
 			};
 		
 			return{ keys : keys, data : data};
@@ -93,8 +93,8 @@ function WaitingTimeByClientD3(params){
 	
 	var drawGraph = function(d3Object, callback){
 		var line		 =  d3.svg.line(map)
-							.x(function(d) { return x(format.parse(d.call_history.data)); })
-							.y(function(d) { return -1 * y(d.call_history.time); }),
+							.x(function(d) { return x(format.parse(d.data)); })
+							.y(function(d) { return -1 * y(d.time); }),
 		   objectReturn =   d3Object.append("svg:path")
 								   .attr("d", line(map));
 						

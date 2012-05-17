@@ -17,8 +17,8 @@
         <div style="float: right; width: 90%">
           <%= label_tag t('model.wicket.name') %>:
           <% @wickets.each do |wicket| %>
-            <%= check_box_tag "wicket[ids][]", wicket.id %>
             <%= (truncate wicket.value, :length => 9, :omission => '') %>
+            <%= check_box_tag "wicket[ids][]", wicket.id %>
           <% end %>
         </div>
       <% end %>

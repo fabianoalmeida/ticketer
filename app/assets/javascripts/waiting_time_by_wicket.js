@@ -79,11 +79,11 @@ function WaitingTimeByWicketD3(params){
 			
 				for (var x = list.length -1 ; x >= 0; x--){
 					var canAdd = true, 
-						date   = settings.format.parse(list[x].wicket.data);
+						date   = settings.format.parse(list[x].data);
 					data.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
 					if( canAdd ) data.push(date);
-					times.push(Math.round(list[x].wicket.time));
-					acount.push(list[x].wicket.total);
+					times.push(Math.round(list[x].time));
+					acount.push(list[x].total);
 				};
 			};
 		
@@ -109,26 +109,26 @@ function WaitingTimeByWicketD3(params){
 			  for (var x = list.length -1 ; x >= 0; x--){	
 
 				graphs.forEach(function(wicket) {
-					if (wicket.id == list[x].wicket.wicket_id) refGraph = wicket
+					if (wicket.id == list[x].wicket_id) refGraph = wicket
 				});
 
 				if(refGraph){
 				  refGraph.list.push(list[x]);
 				}else {
 				  graphs.push({
-					name : list[x].wicket.wicket_name,
-					id : list[x].wicket.wicket_id	, 
+					name : list[x].wicket_name,
+					id : list[x].wicket_id	, 
 					list : [list[x]],
 				    color : ""
 				  });	
 				}
 
 				var canAdd = true, 
-					date   = settings.format.parse(list[x].wicket.data);
+					date   = settings.format.parse(list[x].data);
 				data.forEach(function(el) {if (settings.print(el) == settings.print(date) ) canAdd = false; })
 				if( canAdd ) data.push(date);
-				times.push(Math.round(list[x].wicket.time));
-				acount.push(list[x].wicket.total);
+				times.push(Math.round(list[x].time));
+				acount.push(list[x].total);
 			  };
 			};
 
@@ -207,8 +207,8 @@ function WaitingTimeByWicketD3(params){
 	
 	var drawGraph = function(d3Object, map, color, callback){
 		var line		 = d3.svg.line(map)
-							 .x(function(d) { return x(format.parse(d.wicket.data)); })
-							 .y(function(d) { return -1 * y(d.wicket.time); }),
+							 .x(function(d) { return x(format.parse(d.data)); })
+							 .y(function(d) { return -1 * y(d.time); }),
 
 		   objectReturn  = d3Object.append("svg:path")
 								    .style("stroke", color )

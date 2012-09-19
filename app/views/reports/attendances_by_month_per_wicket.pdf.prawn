@@ -1,4 +1,4 @@
-pdf.image "#{Rails.root}/public/images/hsi-logo-200.jpeg", :width => 100, :heigth => 80
+pdf.image "#{Rails.root}/app/assets/images/hsi-logo-200.jpeg", :width => 100, :heigth => 80
 
 pdf.fill_color "000000"
 pdf.text_box "Ticketer", :font => "Georgia, Serif", :size => 40, :at => [354, 709]

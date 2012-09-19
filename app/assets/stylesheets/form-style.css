@@ -88,22 +88,22 @@ Style
 	border-bottom: 1px solid #ccc;
 }
 .form-msg-info {
-	background: #d1ecf7 url(/images/form/form-ic-info.png) no-repeat 5px 4px;
+	background: #d1ecf7 url(/assets/form/form-ic-info.png) no-repeat 5px 4px;
 	border-color:#bcdfef;
 	color:#11689e;
 }
 .form-msg-warning {
-	background: #fff6bf url(/images/form/form-ic-warning.png) no-repeat 5px 4px;
+	background: #fff6bf url(/assets/form/form-ic-warning.png) no-repeat 5px 4px;
 	border-color:#fceb77;
 	color:#957210;
 }
 .form-msg-error {
-	background: #fad0d0 url(/images/form/form-ic-error.png) no-repeat 5px 4px;
+	background: #fad0d0 url(/assets/form/form-ic-error.png) no-repeat 5px 4px;
 	border-color:#f6abab;
 	color:#b01717;
 }
 .form-msg-success {
-	background: #e5f8ce url(/images/form/form-ic-success.png) no-repeat 5px 4px;
+	background: #e5f8ce url(/assets/form/form-ic-success.png) no-repeat 5px 4px;
 	border-color:#d0f1a6;
 	color:#62b548;
 }
@@ -188,7 +188,7 @@ Style
 .form .search .date {
   width : 105px;
   text-align : right;
-  background : url(/images/form/calendar.gif) no-repeat 5px 5px;
+  background : url(/assets/form/calendar.gif) no-repeat 5px 5px;
 }
 
 .form .spotlight {

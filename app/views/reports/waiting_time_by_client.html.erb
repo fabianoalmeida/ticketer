@@ -33,8 +33,8 @@ text {
         <div style="float: right; width: 90%">
           <%= label_tag t('model.wicket.name') %>:
           <% @wickets.each do |wicket| %>
-            <%= check_box_tag "wicket[ids][]", wicket.id %>
             <%= (truncate wicket.value, :length => 9, :omission => '') %>
+            <%= check_box_tag "wicket[ids][]", wicket.id %>
           <% end %>
         </div>
       <% end %>
@@ -78,7 +78,7 @@ text {
         </tr>
     </table>
     <div class="print">
-      <%= link_to t('application.reports.print'), waiting_time_by_client_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :format => 'pdf' ), :class => "button medium" %>
+      <%= link_to t('application.reports.print'), waiting_time_by_client_place_reports_path( :start_date => params[:start_date], :end_date => params[:end_date], :wicket => params[:wicket], :format => 'pdf' ), :class => "button medium" %>
     </div>
   <% end %>
   <div style="width:95%; margin-bottom: 30px; padding-top: 20px; margin-left: 10px">

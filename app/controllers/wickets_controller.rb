@@ -231,11 +231,9 @@ class WicketsController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
     respond_to do |format|
-      unless @ticket.pending?
-        if @ticket.reopen
-          CallHistory.register(:ticket => @ticket, :wicket => @wicket)
-          format.json { render :json => @ticket}
-        end
+      if @ticket.reopen
+        CallHistory.register(:ticket => @ticket, :wicket => @wicket)
+        format.json { render :json => @ticket}
       end
     end
   end

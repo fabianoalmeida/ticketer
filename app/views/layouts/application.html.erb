@@ -4,12 +4,12 @@
   <title>Ticketer</title>
 
   <%  if request.env['HTTP_USER_AGENT'] =~ /MSIE/ %>
-    <%= stylesheet_link_tag :defaults_ie, :forms %>
+    <%= stylesheet_link_tag "application-ie-suport", "form-structure", "form-style" %>
   <% elsif %>
-    <%= stylesheet_link_tag :defaults, :forms %>
+    <%= stylesheet_link_tag "application", "form-structure", "form-style" %>
   <% end %>
 
-  <%= javascript_include_tag :defaults, 'menubox', 'jquery.ui', 'jquery.ui.datepicker-pt-BR' %>
+  <%= javascript_include_tag "application", 'menubox', 'jquery.ui', 'jquery.ui.datepicker-pt-BR' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -49,7 +49,7 @@
           <div class="login infos">
              <span class="user"><%= link_to "Hospital Santa Izabel", main_path %></span>
              <a class="logout link" href="#"> Sair</a>
-             <img height="24px" src="/images/log.png" class="logout" widht="24px">
+             <%= image_tag("/assets/log.png", :width => "24px", :height => "24px", :class => "logout") %>
           </div>
           <div class="triangle"></div>
         </div>
@@ -58,7 +58,7 @@
     <div class="footer">
     </div>
     <script type="text/javascript">
-      $(document).ready(function(){
+      $(window.document).ready(function(){
         $('.cadastro').menubox('.menu-cadastro')
       });
     </script>

@@ -51,7 +51,7 @@
 	    };
 
 	    //Plays songs of notification
-	    $.playAudio("/audios/beep_alert.ogg");
+	    $.playAudio("/assets/beep_alert.ogg");
 
 	    //Display the orientation for  the wicket that call the ticket.
 	    if(data.left){

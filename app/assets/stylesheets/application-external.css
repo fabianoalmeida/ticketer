@@ -43,7 +43,7 @@ body {
 .highlight .last_ticket {
     -moz-border-radius: 5px;
     border-radius : 5px;
-    background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
+    background: url("/assets/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid #1C8E49;
     height: 100%;
     float :right;
@@ -73,7 +73,7 @@ body {
 }
 
 .history_calls {
-    background :url("/images/overlay.png") repeat-x scroll 0 0 #1C8E49;
+    background :url("/assets/overlay.png") repeat-x scroll 0 0 #1C8E49;
     -moz-border-radius: 5px;
     border-radius : 5px;
     border: 1px solid #1C8E49;
@@ -104,7 +104,7 @@ body {
     border-radius : 3px;
     -moz-box-shadow: 3px 3px 3px #686B68;
     box-shadow : 0 0 3px #686B68;
-    background: url("/images/gradgray.png") repeat-x scroll 0 0 white;
+    background: url("/assets/gradgray.png") repeat-x scroll 0 0 white;
     border: 2px solid gray;
     margin: 2px;
     font-size : 40px;
@@ -116,7 +116,7 @@ body {
     border-radius: 10px 10px 10px 10px;
     box-shadow: 3px 3px 3px #686B68;
     -moz-box-shadow: 3px 3px 3px #686B68;
-    background: url("/images/gradblue.png") repeat scroll 0 0 transparent;
+    background: url("/assets/gradblue.png") repeat scroll 0 0 transparent;
     border: 2px solid;
     margin: 5px;
     padding: 7.5px;
@@ -229,7 +229,7 @@ div.ticket_type:hover {
 }
 
 .button, .button:visited {
-  background: #222 url(/images/overlay.png) repeat-x;
+  background: #222 url(/assets/overlay.png) repeat-x;
   display: inline-block;
   padding: 5px 10px 6px;
   color: #fff;
@@ -266,7 +266,7 @@ div.ticket_type:hover {
 }
 
 .hsi-logo {
-  background: url("/images/hsi-logo-200.jpeg") no-repeat scroll 0 0 transparent;
+  background: url("/assets/hsi-logo-200.jpeg") no-repeat scroll 0 0 transparent;
   height: 150px;
   left: 10px;
   position: absolute;

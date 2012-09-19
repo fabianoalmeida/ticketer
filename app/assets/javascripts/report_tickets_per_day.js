@@ -7,10 +7,10 @@ function renderProtovis(hash) {
   var data = Array();
   var max  = 0;
   for (index in hash) {
-    keys.push(hash[index].ticket.date_local);
-    data.push(hash[index].ticket.count_id);
-    if ( hash[index].ticket.count_id > max )
-      max = hash[index].ticket.count_id ;
+    keys.push(hash[index].date_local);
+    data.push(hash[index].count_id);
+    if ( hash[index].count_id > max )
+      max = hash[index].count_id ;
   }
 
   /* Sizing and scales. */

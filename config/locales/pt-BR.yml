@@ -236,6 +236,7 @@
         status: "Status"
         ticket_type: "Tipos de Senha"
         ticket_type_groups: "Grupos Tipo de Senha"
+        sequential_by_type_group: "Sequencial por Tipo de Grupo"
       totem:
         value: "Valor"
         ip: "IP"
@@ -388,6 +389,10 @@
       title: "Listando todas as Localidades"
       name: "Localidade"
       back: "Voltar para Localidade"
+      sequential_by_type_group:
+        name: "Seq. por Grupo"
+        sure: "Sim"
+        not: "Não"
 
     totem:
       new: "Novo Totem"

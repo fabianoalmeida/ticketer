@@ -73,15 +73,38 @@ class Ticket < ActiveRecord::Base
 
   def generate
     if new_record?
-      ticket = Ticket.where(:place_id => place.id).today.last
-      if ticket.nil?
-        @@actual_value= 1
-        self.emit_reload_panel
+      ticket = nil
+      unless place.sequential_by_type_group
+        ticket = last_ticket
       else
-        @@actual_value= ticket.value.split( ticket.ticket_type.acronym.to_s )[1].to_i + 1
+        ticket = last_ticket_by_type_group
       end
-      self.value= self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
+      self.value= format_ticket(ticket)
     end
+  end
+  
+  def format_ticket(ticket)
+    if ticket.nil?
+      @@actual_value= 1
+      self.emit_reload_panel
+    else
+      @@actual_value= ticket.value.split( ticket.ticket_type.acronym.to_s )[1].to_i + 1
+    end
+    self.ticket_type.acronym.to_s + "%04d" % @@actual_value.to_s
+  end
+  
+  def last_ticket
+    ticket = Ticket.where(:place_id => place.id).today.last
+    ticket
+  end
+  
+  def last_ticket_by_type_group
+    ticket_by_type_group = Ticket.where(:place_id => place.id)
+          .joins(:ticket_type)
+          .where(:ticket_types => {:ticket_type_group_id => ticket_type.ticket_type_group.id})
+          .today
+          .last
+    ticket_by_type_group
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416130939) do
+ActiveRecord::Schema.define(:version => 20120920173633) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -38,13 +38,14 @@ ActiveRecord::Schema.define(:version => 20120416130939) do
   end
 
   create_table "places", :force => true do |t|
-    t.string   "value",                        :null => false
-    t.string   "user",                         :null => false
-    t.integer  "status_id",                    :null => false
-    t.integer  "local_id",                     :null => false
+    t.string   "value",                                           :null => false
+    t.string   "user",                                            :null => false
+    t.integer  "status_id",                                       :null => false
+    t.integer  "local_id",                                        :null => false
     t.integer  "places_ticket_type_groups_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "sequential_by_type_group",     :default => false, :null => false
   end
 
   create_table "places_ticket_type_groups", :id => false, :force => true do |t|

@@ -33,34 +33,34 @@ function renderProtovis(hash) {
   /* The bars. */
   var bar = vis.add(pv.Panel)
       .data(data_array)
-      .top(function() y(this.index))
+      .top(function() { y(this.index) } )
       .height(y.range().band)
     .add(pv.Bar)
-      .data(function(d) d.values)
-      .top( function() this.index * y.range().band / data_array[this.parent.index].values.length)
-      .height( function() y.range().band / data_array[this.parent.index].values.length )
+      .data(function(d) { d.values } )
+      .top( function() { this.index * y.range().band / data_array[this.parent.index].values.length } )
+      .height( function() { y.range().band / data_array[this.parent.index].values.length } )
       .left(0)
       .width(x)
-      .text(function(d) data_array[this.parent.index].wickets[this.index] + " - Quantidade: " + data_array[this.parent.index].values[this.index])
+      .text(function(d) { data_array[this.parent.index].wickets[this.index] + " - Quantidade: " + data_array[this.parent.index].values[this.index] } )
       .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}))
       .fillStyle(pv.Colors.category20().by(pv.index));
 
   /* The value label. */
   bar.anchor("right").add(pv.Label)
       .textStyle("white")
-      .text(function(d) d);
+      .text(function(d) { d } );
 
   /* The variable label. */
   bar.parent.anchor("left").add(pv.Label)
       .textAlign("right")
       .textMargin(5)
-      .text(function() keys[this.parent.index]);
+      .text(function() { keys[this.parent.index] } );
 
   /* X-axis ticks. */
   vis.add(pv.Rule)
       .data(x.ticks(5))
       .left(x)
-      .strokeStyle(function(d) d ? "rgba(255,255,255,.3)" : "#000")
+      .strokeStyle(function(d) { d ? "rgba(255,255,255,.3)" : "#000" } )
     .add(pv.Rule)
       .bottom(0)
       .height(5)

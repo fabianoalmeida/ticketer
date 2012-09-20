@@ -32,30 +32,30 @@ function renderProtovis(hash) {
   /* The bars. */
   var bar = vis.add(pv.Bar)
       .data(data)
-      .top(function() y(this.index))
+      .top(function() { y(this.index) } )
       .height(y.range().band)
       .left(0)
       .width(x)
-      .text(function(d) 'Dia ' + keys[this.index] + ' foi(ram) gerada(s) ' + d + ' senha(s)'  )
+      .text(function(d) { 'Dia ' + keys[this.index] + ' foi(ram) gerada(s) ' + d + ' senha(s)' } )
       .fillStyle('#C5E008')
       .event("mouseover", pv.Behavior.tipsy({gravity: "w", fade: true}));
 
   /* The value label. */
   bar.anchor("right").add(pv.Label)
       .textStyle("#402E16")
-      .text(function(d) d);
+      .text(function(d) { d } );
 
   /* The variable label. */
   bar.anchor("left").add(pv.Label)
       .textMargin(5)
       .textAlign("right")
-      .text(function() keys[this.index]);
+      .text(function() { keys[this.index] } );
 
   /* X-axis ticks. */
   vis.add(pv.Rule)
       .data(x.ticks(5))
       .left(x)
-      .strokeStyle(function(d) d ? "rgba(255,255,255,.3)" : "#000")
+      .strokeStyle(function(d) { d ? "rgba(255,255,255,.3)" : "#000" } )
     .add(pv.Rule)
       .bottom(0)
       .height(5)

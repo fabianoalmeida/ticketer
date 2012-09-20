@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-#gem 'sqlite3'
 gem 'i18n'
 gem 'arel'
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
@@ -22,27 +21,29 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-#----------------- Begin configuration for Oracle database ---------------#
-# Prevent loading of ruby-oci8 gem in JRuby
-platforms :ruby do
-  gem 'ruby-oci8', "~> 2.1.0"
+group :production do  
+  #----------------- Begin configuration for Oracle database ---------------#
+  # Prevent loading of ruby-oci8 gem in JRuby
+  platforms :ruby do
+    gem 'ruby-oci8', "~> 2.1.0"
+  end
+
+  # Use either latest oracle_enhanced adapter version from github
+  #gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
+
+  # Or use released gem version
+  gem "activerecord-oracle_enhanced-adapter", "~> 1.4.0"
+
+  # optionally also use ruby-plsql
+  gem "ruby-plsql", ">=0.4.3"
+  #----------------- End configuration for Oracle database ---------------#
 end
-
-# Use either latest oracle_enhanced adapter version from github
-#gem 'activerecord-oracle_enhanced-adapter', '~>1.3.0', :git => 'https://github.com/rsim/oracle-enhanced.git'
-
-# Or use released gem version
-gem "activerecord-oracle_enhanced-adapter", "~> 1.4.0"
-
-# optionally also use ruby-plsql
-gem "ruby-plsql", ">=0.4.3"
-#----------------- End configuration for Oracle database ---------------#
-
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 group :development do
   gem 'ruby-debug19'
   gem 'capistrano'
+  gem 'sqlite3'
 end
 
 group :test do

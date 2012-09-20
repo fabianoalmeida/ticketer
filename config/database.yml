@@ -1,16 +1,12 @@
 development:
-  adapter: oracle_enhanced
-  database: 10.30.0.22:1521/dese01
-  username: ticketer
-  password: ticketer
+  adapter: sqlite3
+  database: db/development.sqlite3
   pool: 5
   timeout: 5000
 
 test:
-  adapter: oracle_enhanced
-  database: 10.30.0.81:1521/simu01
-  username: ticketer
-  password: ticketer
+  adapter: sqlite3
+  database: db/test.sqlite3
   pool: 5
   timeout: 5000
 

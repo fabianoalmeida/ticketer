@@ -8,12 +8,14 @@ module Ticketer
       status.eql? Status.active unless status.nil?
     end
   end
-  ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
-    self.default_sequence_start_value = 1
-  end
   
- 
+  if Rails.env.production?
+    ActiveRecord::ConnectionAdapters::OracleEnhancedAdapter.class_eval do
+      self.default_sequence_start_value = 1
+    end
+  end
 end
+
 class Numeric
    def duration
      secs  = (self.to_f * 60).to_i

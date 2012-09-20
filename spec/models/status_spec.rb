@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Status do
 
   before( :each ) do
-    @status = Factory.build(:status)
+    @status = FactoryGirl.build(:status)
   end
 
   it "can be instantiated" do
@@ -51,7 +51,7 @@ describe Status do
   it "should not be create a register with an existing 'value' registered" do
     @status.save
 
-    @status_invalid = Factory.build( :status, :value => @status.value )
+    @status_invalid = FactoryGirl.build( :status, :value => @status.value )
     @status_invalid.save.should be_false
   end
 

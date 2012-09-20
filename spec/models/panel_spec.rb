@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Panel do
 
   before( :each ) do
-    @panel = Factory.build(:panel)
+    @panel = FactoryGirl.build(:panel)
   end
  
 
@@ -49,7 +49,7 @@ describe Panel do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @panel.save
-    @panel_invalid = Factory.build(:panel, :value => @panel.value, :place_id => @panel.id)
+    @panel_invalid = FactoryGirl.build(:panel, :value => @panel.value, :place_id => @panel.id)
     @panel_invalid.save.should == false
   end
 
@@ -60,7 +60,7 @@ describe Panel do
   it "should not permit to create a new register with an existing 'ip' registered" do
     @panel.save
 
-    @panel_invalid = Factory.build(:panel, :ip => @panel.ip)
+    @panel_invalid = FactoryGirl.build(:panel, :ip => @panel.ip)
     @panel_invalid.save.should be_false
   end
 

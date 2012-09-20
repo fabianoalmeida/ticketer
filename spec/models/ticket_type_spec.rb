@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TicketType do
 
   before ( :each ) do
-    @ticket_type = Factory.build(:ticket_type)
+    @ticket_type = FactoryGirl.build(:ticket_type)
   end
 
   it "should be an instance valid" do
@@ -33,15 +33,15 @@ describe TicketType do
   it "should not permit to create a new register with an existing 'value' registered" do
     @ticket_type.save
 
-    @ticket_typeInvalid = Factory.build(:ticket_type, :value => @ticket_type.value, :ticket_type_group => @ticket_type.ticket_type_group)
+    @ticket_typeInvalid = FactoryGirl.build(:ticket_type, :value => @ticket_type.value, :ticket_type_group => @ticket_type.ticket_type_group)
     @ticket_typeInvalid.save.should be_false
   end
 
   it "should permit to create a new register with an existing 'value' registered but with different 'ticket_type_group.value'" do
     @ticket_type.save
-    ticket_type_group = Factory.build(:ticket_type_group, :value => "Xpto")
+    ticket_type_group = FactoryGirl.build(:ticket_type_group, :value => "Xpto")
 
-    @ticket_typeInvalid = Factory.build(:ticket_type, :value => @ticket_type.value, :ticket_type_group => ticket_type_group)
+    @ticket_typeInvalid = FactoryGirl.build(:ticket_type, :value => @ticket_type.value, :ticket_type_group => ticket_type_group)
     @ticket_typeInvalid.save.should be_true
   end
 
@@ -66,7 +66,7 @@ describe TicketType do
 
   it "should not permit to create a new register with an existing 'acronym' registered" do
     @ticket_type.save
-    @ticket_typeInvalid = Factory.build(:ticket_type,
+    @ticket_typeInvalid = FactoryGirl.build(:ticket_type,
                                        :ticket_type_group => @ticket_type.ticket_type_group,
                                        :acronym => @ticket_type.acronym )
     @ticket_typeInvalid.save.should be_false

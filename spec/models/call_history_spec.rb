@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CallHistory do
 
   before( :each ) do
-    @call_history = Factory.build(:call_history)
+    @call_history = FactoryGirl.build(:call_history)
   end
 
   it "can be save successfully" do

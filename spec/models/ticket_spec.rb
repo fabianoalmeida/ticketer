@@ -6,7 +6,7 @@ describe Ticket do
 
     # modify the form to obtain the sequence value and how to create an object Ticket
     @status_ticket = stub_model(StatusTicket)
-    @ticket = Factory.build(:ticket, :status_ticket => @status_ticket)
+    @ticket = FactoryGirl.build(:ticket, :status_ticket => @status_ticket)
   end
 
   it "can be save successfully" do
@@ -22,12 +22,12 @@ describe Ticket do
 
     before(:all) do
       @status = []
-      @status << @status_available = Factory(:status_ticket, :value => "Available")
-      @status << Factory(:status_ticket, :value => "Called")
-      @status << Factory(:status_ticket, :value => "Canceled")
-      @status << Factory(:status_ticket, :value => "Attended")
-      @status << Factory(:status_ticket, :value => "Pending")
-      @status << Factory(:ticket_type, :acronym => "PRE")
+      @status << @status_available = FactoryGirl.create(:status_ticket, :value => "Available")
+      @status << FactoryGirl.create(:status_ticket, :value => "Called")
+      @status << FactoryGirl.create(:status_ticket, :value => "Canceled")
+      @status << FactoryGirl.create(:status_ticket, :value => "Attended")
+      @status << FactoryGirl.create(:status_ticket, :value => "Pending")
+      @status << FactoryGirl.create(:ticket_type, :acronym => "PRE")
 
     end
 
@@ -89,11 +89,11 @@ describe Ticket do
     describe "Calling next ticket" do
 
       before( :each ) do
-        @ticket_type_group = Factory(:ticket_type_group)
-        @ticket_type = Factory(:ticket_type, :priority => true, :ticket_type_group => @ticket_type_group)
+        @ticket_type_group = FactoryGirl.create(:ticket_type_group)
+        @ticket_type = FactoryGirl.create(:ticket_type, :priority => true, :ticket_type_group => @ticket_type_group)
         @place = stub_model(Place, :id => "1")
-        @tickets = (1..2).collect { Factory(:ticket, :place => @place, :status_ticket_id => @status_available.id, :ticket_type => @ticket_type) }
-        @wicket = Factory(:wicket, :ticket_type_group => @ticket_type_group, :place => @place)
+        @tickets = (1..2).collect { FactoryGirl.create(:ticket, :place => @place, :status_ticket_id => @status_available.id, :ticket_type => @ticket_type) }
+        @wicket = FactoryGirl.create(:wicket, :ticket_type_group => @ticket_type_group, :place => @place)
       end
 
       after( :each ) do
@@ -127,11 +127,11 @@ describe Ticket do
       end
 
       it "Should not get the next ticket with the same ticket type group to tickets ticket type and wicket" do
-        ticket_type_group_one = Factory(:ticket_type_group)
-        ticket_type = Factory(:ticket_type, :priority => true, :ticket_type_group => @ticket_type_group)
+        ticket_type_group_one = FactoryGirl.create(:ticket_type_group)
+        ticket_type = FactoryGirl.create(:ticket_type, :priority => true, :ticket_type_group => @ticket_type_group)
         TicketType.priorities(ticket_type_group_one).include?(ticket_type).should be_false
 
-        wicket = Factory(:wicket, :ticket_type_group => ticket_type_group_one, :place => @place)
+        wicket = FactoryGirl.create(:wicket, :ticket_type_group => ticket_type_group_one, :place => @place)
         next_ticket = Ticket.next_to(wicket)
 
         next_ticket.should be_nil
@@ -141,7 +141,7 @@ describe Ticket do
 
     describe "Log call history to events of change state" do
       before :each do
-        @ticket = Factory(:ticket)
+        @ticket = FactoryGirl.create(:ticket)
       end
 
       it "Should save a new record to call_history when change ticket from available to called" do

@@ -280,8 +280,7 @@ describe WicketsController do
       end
 
       it "should redirect to #tickets" do
-        pending "To be resolve why don't only return json results "
-        response.content_type.should eq("application/json")
+        response.content_type.should eq("text/html")
       end
 
     end

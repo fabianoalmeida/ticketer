@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TicketTypeGroup do
 
   before( :each ) do
-    @ticket_type_group = Factory.build(:ticket_type_group)
+    @ticket_type_group = FactoryGirl.build(:ticket_type_group)
     @ticket_type_group.places << stub_model(Place)
   end
 
@@ -34,11 +34,11 @@ describe TicketTypeGroup do
   it "should not permit to create a new register with an existing 'value' registered" do
     @ticket_type_group.save
 
-    @ticket_type_invalid = Factory.build(:ticket_type_group, :value => @ticket_type_group.value)
+    @ticket_type_invalid = FactoryGirl.build(:ticket_type_group, :value => @ticket_type_group.value)
     @ticket_type_invalid.save.should be_false 
-    @ticket_type_upcase = Factory.build(:ticket_type_group, :value => @ticket_type_group.value.upcase)
+    @ticket_type_upcase = FactoryGirl.build(:ticket_type_group, :value => @ticket_type_group.value.upcase)
     @ticket_type_upcase.save.should be_false 
-    @ticket_type_downcase = Factory.build(:ticket_type_group, :value => @ticket_type_group.value.downcase)
+    @ticket_type_downcase = FactoryGirl.build(:ticket_type_group, :value => @ticket_type_group.value.downcase)
     @ticket_type_downcase.save.should be_false 
   end
 

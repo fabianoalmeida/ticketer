@@ -3,7 +3,7 @@ require 'spec_helper'
 describe StatusTicket do
 
   before( :each ) do
-    @statusTicket = Factory.build(:status_ticket)
+    @statusTicket = FactoryGirl.build(:status_ticket)
   end
 
   it "can be saved successfully" do
@@ -56,14 +56,14 @@ describe StatusTicket do
 
   it "should not be create a register with an existing 'value' and 'acronym' registered" do
     @statusTicket.save
-    @statusInvalid = Factory.build(:status_ticket, :value => @statusTicket.value, :acronym => @statusTicket.acronym)
+    @statusInvalid = FactoryGirl.build(:status_ticket, :value => @statusTicket.value, :acronym => @statusTicket.acronym)
     @statusInvalid.save.should be_false
   end
 
   it "should not be create a register with an existing 'value' registered" do
     @statusTicket.save
 
-    @statusInvalid = Factory.build(:status_ticket, :value => @statusTicket.value)
+    @statusInvalid = FactoryGirl.build(:status_ticket, :value => @statusTicket.value)
     @statusInvalid.save.should be_false
 
   end
@@ -71,7 +71,7 @@ describe StatusTicket do
   it "should not be create a register with an existing 'acronym' registered" do
     @statusTicket.save
 
-    @statusInvalid = Factory.build(:status_ticket, :acronym => @statusTicket.acronym)
+    @statusInvalid = FactoryGirl.build(:status_ticket, :acronym => @statusTicket.acronym)
     @statusInvalid.save.should be_false
   end
 

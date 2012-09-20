@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Place do
 
   before( :each ) do
-    @place = Factory.build(:place)
+    @place = FactoryGirl.build(:place)
   end
 
   it "Should save Place normaly" do 

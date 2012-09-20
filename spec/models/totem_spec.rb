@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Totem do
 
   before( :each ) do
-    @totem = Factory.build(:totem)
+    @totem = FactoryGirl.build(:totem)
   end
 
   it "can be save successfully" do
@@ -57,14 +57,14 @@ describe Totem do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @totem.save
-    @totem_invalid = Factory.build(:totem, :value => @totem.value, :place_id => @totem.place.id )
+    @totem_invalid = FactoryGirl.build(:totem, :value => @totem.value, :place_id => @totem.place.id )
     @totem_invalid.should have(1).errors_on(:value)
   end
 
   it "should not permit to create a new register with an existing 'value' registered even that has a different case sensitive" do
     @totem.save
 
-    @totem_invalid = Factory.build(:totem, :value => @totem.value.upcase, :place_id => @totem.place.id)
+    @totem_invalid = FactoryGirl.build(:totem, :value => @totem.value.upcase, :place_id => @totem.place.id)
     @totem_invalid.should have(1).errors_on(:value) 
   end
 
@@ -74,7 +74,7 @@ describe Totem do
 
   it "should not permit to create a new register with an existing 'ip' registered" do
     @totem.save
-    @totem_invalid = Factory.build(:totem, :ip => @totem.ip )
+    @totem_invalid = FactoryGirl.build(:totem, :ip => @totem.ip )
     @totem_invalid.should have(1).errors_on(:ip) 
   end
 

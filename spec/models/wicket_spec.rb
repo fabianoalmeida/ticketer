@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Wicket do
 
   before( :each ) do
-    @wicket = Factory.build(:wicket)
+    @wicket = FactoryGirl.build(:wicket)
   end
 
   it "can be save successfully" do
@@ -36,7 +36,7 @@ describe Wicket do
 
   it "should not permit to create a new register with an existing 'value' registered" do
     @wicket.save
-    @wicketInvalid = Factory.build(:wicket, :value => @wicket.value, :place_id => @wicket.place_id)  
+    @wicketInvalid = FactoryGirl.build(:wicket, :value => @wicket.value, :place_id => @wicket.place_id)  
     @wicketInvalid.save.should be_false
   end
 

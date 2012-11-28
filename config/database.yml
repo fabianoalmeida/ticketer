@@ -1,6 +1,10 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  # adapter: sqlite3
+  # database: db/development.sqlite3
+  adapter: oracle_enhanced
+  database: 10.30.0.81:1521/simu01
+  username: ticketer
+  password: ticketer
   pool: 5
   timeout: 5000
 

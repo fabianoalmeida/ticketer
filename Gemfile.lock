@@ -65,6 +65,7 @@ GEM
     factory_girl_rails (3.3.0)
       factory_girl (~> 3.3.0)
       railties (>= 3.0.0)
+    friendly_id (4.0.8)
     highline (1.6.12)
     hike (1.2.1)
     htmlentities (4.3.1)
@@ -190,6 +191,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   factory_girl_rails
+  friendly_id
   htmlentities
   i18n
   jquery-rails

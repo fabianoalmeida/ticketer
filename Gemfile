@@ -11,6 +11,7 @@ gem 'juggernaut' #, :git => 'https://github.com/maccman/juggernaut.git'
 
 gem "jquery-rails"
 gem "htmlentities"
+gem "friendly_id"
 
 gem "prawn"
 gem "prawnto_2", :require => "prawnto"

@@ -1,4 +1,7 @@
 class Panel < ActiveRecord::Base
+  extend FriendlyId
+  
+  friendly_id :value, use: :slugged
 
   #String :value
   #String :ip

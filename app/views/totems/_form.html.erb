@@ -1,5 +1,5 @@
 <%= form_for([@place, @totem]) do |f| %>
-  <%= f.hidden_field :place_id, :value => params[:place_id] %>
+  <%= f.hidden_field :place_id, :value => @place.id %>
   <% if @totem.errors.any? %>
     <div id="error_explanation">
       <ul>

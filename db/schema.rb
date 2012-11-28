@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120920173633) do
+ActiveRecord::Schema.define(:version => 20121127170352) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :null => false
@@ -35,7 +35,10 @@ ActiveRecord::Schema.define(:version => 20120920173633) do
     t.integer  "place_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "panels", ["place_id", "slug"], :name => "index_panels_on_place_id_and_slug", :unique => true
 
   create_table "places", :force => true do |t|
     t.string   "value",                                           :null => false
@@ -46,7 +49,10 @@ ActiveRecord::Schema.define(:version => 20120920173633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sequential_by_type_group",     :default => false, :null => false
+    t.string   "slug"
   end
+
+  add_index "places", ["slug"], :name => "index_places_on_slug", :unique => true
 
   create_table "places_ticket_type_groups", :id => false, :force => true do |t|
     t.integer "ticket_type_group_id", :null => false
@@ -117,7 +123,10 @@ ActiveRecord::Schema.define(:version => 20120920173633) do
     t.integer  "place_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "totems", ["place_id", "slug"], :name => "index_totems_on_place_id_and_slug", :unique => true
 
   create_table "wickets", :force => true do |t|
     t.string   "value",                           :null => false
@@ -130,6 +139,9 @@ ActiveRecord::Schema.define(:version => 20120920173633) do
     t.boolean  "priority"
     t.boolean  "second_level", :default => false, :null => false
     t.boolean  "alternate",    :default => false
+    t.string   "slug"
   end
+
+  add_index "wickets", ["place_id", "slug"], :name => "index_wickets_on_place_id_and_slug", :unique => true
 
 end

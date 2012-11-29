@@ -7,12 +7,14 @@
     <tr>
       <th><%= t('model.place.name').pluralize %></th>
       <th><%= t('model.place.sequential_by_type_group.name') %></th>
-      <th colspan="6" class="options"><%= t("application.options") %></th>
+      <th><%= t('model.status.name') %></th>
+      <th colspan="5" class="options"><%= t("application.options") %></th>
     </tr>
     <% @places.each do |place| %>
       <tr class="row">
-        <td width ="80%"><%= place.value %></td>
-        <td width ="20%"><%= place.sequential_by_type_group ? t('model.place.sequential_by_type_group.sure') : t('model.place.sequential_by_type_group.not') %></td>
+        <td width="60%"><%= place.value %></td>
+        <td width="20%"><%= place.sequential_by_type_group ? t('model.place.sequential_by_type_group.sure') : t('model.place.sequential_by_type_group.not') %></td>
+        <td width="20%"><%= place.active? ? t('model.status.active') : t('model.status.inactive') %></td>
         <td><%= link_to image_tag("form/search.gif"), place, :title => t('model.show') %></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_place_path(place), :title => t('model.edit') %></td>
         <td><%= link_to image_tag("form/totem.gif"), place_totems_path(place), :title => t('model.totem.name') %></td>

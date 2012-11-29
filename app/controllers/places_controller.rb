@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    @places = Place.where(:status_id => Status.active.id)
+    @places = Place.order( "value ASC" )
 
     respond_to do |format|
       format.html # index.html.erb

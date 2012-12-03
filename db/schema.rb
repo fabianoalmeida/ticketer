@@ -14,124 +14,131 @@
 ActiveRecord::Schema.define(:version => 20121127170352) do
 
   create_table "call_histories", :force => true do |t|
-    t.integer  "ticket_id",        :precision => 38, :scale => 0, :null => false
-    t.integer  "wicket_id",        :precision => 38, :scale => 0, :null => false
-    t.integer  "status_ticket_id", :precision => 38, :scale => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "ticket_id",        :null => false
+    t.integer  "wicket_id",        :null => false
+    t.integer  "status_ticket_id", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "locals", :force => true do |t|
     t.string   "des_local",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "panels", :force => true do |t|
-    t.string   "value",                                     :null => false
-    t.string   "ip",                                        :null => false
-    t.string   "user",                                      :null => false
-    t.integer  "status_id",  :precision => 38, :scale => 0, :null => false
-    t.integer  "place_id",   :precision => 38, :scale => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "value",      :null => false
+    t.string   "ip",         :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "place_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "slug"
   end
 
   add_index "panels", ["slug"], :name => "index_panels_on_slug", :unique => true
 
   create_table "places", :force => true do |t|
-    t.string   "value",                                                       :null => false
-    t.string   "user",                                                        :null => false
-    t.integer  "status_id",                    :precision => 38, :scale => 0, :null => false
-    t.integer  "local_id",                     :precision => 38, :scale => 0, :null => false
-    t.integer  "places_ticket_type_groups_id", :precision => 38, :scale => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "value",                                           :null => false
+    t.string   "user",                                            :null => false
+    t.integer  "status_id",                                       :null => false
+    t.integer  "local_id",                                        :null => false
+    t.integer  "places_ticket_type_groups_id"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.boolean  "sequential_by_type_group",     :default => false, :null => false
+    t.string   "slug"
   end
 
+  add_index "places", ["slug"], :name => "index_places_on_slug", :unique => true
+
   create_table "places_ticket_type_groups", :id => false, :force => true do |t|
-    t.integer "ticket_type_group_id", :precision => 38, :scale => 0, :null => false
-    t.integer "place_id",             :precision => 38, :scale => 0, :null => false
+    t.integer "ticket_type_group_id", :null => false
+    t.integer "place_id",             :null => false
   end
 
   create_table "reference_groups_wickets", :id => false, :force => true do |t|
-    t.integer "ticket_type_group_id", :precision => 38, :scale => 0
-    t.integer "wicket_id",            :precision => 38, :scale => 0
+    t.integer "ticket_type_group_id"
+    t.integer "wicket_id"
   end
 
   create_table "status_tickets", :force => true do |t|
     t.string   "value",      :null => false
     t.string   "acronym",    :null => false
     t.string   "user",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "statuses", :force => true do |t|
     t.string   "value",      :null => false
     t.string   "user",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "ticket_type_groups", :force => true do |t|
-    t.string   "value",                                                       :null => false
-    t.string   "user",                                                        :null => false
-    t.integer  "status_id",                    :precision => 38, :scale => 0, :null => false
-    t.integer  "places_ticket_type_groups_id", :precision => 38, :scale => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "value",                        :null => false
+    t.string   "user",                         :null => false
+    t.integer  "status_id",                    :null => false
+    t.integer  "places_ticket_type_groups_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "ticket_type_groups_wickets", :id => false, :force => true do |t|
-    t.integer "ticket_type_group_id", :precision => 38, :scale => 0
-    t.integer "wicket_id",            :precision => 38, :scale => 0
+    t.integer "ticket_type_group_id"
+    t.integer "wicket_id"
   end
 
   create_table "ticket_types", :force => true do |t|
-    t.string   "value",                                               :null => false
-    t.string   "acronym",                                             :null => false
-    t.string   "user",                                                :null => false
-    t.integer  "ticket_type_group_id", :precision => 38, :scale => 0, :null => false
-    t.integer  "status_id",            :precision => 38, :scale => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "priority",             :precision => 1,  :scale => 0
+    t.string   "value",                :null => false
+    t.string   "acronym",              :null => false
+    t.string   "user",                 :null => false
+    t.integer  "ticket_type_group_id", :null => false
+    t.integer  "status_id",            :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.boolean  "priority"
   end
 
   create_table "tickets", :force => true do |t|
-    t.string   "value",                                           :null => false
-    t.integer  "status_ticket_id", :precision => 38, :scale => 0, :null => false
-    t.integer  "ticket_type_id",   :precision => 38, :scale => 0, :null => false
-    t.integer  "place_id",         :precision => 38, :scale => 0, :null => false
-    t.integer  "totem_id",         :precision => 38, :scale => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "value",            :null => false
+    t.integer  "status_ticket_id", :null => false
+    t.integer  "ticket_type_id",   :null => false
+    t.integer  "place_id",         :null => false
+    t.integer  "totem_id",         :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "state"
   end
 
   create_table "totems", :force => true do |t|
-    t.string   "value",                                     :null => false
-    t.string   "ip",                                        :null => false
-    t.string   "user",                                      :null => false
-    t.integer  "status_id",  :precision => 38, :scale => 0, :null => false
-    t.integer  "place_id",   :precision => 38, :scale => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "value",      :null => false
+    t.string   "ip",         :null => false
+    t.string   "user",       :null => false
+    t.integer  "status_id",  :null => false
+    t.integer  "place_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "slug"
   end
 
+  add_index "totems", ["slug"], :name => "index_totems_on_slug", :unique => true
+
   create_table "wickets", :force => true do |t|
-    t.string   "value",                                                          :null => false
-    t.string   "user",                                                           :null => false
-    t.integer  "status_id",    :precision => 38, :scale => 0,                    :null => false
-    t.integer  "place_id",     :precision => 38, :scale => 0,                    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "guidance",     :precision => 1,  :scale => 0
-    t.boolean  "priority",     :precision => 1,  :scale => 0
-    t.boolean  "second_level", :precision => 1,  :scale => 0, :default => false, :null => false
-    t.boolean  "alternate",    :precision => 1,  :scale => 0, :default => false
+    t.string   "value",                           :null => false
+    t.string   "user",                            :null => false
+    t.integer  "status_id",                       :null => false
+    t.integer  "place_id",                        :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "guidance"
+    t.boolean  "priority"
+    t.boolean  "second_level", :default => false, :null => false
+    t.boolean  "alternate",    :default => false
     t.string   "slug"
   end
 

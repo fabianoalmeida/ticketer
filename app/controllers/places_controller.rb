@@ -15,7 +15,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @locals = Local.all
-    @tickets_type_group = TicketTypeGroup.order(:value)
+    @ticket_type_groups = TicketTypeGroup.order(:value)
     @statuses = Status.order(:value)
     respond_to do |format|
       format.html # show.html.erb
@@ -28,7 +28,7 @@ class PlacesController < ApplicationController
   def new
     @place = Place.new( :status => Status.active )
     @locals = Local.all
-    @tickets_type_group = TicketTypeGroup.order(:value)
+    @ticket_type_groups = TicketTypeGroup.order(:value)
     @statuses = Status.order(:value)
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +40,7 @@ class PlacesController < ApplicationController
   def edit
     @place = Place.find(params[:id])
     @locals = Local.all
-    @tickets_type_group = TicketTypeGroup.order(:value)
+    @ticket_type_groups = TicketTypeGroup.order(:value)
     @statuses = Status.order(:value)
   end
 

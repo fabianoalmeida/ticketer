@@ -2,11 +2,11 @@ class TicketTypeGroupsController < ApplicationController
   # GET /ticket_type_groups
   # GET /ticket_type_groups.xml
   def index
-    @ticket_type_groups = TicketTypeGroup.where(:status_id => Status.active).order( "value ASC" )
+    @ticket_type_groups = TicketTypeGroup.actives
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @ticket_type_groups }
+      format.json { render json: @ticket_type_groups.tokens(params[:q]) }
     end
   end
 

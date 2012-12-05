@@ -13,4 +13,18 @@ class TicketTypeGroup < ActiveRecord::Base
   def ticket_types
     TicketType.where(:ticket_type_group_id => self.id)
   end
+  
+  def self.tokens(query)
+    ticket_type_groups = where{ value =~ "%#{query}%" }
+    if ticket_type_groups.empty?
+      [ { id: "<<<#{query}>>>", value: "Novo \"#{query.capitalize}\"" } ]
+    else
+      ticket_type_groups
+    end
+  end
+
+  def self.ids_from_tokens(tokens)
+    tokens.gsub!(/<<<(.+?)>>>/) { create!(value: $1.capitalize, status: Status.active, user: 'user test').id }
+    tokens.split(',')
+  end
 end

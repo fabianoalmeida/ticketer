@@ -24,14 +24,11 @@
   </div>
 
   <div class="grid-12-12">
-    <%= f.label :ticket_type_groups, :class => "form-lbl form-req" %>
-    <ul class = "form-list-chk">
-      <% @tickets_type_group.each do |ticket_type_group| %>
-        <li>
-          <%= check_box_tag "place[ticket_type_group_ids][]", ticket_type_group.id, @place.ticket_type_groups.include?(ticket_type_group), :disabled => disabled  %>
-          <%= f.label ticket_type_group.value, :class => "form-lbl" %>
-        </li>
-      <% end %>
+    <%= f.label :ticket_type_group_tokens, :class => "form-lbl form-req" %>
+    <ul>
+      <li>
+        <%= f.text_field :ticket_type_group_tokens, data: { load: @place.ticket_type_groups }, :class => "form-txt form-small", :disabled => disabled %>
+      </li>
     </ul>
   </div>
 

@@ -236,6 +236,7 @@
         status: "Status"
         ticket_type: "Tipos de Senha"
         ticket_type_groups: "Grupos Tipo de Senha"
+        ticket_type_group_tokens: "Grupos Tipo de Senha"
         sequential_by_type_group: "Sequencial por Tipo de Grupo"
       totem:
         value: "Valor"

@@ -8,6 +8,10 @@ class Place < ActiveRecord::Base
   #Integer :status
   #Integer :local
 
+  attr_accessible :value, :ticket_type_group_tokens, :ticket_type_group_ids, 
+                  :local_id, :sequential_by_type_group, :status_id
+  attr_reader :ticket_type_group_tokens
+
   belongs_to :status
   belongs_to :local
   has_many :wickets
@@ -61,8 +65,8 @@ class Place < ActiveRecord::Base
 
     attended
   end
-
-  def self.actives
-    self.where( :status_id => Status.active.id ).order( :value )
+  
+  def ticket_type_group_tokens=(tokens)
+    self.ticket_type_group_ids = TicketTypeGroup.ids_from_tokens(tokens)
   end
 end

@@ -42,6 +42,8 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(params[:ticket])
     @ticket.status_ticket = StatusTicket.available
+    @ticket.place = Place.find(params[:ticket][:place_id])
+    @ticket.totem = Totem.find(params[:ticket][:totem_id])
     respond_to do |format|
       if @ticket.save
         TicketPrint.print( @ticket )

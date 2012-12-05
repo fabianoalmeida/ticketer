@@ -7,6 +7,10 @@ module Ticketer
     def active?
       status.eql? Status.active unless status.nil?
     end
+
+    def self.actives
+      self.where( :status_id => Status.active.id ).order( :value )
+    end
   end
   
   if Rails.env.production?

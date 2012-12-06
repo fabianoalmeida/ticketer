@@ -15,7 +15,7 @@ class TicketTypeGroup < ActiveRecord::Base
   end
   
   def self.tokens(query)
-    ticket_type_groups = where{ value =~ "%#{query}%" }
+    ticket_type_groups = where{ upper(value) =~ "%#{query.upcase}%" }
     if ticket_type_groups.empty?
       [ { id: "<<<#{query}>>>", value: "Novo \"#{query.capitalize}\"" } ]
     else

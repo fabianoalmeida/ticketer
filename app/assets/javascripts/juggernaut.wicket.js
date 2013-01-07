@@ -2,7 +2,8 @@ function process(data) {
   ticket_type_group_id = data.ticket_type_group_id;
   placeId  = $('#place_id').val();
   groupIds = $('#ticket_type_groups').val();
-  if(placeId && placeId == data.place && groupIds.indexOf(ticket_type_group_id) != -1){
+  if(placeId && (placeId == data.place || placeId == data.place_slug) 
+			 && groupIds.indexOf(ticket_type_group_id) != -1){
     if(data.channel == "availables"){
       $.dataSlide('#tickets_available', {
             add : {

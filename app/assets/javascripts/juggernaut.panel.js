@@ -3,7 +3,7 @@
 	
 	placeId  = $('#place_id').val();
 	
-	if(placeId && placeId == data.place) {
+	if(placeId && (placeId == data.place || placeId == data.place_slug)) {
 		
 	  if(data.channel =="reload"){
 	    //Clean the last wicket that called the last ticket

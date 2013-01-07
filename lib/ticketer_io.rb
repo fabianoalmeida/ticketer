@@ -20,6 +20,7 @@ module TicketerIo
         Juggernaut.publish("/ticketer", {
               :channel => channel,
               :place => ticket.place.id,
+              :place_slug => ticket.place.slug,
               :value => ticket.value,
               :id => ticket.id,
               :time => I18n.localize(ticket.updated_at, :format => :hour_minute),

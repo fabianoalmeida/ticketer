@@ -9,7 +9,7 @@ class Place < ActiveRecord::Base
   #Integer :local
 
   attr_accessible :value, :ticket_type_group_tokens, :ticket_type_group_ids, 
-                  :local_id, :sequential_by_type_group, :status_id
+                  :local_id, :sequential_by_type_group, :status, :status_id
   attr_reader :ticket_type_group_tokens
 
   belongs_to :status

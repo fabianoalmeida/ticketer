@@ -82,8 +82,8 @@ class PanelsController < ApplicationController
     @place = Place.find(params[:place_id])
     @panel = Panel.find(params[:id])
     @panel.status = Status.inactive
-    @panel.save 
-    
+    @panel.save
+
     respond_to do |format|
       format.html { redirect_to(place_panels_url(@place)) }
       format.json  { head :ok }
@@ -93,20 +93,22 @@ class PanelsController < ApplicationController
   def tickets
     @place = Place.find(params[:place_id])
 
-    tickets = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(7)
-    @tickets_empty = tickets.empty?
-    @second_column = [] 
+    tickets_today = Ticket.where(place_id: @place).today
+
+    tickets_called = CallHistory.calleds_from(tickets_today).today.order('call_histories.updated_at DESC').take(7)
+    @tickets_empty = tickets_called.empty?
+    @second_column = []
     @first_column = []
 
     unless  @tickets_empty
 
-      @main_ticket = tickets.first
+      @main_ticket = tickets_called.first
       @last_wicket = CallHistory.last_wicket_to_call @main_ticket
-      
-      tickets = tickets.each_slice(3).to_a
-      
-      @first_column = tickets.first 
-      @second_column = tickets.second if tickets.second
+
+      tickets_called = tickets_called.each_slice(3).to_a
+
+      @first_column = tickets_called.first
+      @second_column = tickets_called.second if tickets_called.second
     end
 
 

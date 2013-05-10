@@ -19,8 +19,4 @@ class CallHistory < ActiveRecord::Base
   def self.last_wicket_to_call(ticket)
     where(:ticket_id => ticket.id, :status_ticket_id => StatusTicket.called.id).order(:created_at).last.wicket
   end
-
-  def self.calleds_from(tickets)
-    where(status_ticket_id: StatusTicket.called.id).and(ticket_id: tickets)
-  end
 end

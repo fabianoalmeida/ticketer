@@ -93,9 +93,7 @@ class PanelsController < ApplicationController
   def tickets
     @place = Place.find(params[:place_id])
 
-    tickets_today = Ticket.where(place_id: @place).today
-
-    tickets_called = CallHistory.calleds_from(tickets_today).today.order('call_histories.updated_at DESC').take(7)
+    tickets_called = Ticket.calleds_from_place(@place.id).today.order('call_histories.updated_at DESC').take(7)
     @tickets_empty = tickets_called.empty?
     @second_column = []
     @first_column = []

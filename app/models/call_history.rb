@@ -21,6 +21,6 @@ class CallHistory < ActiveRecord::Base
   end
 
   def self.calleds_from(tickets)
-    where(status_ticket_id: StatusTicket.called.id).and(ticket_id: tickets)
+    where(status_ticket_id: StatusTicket.called.id).where(ticket_id: tickets)
   end
 end

@@ -10,14 +10,16 @@
     <tr>
       <th><%= t('model.totem.name').pluralize %></th>
       <th><%= t('model.totem.ip') %></th>
+      <th><%= t('model.printer.name') %></th>
       <th><%= t('model.status.name') %></th>
       <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @totems.each do |totem| %>
       <tr class="row">
-        <td width="60%"><%= totem.value %></td>
+        <td width="50%"><%= totem.value %></td>
         <td width="20%"><%= totem.ip %></td>
-        <td width="20%"><%= totem.active?  ? t('model.status.active') : t('model.status.inactive') %></td>
+        <td width="20%"><%= totem.printer ? totem.printer.name : '' %></td>
+        <td width="10%"><%= totem.active?  ? t('model.status.active') : t('model.status.inactive') %></td>
         <td>
           <%= link_to image_tag("form/search.gif"), place_totem_path(totem.place, totem), :title => t('model.show') %>
         </td>

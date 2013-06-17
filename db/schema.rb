@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506130635) do
+ActiveRecord::Schema.define(:version => 20130617130704) do
 
   create_table "call_histories", :force => true do |t|
     t.integer  "ticket_id",        :precision => 38, :scale => 0, :null => false
@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(:version => 20130506130635) do
 
   add_index "places_ticket_type_groups", ["place_id"], :name => "i_pla_tic_typ_gro_pla_id"
   add_index "places_ticket_type_groups", ["ticket_type_group_id"], :name => "i4d55772477f060f24640474b4d459"
+
+  create_table "printers", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "printers", ["slug"], :name => "index_printers_on_slug", :unique => true
 
   create_table "reference_groups_wickets", :id => false, :force => true do |t|
     t.integer "ticket_type_group_id", :precision => 38, :scale => 0
@@ -163,9 +172,11 @@ ActiveRecord::Schema.define(:version => 20130506130635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.integer  "printer_id", :precision => 38, :scale => 0
   end
 
   add_index "totems", ["place_id"], :name => "index_totems_on_place_id"
+  add_index "totems", ["printer_id"], :name => "index_totems_on_printer_id"
   add_index "totems", ["slug"], :name => "index_totems_on_slug", :unique => true
   add_index "totems", ["status_id"], :name => "index_totems_on_status_id"
 

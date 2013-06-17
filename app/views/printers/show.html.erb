@@ -1,0 +1,14 @@
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.printer.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render :partial => 'form', :locals => { :disabled => true } %>
+  </fieldset>
+</div>
+
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_printer_path(@printer), :class => "button medium"  %>
+  <%= link_to t('model.back'), printers_path, :class => "button medium"  %>
+</div>

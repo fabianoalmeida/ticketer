@@ -8,6 +8,7 @@ Ticketer::Application.routes.draw do
     resources :tickets, :path => 'senhas'
     resources :statuses, :path => 'status'
     resources :status_tickets, :path => 'status_de_senha'
+    resources :printers, :path => 'impressoras'
 
     resources :ticket_type_groups, :path => 'grupos_tipo_de_senha' do
       resources :ticket_types, :path => 'tipos_de_senha'

@@ -30,6 +30,7 @@ class TotemsController < ApplicationController
   def new
     @totem = Totem.new( :status => Status.active )
     @place = Place.find(params[:place_id])
+    @printers = Printer.order(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +42,7 @@ class TotemsController < ApplicationController
   def edit
     @totem = Totem.find(params[:id])
     @place = Place.find(params[:place_id])
+    @printers = Printer.order(:name)
   end
 
   # POST /totems

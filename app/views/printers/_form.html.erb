@@ -1,0 +1,22 @@
+<%= form_for(@printer) do |f| %>
+  <% if @printer.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @printer.errors.full_messages.each do |msg| %>
+        <li class="form-msg-error"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid-12-12">
+    <%= f.label :name, :class => "form-lbl form-req" %>
+    <%= f.text_field :name, :maxlength => 80, :size => 30, :class => "form-txt form-small", :disabled => disabled %>
+  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit :class => "button form-right medium" %>
+    </div>
+  <% end %>
+<% end %>

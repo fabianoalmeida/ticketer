@@ -196,6 +196,7 @@
       local: "Local"
       place: "Localidade"
       panel: "Painel"
+      printer: "Impressora"
       totem: "Totem"
     attributes:
       status:
@@ -229,6 +230,8 @@
       local:
         des_local: "Descrição"
         user: "Usuário"
+      printer:
+        name: "Nome"
       place:
         value: "Nome"
         user: "Usuário"
@@ -241,6 +244,7 @@
       totem:
         value: "Valor"
         ip: "IP"
+        printer: "Impressora"
       panel:
         value: "Valor"
         ip: "IP"
@@ -383,6 +387,12 @@
       title: "Listando todos os Locais"
       name: "Local"
       description: "Descrição"
+
+    printer:
+      new: "Nova Impressora"
+      editing: "Editando Impressora"
+      title: "Listando todas as Impressoras"
+      name: "Impressora"
 
     place:
       new: "Nova Localidade"

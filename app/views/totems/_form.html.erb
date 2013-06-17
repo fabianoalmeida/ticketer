@@ -19,6 +19,14 @@
     <%= f.text_field :ip, :maxlength => 15, :class => "form-txt form-small", :disabled => disabled %>
   </div>
   <div class="grid-12-12">
+    <%= f.label :printer, :class => "form-lbl form-req" %>
+    <% if @totem && @totem.printer_id && disabled %>
+      <input type="text" value="<%= @totem.printer.name %>" disabled="disabled" class="form-txt form-small" />
+    <% elsif %>
+      <%= f.collection_select( :printer_id, @printers, :id, :name, { :prompt => true }, :class => "form-small", :disabled => disabled ) %>
+    <% end %>
+  </div>
+  <div class="grid-12-12">
     <%= f.label :status, :class => "form-lbl form-req" %>
     <ul class="form-list-rdo">
       <% Status.all.each do |status| %>

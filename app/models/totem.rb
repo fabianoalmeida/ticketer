@@ -9,9 +9,10 @@ class Totem < ActiveRecord::Base
 
   belongs_to :status
   belongs_to :place
+  belongs_to :printer
   has_many :tickets
 
-  validates :value, :ip, :user, :status, :place, :presence => true
+  validates :value, :ip, :user, :status, :place, :printer, :presence => true
 
   validates :value,
     :length => { :in => 1..80 },

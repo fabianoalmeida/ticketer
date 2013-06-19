@@ -3,9 +3,9 @@ class Printer < ActiveRecord::Base
 
   friendly_id :name, use: :slugged
 
-  attr_accessible :name
+  attr_accessible :name, :template
   
   has_many :totems
 
-  validates :name, :presence => true
+  validates :name, :template, :presence => true
 end

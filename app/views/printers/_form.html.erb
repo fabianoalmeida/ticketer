@@ -14,6 +14,11 @@
     <%= f.text_field :name, :maxlength => 80, :size => 30, :class => "form-txt form-small", :disabled => disabled %>
   </div>
 
+  <div class="grid-12-12">
+    <%= f.label :template, :class => "form-lbl form-req" %>
+    <%= f.text_area :template, :class => "form-txt form-small", :disabled => disabled %>
+  </div>
+
   <% unless disabled %>
     <div class="grid-7-12 field-button field-clear">
       <%= f.submit :class => "button form-right medium" %>

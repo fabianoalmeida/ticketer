@@ -18,6 +18,7 @@ gem "prawn"
 gem "prawnto_2", :require => "prawnto"
 
 gem "restfulie"
+gem "responders"
 
 group :assets do
   gem 'sass-rails', "  ~> 3.2.3"

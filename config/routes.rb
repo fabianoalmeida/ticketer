@@ -17,6 +17,8 @@ Ticketer::Application.routes.draw do
     resources :places, :path => 'localidades' do
 
       get 'home', :path => 'lista_de_guiches'
+      
+      resources :tickets, :path => 'senhas'
 
       resources :reports, :path => 'relatorios', :only => :index do
         get 'tickets_per_day', :path => 'senhas_por_dia', :on => :collection

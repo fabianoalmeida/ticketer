@@ -13,7 +13,8 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.xml
   def show
-    @ticket = Ticket.find(params[:id])
+    @ticket   = Ticket.where(value: params[:id]).first if params[:id].is_a? String
+    @ticket ||= Ticket.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

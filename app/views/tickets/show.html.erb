@@ -1,7 +1,7 @@
 <div>
   <h3 style="text-align: center;">HOSPITAL SANTA IZABEL</h3><br/>
-  <h4 style="text-align: center;"> <%= @ticket.place_value %> </h4><br/>
+  <h4 style="text-align: center;"> <%= @ticket.place.value %> </h4><br/>
   <h1 style="text-align: center; color: red; font-weight: bold;"><%= @ticket.value %> </h1><br/>
-  <b>Tipo:</b>  <%= @ticket.ticket_type_value %> <br/>
+  <b>Tipo:</b>  <%= @ticket.ticket_type.value %> <br/>
   <b>Data:</b>  <%= @ticket.created_at %>
 </div>

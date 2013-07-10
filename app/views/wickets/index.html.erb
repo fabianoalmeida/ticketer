@@ -31,13 +31,13 @@
         <td width ="10%"><%= wicket.active? ? t('model.status.active') : t('model.status.inactive') %></td>
         <td><%= link_to image_tag("form/search.gif"), place_wicket_path(wicket.place, wicket), :title => t('model.show')%></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_place_wicket_path(wicket.place, wicket),  :title => t('model.edit') %></td>
-        <td><%= link_to image_tag("form/trash.gif"), place_wicket_path(wicket.place, wicket), :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %></td>   
+        <td><%= link_to image_tag("form/note.gif"), place_wicket_tickets_path(wicket.place, wicket),  :title => t('model.wicket.tickets.name') %></td>
 	  </tr>
     <% end %>
 
   </table>
 </div>
 <div class="buttons-nav">
-  <%= link_to t('model.wicket.new'), new_place_wicket_path(@place) , :class => "button medium"%> 
+  <%= link_to t('model.wicket.new'), new_place_wicket_path(@place) , :class => "button medium"%>
   <%= link_to t('model.place.back'), places_path , :class => "button medium"%>
 </div>

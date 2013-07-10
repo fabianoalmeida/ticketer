@@ -6,7 +6,7 @@
   <table>
     <tr>
       <th><%=  t('model.status.name').pluralize %></th>
-      <th colspan="5" class="options"><%= t("application.options") %></th>
+      <th colspan="4" class="options"><%= t("application.options") %></th>
     </tr>
     <% @statuses.each do |status| %>
       <tr class="row">
@@ -15,7 +15,6 @@
         <td width="33,33%"><%= status.created_at.strftime( t('time.formats.default') )%></td>
         <td><%= link_to  image_tag("form/search.gif"), status %></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_status_path(status) %></td>
-        <td><%= link_to image_tag("form/trash.gif"), status, :confirm => t('model.destroy_question'), :method => :delete %></td>
       </tr>
     <% end %>
   </table>

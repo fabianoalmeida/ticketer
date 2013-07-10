@@ -8,7 +8,6 @@
     <th><%= t 'model.created_at' %></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @status_tickets.each do |status_ticket| %>
@@ -19,7 +18,6 @@
     <td><%= status_ticket.created_at.strftime( t('time.formats.default') )%></td>
     <td><%= link_to t('model.show'), status_ticket %></td>
     <td><%= link_to t('model.edit'), edit_status_ticket_path(status_ticket) %></td>
-    <td><%= link_to t('model.destroy'), status_ticket, :confirm => t('model.destroy_question'), :method => :delete %></td>
   </tr>
 <% end %>
 </table>

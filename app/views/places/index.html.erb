@@ -8,7 +8,7 @@
       <th><%= t('model.place.name').pluralize %></th>
       <th><%= t('model.place.sequential_by_type_group.name') %></th>
       <th><%= t('model.status.name') %></th>
-      <th colspan="6" class="options"><%= t("application.options") %></th>
+      <th colspan="5" class="options"><%= t("application.options") %></th>
     </tr>
     <% @places.each do |place| %>
       <tr class="row">
@@ -20,7 +20,6 @@
         <td><%= link_to image_tag("form/totem.gif"), place_totems_path(place), :title => t('model.totem.name') %></td>
         <td><%= link_to image_tag("form/wicket.gif"), place_wickets_path(place), :title => t('model.wicket.name') %></td>
         <td><%= link_to image_tag("form/panel.gif"), place_panels_path(place), :title => t('model.panel.name') %></td>
-        <td><%= link_to image_tag("form/trash.gif"), place, :confirm => t('model.destroy_question'), :method => :delete, :title => t('model.destroy') %></td>
       </tr>
     <% end %>
   </table>

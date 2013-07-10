@@ -1,91 +1,40 @@
 class TicketTypesController < ApplicationController
-  # GET /ticket_types
-  # GET /ticket_types.json
   def index
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
     @ticket_types = TicketType.where(:ticket_type_group_id => @ticket_type_group.id)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json  { render :json => @ticket_types }
+    respond_with(@ticket_types)
     end
   end
 
-  # GET /ticket_types/1
-  # GET /ticket_types/1.json
   def show
     @ticket_type = TicketType.find(params[:id])
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json  { render :json => @ticket_type }
-    end
+    respond_with(@ticket_type)
   end
 
-  # GET /ticket_types/new
-  # GET /ticket_types/new.json
   def new
     @ticket_type = TicketType.new( :priority => false, :status => Status.active )
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json  { render :json => @ticket_type }
-    end
+    respond_with(@ticket_type)
   end
 
-  # GET /ticket_types/1/edit
   def edit
     @ticket_type = TicketType.find(params[:id])
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
   end
 
-  # POST /ticket_types
-  # POST /ticket_types.json
   def create
     @ticket_type = TicketType.new(params[:ticket_type])
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
     @ticket_type.user = 'user test'
-
-    respond_to do |format|
-      if @ticket_type.save
-        format.html { redirect_to(ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type), :notice => 'Ticket type was successfully created.') }
-        format.json  { render :json => @ticket_type, :status => :created, :location => @ticket_type }
-      else
-        format.html { render :action => "new" }
-        format.json  { render :json => @ticket_type.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Ticket type was successfully created." if @ticket_type.save
+    respond_with(@ticket_type, location: ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type))
   end
 
-  # PUT /ticket_types/1
-  # PUT /ticket_types/1.json
   def update
     @ticket_type = TicketType.find(params[:id])
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
-
-    respond_to do |format|
-      if @ticket_type.update_attributes(params[:ticket_type])
-        format.html { redirect_to(ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type), :notice => 'Ticket type was successfully updated.') }
-        format.json  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json  { render :json => @ticket_type.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /ticket_types/1
-  # DELETE /ticket_types/1.json
-  def destroy
-    @ticket_type = TicketType.find(params[:id])
-    @ticket_type.status = Status.inactive
-    @ticket_type.save 
-    
-    respond_to do |format|
-      format.html { redirect_to(ticket_type_group_ticket_types_url) }
-      format.json  { head :ok }
-    end
+    flash[:notice] = "Ticket type was successfully updated." if @ticket_type.update_attributes(params[:ticket_type])
+    respond_with(@ticket_type, location: ticket_type_group_ticket_type_url(@ticket_type_group, @ticket_type))
   end
 end

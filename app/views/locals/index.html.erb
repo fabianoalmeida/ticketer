@@ -6,14 +6,13 @@
   <table>
     <tr>
       <th><%=  t('model.local.name').pluralize %></th>
-      <th colspan="3" class="options"><%= t("application.options") %></th>
+      <th colspan="2" class="options"><%= t("application.options") %></th>
     </tr>
     <% @locals.each do |local| %>
       <tr class="row">
         <td width ="100%"><%= local.des_local %></td>
         <td><%= link_to  image_tag("form/search.gif"), local %></td>
         <td><%= link_to  image_tag("form/edit.gif"), edit_local_path(local) %></td>
-        <td><%= link_to  image_tag("form/trash.gif"), "#" %></td>
       </tr>
     <% end %>
   </table>

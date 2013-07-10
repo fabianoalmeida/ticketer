@@ -1,104 +1,52 @@
 class WicketsController < ApplicationController
-  # GET /wickets
-  # GET /wickets.json
   def index
     @place = Place.find(params[:place_id])
-    @wickets = Wicket.where(:place_id => @place.id).order( "value ASC" )
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json  { render :json => @wickets }
-    end
+    @wickets = Wicket.where(:place_id => @place.id).order(:value)
+    respond_with(@wickets)
   end
 
-  # GET /wickets/1
-  # GET /wickets/1.json
   def show
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
-    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json  { render :json => @wicket }
-    end
+    @ticket_type_groups = @place.ticket_type_groups.order(:value)
+    @reference_groups = @place.ticket_type_groups.order(:value)
+    respond_with(@wicket)
   end
 
-  # GET /wickets/new
-  # GET /wickets/new.json
   def new
     @wicket = Wicket.new( :priority => false, :status => Status.active )
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
-    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json  { render :json => @wicket }
-    end
+    @ticket_type_groups = @place.ticket_type_groups.order(:value)
+    @reference_groups = @place.ticket_type_groups.order(:value)
+    respond_with(@wicket)
   end
 
-  # GET /wickets/1/edit
   def edit
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
-    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
+    @ticket_type_groups = @place.ticket_type_groups.order(:value)
+    @reference_groups = @place.ticket_type_groups.order(:value)
   end
 
-  # POST /wickets
-  # POST /wickets.json
   def create
     @wicket = Wicket.new(params[:wicket])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @place.ticket_type_groups.order( "value ASC" )
-    @reference_groups = @place.ticket_type_groups.order( "value ASC" )
+    @ticket_type_groups = @place.ticket_type_groups.order(:value)
+    @reference_groups = @place.ticket_type_groups.order(:value)
     @wicket.user= "user test"
-
-    respond_to do |format|
-      if @wicket.save
-        format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully created.') }
-        format.json  { render :json => @wicket, :status => :created, :location => @wicket }
-      else
-        format.html { render :action => :new }
-        format.json  { render :json => @wicket.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Wicket was successfully created.' if @wicket.save
+    respond_with(@wicket, location: place_wicket_url(@place, @wicket))
   end
 
-  # PUT /wickets/1
-  # PUT /wickets/1.json
   def update
     @wicket = Wicket.find(params[:id])
     @place = Place.find(params[:place_id])
-    @ticket_type_groups = @wicket.ticket_type_groups.order( "value ASC" )
-    @reference_groups = @wicket.ticket_type_groups.order( "value ASC" )
-
-    respond_to do |format|
-      if @wicket.update_attributes(params[:wicket])
-        format.html { redirect_to(place_wicket_url(@place, @wicket), :notice => 'Wicket was successfully updated.') }
-        format.json  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json  { render :json => @wicket.errors, :status => :unprocessable_entity }
-      end
-    end
+    @ticket_type_groups = @wicket.ticket_type_groups.order(:value)
+    @reference_groups = @wicket.ticket_type_groups.order(:value)
+    flash[:notice] = 'Wicket was successfully updated.' if @wicket.update_attributes(params[:wicket])
+    respond_with(@wicket, location: place_wicket_url(@place, @wicket))
   end
 
-  # DELETE /wickets/1
-  # DELETE /wickets/1.json
-  def destroy
-    @place  = Place.find(params[:place_id])
-    @wicket = Wicket.find(params[:id])
-    @wicket.status = Status.inactive
-    @wicket.save
-
-    respond_to do |format|
-      format.html { redirect_to(place_wickets_url(@place)) }
-      format.json  { head :ok }
-    end
-  end
-
-  # GET /wicket/1/tickets
   def tickets
     @wicket = Wicket.find(params[:wicket_id])
     @place =  Place.find(params[:place_id])
@@ -134,24 +82,21 @@ class WicketsController < ApplicationController
     render :layout => 'application-external'
   end
 
-  #GET places/1/wicket/1/call_next
   def call_next
     @wicket = Wicket.find(params[:wicket_id])
     @next_ticket = Ticket.next_to(@wicket)
     @next_ticket.current_wicket= @wicket if @next_ticket
-    respond_to do |format|
-      if @next_ticket && @next_ticket.call
-        CallHistory.register(:ticket => @next_ticket, :wicket => @wicket)
-        @next_ticket[:time] = I18n.localize(@next_ticket.updated_at, :format => :hour_minute)
-        format.json { render :json => @next_ticket }
-        format.html { redirect_to( place_wicket_tickets_url(params[:place_id], params[:wicket_id])) }
-      else
-        format.json { render :json => { :warning_message => I18n.t('model.no_tickets') }, :status => :no_content }
+    if @next_ticket && @next_ticket.call
+      CallHistory.register(ticket: @next_ticket, wicket: @wicket)
+      @next_ticket[:time] = I18n.localize(@next_ticket.updated_at, format: :hour_minute)
+      respond_with(@wicket, location: place_wicket_tickets_url(params[:place_id], @wicket))
+    else
+      respond_with(@wicket, location: place_wicket_tickets_url(params[:place_id], @wicket)) do |format|
+        format.json { render json: { warning_message: I18n.t('model.no_tickets') }, status: :no_content }
       end
     end
   end
 
-  #POST places/1/wicket/1/recall
   def recall
     @ticket_recalled = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
@@ -165,7 +110,6 @@ class WicketsController < ApplicationController
     end
   end
 
-  #PUT places/1/wicket/1/put_waiting
   def put_waiting
     @ticket_waiting = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
@@ -178,8 +122,7 @@ class WicketsController < ApplicationController
       end
     end
   end
-  #
-  #PUT places/1/wicket/1/attend
+
   def attend
     @ticket_attended = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
@@ -194,8 +137,7 @@ class WicketsController < ApplicationController
       end
     end
   end
-  
-  #PUT places/1/wicket/1/examine
+
   def examine
     @ticket_attended = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
@@ -211,7 +153,6 @@ class WicketsController < ApplicationController
     end
   end
 
-  #DELETE places/1/wicket/1/cancel
   def cancel
     @ticket_canceled = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])
@@ -226,7 +167,6 @@ class WicketsController < ApplicationController
     end
   end
 
-  #PUT places/1/wicket/1/back_available
   def back_available
     @ticket = Ticket.find(params[:ticket_id])
     @wicket = Wicket.find(params[:wicket_id])

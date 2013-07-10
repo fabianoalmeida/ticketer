@@ -17,6 +17,8 @@ gem "squeel"
 gem "prawn"
 gem "prawnto_2", :require => "prawnto"
 
+gem "restfulie"
+
 group :assets do
   gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"

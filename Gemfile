@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.13'
 gem 'i18n'
 gem 'arel'
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)
@@ -26,7 +26,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :production do  
+group :production do
   #----------------- Begin configuration for Oracle database ---------------#
   # Prevent loading of ruby-oci8 gem in JRuby
   platforms :ruby do

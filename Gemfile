@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.14'
 gem 'i18n'
 gem 'arel'
 # Use to integrate with the CAS (Central Authentication Server) server made in Java (JGuard)

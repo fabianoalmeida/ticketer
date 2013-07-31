@@ -12,6 +12,7 @@
 
       fireAll : function(){
         this.call_next();
+        this.call_ticket();
         this.pending();
         this.recall();
         this.attend();
@@ -21,9 +22,9 @@
       },
 
       exam : function(){
-	    
+
         if ( $('input#second_level').val() == "true" ) {
-          
+
           $("ul#tickets_preexam li").css("cursor", "pointer");
 
 	      $("ul#tickets_preexam li").click(function(){
@@ -47,9 +48,9 @@
             data : {ticket_id : this.getAttribute('value') },
             dataType: 'json',
             success : function(data){
-	
+
 	           $.dataSlide('#tickets_preexam', { remove : 'li#'+data.id } );
-	
+
                $.dataSlide('ul#tickets_examed', {
                    add : {
                      element : '<li id='+data.id+' style="width: 145px; text-align: center;"><span style="color: red;">'+data.value+'</span> '+data.time+'</li>',
@@ -93,6 +94,42 @@
             wicket.triggers.recall();
           }
         });
+      },
+
+      call_ticket : function(){
+
+        $('div#tickets_available ul#tickets_available li')
+          .css("cursor", "pointer")
+          .click(function(){
+
+            $.blockScreen();
+
+            $('input#current').val(this.id);
+
+            var wicket_path = jQuery( '#wicket_path' ).val();
+
+            param = 'ticket_id=' + this.id;
+            jQuery.ajax({
+              url: wicket_path + "/chamar_senha",
+              type: "get",
+              data: param,
+              dataType: 'json',
+              success: function(data){
+                $.displayScreen();
+
+                var button_attend = '<a id="attend" class="super button pink" >Atender</a>';
+                var button_pending = '<a id="pending" class="super button pink">Pendente</a>';
+                var button_cancel = '<a id="recall" class="super button pink">Rechamar</a>';
+
+                $.facebox.new( '<span style="color: red; font-weight: bold; font-size: 40px;">'+data.value+'</span><br/><br/>'+button_attend+'&nbsp;'+button_pending+'&nbsp'+button_cancel).afterCallNext();
+
+                //Trigger for buttons early created
+                wicket.triggers.attend();
+                wicket.triggers.pending();
+                wicket.triggers.recall();
+              }
+            });
+          });
       },
 
       attend : function(){
@@ -200,6 +237,7 @@
             data : {ticket_id : this.getAttribute('value') },
             dataType: 'json',
             success : function(data){
+              alert(data);
                $.dataSlide('#tickets_waiting', { remove : 'li#'+data.id } );
                $.changeByOneValues( 'waiting', data.ticket_type_id, false);
                $.facebox.close();

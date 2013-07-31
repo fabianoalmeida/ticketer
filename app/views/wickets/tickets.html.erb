@@ -3,6 +3,7 @@
   <input id="current" type="hidden" value="<%= @tickets_called.last.id unless @tickets_called.empty? %>"/>
   <input id="ticket_type_groups" type="hidden" value="<%= @ticket_type_groups_id %>"/>
   <input id="second_level" type="hidden" value="<%= @wicket.second_level %>"/>
+  <input id="wicket_path" type="hidden" value="<%= place_wicket_path(@wicket.place, @wicket) %>"/>
 
   <div id="wicket_menu">
     <div style="text-align: left; float: left; padding-left: 350px; font-size: 45px; font-weight: bold; color: #ACAB9A;"> <%= @wicket.value %> </div>

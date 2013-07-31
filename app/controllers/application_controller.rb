@@ -2,9 +2,9 @@ require "application_responder"
 
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
-  respond_to :html, :json, :js, :xml
+  respond_to :json, :js, :xml, :html
 
-  
+
   #This solution looks like a kinda weird, should be improved it
   #before_filter RubyCAS::Filter, :unless => :require_been_loged?
 
@@ -15,5 +15,5 @@ class ApplicationController < ActionController::Base
 
   def require_been_loged?
     false
-  end  
+  end
 end

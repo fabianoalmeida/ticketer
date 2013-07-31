@@ -91,7 +91,22 @@ class WicketsController < ApplicationController
       @next_ticket[:time] = I18n.localize(@next_ticket.updated_at, format: :hour_minute)
       respond_with(@wicket, location: place_wicket_tickets_url(params[:place_id], @wicket))
     else
-      respond_with(@wicket, location: place_wicket_tickets_url(params[:place_id], @wicket)) do |format|
+      respond_to do |format|
+        format.json { render json: { warning_message: I18n.t('model.no_tickets') }, status: :no_content }
+      end
+    end
+  end
+
+  def call_ticket
+    @wicket = Wicket.find(params[:wicket_id])
+    @ticket = Ticket.find(params[:ticket_id])
+    @ticket.current_wicket= @wicket if @ticket && @ticket.available?
+    if @ticket.available? && @ticket.call
+      CallHistory.register(ticket: @ticket, wicket: @wicket)
+      @ticket[:time] = I18n.localize(@ticket.updated_at, format: :hour_minute)
+      respond_with(@ticket, location: place_wicket_tickets_url(params[:place_id], @wicket))
+    else
+      respond_to do |format|
         format.json { render json: { warning_message: I18n.t('model.no_tickets') }, status: :no_content }
       end
     end

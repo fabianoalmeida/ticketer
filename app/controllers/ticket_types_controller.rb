@@ -3,7 +3,6 @@ class TicketTypesController < ApplicationController
     @ticket_type_group = TicketTypeGroup.find(params[:ticket_type_group_id])
     @ticket_types = TicketType.where(:ticket_type_group_id => @ticket_type_group.id)
     respond_with(@ticket_types)
-    end
   end
 
   def show

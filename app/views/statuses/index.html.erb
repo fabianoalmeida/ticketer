@@ -1,18 +1,16 @@
 <div class="form">
   <div class="search">
     <input type="text" value="search" id="search"/>
-    <%= link_to image_tag("form/search.png") + t('application.search') , "#", :class => "button medium"%>
+    <%= link_to image_tag("form/search.png") + t('application.search') , "#", class: "button medium"%>
   </div>
   <table>
     <tr>
       <th><%=  t('model.status.name').pluralize %></th>
-      <th colspan="4" class="options"><%= t("application.options") %></th>
+      <th colspan="2" class="options"><%= t("application.options") %></th>
     </tr>
     <% @statuses.each do |status| %>
       <tr class="row">
-        <td width="33,33%"><%= status.value %></td>
-        <td width="33,33%"><%= status.user %></td>
-        <td width="33,33%"><%= status.created_at.strftime( t('time.formats.default') )%></td>
+        <td width="100%"><%= status.value %></td>
         <td><%= link_to  image_tag("form/search.gif"), status %></td>
         <td><%= link_to image_tag("form/edit.gif"), edit_status_path(status) %></td>
       </tr>
@@ -21,5 +19,5 @@
 </div>
 
 <div class="buttons-nav">
-  <%= link_to t('model.status.new'), new_status_path, :class => "button medium" %>
+  <%= link_to t('model.status.new'), new_status_path, class: "button medium" %>
 </div>

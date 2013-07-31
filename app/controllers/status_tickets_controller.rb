@@ -2,7 +2,6 @@ class StatusTicketsController < ApplicationController
   def index
     @status_tickets = StatusTicket.all
     respond_with(@status_tickets)
-    end
   end
 
   def show

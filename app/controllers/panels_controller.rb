@@ -9,7 +9,6 @@ class PanelsController < ApplicationController
     @panel = Panel.find(params[:id])
     @place = Place.find(params[:place_id])
     respond_with(@panel)
-    end
   end
 
   def new

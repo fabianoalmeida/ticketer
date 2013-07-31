@@ -1,20 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.status_ticket.name') %></legend>
+    <% if notice %>
+      <span class="form-msg-success"><%= notice %></span>
+    <% end %>
+    <%= render partial: 'form', locals: { disabled: true } %>
+  </fieldset>
+</div>
 
-<p>
-  <b><%= t('model.value') %>:</b>
-  <%= @status_ticket.value %>
-</p>
-
-<p>
-  <b><%= t('model.acronym') %>:</b>
-  <%= @status_ticket.acronym %>
-</p>
-
-<p>
-  <b><%= t('model.user') %>:</b>
-  <%= @status_ticket.user %>
-</p>
-
-
-<%= link_to t('model.edit'), edit_status_ticket_path(@status_ticket) %> |
-<%= link_to t('model.back'), status_tickets_path %>
+<div class="buttons-nav">
+  <%= link_to t('model.edit'), edit_status_ticket_path(@status_ticket), class: "button medium"  %>
+  <%= link_to t('model.back'), status_tickets_path, class: "button medium" %>
+</div>

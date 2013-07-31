@@ -1,5 +1,9 @@
-<h1><%= t('model.status_ticket.new') %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('model.back'), status_tickets_path %>
+<div class="form">
+  <fieldset>
+    <legend><%= t('model.status_ticket.new') %></legend>
+    <%= render partial: 'form', locals: { disabled: false } %>
+  </fieldset>
+</div>
+<div class="buttons-nav">
+  <%= link_to t('model.back'), status_tickets_path , class: "button medium"%>
+</div>

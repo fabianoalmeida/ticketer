@@ -1,25 +1,27 @@
 <%= form_for(@status_ticket) do |f| %>
   <% if @status_ticket.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@status_ticket.errors.count, "error") %> prohibited this status_ticket from being saved:</h2>
-
       <ul>
       <% @status_ticket.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li class="form-msg-error"><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value, :maxlength => 80, :size => 30 %>
+  <div class="grid-12-12">
+    <%= f.label :value, class: "form-lbl form-req"%>
+    <%= f.text_field :value, class: "form-txt form-small", disabled: disabled %>
   </div>
-  <div class="field">
-    <%= f.label :acronym %><br />
-    <%= f.text_field :acronym, :maxlength => 3 %>
+
+  <div class="grid-12-12">
+    <%= f.label :acronym, class: "form-lbl form-req"%>
+    <%= f.text_field :acronym, maxlength: 3, class: "form-txt form-small", disabled: disabled %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <% unless disabled %>
+    <div class="grid-7-12 field-button field-clear">
+      <%= f.submit class: "button form-right medium" %>
+    </div>
+  <% end %>
 <% end %>
